@@ -184,7 +184,7 @@ week to your baseline steps.</p> <br> \
 <p> Please remember to record your daily step counts.  Seeing the progress you are making in black and white can really help to keep you going. </p> \
 <p>Asking for support and encouragement from family and friends can also be very helpful for keeping up the changes. </p> \
 <p>Notice the changes and benefits. What do I notice and what do others see? Pay attention to any compliments! </p> \
-<p> <i>The best remedy for a short temper is a long walk.  ~Jacqueline Schiff/i></p>";";
+<p> <i>The best remedy for a short temper is a long walk.  ~Jacqueline Schiff/i></p>";
 				  break;
 				case 5:					
 			          blurb="<p> Your aim for week 5 is to add in an extra 3000 steps on three or more days this \
