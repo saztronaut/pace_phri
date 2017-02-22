@@ -1,3 +1,4 @@
+<br><br>
 <div class="container-fluid text-center">
   
   <form class="form-signin" method="POST" action="./register.php" id="register-form">

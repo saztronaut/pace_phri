@@ -1,10 +1,12 @@
-<?php include 'database.php'; ?>
+<?php 
+include 'database.php';
+include 'sessions.php';
+?>
 
 <?php
-   session_start();
    unset($_SESSION["username"]);
    unset($_SESSION["password"]);
-   unset($_SESSION['choose_form']);
+   unset($_SESSION["choose_form"]);
    mysqli_close($connection);
    
    header('Refresh: 1; URL = ./main_index.php');

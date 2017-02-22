@@ -7,7 +7,7 @@
  {
 
   $username = htmlspecialchars($_POST['username']);
-  $email = $_POST['email'];
+  $email = htmlspecialchars($_POST['email']);
   $password = MD5($_POST['password']);
   $startdate =date('Y-m-d');
   $method = htmlspecialchars($_POST['steps']);
@@ -33,7 +33,7 @@
   $check_email = "SELECT * FROM users WHERE email ='" . $email . "';" ;
   $username_unique= (mysqli_query($connection, $check_user));
   $email_unique= (mysqli_query($connection, $check_email));
-  // check registration code is not in the users table and registration code IS in the registration table. Retrive practice number
+  // check registration code is not in the users table and registration code IS in the registration table. Retrieve practice number
   
   $practice='AAA';  
   

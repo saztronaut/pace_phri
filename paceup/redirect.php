@@ -2,6 +2,8 @@
 require 'database.php';
 require 'sessions.php';
 
+//Takes a form to redirect the page to
+
 if ($_POST){
 	$_SESSION['choose_form']= isset($_POST['choose_form']) ? $_POST['choose_form']: 'landing_text.php';
 }
@@ -14,6 +16,6 @@ else{
 	
 header('Refresh: 1; URL = ./main_index.php');
 
-echo "Redirecting you to the steps page";
+//echo "Redirecting you to the steps page";
 
 ?>

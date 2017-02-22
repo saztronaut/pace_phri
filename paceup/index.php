@@ -1,7 +1,10 @@
 <!DOCTYPE html>
+
+
 <?php
- require 'database.php';
- session_start();
-    $_SESSION['choose_form'] = './landing_text.php';
-    header('Refresh: 1; URL = ./main_index.php');
-?>
+// I am going to make this obselete... I hope
+// require 'database.php';
+// require 'sessions.php';
+//    $_SESSION['choose_form'] = './landing_text.php';
+//    header('Refresh: 1; URL = ./main_index.php');
+//?>
