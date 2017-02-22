@@ -13,10 +13,16 @@
 <div class="form-group" id = "password_div">
 <label for="password">Password:</label>
 <input type="password" class="form-control" id="password">
-
 </div>
 <button type="button" class="btn btn-default"  id="loginBtn">Submit</button>
+
+</form><p id= "response"></p><br>
+
+<form class="form-inline" id ="reset-form">
+<label for="resetBtn"> Forgotten your password? :</label>
+<button type="button" class="btn btn-default" id="resetBtn">Click here</button>
+
 </form>
-<p id= "response"></p>
 </div>
 <script src="login.js"> </script>
+

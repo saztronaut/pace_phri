@@ -1,3 +1,4 @@
+
 function login() {
   var form = document.getElementById("login-form");
   var action = form.getAttribute("action");
@@ -50,9 +51,30 @@ function giveFeedback(x, message, error){
 		}
 	 document.getElementById(divname).className= formgroup;	
 	 document.getElementById(msgname).innerHTML= message;	
-
-	
 }
 
-var button = document.getElementById("loginBtn");
-button.addEventListener("click", login);	
+//
+function redirect3(){
+	  var dataString="choose_form=./reset_password.php";
+	  var xhr = new XMLHttpRequest();
+	  xhr.open("POST", './redirect.php', true);
+	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	  xhr.onreadystatechange = function () {	  
+	  if(xhr.readyState ==4 && xhr.status ==200){		  
+		  window.location.reload(true);
+	  }
+	      }
+	  xhr.send(dataString);  
+	}
+
+
+var rstbutton = document.getElementById("resetBtn");
+rstbutton.addEventListener("click", redirect3);	
+	
+
+var logbutton = document.getElementById("loginBtn");
+logbutton.addEventListener("click", login);	
+
+
+
+

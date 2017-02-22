@@ -9,7 +9,7 @@
   else {$input ='';}
   $date_set = date("Y-m-d", strtotime($_POST['date_set']));
   $method = $_POST['method'];
-  if ($_POST['walk']=='on'){$walk = '1';} else {$walk = '0';}
+  if ($_POST['walk']=='true'){$walk = '1';} else if ($walk=='false') {$walk = '0';} else {$walk="";}
   
   $query = "SELECT username, date_read, date_entered, steps, method, add_walk FROM readings WHERE username = '". $username ."' AND date_read= '". $date_set ."';" ;
 
@@ -32,9 +32,9 @@
     	if ($input=="" ||$input==0){
     		$input=$oldsteps;
     	}
-    	if ($walk=="" ||$walk=='0'){
+    	if ($walk==""){
     		$walk=$oldwalk;
-    	}
+    	} 
     	if ($method=="" ||isset($method)==0){
     		$method=$oldmethod;
     	}

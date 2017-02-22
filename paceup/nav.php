@@ -15,18 +15,18 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MY STEPS <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="firststeps.php">RECORD STEP COUNT</a></li>
-            <li><a href="#">REVIEW STEP HISTORY</a></li>
+            <li><a href="#"><span id="recordsteps">RECORD STEP COUNT</span></a></li>
+            <li><a href="#"><span id="reviewsteps">REVIEW STEP HISTORY</span></a></li>
           </ul>
         </li>
    <li class="dropdown">
    <a class="dropdown-toggle" data-toggle="dropdown" href="#">MY TARGETS <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">CURRENT TARGET</a></li>
-            <li><a href="#">PREVIOUS TARGETS</a></li>
+            <li><a href="#"><span id="currenttarget">CURRENT TARGET</span></a></li>
+            <li><a href="#"><span id="prevtarget">PREVIOUS TARGETS</span></a></li>
           </ul>
         </li>
-        <li><a href="#">MATERIALS</a></li>
+        <li><a href="#"><span id="materials">MATERIALS</span></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
 		<?php include './loggedon.php';?>
@@ -35,3 +35,21 @@
     </div>
   </div>
 </nav>
+<script>
+
+var recordsteps = document.getElementById("recordsteps");
+recordsteps.addEventListener("click", redirect("steps.php"));
+
+function redirect(gothere){
+	  var dataString='choose_form=' + gothere;
+	  var xhr = new XMLHttpRequest();
+	  xhr.open("POST", './redirect.php', true);
+	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	  xhr.onreadystatechange = function () {	  
+	  if(xhr.readyState == 4 && xhr.status ==200){		 
+	  }
+	  }
+	  xhr.send(dataString);  
+	}
+	
+</script>

@@ -3,7 +3,19 @@
 <?php
  require 'database.php';
  require 'sessions.php';
+ // If a navigation form has been set, then use that
     if (isset($_SESSION['choose_form'])){
+    	//echo $_SESSION['choose_form'];
+    	// There are certain forms which won't work if there is no user from whom the form can be populated
+    	//
+    	if  (isset($_SESSION['username']) && $_SESSION['username']!=''){
+    	}
+    	else {// if there is no username, don't show the steps form
+    		if ($_SESSION['choose_form']=='./steps.php'){
+    			$_SESSION['choose_form']='./landing_text.php';
+    			header('Refresh: 1; URL = ./main_index.php');
+    		}
+    	}
     }
     else 
     {
@@ -27,7 +39,6 @@
 <?php include './nav.php';
 $show_insert = $_SESSION['choose_form'];
 include $show_insert; ?>
-
 
 
 <?php include './footer.php';?>

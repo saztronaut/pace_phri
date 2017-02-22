@@ -94,4 +94,38 @@ SELECT COUNT(*) as n_t, MAX(date_set) as latest_t, steps, days FROM targets WHER
 SELECT n_t, latest_t, steps, days FROM targets as t,
 (SELECT COUNT(*) as n_t, MAX(date_set) as latest_t FROM targets HAVING username='bruce' ORDER BY date_set) as a 
 WHERE a.latest_t=t.date_set AND a.username='bruce'
+
+
+SELECT r.username,date_read, date_entered, steps
+FROM readings as r, 
+(SELECT username, steps as target, date_set  FROM targets WHERE username='bruce' AND date_set=(SELECT MAX(date_set) as latest_t FROM targets WHERE username='bruce' ORDER BY date_set DESC)) as t
+WHERE r.username=t.username AND r.date_read between (t.date_set+7) AND (t.date_set+14) AND r.steps>=t.target
     
+    
+SELECT COUNT(*), days 
+FROM readings as r, 
+(SELECT username, steps as target, date_set, days  FROM targets WHERE username='bruce' AND date_set=(SELECT MAX(date_set) as latest_t FROM targets WHERE username='bruce' ORDER BY date_set DESC)) as t
+WHERE r.username=t.username AND r.date_read between (t.date_set+7) AND (t.date_set+14) AND r.steps>=t.target
+
+SELECT username, date14, goal
+FROM targets, 
+(SELECT username, COUNT(*) as achieved, days as goal, DATE_ADD(date_set, INTERVAL 14 DAY) as date14
+FROM readings as r,
+(SELECT username, steps as target, date_set, days  FROM targets WHERE username='". $username ."' AND date_set=(SELECT MAX(date_set) as latest_t FROM targets WHERE username='". $username ."' ORDER BY date_set DESC)) as t
+WHERE r.username=t.username AND r.date_read between (t.date_set+7) AND (t.date_set+14) AND r.steps>=t.target) as checkTarget
+WHERE checkTarget.achieved>=checkTarget.goal AND checkTarget.username=targets.username;					
+					
+
+SELECT targets.username, date14, goal
+FROM targets, 
+(SELECT r.username, COUNT(*) as achieved, days as goal, DATE_ADD(date_set, INTERVAL 14 DAY) as date14
+FROM readings as r,
+(SELECT username, steps as target, date_set, days  FROM targets WHERE username='bruce' AND date_set=(SELECT MAX(date_set) as latest_t FROM targets WHERE username='bruce' ORDER BY date_set DESC)) as t
+WHERE r.username=t.username AND r.date_read between (t.date_set+7) AND (t.date_set+14) AND r.steps>=t.target) as checkTarget
+WHERE checkTarget.achieved>=checkTarget.goal AND checkTarget.username=targets.username;					
+					
+week=week4&weekno=4&steps=7800&latest_t=2017-02-12&days=5&base=7800&finish=null
+week=week3&weekno=3&steps=7800&latest_t=2017-02-05&days=5&base=7800&finish=2017-02-11
+week=week2&weekno=2&steps=7800&latest_t=2017-01-29&days=3&base=7800&finish=2017-02-05
+					
+					

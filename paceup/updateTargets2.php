@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
+<!-- OBSELETE -->
 <html lang="en">
 <?php
 require 'database.php';
