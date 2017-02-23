@@ -34,28 +34,28 @@ Non valid email addresses error on form
 3. display relevant motivational content and guidance for that week
 4. display relevant step entry table (drawTable.php)
 
-####Baseline: 
+#### Baseline: 
 Users must be able to enter their steps before being given a target.
 Users must complete a minimum of 3 days within a 7 day epoch. The beginning of that qualifying 7 day epoch becomes the date of baseline. 
 Users who do not enter sufficient step information continue at this level until sufficient data are supplied. 
 When the date of baseline is established, the user is prompted to set a date to begin their step increase. This must be 7 days from baseline and can be up to 7 dates after the current date. 
-[NOT DONE] Establishment of week 1 should expire (after a month?). This requires wiping of data or some kind of system override
+[NOT DONE] Establishment of week 1 should expire after a month. This requires wiping of data or some kind of system override
 
-####Odd weeks
+#### Odd weeks
 Targets are given for 2 weeks, the odd weeks are the first. Feedback should be given on progress akin to that in the booklet
 
-####Even weeks
+#### Even weeks
 * If a participant achieves their target on an even week, they are given their next target
 * If a participant does not achieve their target on the even week, they are not given a new target. If they achieve their target in a subsequent week, they then progress to the next target
-* [DONE] If a participant does not achieve their target on the even week, they should be asked if they would like to move on to the next week's worth of targets anyway.  
+* If a participant does not achieve their target on the even week, they should be asked if they would like to move on to the next week's worth of targets anyway.  
 
-####General functionality of the steps table
+#### General functionality of the steps table
 * Participants can enter the number of steps, the method used to collect the step count, and whether they added a walk or not into their day. 
 * Participants can edit the step entries they have already entered.
 * Participants cannot add step counts for the future
 * Once a target is set, participants recieve feedback on whether they have achieved their goal or not
-* [DONE] Participants can view historical data, looking back over the weeks. 
-* [DONE] Participants can add/edit data in a previous week
+* Participants can view historical data, looking back over the weeks. 
+* Participants can add/edit data in a previous week
 
 ### progress report
 *Extension* Produce graphs to show the users progress over time
