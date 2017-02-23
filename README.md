@@ -3,6 +3,7 @@ working files for the pace web app
 
 Files are written in php, html and javascript. Currently they run in WAMP with a MySQL database. (Add SQL for files)
 
+## Basic functionality
 ### sessions.php, database.php
 Need these files when connecting to the database. Always include sessions as this is for security
 Change connecting password when transferring from wamp (PUBLIC FILES HERE)
@@ -19,13 +20,14 @@ Navigation bar incorporated loggedon.php which determines whether the user is lo
 Users must be able to sign up, log in and log out. 
 **[FOR ACTION - all pages using passwords should be hashed before parsing to server. Passwords should have some validation i.e. be at least 8 chars long]**
 
+## Registration
 ### register_form.php, register.php, register.js, method.php,
 New users choose a username, email address, password, method of data collection (method.php) and enter the registration code [FOR ACTION - registration code generate form created but code parsing not currently not in use]
 Username and email checked for uniqueness, non unique usernames are reported as errors on form
 Non matching passwords error on form
 Non valid email addresses error on form
 
-# Entering, editing, viewing steps, receiving feedback, etc
+## Entering, editing, viewing steps, receiving feedback, etc
 ### steps.php, getWeek.php, drawTable.php, viewSteps.php
 1. ascertain where the user is, regarding their steps (defined in "week"s) (getWeek.php)
 2. If necessary, update the target (function drawn in getWeek.php)
@@ -55,8 +57,13 @@ Targets are given for 2 weeks, the odd weeks are the first. Feedback should be g
 * [DONE] Participants can view historical data, looking back over the weeks. 
 * [DONE] Participants can add/edit data in a previous week
 
-### Targets
-Show architecture of 12 weeks, explain how steps work (explanation only, can get data from database as extension)
+### progress report
+*Extension* Produce graphs to show the users progress over time
+
+## Administrative functions
+### admin.php
+[DONE] Allow a super user to access download data, add practice, create registration code 
+[NOT DONE] Allow a super user to allocate a role to another user, for example Researcher, Nurse or Superuser 
 
 ### Create registration code getCodes.php, get_reg_codes.php, WEB ONLY NOT APP
 * getCodes.php - HTML JS basic form to complete to get the registration codes
@@ -85,20 +92,17 @@ allow a super user to view another users data
 * add-practice - PHP code to add that practice to the DB
 [DONE] Allow a super user to add new practice to database. Ensures new practice ID is 3 char long and not already in use.
 
-### admin.php
-[DONE] Allow a super user to access download data, add practice, create registration code 
-[NOT DONE] Allow a super user to allocate a role to another user, for example Researcher, Nurse or Superuser 
+## Explaining the study and extra info
+### Targets
+Show architecture of 12 weeks, explain how steps work (explanation only, can get data from database as extension)
 
 ### links page
 [DONE] Show the links from the booklet. Should be able to view even if not logged in [checked]
 
-### progress report
-*Extension* Produce graphs to show the users progress over time
-
 ### Documents
 Allow users to download documentation for PACE
 
-# Old files to be deleted
+## Old files to be deleted
 * firstSteps.php - this became redirect.php
 * index.php - this became redirect.php
 * updateTargets2.php - this became redirect.php
