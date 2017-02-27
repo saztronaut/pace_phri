@@ -7,6 +7,7 @@ function registerNewUser() {
   //password must be hashed with salt (constant on client side, random per user on server side)
   if (keep_going==1) {
   var data = $(form).serialize();
+  console.log(data);
   makeRequest(action, data);
   
 	}
@@ -131,8 +132,27 @@ function giveFeedback(x, message, error){
 	
 }
 
+function getOther(methodv){
+	
+	console.log (methodv);
+	if (methodv=="ZZZ"){
+         $showother= '<div class="form-group" id = "method_other_div">';
+        $showother+='<input type="text" class="form-control" placeholder="Enter other method of recording seps" name="other_method" id="other_method"> </div>';
+         document.getElementById('method_other_span').innerHTML= $showother;
+    }
+    else {    show_other=document.getElementById('method_other_span').innerHTML='';}
+
+}
+
 var button = document.getElementById("registerBtn");
 button.addEventListener("click", registerNewUser);	
+
+var getmethod = document.getElementById("steps");
+$('#steps').bind('input', function(){
+	getOther(getmethod.value);
+});
+
+getmethod.addEventListener("change", getOther(getmethod.value));
 
 var copy_pass = document.getElementById("cpassword");
 var pass= document.getElementById("password");

@@ -11,6 +11,9 @@
   $password = MD5($_POST['password']);
   $startdate =date('Y-m-d');
   $method = htmlspecialchars($_POST['steps']);
+  if (isset($_POST['other_method'])){
+  $other_method = htmlspecialchars($_POST['other_method']); }
+  else {$other_method ='';}
   $registration = htmlspecialchars($_POST['registration']);
   //add salt in here
   define('IND_SALT', 'RandomString');
@@ -40,8 +43,10 @@
   if ($username_unique->num_rows>0) {$errors['username']='Please choose a different username, that name is taken'; }
   if ($email_unique->num_rows>0) {$errors['email']= 'Email already in use'; }  
   else if ($username_unique->num_rows<1 && $email_unique->num_rows<1 ) {
-   $addUser = "INSERT INTO users(username, password, email, pracID, start_date, pref_method, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', LOWER('" . $email . "'), '". $practice ."', '" . $startdate . "', 'PED', 'U', '". $registration ."');";
-   //echo $addUser;
+  	
+   $addUser = "INSERT INTO users(username, password, email, pracID, start_date, pref_method, other_method, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', LOWER('" . $email . "'), '". $practice ."', '" . $startdate . "', '". $method ."', '". $other_method ."',  'U', '". $registration ."');";
+ // $errors['query']= $addUser;
+  //echo $addUser;
    if(mysqli_query($connection, $addUser))
     {
       $_SESSION['valid'] = true;
@@ -61,8 +66,7 @@
 
   }
   if(!empty($errors)) {
-  	// won't work b/c of single-quotes
-  	// echo "{ 'errors': " . json_encode($errors) . "}";
+
   	$result_array = $errors;
   	echo json_encode($result_array); }
   	else {echo json_encode(array('success' => 'yes'));}

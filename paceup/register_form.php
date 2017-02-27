@@ -26,7 +26,8 @@
 		<div class="form-group" id="method_div">
 		<?php include 'method.php'; ?>
 		<span id= "method_span"></span>
-		</div>
+		</div>	
+	    <span id= "method_other_span"></span>
         <div class="form-group" id="registration_div">
         <input type="text" class="form-control" placeholder="Registration code" name="registration" id="registration" >
         <span id= "registration_span"></span>
