@@ -10,7 +10,7 @@
 			$email = $_POST['email'];
 			$password = MD5($_POST['password']);
 
-	        $lookup = "SELECT username, password, roleID FROM users WHERE (email = LOWER('" . $email . "') OR username = LOWER('" . $email . "')) AND password = '" . $password . "';";
+	        $lookup = "SELECT username, password, roleID FROM users WHERE (LOWER(email) = LOWER('" . $email . "') OR LOWER(username) = LOWER('" . $email . "')) AND password = '" . $password . "';";
 	        $result = mysqli_query($connection,$lookup)
 	          or die('Error making select users query' . mysql_error());
 	        $row = mysqli_fetch_array($result);
@@ -27,7 +27,7 @@
                   $_SESSION['username'] = $username;
                   $_SESSION['roleID'] = $row['roleID'];
 				if ($row['roleID']=="R"||$row['roleID']=="S"){
-					$_SESSION['choose_form']= 'getCodes.php';
+					$_SESSION['choose_form']= 'admin.php';
 			}   else{     
                   $_SESSION['choose_form']= 'steps.php';
 			}

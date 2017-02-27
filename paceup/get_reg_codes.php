@@ -21,7 +21,7 @@ if ($_POST){
 
 	$reg_codes=[];
 	$print_reg_codes=[];
-	$print_reg_codes[]=array("registration code", "practice code", "date issue");
+	$print_reg_codes[0]=array('registration code', 'practice code', 'date issue');
 	$results['response']= "";
 	
 	if ($row['roleID']=="R" ||$row['roleID']=="S"){
@@ -36,14 +36,15 @@ if ($_POST){
 		}else {
 		$add_reg="INSERT INTO reference(referenceID, issue_date, practice, in_use) VALUES ('". $reg_codes[$x]."',CURDATE(),'".$practice."', 0);";
 		mysqli_query($connection, $add_reg) or die(0);
-		echo "<p>". $reg_codes[$x]. " ". $practice . " ". date("d-m-y"). "</p>";
-		$print_reg_codes[$x]= array($reg_codes[$x], $practice, date("d-m-y"));
+		//print the registration code to the browser
+		//echo "<p>". $reg_codes[$x]. " ". $practice . " ". date("d-m-y"). "</p>";
+		$print_reg_codes[$x+1]= array($reg_codes[$x], $practice, date("d-m-y"));
 		//$results['response'].= $response;
 		}
 		}
 
 		array_to_csv_download($print_reg_codes, "reg_code".date('d-m-y').".csv");
-		}
+		echo "Your download should begin shortly";}
 		else {echo "You do not have the access privileges to generate registration codes";}}
 	else {
 		echo "You do not have the access privileges to generate registration codes";
@@ -53,7 +54,8 @@ if ($_POST){
 
 
 function array_to_csv_download($array, $filename= "export.csv", $delimiter=",") {
-	//header('Content-Type: application/csv');
+	
+	header('Content-Type: application/csv; charset=UTF-8');
 	header('Content-Disposition: attachment; filename="'. $filename .'"');
 	
 	// open the output stream
@@ -63,9 +65,11 @@ function array_to_csv_download($array, $filename= "export.csv", $delimiter=",") 
 	foreach($array as $line){
 		fputcsv($f, $line, $delimiter);
 	}
+
 	fclose($f);
 	readfile('php://output');
 	
 }
+
 ?>
 

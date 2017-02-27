@@ -35,6 +35,12 @@ else{
 	$end_date_pick = mysqli_fetch_array($row_end_date);
 }
 
+//Get baseline
+
+   $base= "SELECT steps from targets where username='". $username."' order by date_set ASC LIMIT 1;";
+   $getbase= mysqli_query($connection, $base)	or die("Can't get base data" . mysql_error());
+   $basedate=mysqli_fetch_array($getbase);
+
    $start_date= $date_pick['date_set'];
    $results['steps']=$date_pick['steps'];
    $results['days']=$date_pick['days'];
@@ -42,7 +48,7 @@ else{
    $results['finish']=$end_date_pick['date_set'];
    $results['week']="week". $weekno;
    $results['weekno']=$weekno;
-   $results['baseline'] = $date_pick['steps'];
+   $results['baseline'] = $basedate['steps'];
 
 if(!empty($results)) {
 	$result_array = $results;
