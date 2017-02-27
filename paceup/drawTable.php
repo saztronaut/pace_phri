@@ -3,17 +3,25 @@ require 'database.php';
 require 'sessions.php';
 
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
-$thisWeek= $_POST['week']; //This tells you what stage the pt is at on the pathway
-$latest_t=strtotime($_POST['latest_t']); //The date of the latest target
-$maxweekno= isset($_SESSION['week']) ? $_SESSION['week'] :$_POST['weekno']; //The max week number, i.e. the current week number
-$weekno= $_POST['weekno']; //The week number for display. Not the same as the stage to allow patient autonomy
-$steps = $_POST['steps']; //The latest target for steps
-$daysw = $_POST['days']; //The number of days the patient is aiming to reach the target
-$baseline = $_POST['base']; //The number of days the patient is aiming to reach the target
-$finish_date = isset($_POST['finish']) ? $_POST['finish']:date('Y-m-d'); //For looking at historical data
+$thisWeek= htmlspecialchars($_POST['week']); //This tells you what stage the pt is at on the pathway
+$latest_t=strtotime(htmlspecialchars($_POST['latest_t'])); //The date of the latest target
+$maxweekno= isset($_SESSION['week']) ? $_SESSION['week'] :htmlspecialchars($_POST['weekno']); //The max week number, i.e. the current week number
+$weekno= htmlspecialchars($_POST['weekno']); //The week number for display. Not the same as the stage to allow patient autonomy
+$steps = htmlspecialchars($_POST['steps']); //The latest target for steps
+$daysw = htmlspecialchars($_POST['days']); //The number of days the patient is aiming to reach the target
+$baseline = htmlspecialchars($_POST['base']); //The number of days the patient is aiming to reach the target
+
+$iseven=0; // if the week is even, the form behaves slightly differently
+$ispast=0; //avoid anachronistic statements if viewing a past week
+
+if ($maxweekno>$weekno){
+	$ispast=1;
+    $finish_date = isset($_POST['finish']) ? $_POST['finish']:date('Y-m-d'); //For looking at historical data
+} else { $finish_date=date('Y-m-d');}
+
+
 $today = $finish_date;
 $today_str = strtotime($today);
-
 
 //start the table off
 $latest_7= strtotime("+7 days", $latest_t); //7 days after the latest target
@@ -63,6 +71,7 @@ else{ // Non baseline view - show values from the last target set, i.e. in "week
 		$end= $days_since;
 		// Don't display the mean number of steps
 		$display=0;
+		$iseven=0;
 	} else {
 		//If it is the second week, show 7 days from the target
 		$days_since= FLOOR(($today_str- strtotime("+7 days", $latest_t))/(60*60*24));	
@@ -71,24 +80,47 @@ else{ // Non baseline view - show values from the last target set, i.e. in "week
 		$end = $days_since;
 		// Display the mean number of steps after the table
 		$display=0;
+		$iseven=1;
 	}
 }
 //If you are showing more than a week, you want to display the table twice, split byt
 if ($end>6){
 	$n_show= CEIL($end/7); //how many tables to show
-	//If $n_show is higher than 2 this will end up displaying a lot of data
-	
+	//If $n_show is higher than 2 this will end up displaying a lot of data 
+	// $n_show is the number of weeks you want to show
+	if ($iseven==1){$bump=1;} else {$bump=0;}
+	//$x is an integer between 0 and $n_show.
 	for ($x = 0; $x <$n_show; $x++) {
 	if ($x==0){
-		echo "<p><b>This week</b></p>";
-		$thisend=($end % 7)-1;
-	$get_start =strtotime("+". (($n_show-$x)*7)+$thisend+1 . " days", $latest_t) ;
-	drawTable($thisend, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline);
+		$thisend=($end % 7)-1; //how many days to show in the table
+	    $get_start =strtotime("+". (($n_show-$x)*7)+$thisend+1 . " days", $latest_t);
+	    //$get_start is the first day of the week displayed (??)
+		if ($bump==1){
+			$new_week =date('Y-m-d', strtotime("+". (($n_show)*7) . " days", $latest_t));
+			// Explain that user has been given extra time to hit target. give option to increase time
+			echo "<div class='form-group'><p><b>You have been given an extra week to hit the target from week " .$weekno . "    ";
+			echo "<button type='button' class='btn btn-default' id='increaseT' onclick=\"javascript:incTarget('".$new_week."')\">Click here to move onto the next target</button></div></form></b></p>";
+		}
+	    if ($ispast==1){
+	    	echo "<p><b>Last week</b></p>";
+	    }
+	    else{
+		    echo "<p><b>This week</b></p>";}
+
+	drawTable($thisend, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline, $ispast);
 	}
 	else {
-	echo "<p><b>".$x ." week ago</b></p>";
+		if ($ispast==1){
+			// If p is looking at steps for a time in the past, then tense as such
+			echo "<p><b>".$x ." week prior</b></p>";;
+		}
+		else{
+			// If it is the same week as the week shown, talk about time from now
+			echo "<p><b>".$x ." week ago</b></p>";}
+	
 	$get_start =strtotime("+". (($n_show-$x)+1)*7 . " days", $latest_t) ;
-	drawTable(6, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline);}
+	$ispast=1;
+	drawTable(6, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline, $ispast);}
 	// separate by week
 	}
 		
@@ -110,16 +142,18 @@ if (($thisWeek=='baseline'||$thisWeek=='getweek1'||$thisWeek=='delayweek1')==0){
 		echo "</option>";
 	}
 	echo "</select></div> <div class='form-group'>";
-	echo "<button type='button' class='btn btn-default' id='viewPast'> View Steps </button> </div></form>";
+	echo "<button type='button' class='btn btn-default' id='viewPastBtn'> View Steps </button> </div></form>";
 }
 
 
 //Ask how long it has been since sign up (days)
 // For loop - for each day from today to either 7 or $days
 // Get day of the week, date and step information
-function drawTable($end, $display, $startday, $daysw, $thisWeek, $steps, $username, $baseline){
+function drawTable($end, $display, $startday, $daysw, $thisWeek, $steps, $username, $baseline, $ispast=0){
 	require 'database.php';
 
+
+	
 	// $end = the number of days to display
 	// $showtargets = 0/1 show the step target
 	// $display = 0/1 display baseline information
@@ -237,41 +271,54 @@ foreach ($mytable as $x){
 }
 echo "</table></div>";
 if (($totaldays!=""||isset($_POST['steps'])) && $display==1) {
-	$avgsteps= round($totalsteps/$totaldays);
-	$avgsteps= ceil($avgsteps/50)*50;
-	if ($_POST['steps']!= $avgsteps) {
-		$avgsteps=$_POST['steps'];	}
-
-		echo "<p><b>Your average daily step count =". $avgsteps ."</b>. This number is your <b>baseline steps</b><br></p><br>";
+// pull the baseline steps from the target
+	
+	if ($_POST['steps']>0) {
+	
+		echo "<p><b>Your average daily step count =". $_POST['steps'] ."</b>. This number is your <b>baseline steps</b><br></p><br>";
 		echo "<p>You will use this number to work out your target in the 12 week programme. In weeks 1-4 you will add 1500 steps to this number and gradually increase the number of days that you do this on. In weeks 5-12 you will add 3000 to this number and again gradually increase the number of days that you do this on.</p>";}
 		else if ($thisWeek=='baseline' && $display==0) {
 			echo "<p>At the end of the week the average number of steps you walked will be shown here. That number will be your <b>baseline steps</b><br></p><br>";
 			echo "<p>You will use this number to work out your target in the 12 week programme. In weeks 1-4 you will add 1500 steps to this number and gradually increase the number of days that you do this on. In weeks 5-12 you will add 3000 to this number and again gradually increase the number of days that you do this on.</p>";
-		}
+		}}
+		//IF not in baseline, give feedback on targets
 elseif ($showtargets==1){ 
 	if ($targetdays>$daysw) {
-		//echo "<p> Target days:" . $daysw . ". Days reached target ". $targetdays . " </p>";
+		//If they achieved over their target
 	echo "<p> You have achieved your target on ". $targetdays ." days this week. You were aiming for ". $daysw ." days, well done!";}
 	elseif ($targetdays==$daysw){	
-		//echo "<p> Target days:" . $daysw . ". Days reached target ". $targetdays . " </p>";
+		//If they achieved their target
 		echo "<p> You have achieved your target on ". $targetdays ." days this week, well done!";
          }
 elseif ($targetdays>0 && $targetdays<$daysw){
+	//Did not achieve target
 	if ($totaldays<(7-$daysw+$targetdays)){
+		//If did not achieve target yet, but week still has enough time to achieve target
 		if ($targetdays>1){
     echo "<p> You have achieved your target on ". $targetdays ." days so far this week, well done. See if you can do this on ". $daysw ." days this week";}
 			else
-			{ 
-	echo "<p> You have achieved your target once so far this week, well done. See if you can do this on ". $daysw ." days this week";
+			{ if($ispast==1){
+				//if in the past (shouldn't occur..)
+				echo "<p> You achieved your target once on this week, well done.";
+			} else {
+				//If did not achieve target yet, but week still has enough time to achieve target
+	echo "<p> You have achieved your target once so far this week, well done. See if you can do this on ". $daysw ." days this week";}
 			}
 }
  else {
  	if ($targetdays>1){
- 	echo "<p> You have achieved your target on ". $targetdays ." days this week, well done. See if you can do this on ". $daysw ." days next week";}
+ 		if($ispast==1){
+ 			//If they achieved their target on fewer days than specified and in past
+ 			"<p> You achieved your target on ". $targetdays ." days this week, well done.";
+ 		} else{
+ 			//If they achieved their target on fewer days than specified and they do not have enough days this week to reach this
+ 	echo "<p> You have achieved your target on ". $targetdays ." days this week, well done. See if you can do this on ". $daysw ." days next week";}}
  	else 
- 	{ echo "<p> You have achieved your target on ". $targetdays ." day this week, well done. See if you can do this on ". $daysw ." days next week";
+ 	//If did not achieve target yet, encouragement to achieve it next week
+ 	{ echo "<p> You have achieved your target once this week, well done. See if you can do this on ". $daysw ." days next week";
  }}}
-else {echo "<p> See if you can achieve your target of ". $steps ." on ". $daysw ." days next week";}
+else {if ($ispast==1){} else{
+	echo "<p> See if you can achieve your target of ". $steps ." on ". $daysw ." days next week";}}
 }
 }
 
@@ -287,7 +334,7 @@ function setWeekOne($latest_7, $in_7, $today_str)
 		}
 	}
 	//Ask participant to select date to start increasing steps
-	echo "<p>You should start to increase your steps now. Select a day to start increasing from.</p>";
+	echo "<p>You should start to increase your steps now. Select a day to start from</p>";
 	echo " <form class = 'form-inline'> <div class='form-group'>
         <select class='form-control' placeholder='Select day to start your program' id='setTarget' name='setTarget'>";
 	foreach ($offer_dates as $x){

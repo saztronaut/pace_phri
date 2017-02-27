@@ -21,7 +21,7 @@
 	      if ($response=="0"){
 		      redirect('./landing_text.php');
 		      }
-	      else{
+	      else {
 	         var json = JSON.parse($response, function(key, value) {
 	        	  if (key!="fail"){
 		  
@@ -37,7 +37,8 @@
 	          	if (weekdata['week']=='baseline'){
 		       weekdata['weekno']=0;}
 			if (weekdata['refresh']=='yes'){
-						  window.location.reload(true);}
+			window.location.reload(true);
+			}
           drawHeader2(weekdata['week'], weekdata['weekno']);
 
       	  var xhr2 = new XMLHttpRequest();
@@ -54,7 +55,8 @@
     	  xhr2.onreadystatechange = function () {	  
     	  if(xhr2.readyState == 4 && xhr2.status ==200){		 
     		  var $drawTable = xhr2.responseText;	  
-    	      if ($response==0){}
+    	      if ($response==0){
+        	      }
     	      else{
     	    	  document.getElementById("thisTable").innerHTML= $drawTable;
         	      }
@@ -383,11 +385,26 @@
 	  }
   }
   
+  function incTarget(newtarget){
+	  data="date_set=" + newtarget;
+	  var xhr = new XMLHttpRequest();
+	  xhr.open("POST", 'updateTarget.php', true);
+	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	  xhr.send(data);	
+	  xhr.onreadystatechange=function(){
+	  if(xhr.readyState == 4 && xhr.status ==200){
+		  window.location.reload(true);
+	  }	   
+	  }
+  }
+   
   function getMethods(input){
      alert ("Using different devices to collect your steps data can give readings that differ. It is best to stick to the same device");	  
 	  }
   
   function viewPast(viewWeek){
+	  //This allows users to view a week that is not current. 
+	  //Argument called by viewStepsBtn. view Week is an integer representing number of weeks since baseline, 0 indexed
 	  var xhr = new XMLHttpRequest();
 	  xhr.open("POST", 'viewSteps.php', true);
 	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -395,7 +412,6 @@
 	  xhr.onreadystatechange = function () {	  
 	  if(xhr.readyState == 4 && xhr.status ==200){		 
 		  var $response = xhr.responseText;	  
-	      console.log($response);
 	      if ($response==0){}
 	      else{
 	         var json = JSON.parse($response, function(key, value) {
@@ -412,7 +428,7 @@
           drawHeader2(weekdata['week'], viewWeek);
 
       	  var xhr2 = new XMLHttpRequest();
-      	  ///create a string to parse to build the able
+      	  ///create a string to parse to build the table
       	  myString="week=" + weekdata['week'];
       	  myString+="&weekno=" + viewWeek;
       	  myString+="&steps=" + weekdata['steps'];     	  

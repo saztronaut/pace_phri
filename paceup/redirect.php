@@ -5,7 +5,7 @@ require 'sessions.php';
 //Takes a form to redirect the page to
 
 if ($_POST){
-	$_SESSION['choose_form']= isset($_POST['choose_form']) ? $_POST['choose_form']: 'landing_text.php';
+	$_SESSION['choose_form']= isset($_POST['choose_form']) ? $_POST['choose_form']: './landing_text.php';
 }
 else{
 if (isset($_SESSION['username']) && $_SESSION['username']!=''){

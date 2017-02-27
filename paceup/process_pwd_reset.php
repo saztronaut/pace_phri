@@ -8,7 +8,7 @@ if ($_POST){
 	$email=htmlspecialchars($_POST['email']);
 	
 	//get username from email
-	$getUser = "SELECT username from users WHERE email = LOWER('" . $email . "');";
+	$getUser = "SELECT username from users WHERE LOWER(email) = LOWER('" . $email . "');";
 	$result= mysqli_query($connection, $getUser) or die('Error checking token'. mysql_error());
 	$row = mysqli_fetch_array($result);
 	if ($result->num_rows==0){
@@ -20,10 +20,11 @@ if ($_POST){
 		
 		$username= $row['username'];
 		$setNewPassword = "UPDATE users SET password='". $password . "' WHERE username='". $username . "';";
-		if (mysqli_query($connection, $setNewPassword) or die('Error checking token'. mysql_error())){ 
+		if (mysqli_query($connection, $setNewPassword) or die($setNewPassword. mysql_error())){ 
+			$_SESSION['choose_form']='./landing_text.php';
 		echo "<p>Your password has been updated. <a href='./main_index.php'> Click here to log in</a></p>";
 		//get rid of all tokens for this user
-		mysqli_query($connection, "DELETE FROM reset WHERE username='".$username."';") or die('Error checking token'. mysql_error());
+		mysqli_query($connection, "DELETE FROM reset WHERE username='".$username."';") or die('Error deleting token'. mysql_error());
 		
 		}
 		

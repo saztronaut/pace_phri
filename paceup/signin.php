@@ -1,6 +1,6 @@
 
 <div class="jumbotron text-center">
-<h1>PaceUP</h1>
+<h1>PACE-UP</h1>
 <p>A Pedometer Intervention to Increase Walking in Adults</p>
 <p> Record your steps online and track your progress</p>
 

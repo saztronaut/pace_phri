@@ -128,4 +128,18 @@ week=week4&weekno=4&steps=7800&latest_t=2017-02-12&days=5&base=7800&finish=null
 week=week3&weekno=3&steps=7800&latest_t=2017-02-05&days=5&base=7800&finish=2017-02-11
 week=week2&weekno=2&steps=7800&latest_t=2017-01-29&days=3&base=7800&finish=2017-02-05
 					
+DELETE FROM reset WHERE (TIME_TO_SEC(TIMEDIFF(NOW(),time_issue))/60)>30;
+
+SELECT date_read, add_walk, steps, method, MAX(date_set) as date_set FROM
+(SELECT  date_read, date_entered, add_walk, r.steps, method, date_set, t.steps as target FROM readings as r, targets as t WHERE r.username= t.username AND r.username='". $username."' AND date_read>=date_set) AS getTargets
+GROUP BY date_read;
+
+SELECT date_read, add_walk, steps, method, MAX(date_set) as date_set FROM
+(SELECT  `date_read`, `date_entered`, `add_walk`, r.`steps`, `method`, date_set, t.steps as target FROM `readings` as r, targets as t WHERE r.username= t.username AND r.username='seamus' AND date_read>=date_set) AS getTargets
+GROUP BY date_read
+UNION
+SELECT date_read, 0, steps, method, ""
+FROM `readings` WHERE  username='seamus' AND date_read < (SELECT MIN(date_set) FROM targets WHERE username ='seamus')
+
+
 					

@@ -3,7 +3,7 @@
 }
 else {
 	echo "<div class='jumbotron text-center'>";
-    echo "<h1>PaceUP</h1>";
+    echo "<h1>PACE-UP</h1>";
     echo "<p>A Pedometer Intervention to Increase Walking in Adults</p>";
     echo "<p> Record your steps online and track your progress</p> </div>";
 }

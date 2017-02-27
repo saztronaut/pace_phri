@@ -2,13 +2,15 @@
 require 'database.php';
 require 'sessions.php';
 
+//This creates a token which will be emailed to the user if their details are correct.
+//This token is stored on the database and can be used to reset their password
 
 	// check if email or username exist in the database
 	$msg = 0;
 	if (empty($_POST['email'])) {
 		$msg = 2;}
 		else {
-			$email = $_POST['email'];
+			$email = htmlspecialchars($_POST['email']);
 	
 			$lookup = "SELECT username, email, password FROM users WHERE (email = LOWER('" . $email . "') OR username = LOWER('" . $email . "'));";
 			$result = mysqli_query($connection,$lookup)
