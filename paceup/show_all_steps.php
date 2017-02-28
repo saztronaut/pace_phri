@@ -19,7 +19,7 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     $getStepsq=  "SELECT ".$counter.", date, add_walk, steps as steps, method, date_set, ". $target_row['steps']. " as target, ". $target_row['days']." as days FROM
     		(SELECT date_read as date, add_walk, steps as steps, method, MAX(date_set) as date_set FROM
            (SELECT  date_read, date_entered, add_walk, r.steps, method, date_set, t.steps as target FROM readings as r, targets as t WHERE r.username= t.username AND r.username='". $username."' AND date_read>=date_set) AS getTargets
-           GROUP BY date_read) as consolidate WHERE date_set='". $getdate ."';";
+           GROUP BY date_read) as consolidate WHERE date_set='". $getdate ."' ORDER BY date;";
 
     $getSteps= mysqli_query($connection, $getStepsq) or die("Can't find user's steps" . mysql_error());
     $step_row = mysqli_fetch_all($getSteps, MYSQLI_ASSOC);
