@@ -78,7 +78,7 @@
 			}
 			
 		}
-		elseif ($row['n_t']>1 && $row['n_t']<13 ){
+		elseif ($row['n_t']>1 && $row['n_t']<8 ){
 			$w=((($row['n_t'])-2)*2)+1;
 			//if the target is in the future, you know that the participant has chosen when to increase but it is not yet (week 1 only)
 			if ($latest_t> $today_str){
