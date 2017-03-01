@@ -103,15 +103,45 @@ img .logo {
     max-width: 100 px;
     height: auto;
 }
-Generic Styling, for Desktops/Laptops 
-*/
- table { 
-  width: 100%; 
+img .small {
+    border: none;
+	align: center;
+    max-height: 75 px;
+    height: auto;
 }
 
+
+
+Generic Styling, for Desktops/Laptops 
+*/
+ table .table-plain, thead, th, td { 
+  width: 100%;
+  background-color: white;
+  color: #551A8B;
+  height: 50px;
+  text-align: center;
+  vertical-align: center; 
+}
+
+.table-info {
+  background-color: #551A8B;
+  color: white;
+  height: 50px;
+  text-align: center;
+  vertical-align: center;
+
+}
 @media 
 only screen and (max-width: 760px) {
-
+.is-table-row {
+     display: table;
+     }
+     .is-table-row [class*="col-"]{
+     float: none;
+     display: table-cell;
+     vertical-align: top;
+     }
+     
 	/* Force table to not be like tables anymore */
  table, thead, tbody, th, td, tr { 
 		display: block; 

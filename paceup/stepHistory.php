@@ -69,6 +69,7 @@
 <div class = "col-md-5"> <p id="thisAside_12"></p></div>
 </div>
 </div>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script>
 window.onload = function() {
 	var xhr = new XMLHttpRequest();
