@@ -21,7 +21,7 @@
 <p class="text-center" >Diabetes, High blood pressure</p>
 <p class="text-center">Osteoporosis, Several cancers</p>
 <p class="text-center">Arthritis and Back pain</p>
-<p class="text-center"><img src="images/brain_heart.png" class="img-noborder"  alt="brain_heart"></p><br><br><br><br></div>
+<p class="text-center"><img src="images/brain_heart.png" class="img-noborder"  alt="brain_heart"></p></div>
 <div class="col-sm-3 bg-success">
 <h4  class="text-center">Improve wellbeing</h4>
 <p  class="text-center">Walking regularly can:</p>
@@ -30,7 +30,7 @@
 <p class="text-center">Increase your energy and fitness</p>
 <p  class="text-center">Help you to sleep better</p>
 <p class="text-center">Improve your quality of life</p>
-<p class="text-center">Get you out of the house meeting people</p><br><br><br><br><br><br><br><br>
+<p class="text-center">Get you out of the house meeting people</p>
 </div>
 <div class="col-sm-3 bg-danger">
 <h4  class="text-center">Reduce some of the effects of ageing</h4>

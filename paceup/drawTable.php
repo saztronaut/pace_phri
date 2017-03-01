@@ -14,6 +14,7 @@ $baseline = htmlspecialchars($_POST['base']); //The number of days the patient i
 $iseven=0; // if the week is even, the form behaves slightly differently
 $ispast=0; //avoid anachronistic statements if viewing a past week
 
+
 if ($maxweekno>$weekno){
 	$ispast=1;
     $finish_date = isset($_POST['finish']) ? $_POST['finish']:date('Y-m-d'); //For looking at historical data
@@ -107,7 +108,7 @@ if ($end>6){
 	    else{
 		    echo "<p><b>This week</b></p>";}
 
-	drawTable($thisend, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline, $ispast);
+	drawTable($thisend, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline, $weekno, $ispast);
 	}
 	else {
 		if ($ispast==1){
@@ -120,13 +121,13 @@ if ($end>6){
 	
 	$get_start =strtotime("+". (($n_show-$x)+1)*7 . " days", $latest_t) ;
 	$ispast=1;
-	drawTable(6, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline, $ispast);}
+	drawTable(6, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline,$weekno,  $ispast);}
 	// separate by week
 	}
 		
 }
 else{
-drawTable($end, $display, $startday, $daysw, $thisWeek, $steps, $username, $baseline);
+drawTable($end, $display, $startday, $daysw, $thisWeek, $steps, $username, $baseline, $weekno);
 }
 ////This gives the option to view previous weeks (if they have any)
 
@@ -149,10 +150,14 @@ if (($thisWeek=='baseline'||$thisWeek=='getweek1'||$thisWeek=='delayweek1')==0){
 //Ask how long it has been since sign up (days)
 // For loop - for each day from today to either 7 or $days
 // Get day of the week, date and step information
-function drawTable($end, $display, $startday, $daysw, $thisWeek, $steps, $username, $baseline, $ispast=0){
+function drawTable($end, $display, $startday, $daysw, $thisWeek, $steps, $username, $baseline, $weekno, $ispast=0){
 	require 'database.php';
 
 
+	if ($weekno>0 && $weekno<5){
+		$walkmin=15;
+	}
+	else {$walkmin=30;}//When you ask "Did you add a walk of $walkmin minutes or more today, reflect correct mins
 	
 	// $end = the number of days to display
 	// $showtargets = 0/1 show the step target
@@ -168,7 +173,7 @@ if ($thisWeek=='baseline'||$thisWeek=='getweek1'||$thisWeek=='delayweek1'||$this
 	}
 else {
 		echo "<p> Your average daily steps at baseline were <b>". $baseline ." steps</b>. This week you are aiming to increase this to <b>". $steps ." steps on ". $daysw ." days per week</b></p>";
-		echo "<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Add walk?</th><th>Steps</th><th>Collection Method</th><th>Achieved target</th><th></th></tr></thead>";
+		echo "<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Did you add a walk</br> of ".$walkmin." minutes or</br> more today?</th><th>Steps</th><th>Collection Method</th><th>Achieved </br>target</th><th></th></tr></thead>";
 		$showtargets=1;
 	}
 	
@@ -210,11 +215,11 @@ foreach ($mytable as $x){
 	if ($showtargets==1){
 		if (isset($rowsteps['add_walk'])){
 			if ($rowsteps['add_walk']==1){
-			echo "<td data-title='Did you add a walk in today?'> <span id='walk". $date_set ."' ><span  class='glyphicon glyphicon-ok logo-small'></span></span></td>";}
-			else {echo "<td data-title='Did you add a walk in today?'> <span id='walk". $date_set ."'></span></td>";}
+			echo "<td data-title='Did you add a walk in today?' align='center'> <span id='walk". $date_set ."' ><span  class='glyphicon glyphicon-ok logo-small'></span></span></td>";}
+			else {echo "<td data-title='Did you add a walk in today?' align='center'> <span id='walk". $date_set ."'></span></td>";}
 		}
 		else {
-			echo "<td data-title='Did you add a walk in today?'> <form class = 'form-inline'> <div class='form-group'>
+			echo "<td data-title='Did you add a walk in today?' align='center'> <form class = 'form-inline'> <div class='form-group'>
         <input type='checkbox' class='form-control' id='walk". $date_set ."'> </div>";
 			echo "</form></td>";
 		}
@@ -232,9 +237,11 @@ foreach ($mytable as $x){
 	}
 	echo "</td><td data-title='Collection Method'>";
 	if (isset($rowsteps['method'])){
-            $give_pref= $rowsteps['method'];}
+            $give_pref= $rowsteps['method'];
+	        $enabled = 'disabled';}
 		else{
 			$give_pref= $rowsteps['pref_method'];
+			$enabled = '';
 		}
 		//pull in methods table to display options for ddl
 		
@@ -257,10 +264,10 @@ foreach ($mytable as $x){
 		///Get stars
 		if ($showtargets==1){
 			if (isset($steps)&&($steps< $rowsteps['steps'])){
-				echo "<td  data-title='Achieved target'><span class='glyphicon glyphicon-star logo-small'></span></td>";
+				echo "<td  data-title='Achieved target'  align='center'><span class='glyphicon glyphicon-star logo-small'></span></td>";
 				$targetdays= $targetdays+1;
 			}
-			else { echo "<td  data-title='Achieved target'></td>";}
+			else { echo "<td  data-title='Achieved target' align='center'></td>";}
 		}
 		if (isset($rowsteps['steps'])){ //If there is already a step count give option to edit else option to add new
 			echo "<td><input type='button' class='btn btn-default' id='editBtn". $date_set ."' value='Edit'></div></form></td>";}

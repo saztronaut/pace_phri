@@ -39,13 +39,20 @@
   $email_unique= (mysqli_query($connection, $check_email));
   // check registration code is not in the users table and registration code IS in the registration table. Retrieve practice number
   
-  $practice='AAA';  
+  $check_reg="SELECT practice FROM reference WHERE referenceID='".$registration."' AND referenceID NOT in (SELECT referenceID from users);";
+  $get_reg= (mysqli_query($connection, $check_reg));
+  if ($get_reg->num_rows==0){
+  	$errors['registration']='The registration code you provided is not valid. Please try again. ';
+  } else {
+  	$reg_row=mysqli_fetch_array($get_reg);
+  $practice=$reg_row['practice'];  
   
   if ($username_unique->num_rows>0) {$errors['username']='Please choose a different username, that name is taken'; }
   if ($email_unique->num_rows>0) {$errors['email']= 'Email already in use'; }  
   else if ($username_unique->num_rows<1 && $email_unique->num_rows<1 ) {
   	
    $addUser = "INSERT INTO users(username, password, email, pracID, start_date, pref_method, other_method, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', LOWER('" . $email . "'), '". $practice ."', '" . $startdate . "', '". $method ."', '". $other_method ."',  'U', '". $registration ."');";
+ 
  // $errors['query']= $addUser;
   //echo $addUser;
    if(mysqli_query($connection, $addUser))
@@ -59,7 +66,7 @@
    
 
   }
-  }
+  }}
   catch(PDOException $e){
        echo $e->getMessage();
   }
