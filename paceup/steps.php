@@ -8,6 +8,28 @@
 <div class = "col-md-8"> <h2>You can record your step counts here.</h2> <span id="thisTable">Your steps should appear here</span> </div>
 <div class = "col-md-4"> <p id="thisAside"><span id="thisTable">Message to motivate you should appear here</span> </p></div>
 </div></div>
+<!-- Modal -->
+<div id="methodModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Changing step methods</h4>
+      </div>
+      <div class="modal-body">
+        <p id="method_message">
+	</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
   <script> 
   window.onload = function() {
 	  var xhr = new XMLHttpRequest();
@@ -99,7 +121,13 @@
 			 //  else { document.getElementById(i_name).value='on';}
 		}
 	   });
-
+  $(window).focusout(function(event) {
+	  var i_name= String(event.target.id);
+	  //If a date has been set for a new target then add this
+        if(i_name.startsWith('method')){
+		   updateMethods(i_name);
+		}
+	   });
 //  window.onfocusout = function(event) {
 //	  var i_name= String(event.target.id);
 //	  input = document.getElementById(i_name).value;
@@ -309,10 +337,7 @@
 	  console.log(inputname);
 	  input = document.getElementById(inputname).value;	  
 	  console.log(input);
-//	  if (isNaN(input)==0){
-//	  date_set.setDate(date_set.getDate()-nudge);
       date_set = nudge;	
-//	  date_set = date_set.toISOString();
 	  methodID = document.getElementById(method).value; 
 	      //find out if there is a walk check box
 
@@ -366,6 +391,7 @@
           document.getElementById(walk_ck).innerHTML=chkstr;
           }  
 	  //change the label of the button to "Save"	  
+	  var method_ck = 'method'+nudge;
 	  document.getElementById(controlname).value = "Update";
 	  //
   }
@@ -399,7 +425,25 @@
   }
    
   function getMethods(input){
-     alert ("Using different devices to collect your steps data can give readings that differ. It is best to stick to the same device");	  
+	  var nudge = input.slice(-(input.length-6));
+	  var editname="editBtn"+nudge;
+	  if (document.getElementById(editname)){
+		  if (document.getElementById(editname).value=="Edit"){
+			  document.getElementById('method_message').innerHTML= "If you want to update the method used to collect your step count, click 'Edit'";
+			  $('#methodModal').modal('show');
+                	
+			  }
+	  }
+	  }
+  function updateMethods(input){
+	  var nudge = input.slice(-(input.length-6));
+	  document.getElementById('method_message').innerHTML= "Using different devices to collect your steps data can give readings that differ. It is best to stick to the same device";
+	  var editname="editBtn"+nudge;
+	  if (document.getElementById(editname)){
+		  if (document.getElementById(editname).value=="Edit"){}else{
+        $('#methodModal').modal('show');}}
+		  else{
+		        $('#methodModal').modal('show');}
 	  }
   
   function viewPast(viewWeek){
