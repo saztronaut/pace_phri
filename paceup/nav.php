@@ -22,13 +22,14 @@
    <li class="dropdown">
    <a class="dropdown-toggle" data-toggle="dropdown" href="#">TARGETS <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"><span id="currenttarget">TARGETS EXPLAINED</span></a></li>
+            <li><a href="#" onclick='redirect("./explain_targets.php")'><span id="currenttarget">TARGETS EXPLAINED</span></a></li>
           </ul>
         </li>
          <li class="dropdown">
        <a class="dropdown-toggle" data-toggle="dropdown" href="#">MATERIALS<span class="caret"></span></a>
        <ul class="dropdown-menu">
              <li><a href="#" onclick='redirect("./links.php")'><span id="links">LINKS</span></a></li>
+             <li><a href="#" onclick='redirect("./handbook.php")'><span id="handbook">HANDBOOK</span></a></li>
             <li><a href="#"><span id="documents">DOCUMENTS</span></a></li>       
           </ul>
         </li>

@@ -11,11 +11,13 @@ else {
 
 <div class="container-fluid text-center">
 <div class="row">
-  <div class="col-sm-4"><h3>What is PaceUP online?</h3>
-  <p>Let's explain what PaceUP is all about. I don't know if you want to call it PaceUP online but it needs a suffix to distinguish it from the main trial</p></div>
+  <div class="col-sm-4"><h3>What is PACE-UP Next Steps?</h3>
+  <p>A twelve week guide to help <b>you </b> increase <b>your</b> walking</p></div>
   <div class="col-sm-4"><h3>Who can sign up?</h3>
-  <p>Let's explain who can take part and why. Maybe list the practices and </p></div>
+  <p>Currently, patients at participating GP surgeries, who wish to increase their walking, can take part. </p></div>
   <div class="col-sm-4"><h3>I'm looking for the trial site</h3>
-  <p>Link to the trial website</p></div>
+  <p>Information about the PACE-UP Trial can be found at <a href="www.paceup.sgul.ac.uk">www.paceup.sgul.ac.uk</a></p></div>
 </div>
+<i><h3> Walking regularly can add years to life, and life to years</h3></i>
+<p class="text-center"><img src="images/walking.png" class="img-small"  alt="stretch"></p>
 </div>

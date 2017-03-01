@@ -122,7 +122,8 @@
 		// feedback results 
 		$result_array = $results;
 		echo json_encode($result_array);}
-		else {echo 0;}
+		else {echo 0;
+		}
 		
 function updateTarget($numt, $username, $latest_t, $steps)
 		{

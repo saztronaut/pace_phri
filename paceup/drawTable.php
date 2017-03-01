@@ -163,12 +163,12 @@ function drawTable($end, $display, $startday, $daysw, $thisWeek, $steps, $userna
 	// $steps = the target number of steps
 	//This is the baseline format of the table - key differences are absent: additional walk and achieved target
 if ($thisWeek=='baseline'||$thisWeek=='getweek1'||$thisWeek=='delayweek1'||$thisWeek=='week0'){
-		echo "<div class='table'> <table class='table'><thead><tr><th>Day</th><th>Date</th><th>Steps</th><th>Collection Method</th><th></th></tr></thead>";
+		echo "<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Steps</th><th>Collection Method</th><th></th></tr></thead>";
 		$showtargets=0;
 	}
 else {
 		echo "<p> Your average daily steps at baseline were <b>". $baseline ." steps</b>. This week you are aiming to increase this to <b>". $steps ." steps on ". $daysw ." days per week</b></p>";
-		echo "<div class='table'> <table class='table'><thead><tr><th>Day</th><th>Date</th><th>Add walk?</th><th>Steps</th><th>Collection Method</th><th>Achieved target</th><th></th></tr></thead>";
+		echo "<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Add walk?</th><th>Steps</th><th>Collection Method</th><th>Achieved target</th><th></th></tr></thead>";
 		$showtargets=1;
 	}
 	
