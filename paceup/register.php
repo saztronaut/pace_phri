@@ -1,7 +1,8 @@
 <?php
  require 'database.php';
  require 'sessions.php';
-    
+ include 'get_json_encode.php';
+ 
  $errors = [];
  if($_POST)
  {

@@ -1,6 +1,7 @@
 <?php
 require 'database.php';
 require 'sessions.php';
+include 'get_json_encode.php';
 
 $username = htmlspecialchars($_SESSION['username']);
 //show all the steps over time

@@ -1,7 +1,7 @@
 <?php
 require 'database.php';
 require 'sessions.php';
-
+include 'get_json_encode.php';
 
 function array_to_csv_download($array, $filename= "export.csv", $delimiter=",") {
 

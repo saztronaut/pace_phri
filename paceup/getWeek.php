@@ -1,6 +1,7 @@
 <?php
 	require 'database.php';
 	require 'sessions.php';
+	include 'get_json_encode.php';
     $results=[];
     //Takes the session['username'] as parameter
 	//Query the database to find out where the participant is in terms of targets and weeks.
@@ -129,6 +130,7 @@ function updateTarget($numt, $username, $latest_t, $steps)
 		{
 			require 'database.php';
 	//		require 'sessions.php';
+			include 'get_json_encode.php';
 			
 			// n_t gives the number of targets that are in the targets table
 			// latest_t gives the date set of the most recent target
