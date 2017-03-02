@@ -1,0 +1,211 @@
+
+<style>
+.jumbotron { 
+    background-color: #551A8B; /* purple4 */
+    color: #ffffff;
+    margin-bottom:0;  
+    padding-bottom:10px; 
+}
+
+.container-fluid {
+    padding: 50px 50px;
+    padding-top: 15px;
+}
+
+.navbar {
+    margin-bottom: 0;
+    background-color: #551A8B;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+}
+
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #551A8B !important;
+    background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+
+/* Dropdown */
+.open .dropdown-toggle {
+    color: #fff ;
+    background-color: #555 !important;
+}
+
+/* Dropdown links */
+.dropdown-menu li a {
+    color: #000 !important;
+}
+
+@media screen and (max-width: 768px) {
+    .col-sm-4 {
+      text-align: center;
+      margin: 25px 0;
+    }
+  }
+
+
+/* Add an purple color to all icons and set the font-size */
+.logo-tiny {
+    color: #551A8B;
+    font-size: 10px;
+}
+.logo-tiny:hover {
+    color: #551A8B;
+    font-size: 14px;
+}
+
+.logo-small {
+    color: #551A8B;
+    font-size: 20px;
+}
+
+.logo {
+    color: #551A8B;
+    font-size: 120px;
+}  
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+}
+
+footer .glyphicon {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #551A8B;
+}
+img .noborder {
+    border: none;
+	align: center;
+    max-width: 100%;
+    height: auto;
+}
+
+img .logo {
+    border: none;
+	align: center;
+    max-width: 100 px;
+    height: auto;
+}
+img .small {
+    border: none;
+	align: center;
+    max-height: 75 px;
+    height: auto;
+}
+
+
+
+Generic Styling, for Desktops/Laptops 
+*/
+ table .table-plain, thead, th, td { 
+  width: 100%;
+  background-color: white;
+  color: #551A8B;
+  height: 50px;
+  text-align: center;
+  vertical-align: center; 
+}
+
+.table-info {
+  background-color: #551A8B;
+  color: white;
+  height: 50px;
+  text-align: center;
+  vertical-align: center;
+
+}
+
+    .is-table-row {
+    display: table;
+    width: 100%;
+     }
+     
+   .is-table-row [class*="col-"]{
+   float: none;
+   display: table-cell;
+   vertical-align: top;
+     }
+     
+@media 
+only screen and (max-width: 760px) {
+	.is-table-row {
+     display: table;
+     width: 100%;
+     }
+     
+     .is-table-row [class*="col-"]{
+     float: none;
+     display: table-cell;
+     vertical-align: top;
+     width: 100%;
+     }
+     
+	/* Force table to not be like tables anymore */
+ .table-plain table, 
+ .table-plain thead, 
+ .table-plain tbody, 
+ .table-plain th, 
+ .table-plain td, 
+ .table-plain tr { 
+		display: block; 
+		width: 100%;
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+ .table-plain thead 
+ .table-plain tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+		width: 45%;
+	}
+	
+ .table-plain tr { border: 1px solid #ccc; }
+	
+ .table-plain td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		white-space: normal;		
+		padding-left: 50%; 
+		text-align: right; 
+	}
+	
+ .table-plain td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align: left;
+		font-weight: bold;
+	}
+	
+	/*
+	Label the data*/
+	
+ .table-plain td:before { content: attr(data-title); }
+
+}
+</style>
