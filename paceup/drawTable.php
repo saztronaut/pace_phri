@@ -172,8 +172,8 @@ if ($thisWeek=='baseline'||$thisWeek=='getweek1'||$thisWeek=='delayweek1'||$this
 		$showtargets=0;
 	}
 else {
-		echo "<p> Your average daily steps at baseline were <b>". $baseline ." steps</b>. This week you are aiming to increase this to <b>". $steps ." steps on ". $daysw ." days per week</b></p>";
-		echo "<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Did you add a walk</br> of ".$walkmin." minutes or</br> more today?</th><th>Steps</th><th>Collection Method</th><th>Achieved </br>target</th><th></th></tr></thead>";
+		echo "<p> Your average daily steps at baseline were <b>". $baseline ." steps</b>. This week your target is to to increase this to <b>". $steps ." steps on ". $daysw ." days per week</b></p>";
+		echo "<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Did you add </br>a walk of </br>".$walkmin." minutes </br>or more </br>today?</th><th>Steps</th><th>Collection Method</th><th>Achieved </br>target</th><th></th></tr></thead>";
 		$showtargets=1;
 	}
 	
@@ -263,7 +263,7 @@ foreach ($mytable as $x){
 		echo "</td>";
 		///Get stars
 		if ($showtargets==1){
-			if (isset($steps)&&($steps< $rowsteps['steps'])){
+			if (isset($steps)&&($steps<= $rowsteps['steps'])){
 				echo "<td  data-title='Achieved target'  align='center'><span class='glyphicon glyphicon-star logo-small'></span></td>";
 				$targetdays= $targetdays+1;
 			}

@@ -79,7 +79,7 @@
 			}
 			
 		}
-		elseif ($row['n_t']>1 && $row['n_t']<8 ){
+		elseif ($row['n_t']>1 ){
 			$w=((($row['n_t'])-2)*2)+1;
 			//if the target is in the future, you know that the participant has chosen when to increase but it is not yet (week 1 only)
 			if ($latest_t> $today_str){
@@ -98,7 +98,18 @@
 				    updateTarget($n, $username, $latest_t, $row['steps']);	
 					}
 				}}
-		else { $results['week']="week13";}
+		if ($w>=13) { $results['week']="week13";}
+		
+		//get any comments from that week. recorded on weeks 2, 3, 4, 5, 6, 8, 10, 12
+		//get comment data
+		$commentq = "SELECT text FROM notes WHERE username='".$username."' AND week=".$w.";";
+		$resultcomment=mysqli_query($connection, $commentq) or die(0);
+		if ($resultcomment->num_rows>0){
+			$rowcomment= mysqli_fetch_array($resultcomment);
+			$comment=$rowcomment['text'];}
+			else{$comment="";}
+			
+		
 		
 		$results['steps']=$row['steps'];
 		$results['days']=$row['days'];
@@ -107,6 +118,7 @@
 		if (isset($mybaseline)) 
 		{$results['baseline']=$mybaseline;} 
 		else {$results['baseline'] = $row['steps'];}
+		$results['comment']=$comment;
 
 	}
 	//so now session contains a value for week which is:

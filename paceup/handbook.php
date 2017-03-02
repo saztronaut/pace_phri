@@ -20,7 +20,8 @@
 <p  class="text-center">Heart Disease, Stroke</p>
 <p class="text-center" >Diabetes, High blood pressure</p>
 <p class="text-center">Osteoporosis, Several cancers</p>
-<p class="text-center">Arthritis and Back pain</p>
+<p class="text-center">Arthritis, Breathing problems </p>
+<p class="text-center">Back pain</p>
 <p class="text-center"><img src="images/brain_heart.png" class="img-noborder"  alt="brain_heart"></p></div>
 <div class="col-sm-3 bg-success">
 <h4  class="text-center">Improve wellbeing</h4>
@@ -38,7 +39,7 @@
 <p  class="text-center">Improve flexibility and balance</p>
 <p  class="text-center">Protect against developing dementia</p>
 <p class="text-center">Maintain mobility and being able to live independently</p>
-<p class="text-center"><img src="images/stretch.png" class="img-logo"  alt="stretch"></p>
+<p class="text-center"><img src="images/stretch.png" class="img-logo"  alt="stretch" ></p>
 </div>
  <div class="col-sm-3 bg-warning">
 <h4  class="text-center">Help maintain a healthy weight</h4>

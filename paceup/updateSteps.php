@@ -3,12 +3,12 @@
  require 'sessions.php';
  $msg=''; 
  if ($_POST)
- {$username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+ {$username = htmlspecialchars($_SESSION['username']);
   if ($_POST['steps']!="undefined" && $_POST['steps']!=""){
-        $input = $_POST['steps'];} 
+        $input = htmlspecialchars($_POST['steps']);} 
   else {$input ='';}
-  $date_set = date("Y-m-d", strtotime($_POST['date_set']));
-  $method = $_POST['method'];
+  $date_set = date("Y-m-d", strtotime(htmlspecialchars($_POST['date_set'])));
+  $method = htmlspecialchars($_POST['method']);
   if ($_POST['walk']=='true'){$walk = '1';} else if ($walk=='false') {$walk = '0';} else {$walk="";}
   
   $query = "SELECT username, date_read, date_entered, steps, method, add_walk FROM readings WHERE username = '". $username ."' AND date_read= '". $date_set ."';" ;

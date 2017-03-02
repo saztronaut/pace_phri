@@ -40,6 +40,15 @@ else{
    $base= "SELECT steps from targets where username='". $username."' order by date_set ASC LIMIT 1;";
    $getbase= mysqli_query($connection, $base)	or die("Can't get base data" . mysql_error());
    $basedate=mysqli_fetch_array($getbase);
+   
+   //get comment data
+   $commentq = "SELECT text FROM notes WHERE username='".$username."' AND week=".$weekno.";";
+   $resultcomment=mysqli_query($connection, $commentq) or die(0);
+   if ($resultcomment->num_rows>0){
+   	$rowcomment= mysqli_fetch_array($resultcomment);
+   	$comment=$rowcomment['text'];}
+   	else{$comment="";}
+   		
 
    $start_date= $date_pick['date_set'];
    $results['steps']=$date_pick['steps'];
@@ -49,6 +58,7 @@ else{
    $results['week']="week". $weekno;
    $results['weekno']=$weekno;
    $results['baseline'] = $basedate['steps'];
+   $results['comment'] = $comment;
 
 if(!empty($results)) {
 	$result_array = $results;

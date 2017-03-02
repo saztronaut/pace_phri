@@ -3,7 +3,7 @@
 <br><div class= "container">
 <div class= "jumbotron">
 <span id="thisHeader"><h2>Your progress on PACE-UP Next Steps </h2></span>
-<span id="thisBlurb">Something about the aim of the study from the booklet</span>
+<span id="thisBlurb"></span>
 </div></div>
 <div class="container-fluid"> 
 <div class = "row">
