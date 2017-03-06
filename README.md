@@ -3,29 +3,47 @@ working files for the pace web app
 
 Files are written in php, html and javascript. Currently they run in WAMP with a MySQL database. (Add SQL for files)
 
+## Branding
+PACE-UP spelled with capitals
+Logos for SGUL, PACE-UP and XXX should be included at the bottom of all documents
+
+## Privacy and Cookies
+[To do] We need to write up a simple privacy policy, and a cookies policy. 
+Consent?
+
 ## Basic functionality
-### sessions.php, database.php
+### Starting sessions
+sessions.php, database.php
 Need these files when connecting to the database. Always include sessions as this is for security
 Change connecting password when transferring from wamp (PUBLIC FILES HERE)
 
 Nav bar and basic content static throughout, only the central document changes
-### main_index.php
+### Template
+* main_index.php
 Main shell of the pages. Shows navbar and main content and footer
 
-### nav.php, loggedon.php, footer.php
-Navigation bar incorporated loggedon.php which determines whether the user is logged in or not. If not logged in shows "Sign up / Sign in" options if logged in shows "Hello User/ Log out" and "Admin" if user role permits. Footer shows all the logos
-[For action
+* nav.php - Navigation bar incorporated loggedon.php which determines whether the user is logged in or not.
+* loggedon.php -  If not logged in shows "Sign up / Sign in" options if logged in shows "Hello User/ Log out" and "Admin" if user role permits.
+* footer.php-  Footer shows all the logos
 
-### login.js, signin.php, logout.js
-Users must be able to sign up, log in and log out. 
+## Users must be able to sign up, log in and log out.
+### logging in and logging out
+* signin.php -html input form for logging in
+* login.js  -javascript to send datafrom signin to login.php
+* login.php  -php to log user in and begin session
+* logout.js - end session
 **[FOR ACTION - all pages using passwords should be hashed before parsing to server. Passwords should have some validation i.e. be at least 8 chars long]**
 
-## Registration
-### register_form.php, register.php, register.js, method.php,
-New users choose a username, email address, password, method of data collection (method.php) and enter the registration code [FOR ACTION - registration code generate form created but code parsing not currently not in use]
-Username and email checked for uniqueness, non unique usernames are reported as errors on form
-Non matching passwords error on form
-Non valid email addresses error on form
+### Registration
+* register_form.php -html form int which to enter registration data
+* register.js - validates the registration data and sends to register.php
+  * New users choose a username, email address, password, method of data collection (method.php) and enter the registration code
+  * Username and email checked for uniqueness, non unique usernames are reported as errors on form
+  * Non matching passwords error on form
+  * Non valid email addresses error on form
+* register.php -validates the registration data
+* method.php - php insert for register_form. looks up the 
+
 
 ## Entering, editing, viewing steps, receiving feedback, etc
 ### steps.php, getWeek.php, drawTable.php, viewSteps.php
@@ -58,7 +76,9 @@ Targets are given for 2 weeks, the odd weeks are the first. Feedback should be g
 * Participants can add/edit data in a previous week
 
 ### progress report
-*Extension* Produce graphs to show the users progress over time
+* show_all_steps.php - extracts all steps by user and outputs an array of steps for each target point 
+* stepHistory.php - shows tables of data and a graph for each week
+Produce graphs to show the users progress over time
 
 ## Administrative functions
 ### admin.php
@@ -74,6 +94,9 @@ getCodes.php is the data entry form and get_reg_codes.php processes the data.
 AT THE MOMENT THE DATA WON'T DOWNLOAD! BUG NEEDS FIXING
 
 ### download data downloadData.php
+* downloadData.php form to request download data - can download users (no pword), steps, targets, practices, methods. Can narrow by user or practice or both
+* download.php check user in session is S or R (otherwise no permission). produce csv for download
+
 Research Assistant should be able to download all of the data in the database
 As SKB can't get the download function to work, first write up the code to generate the csv in text form and then worry about the download function later
 
@@ -93,11 +116,14 @@ allow a super user to view another users data
 [DONE] Allow a super user to add new practice to database. Ensures new practice ID is 3 char long and not already in use.
 
 ## Explaining the study and extra info
-### Targets
-Show architecture of 12 weeks, explain how steps work (explanation only, can get data from database as extension)
+### Targets (doesn't require log in)
+* explain_targets.php Show architecture of 12 weeks, explain how steps work (explanation only, can get data from database as extension)
 
-### links page
+### links page (doesn't require log in)
 [DONE] Show the links from the booklet. Should be able to view even if not logged in [checked]
+
+### Handbook (doesn't require log in)
+* handbook.php - Show information from handbook as accordion
 
 ### Documents
 Allow users to download documentation for PACE
