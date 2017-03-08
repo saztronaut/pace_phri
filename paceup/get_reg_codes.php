@@ -36,7 +36,7 @@ if ($_POST){
 		if ($unique->num_rows>0){
 			//not unique
 		}else {
-		$add_reg="INSERT INTO reference(referenceID, issue_date, practice, in_use) VALUES ('". $reg_codes[$x]."',CURDATE(),'".$practice."', 0);";
+		$add_reg="INSERT INTO reference(referenceID, issue_date, practice, in_use, consent) VALUES ('". $reg_codes[$x]."',CURDATE(),'".$practice."', 0, 0);";
 		mysqli_query($connection, $add_reg) or die(0);
 		//print the registration code to the browser
 		//echo "<p>". $reg_codes[$x]. " ". $practice . " ". date("d-m-y"). "</p>";

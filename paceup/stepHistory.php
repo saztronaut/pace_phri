@@ -2,8 +2,7 @@
 <!-- -->
 <br><div class= "container">
 <div class= "jumbotron">
-<span id="thisHeader"><h2>Your progress on PACE-UP Next Steps </h2></span>
-<span id="thisBlurb"></span>
+<h2>Your progress on PACE-UP Next Steps </h2>
 </div></div>
 <div class="container-fluid"> 
 <div class = "row">

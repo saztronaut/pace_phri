@@ -10,12 +10,18 @@
         <input type="text" class="form-control" placeholder="Username" name="username" id="username" >
         <span id= "username_span"></span>
         </div>
-
+        <div class="form-group" id = "firstname_div">
+        <input type="text" class="form-control" placeholder="First name" name="firstname" id="firstname" >
+        <span id= "firstname_span"></span>
+        </div>
+        <div class="form-group" id = "lastname_div">
+        <input type="text" class="form-control" placeholder="Last name" name="lastname" id="lastname" >
+        <span id= "lastname_span"></span>
+        </div>
         <div class="form-group" id = "email_div">
         <input type="email" class="form-control" placeholder="Email address" name="email" id="user_email" pattern= "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
         <span id="check-e"></span><span id= "email_span"></span>
         </div>
-
         <div class="form-group" id = "password_div">
         <input type="password" class="form-control" placeholder="Password" name="password" id="password" >
         <span id= "password_span"></span></div>
@@ -38,6 +44,26 @@
       <span class="glyphicon glyphicon-log-in"></span> &nbsp; Create Account </button> </div>
  </form>
  </div>
+
+<!-- Modal -->
+<div id="consentModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+<br><br>
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Participant consent form</h4>
+      </div>
+      <div class="modal-body">
+        <p id="consent_message">
+	</p>
+
+      </div>
+    </div>
+
+  </div>
+</div>
 
   <script src="register.js"> </script>
 

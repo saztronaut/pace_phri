@@ -1,5 +1,5 @@
 <div class='jumbotron text-center'>
-<h1>PACE-UP</h1>
+<h1>PACE-UP - Next Steps</h1>
 <p> Handbook</p> </div>
 <div class="container-fluid">
 <div class="panel-group" id="accordion">
