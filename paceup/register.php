@@ -8,6 +8,8 @@
  {
 
   $username = htmlspecialchars($_POST['username']);
+  $firstname = htmlspecialchars($_POST['firstname']);
+  $lastname = htmlspecialchars($_POST['lastname']);
   $email = htmlspecialchars($_POST['email']);
   $password = MD5($_POST['password']);
   $startdate =date('Y-m-d');
@@ -16,6 +18,11 @@
   $other_method = htmlspecialchars($_POST['other_method']); }
   else {$other_method ='';}
   $registration = htmlspecialchars($_POST['registration']);
+  $e_consent= htmlspecialchars($_POST['e_consent']);
+  $e_consent_v= htmlspecialchars($_POST['e_consent_v']);
+  $e_consent_gp= htmlspecialchars($_POST['e_consent_gp']);
+  $e_consent_a= htmlspecialchars($_POST['e_consent_a']);
+  $e_consent_t= htmlspecialchars($_POST['e_consent_t']);
   //add salt in here
   define('IND_SALT', 'RandomString');
    $salt = IND_SALT;
@@ -51,7 +58,7 @@
   if ($email_unique->num_rows>0) {$errors['email']= 'Email already in use'; }  
   else if ($username_unique->num_rows<1 && $email_unique->num_rows<1 ) {
   	
-   $addUser = "INSERT INTO users(username, password, email, pracID, start_date, pref_method, other_method, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', LOWER('" . $email . "'), '". $practice ."', '" . $startdate . "', '". $method ."', '". $other_method ."',  'U', '". $registration ."');";
+   $addUser = "INSERT INTO users(username, password, email, forename, lastname, pracID, start_date, e_consent, e_consent_v, e_consent_a, e_consent_gp, e_consent_t, pref_method, other_method, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', LOWER('" . $email . "'), LOWER('" . $firstname . "'), LOWER('" . $lastname . "'), '". $practice ."', '" . $startdate . "', '" . $e_consent . "', '" . $e_consent_v . "', '" . $e_consent_a . "', '" . $e_consent_gp . "', '" . $e_consent_t . "', '". $method ."', '". $other_method ."',  'U', '". $registration ."');";
  
  // $errors['query']= $addUser;
   //echo $addUser;

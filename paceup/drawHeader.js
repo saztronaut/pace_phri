@@ -1,16 +1,20 @@
   function drawHeader2(week, weekno, comment=''){
-	  if (week!='' && weekno!=''){
+	  //show supplementary BCT and introductory text to go with corresponding week. 
+	  //output thisHeader (the header for the week) blurb (the introductory text for the week) and thisAside (the bulk of the BCT)
+	  
+	  if (week!=''){
 	  var blurb="";
 	  var thisHeader="";
 	  var thisAside="";
+	  var thisTitle="";
 		if (week=='baseline'||week=='getweek1'||week=='delayweek1' || week=='week0'){
-			document.getElementById("thisHeader").innerHTML= "<h2> Baseline week of your walking plan</h2>";
+			thisHeader=  "<h2> Baseline week of your walking plan</h2>";
 			 blurb="<p> Before you start to increase your walking it is important to know how much you are currently doing. \
 				 The best way to do this is for you to wear the pedometer and record our step counts each day for a full week. \
 				  There is often quite a difference between weekends and weekdays, so it is important to try and record for a full week. \
 				   Don&#8217;t try to increase your walking this week, just do what you normally do, or your targets will be too high and too hard for you to achieve</p>";
-				document.getElementById("thisBlurb").innerHTML= blurb;
-		         thisAside="<h3> Frequently asked questions on the PACE-UP trial </h3> \
+		     thisTitle=  "Frequently asked questions on the PACE-UP trial";  
+			 thisAside="<h3> Frequently asked questions on the PACE-UP trial </h3><br> \
 		        		<ul type='circle'> \
 		     	    <li> What day of the week should I start recording? </li><br> \
 		     	    <p><i> You can start whenever you want </i></p> \
@@ -19,19 +23,18 @@
 		     	    <li> How do I know what my target should be? </li><br> \
 				     	    <p><i> You need to wear the pedometer and record your step count for 7 days \
 				     	    to find out what your baseline average should is. This is referred to as your <b>baseline steps</b></i></p>";
-			if (weekno=="0"){
-				 thisAside+= "<p><b> Please note, any changes you now make will not alter your baseline steps</b></p>";}
-				document.getElementById("thisAside").innerHTML= thisAside;
+			//if (weekno=="0"){
+				 //thisAside+= "<p><b> Please note, any changes you now make will not alter your baseline steps</b></p>";}
 			 }
 			else {
 				$getweek=weekno;
-				document.getElementById("thisHeader").innerHTML= "<h2> Week "+ $getweek +" of your walking plan</h2>";
-				console.log("Get week " +$getweek);
+				thisHeader= "<h2> Week "+ $getweek +" of your walking plan</h2>"
 					switch ($getweek){	
     case "1":
 	case 1:					
 				          blurb="<p> Your aim for week 1 is to add in an extra <b>1500</b> steps on three or more days this \
 	week to your baseline steps. One good way to do this is to add in a 15 minute walk.<p>";
+						     thisTitle=  "Tips and motivators 1"; 
 					  thisAside = "<h3> Tips and motivators </h3> <br> \
 	<p> Remember walking should be brisk, but not uncomfortable. Fast enough to make \
 	 you warm and aware of your breathing, but you should still be able to walk and talk. \
@@ -53,7 +56,8 @@
 	case 2:					
 				          blurb="<p> Your aim for week 2 is to add in an extra <b>1500</b> steps on three or more days this \
 	week to your baseline steps. One good way to do this is to add in a 15 minute walk.</p>";
-					  thisAside = "<h3>Tips and motivators</h3> \
+				          thisTitle= "Tips and motivators 2";
+					  thisAside = "<h3>Tips and motivators</h3><br> \
 	<p>Make walking part of your daily routine:<p> <br> \
 	<ul type='circle'> \
 	    <li>Take the stairs when possible, rather than using a lift or escalator </li> \
@@ -78,10 +82,11 @@
 	  <br><p class='text-center'> <i>Walking:  the most ancient exercise and still the best modern exercise.  ~Carrie Latet</i></p>";
 				          break;					
 					  	case "3":		
-	case 3:		
+	                    case 3:		
 				          blurb="<p> Your aim for week 3 is to add in an extra <b>1500</b> steps on five or more days this \
 	week to your baseline steps. One good way to do this is to add in a 15 minute walk.</p>";
-				          thisAside = "<h3>Keep it up!</h3>	\
+				          thisTitle= "Keep it up!";
+				          thisAside = "<h3>Keep it up!</h3><br>	\
 		<p>Remember to praise and reward yourself for any success that you have achieved so far, \
 		no matter how small it seems!  This will help motivate you to keep going.</p>\
 		<p>Examples:</p> \
@@ -97,21 +102,24 @@
 		 	 <li>Join a walking group to meet like-minded walkers and make some new friends at the same time? </li> \
 		 	<li>Walk the dog or a neighbour&#8217;s dog? </li></ul> \
 		 	<form><div class='form-group' id='form3'>\
-		 	<label for = 'comment3'>  My notes </label> \
+		 	<label for = 'comment3'>  Your notes </label> \
 		 	<textarea class='form-control' rows= '4' id='comment3'>"+ comment +"</textarea></div>\
 		 	<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"3\")'>Save</button></form>\
 		    <br><p class='text-center'> <i>People say that losing weight is no walk in the park.  When I hear that I think, yes, that is the problem.  ~Chris Adams </i></p>";
-		    					  	case "4":	
+				          break;
+	
+	case "4":	
 	case 4:	
 				          blurb="<p> Your aim for week 4 is to add in an extra <b>1500</b> steps on five or more days this \
 	week to your baseline steps. One good way to do this is to add in a 15 minute walk.<p>";
-					  thisAside = "<h2> Keep motivated!</h2> \
+				          thisTitle= "Keep motivated!";
+					  thisAside = "<h3> Keep motivated!</h3> <br>\
 	<p>Well done so far!  Are you remembering to give yourself praise and small rewards for any progress that you make?  </p> \
 	<p> Please remember to record your daily step counts.  Seeing the progress you are making in black and white can really help to keep you going. </p> \
 	<p>Asking for support and encouragement from family and friends can also be very helpful for keeping up the changes. </p> \
 	<p>Notice the changes and benefits. What do I notice and what do others see? Pay attention to any compliments! </p> \
 					            		<form><div class='form-group' id='form4'> \
-		 <label for = 'comment4'>  My notes </label> \
+		 <label for = 'comment4'>  Your notes </label> \
 		 <textarea class='form-control' rows= '4' id='comment4'>"+ comment +"</textarea></div>\
 		 <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"4\")'>Save</button></form> \
 			<br><p class='text-center' <i>The best remedy for a short temper is a long walk.  ~Jacqueline Schiff</i></p>";
@@ -121,7 +129,8 @@
 				          blurb="<p> Your aim for week 5 is to add in an extra <b>3000</b> steps on three or more days this \
 	week to your baseline steps.</p> \
 	<p>One good way to do this is to add in a 30 minute walk.<p>";
-					  thisAside = "<h3>Now we are moving!</h3> \
+				          thisTitle= "Now we are moving!";
+					  thisAside = "<h3>Now we are moving!</h3> <br>\
 	<p>Often increasing your walking means planning ahead and overcoming obstacles </p> \
 	<p>Think about some of the obstacles that make you less likely to walk and how you could overcome them: </p> \
 	<p><b>Obstacle:</b>  &#8217I don&#8217t have the time to do a 30 minute walk. I am so pushed for time already &#8217  </p> \
@@ -147,7 +156,8 @@
 				          blurb="<p> Your aim for week 6 is to add in an extra <b>3000</b> steps on three or more days this \
 	week to your baseline steps.</p> \
 	<p>One good way to do this is to add in a 30 minute walk.<p>";
-					  thisAside = "<h3> How to make these changes a permanent part of your life</h3> \
+				          thisTitle= "How to make these changes a permanent part of your life";
+					  thisAside = "<h3> How to make these changes a permanent part of your life</h3><br> \
 	<p><b>Interest: </b> Are there new walks you could try?  Where might you enjoy walking in your local area?  </p> \
 	<ul type='circle'> \
 	<li>The local park </li> \
@@ -170,10 +180,11 @@
 				          blurb="<p> Your aim for week 7 is to add in an extra <b>3000</b> steps on five or more days this \
 	week to your baseline steps.</p> \
 	<p>One good way to do this is to add in a 30 minute walk.<p>";
-					  thisAside = "<h3>Maintain the gain</h3>\
+				          thisTitle= "Maintain the gain";
+					  thisAside = "<h3>Maintain the gain</h3><br>\
        <p>Safe and steady exercise (pacing) gets you fit and keeps you healthy!</p> \
        <p>Many people believe they should only be active on &#8217;good&#8217; days when they feel 100% fit and well.  \
-However, gentle activity has many benefits such as increasing energy, reducing tiredness and improving your mood. </p><br>\
+However, gentle activity has many benefits such as increasing energy, reducing tiredness and improving your mood.</p>\
 <p>If you are tired or under the weather try reducing your walking to a lower level rather than stopping altogether.  \
 Then build up again as you start to feel better.  This will help to build up your fitness steadily over time. </p> \
 <p><b>Tips for safe exercise </b></p> \
@@ -186,18 +197,19 @@ Then build up again as you start to feel better.  This will help to build up you
 <li>Minimise the amount of time you spend being sedentary (sitting)</li> \
 <li>Avoid vigorous activity if you are unwell, injured or fatigued, and check with your doctor if you are unsure</li> </ul>\
 				            		<form><div class='form-group' id='form7'> \
-		 <label for = 'comment7'>  My notes </label> \
+		 <label for = 'comment7'>  Your notes </label> \
 		 <textarea class='form-control' rows= '3' id='comment7'>"+ comment +"</textarea></div>\
 		 <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"7\")'>Save</button></form> \
 <br><p class='text-center'><i>Walking gets the feet moving, the blood moving, the mind moving. And movement is life.</i></p> \
-<p><i>Carrie Latet </i></p>";
+<p class='text-center'><i>Carrie Latet </i></p>";
 				          break;					
 				          					case 8:	
 					case "8":				
 				          blurb="<p> Your aim for week 8 is to add in an extra <b>3000</b> steps on five or more days this \
 	week to your baseline steps.</p> \
 	<p>One good way to do this is to add in a 30 minute walk.</p>";
-				          thisAside = "<h3>Be busy being active!</h3>\
+				          thisTitle= "Be busy being active!";
+				          thisAside = "<h3>Be busy being active!</h3><br>\
 <p>Remember being busy and being active are not the same thing! You can be very busy all day but still\
  get little physical activity. The pedometer helps you to see how active you really are.</p> \
 <p>What makes it easier for you to keep up your walking? </p> \
@@ -213,13 +225,15 @@ Then build up again as you start to feel better.  This will help to build up you
 <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"8\")'>Save</button></form> \
 <p class='text-center'><i> If you are seeking creative ideas, go out walking.  Angels whisper to a man when he goes for a walk.  ~Raymond Inmon  </i></p>";
 					  break;				
-					case 9:					
-				          blurb="<p> Weeks 9-12 of your walking plan are about trying to maintain what you have achieved, \
+					case 9:	
+					case "9":	
+				     blurb="<p> Weeks 9-12 of your walking plan are about trying to maintain what you have achieved, \
 adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of the week</b>.</p> \
 	<p>One good way to do this is to add in a 30 minute walk.</p>\
 <p>If you haven’t achieved this, these weeks are another opportunity for you to achieve this goal.  \
 If you have achieved this, you could try increasing your walking speed.</p>";
-					  thisAside = "<h3>Change does not happen in a straight line!</h3> \
+				     thisTitle= "Change does not happen in a straight line";
+					 thisAside = "<h3>Change does not happen in a straight line!</h3> <br>\
 <p>Successfully making a change like increasing your walking is not a smooth process and usually involves some ups and downs.  \
 Most people experience some setbacks before things pick up again.</p> \
 <p>Don’t get disheartened or give up when you experience a setback - see it as an opportunity for learning what went wrong.  </p>\
@@ -235,12 +249,15 @@ Most people experience some setbacks before things pick up again.</p> \
 		 <textarea class='form-control' rows= '3' id='comment9'>"+ comment +"</textarea></div>\
 		 <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"9\")'>Save</button></form> \
 <br><p class='text-center'><i> The sum of the whole is this: walk and be happy; walk and be healthy. The best way to lengthen out our days is to walk steadily and with a purpose. ~ Charles Dickens</i></p>";
-					  break;
-					case 10:					
+					  
+					 break;
+					case 10:
+					case "10":
 				          blurb="<p> Weeks 9-12 of your walking plan are about trying to maintain what you have achieved, \
 adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of the week</b>.If you have achieved this, you could try increasing your walking speed.</p> \
 	<p>One good way to do this is to add in a 30 minute walk.</p>";
-					  thisAside = "<h3>Make it a Healthy Habit!</h3>\
+				          thisTitle= "Make it a Healthy Habit!";
+					  thisAside = "<h3>Make it a Healthy Habit!</h3><br>\
 <p>Walking at moderate intensity for 30 minutes on 5 or more days per week regularly will bring health benefits. You can increase the health benefits by walking for longer or by walking faster. </p> \
 <p>Alternatively comparable benefits can be achieved through 75 minutes of vigorous intensity activity spread across the week or combinations of moderate and vigorous activity. Vigorous intensity activity will make you warmer and breathe much harder and make your heart beat rapidly, making it difficult to carry on a conversation. Examples include: running, sports such as football or swimming.</p> \
 <br><p><b>Building regular exercise habits </b></p> \
@@ -258,27 +275,31 @@ adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of t
 <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"10\")'>Save</button></form> \
 <br><br><p class='text-center'><i> In every walk with nature one receives far more than he seeks.</i></p> \
 <p class='text-center'><i>~ John Muir</i></p>";
-					  break;	
-					  			case 11:					
+					  break;
+					  			case 11:
+					  			case "11":
 				          blurb="<p> Weeks 9-12 of your walking plan are about trying to maintain what you have achieved, \
 adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of the week</b>.If you have achieved this, you could try increasing your walking speed.</p> \
 	<p>One good way to do this is to add in a 30 minute walk.</p>";
-				          thisAside = "<h3>I’ve Changed!</h3> \
+				          thisTitle= "I've Changed!";
+				          thisAside = "<h3>I’ve Changed!</h3><br> \
 <p>Think about how you will keep up your walking when this programme finishes.  The health benefits will only stay with you if you keep up your regular walking.</p> \
 <p>Have you got a friend you could commit to walking regularly with?</p>\
 <p>Could you join a local walking group or go on local health walks? </p> \
-<p>Why not < a href='#' onclick='redirect(\"./handbook.php\")'> revisit the handbook for some tips on keeping going?</a></p> \
+<p>Why not <a href='#' onclick='redirect(\"./handbook.php\")'> revisit the handbook for some tips on keeping going?</a></p> \
 			<form><div class='form-group' id='form11'> \
 		 <label for = 'comment11'>  My notes </label> \
 		 <textarea class='form-control' rows= '3' id='comment11'>"+ comment +"</textarea></div>\
 		 <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"11\")'>Save</button></form> \
 <br><br><p class='text-center'><i>Thoughts come clearly while one walks.  ~Thomas Mann</i></p> ";
-					  break;	
-					  					case 12:					
+					  break;
+					  					case 12:
+					  					case "12":
 				          blurb="<p> Weeks 9-12 of your walking plan are about trying to maintain what you have achieved, \
 adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of the week</b>.If you have achieved this, you could try increasing your walking speed.</p> \
 	<p>One good way to do this is to add in a 30 minute walk.</p>";
-					  thisAside = "<h3>Congratulations – you have now completed the 12-week walking programme!</h3> \
+				          thisTitle= "How to keep going when your PACE-UP -Next Steps Programme finishes";
+					  thisAside = "<h3>Congratulations – you have now completed the 12-week walking programme!</h3><br> \
 <p>Why not take a few minutes to think about the changes you have made over this time? </p>\
 <p>How long are you walking for each day compared with when you started?  What changes have you made in your daily and weekly step counts?  </p>\
 <p>What are you doing differently?  How have your activities changed?</p> \
@@ -288,16 +309,17 @@ adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of t
 <label for = 'comment12'>  Write some reminders below so you can keep up the changes:</label> \
 <textarea class='form-control' rows= '4' id='comment12' placeholder 'You can use this box to record your reminders'>"+ comment +"</textarea></div>\
 <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"12\")'>Save</button></form> \
-<h3>How to keep going when your <img src=\"images/logo_mini.png\"> walking programme finishes </h3> \
+<h3>How to keep going when your <img src=\"images/logo_mini.png\"> walking programme finishes </h3> <br>\
 <ul type='circle'> <li>Keep the habit of going for a 30 minute walk or doing 30 minutes of other moderate activity to keep up your step-count, most days of the week.</li> \
  <li>Keep your pedometer and use it sometimes to show you how active you are. It is easy to be very busy without being very active, the pedometer shows you accurately how many steps you are taking.</li> \
 <li>Remind yourself about what you have achieved by increasing your activity and any positive benefits it has had on your health, weight, mood, sleeping etc. This may motivate you to keep up good habits, or to try again if you feel you have slipped back.</li> \
  <li>Enlist a friend or family member to walk with you, it is easier to walk regularly and walk further if you have some company.</li> \
 <li>Try out new walks near you or think about a walking group, the websites listed have lots of ideas for local walks, or your local library will have information.</li> </ul>";
-					  break; 
-					  default:					
+					  break;
+					  default:	
+						  thisTitle= "How to keep going when your PACE-UP -Next Steps Programme finishes";
 				      blurb="<p> Congratulations – you have now completed the 12-week walking programme!</p>";
-					  thisAside = "<h3>How to keep going when your <img src='images/logo_mini.png'> walking programme finishes </h3>\
+					  thisAside = "<h3>How to keep going when your <img src='images/logo_mini.png'>-Next Steps walking programme finishes </h3><br>\
 					  <ul type='circle'> <li>Keep the habit of going for a 30 minute walk or doing 30 minutes of other moderate activity to keep up your step-count, most days of the week.</li> \
 					   <li>Keep your pedometer and use it sometimes to show you how active you are. It is easy to be very busy without being very active, the pedometer shows you accurately how many steps you are taking.</li> \
 					   <li>Remind yourself about what you have achieved by increasing your activity and any positive benefits it has had on your health, weight, mood, sleeping etc. This may motivate you to keep up good habits, or to try again if you feel you have slipped back.</li> \
@@ -309,10 +331,15 @@ adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of t
 					   <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"12\")'>Save</button></form> ";
 
 					  }
-				document.getElementById("thisBlurb").innerHTML= blurb;
-			document.getElementById("thisAside").innerHTML= thisAside;
 			}
+		var draw=[];
+		draw['blurb']= blurb;
+		draw['thisAside']= thisAside;
+		draw['thisHeader']= thisHeader;
+		draw['thisTitle']= thisTitle;
+		return draw;
 			}
+	  
 				
 	}
       	

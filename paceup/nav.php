@@ -7,11 +7,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">PACE-UP</a>
+      <a class="navbar-brand" href="#"><p><img src="images/logo_mini.png"></p></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">HOME</a></li>
+        <li><a href="#">HOME</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MY STEPS <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -30,7 +30,8 @@
        <ul class="dropdown-menu">
              <li><a href="#" onclick='redirect("./links.php")'><span id="links">LINKS</span></a></li>
              <li><a href="#" onclick='redirect("./handbook.php")'><span id="handbook">HANDBOOK</span></a></li>
-            <li><a href="#"><span id="documents">DOCUMENTS</span></a></li>       
+             <li><a href="#" onclick='redirect("./diary.php")'><span id="diary">DIARY</span></a></li>
+            <li><a href="#" onclick='redirect("./information_sheet.php")'><span id="informationsht">INFORMATION SHEET</span></a></li>       
           </ul>
         </li>
        </ul>
@@ -42,12 +43,6 @@
   </div>
 </nav>
 <script>
-
-//var getlinks = document.getElementById("links");
-//getlinks.addEventListener("click", redirect("links.php"));
-
-//var recordsteps = document.getElementById("recordsteps");
-//recordsteps.addEventListener("click", redirect("steps.php"));
 
 function redirect(gothere){
 	console.log(gothere);

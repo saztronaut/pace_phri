@@ -43,7 +43,6 @@
 	$today = date('Y-m-d');
 	$today_str = strtotime($today);
 
-
 	$get_week= "SELECT n_t, latest_t, steps, days 
 			    FROM targets as t, 
                (SELECT COUNT(*) as n_t, MAX(date_set) as latest_t FROM targets WHERE username='". $username ."' ORDER BY date_set) as a 
@@ -93,7 +92,7 @@
 					$w=$w+1;
 					$results['week']="week".$w;
 					// if the target was set more than 2 weeks ago, you need a new target
-					if ((strtotime('+14 days', $latest_t)<$today_str)){
+					if ((strtotime('+14 days', $latest_t)<=$today_str)){
 						$n=$row['n_t'];
 				    updateTarget($n, $username, $latest_t, $row['steps']);	
 					}
@@ -168,7 +167,7 @@ function updateTarget($numt, $username, $latest_t, $steps)
 			$endEvenWeek = "SELECT COUNT(*) as achieved, days, DATE_ADD(date_set, INTERVAL 14 DAY) as date14
 					FROM readings as r,
 					(SELECT username, steps as target, date_set, days  FROM targets WHERE username='". $username ."' AND date_set=(SELECT MAX(date_set) as latest_t FROM targets WHERE username='". $username ."' ORDER BY date_set DESC)) as t
-					WHERE r.username=t.username AND r.date_read between DATE_ADD(date_set, INTERVAL 6 DAY) AND DATE_ADD(date_set, INTERVAL 13 DAY) AND r.steps>=t.target;";
+					WHERE r.username=t.username AND r.date_read between DATE_ADD(date_set, INTERVAL 7 DAY) AND DATE_ADD(date_set, INTERVAL 13 DAY) AND r.steps>=t.target;";
 			$getEndWeek= mysqli_query($connection, $endEvenWeek);
 			$row2 = mysqli_fetch_array($getEndWeek);
 			$achieved = $row2['achieved'];

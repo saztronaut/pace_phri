@@ -11,7 +11,7 @@
     	if  (isset($_SESSION['username']) && $_SESSION['username']!=''){
     	}
     	else {// if there is no username, don't show the steps form
-    		if ($_SESSION['choose_form']=='./steps.php'||$_SESSION['choose_form']=='./stepHistory.php'){
+    		if ($_SESSION['choose_form']=='./steps.php'||$_SESSION['choose_form']=='./stepHistory.php'||$_SESSION['choose_form']=='./admin.php'||$_SESSION['choose_form']=='./downloadData.php'||$_SESSION['choose_form']=='./diary.php'){
     			$_SESSION['choose_form']='./landing_text.php';
     			header('Refresh: 1; URL = ./main_index.php');
     		}

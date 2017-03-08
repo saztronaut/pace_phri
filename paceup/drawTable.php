@@ -86,15 +86,16 @@ else{ // Non baseline view - show values from the last target set, i.e. in "week
 }
 //If you are showing more than a week, you want to display the table twice, split byt
 if ($end>6){
-	$n_show= CEIL($end/7); //how many tables to show
+	//echo $end;
+	$n_show= CEIL(($end+1)/7); //how many tables to show
 	//If $n_show is higher than 2 this will end up displaying a lot of data 
 	// $n_show is the number of weeks you want to show
 	if ($iseven==1){$bump=1;} else {$bump=0;}
 	//$x is an integer between 0 and $n_show.
 	for ($x = 0; $x <$n_show; $x++) {
 	if ($x==0){
-		$thisend=($end % 7)-1; //how many days to show in the table
-	    $get_start =strtotime("+". (($n_show-$x)*7)+$thisend+1 . " days", $latest_t);
+		$thisend=($end % 7); //how many days to show in the table
+	    $get_start =strtotime("+". (($n_show-$x)*7)+$thisend . " days", $latest_t);
 	    //$get_start is the first day of the week displayed (??)
 		if ($bump==1){
 			$new_week =date('Y-m-d', strtotime("+". (($n_show)*7) . " days", $latest_t));
@@ -103,23 +104,23 @@ if ($end>6){
 			echo "<button type='button' class='btn btn-default' id='increaseT' onclick=\"javascript:incTarget('".$new_week."')\">Click here to move onto the next target</button></div></form></b></p>";
 		}
 	    if ($ispast==1){
-	    	echo "<p><b>Last week</b></p>";
+	    	echo "</br><h4><b>Last week</b></h4>";
 	    }
 	    else{
-		    echo "<p><b>This week</b></p>";}
+		    echo "</br><h4><b>This week</b></h4>";}
 
 	drawTable($thisend, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline, $weekno, $ispast);
 	}
 	else {
 		if ($ispast==1){
 			// If p is looking at steps for a time in the past, then tense as such
-			echo "<p><b>".$x ." week prior</b></p>";;
+			echo "</br></br><h4><b>".$x ." week prior</b></h4>";;
 		}
 		else{
 			// If it is the same week as the week shown, talk about time from now
-			echo "<p><b>".$x ." week ago</b></p>";}
+			echo "</br></br><h4><b>".$x ." week ago</b></h4>";}
 	
-	$get_start =strtotime("+". (($n_show-$x)+1)*7 . " days", $latest_t) ;
+	$get_start =strtotime("+". ((($n_show-$x)+1)*7)-1 . " days", $latest_t) ;
 	$ispast=1;
 	drawTable(6, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline,$weekno,  $ispast);}
 	// separate by week

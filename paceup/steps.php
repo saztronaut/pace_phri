@@ -60,7 +60,13 @@
 			if (weekdata['refresh']=='yes'){
 			window.location.reload(true);
 			}
-          drawHeader2(weekdata['week'], weekdata['weekno'], weekdata['comment']);
+
+          var header = drawHeader2(weekdata['week'], weekdata['weekno'], weekdata['comment']);
+          //console.log(header);
+          document.getElementById("thisHeader").innerHTML= header['thisHeader'];
+          document.getElementById("thisAside").innerHTML= header['thisAside'];
+          document.getElementById("thisBlurb").innerHTML= header['blurb'];
+          
       	  var xhr2 = new XMLHttpRequest();
       	  ///create a string to parse to build the able
       	  myString="week=" + weekdata['week'];
@@ -275,6 +281,7 @@
 			  }
 	  }
 	  }
+  
   function updateMethods(input){
 	  var nudge = input.slice(-(input.length-6));
 	  document.getElementById('method_message').innerHTML= "Using different devices to collect your steps data can give readings that differ. It is best to stick to the same device";
