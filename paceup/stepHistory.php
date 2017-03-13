@@ -4,7 +4,7 @@
 <div class= "jumbotron">
 <h2>Your progress on PACE-UP Next Steps </h2>
 </div></div>
-<div class="container-fluid"> 
+<div class="container-fluid-extrapad"> 
 <div class = "row">
 <div class = "col-md-2"> <p id="thisAvg_0"></p></div>
 <div class = "col-md-6"> <span id="thisTable_0">Your steps should appear here</span> </div>

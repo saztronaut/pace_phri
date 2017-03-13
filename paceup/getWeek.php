@@ -192,7 +192,7 @@ function updateTarget($numt, $username, $latest_t, $steps)
 			$endEvenWeek = "SELECT COUNT(*) as achieved, days, DATE_ADD(date_set, INTERVAL ". $int_days ." DAY) as date14
 					FROM readings as r,
 					(SELECT username, steps as target, date_set, days  FROM targets WHERE username='". $username ."' AND date_set=(SELECT MAX(date_set) as latest_t FROM targets WHERE username='". $username ."' ORDER BY date_set DESC)) as t
-					WHERE r.username=t.username AND r.date_read between DATE_ADD(date_set, INTERVAL ". $int_days-7 ." DAY) AND DATE_ADD(date_set, INTERVAL ". $int_days-1 ." DAY);";
+					WHERE r.username=t.username AND r.date_read between DATE_ADD(date_set, INTERVAL ". ($int_days-7) ." DAY) AND DATE_ADD(date_set, INTERVAL ". ($int_days-1) ." DAY);";
 			$getEndWeek= mysqli_query($connection, $endEvenWeek);
 			$row2 = mysqli_fetch_array($getEndWeek);
 			$achieved = $row2['achieved'];

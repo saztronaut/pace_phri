@@ -1,7 +1,7 @@
 <div class='jumbotron text-center'>
 <h1>PACE-UP - Next Steps</h1>
 <p> Handbook</p> </div>
-<div class="container-fluid">
+<div class="container-fluid-extrapad">
 <div class="panel-group" id="accordion">
 <div class="panel panel-default">
 <div class="panel-heading">
