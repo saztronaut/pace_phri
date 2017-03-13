@@ -2,11 +2,10 @@
   <a href="#myPage" title="To Top">
     <span class="glyphicon glyphicon-chevron-up"></span>
   </a>
- <p> <img src="images/logo.png" class="img-noborder"  alt="logo">
-  </p> 
-	  <img src="images/pctu.png" class="img-noborder" alt="PCTU logo"> 
-	  <img src="images/sgul.png" class="img-noborder" alt="SGUL logo"> <br>
-	<br><p>The original project was funded by the National Institute for Health Research under the Health Technology Assessment Programme (project number 10/32/02).</p>
-	<p>This online implementation was funded by <b>CLARHC</b> </p>
+<div class= "row"> <div  class = "col-lg-6"> <p> <img src="images/puns.png" class="img-noborder"  alt="logo"></div>
+<div  class = "col-lg-6 "><div class="well"><div class="row"><div  class = "col-sm-6  col-lg-7"><div class="row"><div  class = "col-lg-6"><p><i> Supported by: </i></p></div> <!-- col-->
+	  <div  class = "col-lg-6"><p><img src="images/sgul.png" class="img-noborder" alt="SGUL logo"> </p></div></div></div>
+	  <div  class = "col-sm-6 col-lg-5"><p><img src="images/nihr.png" class="img-noborder" alt="NiHR support"></p></div><!-- col --></div><!-- row --> </div><!-- well --></div> <!-- row --></div>
+	<br><p>The research is supported by the National Insitute for Health research (NIHR) Collaboration for Leadership in Applied Health Research and Care (CLAHRC) South London at King's College Hospital NHS Foundation Trust. The research is funded by St George's, University of London Strategic Investment Fund</p>
 	<p><a href="#" onclick='redirect("./cookies.php")'>Cookies </a> <a onclick='redirect("./privacy.php")'>Privacy </a></p>
 </footer>

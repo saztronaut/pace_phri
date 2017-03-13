@@ -4,7 +4,7 @@
 <span id="thisHeader">Introduction to the week here</span>
 <span id="thisBlurb">Explanation of the week here</span>
 </div></div>
-<div class="container-fluid"> <div class = "row">
+<div class="container-fluid-extrapad"> <div class = "row">
 <div class = "col-md-7"> <h3>You can record your step counts here.</h3> <span id="thisTable">Your steps should appear here</span> </div>
 <div class = "col-md-5"> <p id="thisAside"><span id="thisTable">Message to motivate you should appear here</span> </p></div>
 </div></div>
@@ -316,10 +316,14 @@
 	        	  }      	  
 	          });
 			
-          drawHeader2(weekdata['week'], viewWeek, weekdata['comment']);
+          var header= drawHeader2("week"+viewWeek, viewWeek, weekdata['comment']);
+          document.getElementById("thisHeader").innerHTML= header['thisHeader'];
+          document.getElementById("thisAside").innerHTML= header['thisAside'];
+          document.getElementById("thisBlurb").innerHTML= header['blurb'];
+          
       	  var xhr2 = new XMLHttpRequest();
       	  ///create a string to parse to build the table
-      	  myString="week=" + weekdata['week'];
+      	  myString="week=week" + viewWeek;
       	  myString+="&weekno=" + viewWeek;
       	  myString+="&steps=" + weekdata['steps'];     	  
       	  myString+="&latest_t=" + weekdata['latest_t'];

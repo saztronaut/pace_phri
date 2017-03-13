@@ -23,6 +23,9 @@
   $e_consent_gp= htmlspecialchars($_POST['e_consent_gp']);
   $e_consent_a= htmlspecialchars($_POST['e_consent_a']);
   $e_consent_t= htmlspecialchars($_POST['e_consent_t']);
+  $age= htmlspecialchars($_POST['age']);
+  $gender= htmlspecialchars($_POST['gender']);
+  $ethnicity= htmlspecialchars($_POST['ethnicity']);
   //add salt in here
   define('IND_SALT', 'RandomString');
    $salt = IND_SALT;
@@ -58,7 +61,7 @@
   if ($email_unique->num_rows>0) {$errors['email']= 'Email already in use'; }  
   else if ($username_unique->num_rows<1 && $email_unique->num_rows<1 ) {
   	
-   $addUser = "INSERT INTO users(username, password, email, forename, lastname, pracID, start_date, e_consent, e_consent_v, e_consent_a, e_consent_gp, e_consent_t, pref_method, other_method, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', LOWER('" . $email . "'), LOWER('" . $firstname . "'), LOWER('" . $lastname . "'), '". $practice ."', '" . $startdate . "', '" . $e_consent . "', '" . $e_consent_v . "', '" . $e_consent_a . "', '" . $e_consent_gp . "', '" . $e_consent_t . "', '". $method ."', '". $other_method ."',  'U', '". $registration ."');";
+   $addUser = "INSERT INTO users(username, password, email, forename, lastname, pracID, start_date, e_consent, e_consent_v, e_consent_a, e_consent_gp, e_consent_t, pref_method, other_method, age, gender, ethnicity, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', LOWER('" . $email . "'), LOWER('" . $firstname . "'), LOWER('" . $lastname . "'), '". $practice ."', '" . $startdate . "', '" . $e_consent . "', '" . $e_consent_v . "', '" . $e_consent_a . "', '" . $e_consent_gp . "', '" . $e_consent_t . "', '". $method ."', '". $other_method ."', '". $age ."', '". $gender ."', '". $ethnicity ."',  'U', '". $registration ."');";
  
  // $errors['query']= $addUser;
   //echo $addUser;
@@ -67,7 +70,7 @@
       $_SESSION['valid'] = true;
       $_SESSION['timeout'] = time();
       $_SESSION['username'] = $username;
-      $_SESSION['choose_form']='./steps.php';
+      $_SESSION['choose_form']='./intro.php';
          header('Refresh: 0; URL = main_index.php');
     }
    

@@ -51,7 +51,13 @@ function makeRequest(url, data) {
 
 function validateRegistration(myform) {
 	var validate = 1;
-    if (validateUser()==0){
+    if (validateUser('username')==0){
+    	validate=0;
+    }
+    if (validateUser('firstname')==0){
+    	validate=0;
+    }
+    if (validateUser('lastname')==0){
     	validate=0;
     }
 	if (validateEmail('user_email')==0){
@@ -64,39 +70,62 @@ function validateRegistration(myform) {
 		document.getElementById('steps').value="PED";
 	}
 	if (document.getElementById('registration')==""){
-		validate=0
+		  giveFeedback(registration, "Please enter a registration code", true);			
+		validate=0;
 	}
 
 	return validate;
  }
 	
-function validateUser(){
-	if (document.getElementById("username").value==''){
-		  giveFeedback('username', "Please enter a username", true);			
+function validateUser(givename){
+	
+    var AZ09 = new RegExp("^[a-zA-Z0-9_]*$");
+    var AZ_space = new RegExp("^[a-zA-Z ]*$");
+	if (document.getElementById(givename).value==''){
+		  giveFeedback(givename, "Please enter a "+givename, true);			
 		return 0;
 	}
-	else {
-		  giveFeedback('username', "", false);	
+   // Check for white space
+	else if (givename=='username') { 
+		if(AZ09.test(document.getElementById(givename).value)) {
+        //alert("Please Check Your Fields For Spaces");
+        return 1;
+    } else { 
+		  giveFeedback(givename, "Please use only letters and numbers in your username", true);
+    	return 0;}}
+
+	else if (AZ_space.test(document.getElementById(givename).value)) {
+		  giveFeedback(givename, "", false);	
 		  return 1;
-	}
+	} else { 
+			  giveFeedback(givename, "Please use only letters in your name", true);
+	    	return 0;}
 }
 
 function validateCopy(copy_pass, pass) {
 	var passwordmatch = 0;
+	var valid= 0;
+	var minlength = new RegExp("^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9!$%@#£€*?&]{8,}$");
 	if (pass==""){
 		  giveFeedback('password', "Please enter a password", true);
 	}
-	else{
+	else {
 		 giveFeedback('password', "", false);
 	}
-	if (pass==copy_pass && pass!='') {
+    if (minlength.test(pass)){
+    	valid=1;
+	   if (pass==copy_pass && pass!='') {
 		passwordmatch=1;
+		giveFeedback('password', "", false);
 	   giveFeedback('cpassword', "", false);
-	}
-	else {
-	   giveFeedback('cpassword', "Please make sure both passwords match", true);
-	}	
-  return passwordmatch;
+	          }
+	   else {
+	      giveFeedback('cpassword', "Please make sure both passwords match", true);
+	   }	
+       }
+    else {giveFeedback('password', "Password must be at least 8 characters long and contain at least 1 letter and 1 number", true);}
+  
+    return passwordmatch;
 	
 }
 
@@ -139,7 +168,7 @@ function getOther(methodv){
         $showother+='<input type="text" class="form-control" placeholder="Enter other method of recording seps" name="other_method" id="other_method"> </div>';
          document.getElementById('method_other_span').innerHTML= $showother;
     }
-    else {    show_other=document.getElementById('method_other_span').innerHTML='';}
+    else {show_other=document.getElementById('method_other_span').innerHTML='';}
 
 }
 
@@ -152,32 +181,44 @@ function getConsent(action, data){
 	      if(xhr.readyState == 4 && xhr.status == 200) {
 	        var result = xhr.responseText;
 	        console.log('Result: ', result);
-	        if (result==2 || result==""){
-            	//the registration code as not valid	        	
-	        }
-	        else{ 
+	        var consent='';
+	        var valid=1;
+	        var json = JSON.parse(result, function(key, value) {
+	        	  if (key=="consent"){
+	        		  consent=value;
+	        	  }
+	          	  else if (key=="msg"){	 ; 
+	        	  }
+	        	  else if (key=="email"|| key=="username"){
+	        		  giveFeedback(key, value, true);
+	        		  valid=0;
+	        	  }
+	          })
+
+	        //only show modal popup if the data on the first form is valid
+	        if (valid==1 && (consent==1||consent==0)){ 
 	       	 var getconsent= "<form> <div class='form-group' id='consent-form'>";
 	    	 // if the registration code has a consent form recorded, only ask for consent in terms of the website. 
-	    	 getconsent+="<strong>Please read the form carefully and check each box to state you agree</strong><br>";
+	    	 getconsent+="<strong>Please read the form carefully and check each box to state you agree (* must be checked)</strong><br>";
 	        
-	        if (result==1){;
+	        if (consent==1){;
             	//this user has already signed consent
-       	 getconsent+="<div class='row'> <div class='col-md-10'><p>I agree to take part in PACE-UP Next Steps</p></div>";
+       	 getconsent+="<div class='row'> <div class='col-md-10'><p>I agree to take part in PACE-UP Next Steps *</p></div>";
     	 getconsent+="<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_a'><br></div></div></div>";
-	   	 getconsent+="<div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a></p></div>";
+	   	 getconsent+="<div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a> *</p></div>";
 		 getconsent+="<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='privacy'><br></div></div></div>";
-		 getconsent+="<div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a> </p></div>";
+		 getconsent+="<div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a> * </p></div>";
 		 getconsent+="<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='cookies'><br></div></div></div>";
             }
-            else if (result==0){//this user has not signed consent
+            else if (consent==0){//this user has not signed consent
            	 //read and understood
-           	 getconsent+='<div class="row"> <div class="col-md-10"> <p>I have read and understood the Patient Information Sheet for PACE-UP Next Steps. I have had the opportunity to consider the information</p></div>';
+           	 getconsent+='<div class="row"> <div class="col-md-10"> <p>I have read and understood the Patient Information Sheet for PACE-UP Next Steps. I have had the opportunity to consider the information *</p></div>';
         	 getconsent+="<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent'><br></div></div></div>";
         	 //my participation is voluntary
-        	 getconsent+="<div class='row'> <div class='col-md-10'><p>I understand that my participation is voluntary and that I am free to withdraw at any time, without giving any reason, without my medical care or legal rights being affected</p></div>";
+        	 getconsent+="<div class='row'> <div class='col-md-10'><p>I understand that my participation is voluntary and that I am free to withdraw at any time, without giving any reason, without my medical care or legal rights being affected *</p></div>";
         	 getconsent+="<div class='col-md-2'> <div class='checkbox'> <input type='checkbox' value='1' id='e_consent_v'><br></div></div></div>";
         	 //agree to participate
-        	 getconsent+="<div class='row'> <div class='col-md-10'><p>I agree to take part in PACE-UP Next Steps</p></div>";
+        	 getconsent+="<div class='row'> <div class='col-md-10'><p>I agree to take part in PACE-UP Next Steps *</p></div>";
         	 getconsent+="<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_a'><br></div></div></div>";
         	 //GP records
         	 getconsent+="<div class='row'> <div class='col-md-10'><p>I give permission for my GP records to be looked at by responsible individuals from St Georges, University of London </p></div>";
@@ -185,69 +226,88 @@ function getConsent(action, data){
         	 //agree to contact
         	 getconsent+="<div class='row'> <div class='col-md-10'><p>I agree to being contacted for a short telephone interview about my physical activity and taking part in this study, if I am selected for this </p></div>";
         	 getconsent+="<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_t'><br></div></div></div>";	
-    	   	 getconsent+="<div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a></p></div>";
+    	   	 getconsent+="<div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a> *</p></div>";
     		 getconsent+="<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='privacy'><br></div></div></div>";
-    		 getconsent+="<div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a> </p></div>";
+    		 getconsent+="<div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a> *</p></div>";
     		 getconsent+="<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='cookies'><br></div></div></div>";             
         	 getconsent+="<a href='#' data-toggle='tooltip' title=''><strong> Please complete this information</strong></a>";
     		 getconsent+="<div class='row'> <div class='col-md-1'></div> <div class='col-md-3'><strong> Gender </strong>";
-             getconsent+="<label class='checkbox'><input type='checkbox' value='F'> Female</label>";
-             getconsent+="<label class='checkbox'><input type='checkbox' value='M'> Male</label></div>";
+             getconsent+="<div class='radio'><label><input type='radio' value='F' name='gender'> Female</label></div>";
+             getconsent+="<div class='radio'><label><input type='radio' value='M' name='gender'> Male</label></div></div>";
              getconsent+="<div class='col-md-4'><strong> Ethnicity </strong>";
-             getconsent+="<label class='checkbox'><input type='checkbox' id='ethnicity' value='W'> White</label>";
-             getconsent+="<label class='checkbox'><input type='checkbox' id='ethnicity'  value='M'> Mixed/multiple ethnicities</label>";
-             getconsent+="<label class='checkbox'><input type='checkbox' id='ethnicity'  value='A'> Asian/Asian British</label>";
-             getconsent+="<label class='checkbox'><input type='checkbox' id='ethnicity'  value='B'> Black/African/Caribbean/Black British</label>";
-             getconsent+="<label class='checkbox'><input type='checkbox' id='ethnicity'  value='O'> Other ethnic group</label></div>";
+             getconsent+="<div class='radio'><label><input type='radio' value='W' name='ethnicity'> White</label></div>";
+             getconsent+="<div class='radio'><label><input type='radio' value='M' name='ethnicity'> Mixed/multiple ethnicities</label></div>";
+             getconsent+="<div class='radio'><label><input type='radio' value='A' name='ethnicity'> Asian/Asian British</label></div>";
+             getconsent+="<div class='radio'><label><input type='radio' value='B' name='ethnicity'> Black/African/Caribbean/Black British</label></div>";
+             getconsent+="<div class='radio'><label><input type='radio' value='O' name='ethnicity'> Other ethnic group</label></div></div>";
              getconsent+="<div class='col-md-4'><strong> Age </strong>";
-             getconsent+="<label class='checkbox'><input type='checkbox' id='age' value='40'> 40-59 years</label>";
-             getconsent+="<label class='checkbox'><input type='checkbox' id='age'  value='60'> 60-74 years </label>";
-             getconsent+="<label class='checkbox'><input type='checkbox' id='age'  value='75'> 75 years and older</label></div></div>";
-           
+             getconsent+="<div class='radio'><label><input type='radio' value='40' name='age'> 40-59 years</label></div>";
+             getconsent+="<div class='radio'><label><input type='radio' value='60' name='age'> 60-74 years </label></div>";
+             getconsent+="<div class='radio'><label><input type='radio' value='75' name='age'> 75 years and older</label></div></div></div>";
+             getconsent+="<span id='modal_feedback'></span>";
             }
 
 		 getconsent+="</div></form></div>";
 		 getconsent+='<div class="modal-footer">';
-		 getconsent+='<button type="button" class="btn btn-default" onclick="continueConsent(\''+ action +'\',\''+ data +'\',\''+ result+'\')"> Continue </button></div>';
+		 getconsent+='<button type="button" class="btn btn-default" onclick="continueConsent(\''+ action +'\',\''+ data +'\',\''+ consent+'\')"> Continue </button></div>';
 		 console.log(data);
 		 document.getElementById('consent_message').innerHTML= getconsent;
 		 $('#consentModal').modal('show');
             
-	      }
-	    }}
+	      } else if (consent==2||consent==""){
+	        	console.log(consent);
+	        	giveFeedback('registration', 'Sorry, this registration code is not valid', true);	        	
+	        }
+	    }	        	  
+    
+	   }
 	  xhr.send(data);	  
               	
 	  }
 
 function continueConsent(action, data, result){
-
+	 
+	  console.log(data);
 	  var form = document.getElementById("consent-form");
-	  var cookies= document.getElementById("cookies").value;
-	  var privacy= document.getElementById("privacy").value;
-	  var e_consent_a= document.getElementById("e_consent_a").value;
+	  if (document.getElementById("cookies").checked){ var cookies=1 ;} else { var cookies=0 ;}
+	  if (document.getElementById("privacy").checked){ var privacy=1 ;} else { var privacy=0 ;}
+	  if (document.getElementById("e_consent_a").checked){ var e_consent_a=1 ;} else { var e_consent_a=0 ;}
+	  console.log(e_consent_a);
 	  var consented=0;
-	  if (result==1 && privacy=='1' && cookies=='1' && e_consent_a=='1'){
+	  if (result==1 && privacy==1 && cookies==1 && e_consent_a==1){
 		  var e_consent='';
 		  var e_consent_gp='';
 		  var e_consent_t='';
 		  var e_consent_v='';
+		  var age ='';
+	      var ethnicity = '';
+		  var gender='';
 		  consented=1;
 	  }
 	  else if (result==0){
-		  var e_consent= document.getElementById("e_consent").value;
-		  var e_consent_v= document.getElementById("e_consent_v").value;
-		  var e_consent_gp= document.getElementById("e_consent_gp").value;
-		  var e_consent_t= document.getElementById("e_consent_t").value;
-	   if (e_consent=='1' && e_consent_v=='1' && e_consent_a=='1' && e_consent_gp=='1' && e_consent_t=='1' && privacy=='1' && cookies=='1'){
+		  if (document.getElementById("e_consent").checked){ var e_consent=1 ;} else { var e_consent=0 ;}
+		  if (document.getElementById("e_consent_gp").checked){ var e_consent_gp=1 ;} else { var e_consent_gp=0 ;}
+		  if (document.getElementById("e_consent_v").checked){ var e_consent_v=1 ;} else { var e_consent_v=0 ;}
+		  if (document.getElementById("e_consent_t").checked){ var e_consent_t=1 ;} else { var e_consent_t=0 ;}
+		  var age = $('input[name=age]:checked').val();
+		  var gender = $('input[name=gender]:checked').val();
+		  var ethnicity = $('input[name=ethnicity]:checked').val();
+		  //age = age.value;
+		  //var gender = document.getElementsByName("gender").checked;
+		  //gender =gender.value;
+		  //var ethnicity = document.getElementsByName("ethnicity").checked;
+		  //ethnicity =ethnicity.value;
+	   if (e_consent=='1' && e_consent_v=='1' && e_consent_a=='1' && e_consent_gp=='1' && privacy=='1' && cookies=='1'){
 		  consented=1;}
 	  }
 	  if (consented==1){
-		  var consentdata ="e_consent="+e_consent+"&e_consent_v="+e_consent_v+"&e_consent_a="+e_consent_a+"&e_consent_gp="+e_consent_gp+"&e_consent_t="+e_consent_t;
+		  var consentdata ="e_consent="+e_consent+"&e_consent_v="+e_consent_v+"&e_consent_a="+e_consent_a+"&e_consent_gp="+e_consent_gp+"&e_consent_t="+e_consent_t + "&age="+age+"&gender="+gender+"&ethnicity="+ethnicity;
 	  console.log(consentdata);
 	  //check is filled out? 
 	  data+="&"+consentdata;
 	  console.log(data);
 	  makeRequest(action, data);}
+	  else { document.getElementById('modal_feedback').innerHTML="<strong>Please fill out all the fields</strong>"}
 	
 }
 

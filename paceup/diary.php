@@ -97,7 +97,7 @@ function drawDiary (){
 <p>Your Twelve Week Diary</p>
 </div> <!-- jumbotron -->
 </div> <!-- container -->
-<div class="container-fluid">
+<div class="container-fluid-extrapad">
 <div class="row">
 <div class="col-sm-5" id="sidebar" class="well sidebar-nav">
 <span id="pills"></span>

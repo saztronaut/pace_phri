@@ -16,3 +16,7 @@
     <span class='glyphicon glyphicon-user logo' onclick="javascript:redirect('./downloadData.php')" ></span></div>
   </div>
 </div>
+
+<script> 
+// make the page check the individual is logged in
+</script>
