@@ -2,7 +2,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#"><p><img src="images/puns_tiny.png"></p></a>
+      <a class="navbar-brand" href="#"><img src="images/puns_tiny.png"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -10,7 +10,7 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MY STEPS <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"  onclick='redirect("./steps.php")'><span id="recordsteps">RECORD STEP COUNT</span></a></li>
+            <li><a href="#"  onclick='redirect("./steps2.php")'><span id="recordsteps">RECORD STEP COUNT</span></a></li>
             <li><a href="#" onclick='redirect("./stepHistory.php")'><span id="reviewsteps">REVIEW STEP HISTORY</span></a></li>
           </ul>
         </li>
@@ -52,5 +52,24 @@ function redirect(gothere){
 	  }
 	  xhr.send(dataString);  
 	}
-	
+
+
+function doXHR(url, callback, data=null){
+	  var xhr = new XMLHttpRequest();
+	  xhr.open ("POST", url, true);
+	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");  
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState == 4	&& xhr.status ==200) {
+	      // defensive check
+
+	      if (typeof callback == "function") {
+	        // apply() sets the meaning of "this" in the callback
+	        console.log("callback "+xhr.responseText);
+	        callback.apply(xhr);
+	      }
+	    }
+	  }
+	  // send the request *after* the event handler is defined 
+	  xhr.send(data);
+	}
 </script>

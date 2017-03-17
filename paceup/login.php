@@ -29,7 +29,7 @@
 				if ($row['roleID']=="R"||$row['roleID']=="S"){
 					$_SESSION['choose_form']= 'admin.php';
 			}   else{     
-                  $_SESSION['choose_form']= 'steps.php';
+                  $_SESSION['choose_form']= 'steps2.php';
 			}
                    $msg= 1;
                      header('Refresh: 0; URL = main_index.php');

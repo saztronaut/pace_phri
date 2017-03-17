@@ -30,7 +30,7 @@
         <input type="password" class="form-control" placeholder="Retype Password" name="cpassword" id="cpassword">        
         <span id= "cpassword_span"></span></div>
 		<div class="form-group" id="method_div">
-		<?php include 'method.php'; ?>
+		<!-- ?php include 'method.php'; ? remove php inserts from the code-->
 		<span id= "method_span"></span>
 		</div>	
 	    <span id= "method_other_span"></span>
@@ -66,4 +66,4 @@
 </div>
 
   <script src="register.js"> </script>
-
+<script src="drawMethodsSelect.js"> </script>

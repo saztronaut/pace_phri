@@ -70,6 +70,7 @@
       $_SESSION['valid'] = true;
       $_SESSION['timeout'] = time();
       $_SESSION['username'] = $username;
+      $_SESSION['roleID'] = $row['U'];
       $_SESSION['choose_form']='./intro.php';
          header('Refresh: 0; URL = main_index.php');
     }
