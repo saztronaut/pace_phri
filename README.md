@@ -5,11 +5,14 @@ Files are written in php, html and javascript. Currently they run in WAMP with a
 
 ## Branding
 PACE-UP spelled with capitals
-Logos for SGUL, PACE-UP and XXX should be included at the bottom of all documents
+From logo - Purple is hex #723F97, Green is hex #72C049
+Limit references to trial (confusing)
+Supported by SGUL logo, "Supported by NHS Natioanl Institute for Health research" Do Not Use NIHR logo.
+Text: The research is supported by the National Insitute for Health research (NIHR) Collaboration for Leadership in Applied health Research and Care (CLARHRC) South London at King's College Hospital NHS Foundation Trust. The research is funded by St George's, University of London Strategic Investment Fund.  
 
 ## Privacy and Cookies
-[To do] We need to write up a simple privacy policy, and a cookies policy. 
-Consent?
+Cookies and Privacy Policy stored under cookies.php and privacy.php
+On registration, users consent to privacy and cookies.
 
 ## Basic functionality
 ### Starting sessions
@@ -18,6 +21,7 @@ Need these files when connecting to the database. Always include sessions as thi
 Change connecting password when transferring from wamp (PUBLIC FILES HERE)
 
 Nav bar and basic content static throughout, only the central document changes
+
 ### Template
 * main_index.php
 Main shell of the pages. Shows navbar and main content and footer
@@ -37,20 +41,61 @@ Main shell of the pages. Shows navbar and main content and footer
 ### Registration
 * register_form.php -html form int which to enter registration data
 * register.js - validates the registration data and sends to register.php
+  * call drawMethodsSelect to draw method ddl
   * New users choose a username, email address, password, method of data collection (method.php) and enter the registration code
+  * call *registerNewUser()* >> call validateRegistration()
+  * *validateRegistration* calls: validateUser, validateEmail, validateCopy
+  * *validateUser* - username - must be letters, numbers or underscores. first and last names allow spaces but no numbers
+  * *validateEmail*- checks has email format
+  * *validateCopy* - password must be 8 digits long (at least) and contain at least one letter and at least one number. Copy must match original
+  * *giveFeedback* - if any of the validations fail, this function is used to inform the user
+  * *getConsent* - if passes all validation - check registration, extract consent information and show consent modal. If the individual has sent back their postal consent, we only need to have consent for privacy and cookies. I have added in "I consent to take part in the study" as well. We do really want the postal consent forms, but in the interim we will get digital consent and then chase them. 
+  * *continueConsent* - activated by a button in *getConsent*. This checks that the necessary consent has been given and then uses *makeRequest* to send the data to **register.php** which should create a new user. 
+  
   * Username and email checked for uniqueness, non unique usernames are reported as errors on form
   * Non matching passwords error on form
   * Non valid email addresses error on form
 * register.php -validates the registration data
-* method.php - php insert for register_form. looks up the 
+* method.php - retrieve list of methods from the methods table
+* drawMethodsSelect - uses the list of methods and creates a select control from which the user can select their preferred method of step collection
 
 
 ## Entering, editing, viewing steps, receiving feedback, etc
-### steps.php, getWeek.php, drawTable.php, viewSteps.php
-1. ascertain where the user is, regarding their steps (defined in "week"s) (getWeek.php)
+### steps2.php, getWeek.php, drawTable2.php, viewSteps.php
+### drawStepsTable.js, drawHeader.js, drawMethodsSelect.js
+
+1. ascertain where the user is, regarding their steps (defined in "week"s) -on load, call "showWeek"
 2. If necessary, update the target (function drawn in getWeek.php)
 3. display relevant motivational content and guidance for that week
 4. display relevant step entry table (drawTable.php)
+
+*showWeek* 
+- retrieve methods list from getMethods.php. var - methods
+- uses session cookie "username" (+true/false argument and optional parameter "weekno") to retrieve data from getWeek.php. The data are stored as "weekdata" and the values are: week (a text description of the week), weekno (numeric descriptor), refresh (after event -see below- . if this is yes, the page should be refreshed), steps (target daily steps), days (target days to achieve), latest_t (date of latest target set), comment(text data to accompany that week), baseline (the baseline number of steps), maxweekno (this is relevant when viewing the past - maxweekno is the week that the participant is currently on, not the week they are viewing). 
+- getWeek.php checks the targets are up to date and corrects this if necessary
+- showWeek then uses *week*, *weekno* and *comment* as parameters in drawHeader2 to fill out the text surrounding the steps table.
+- show week calls drawTable, sending "weekdata", methods and past (i.e. viewing past true/false)
+
+*drawTable*
+- sends weekdata to drawTable2 and retrieves tabledata. this comprises: 
+   * n_show - the number of weeks to show [ if a participant does not hit a target, then they stay on the even week unless they choose otherwise], 
+   * bump - 0/1 show button to increase target, 
+   * newweek (if bump, this is the date the new target starts), 
+   * tableResults - for each week to show 
+      - {for each week: ispast (is this particular week table in the past or the current week), 
+        targetsteps (target number of steps), 
+        targetdays (target number of days), 
+        totalsteps (total step count) 
+        showrow (for each date in week:
+           the day of the week, 
+           the date, 
+           add_walk (0/1 did the participant add a walk of 15/30 mins), 
+           give_pref (if there is step data, the device identified when entering data otherwise their default device), 
+           stepsread (number of steps read)}, 
+- if bump is 1 then send newweek to *bumpTarget* which draws the button to set a new target
+- for each week to view, call drawMySteps. drawMySteps will select the correct table header and introduction  to the week (i.e. "Your average daily steps at baseline were xxx. This week your target is to increase your step count to XX steps on XX days. One way to do this is a 30 minute walk"). For every day to display, show the day name, the date, did you add a walk  (check box or static tick), step count (static text or control box), method select, star if achieved target and an "Add/Edit" button (add if no steps yet, Edit if has data).
+- for each week to view, call stepsFeedback. Gives feedback based on progress so far [NOTE needs work on tenses/ viewing past]
+- and finally! use goBack() to draw a select control to allow user to view weeks in the past. 
 
 #### Baseline: 
 Users must be able to enter their steps before being given a target.
