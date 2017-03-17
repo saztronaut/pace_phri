@@ -61,7 +61,7 @@ Main shell of the pages. Shows navbar and main content and footer
 
 
 ## Entering, editing, viewing steps, receiving feedback, etc
-### steps2.php, getWeek.php, drawTable2.php, viewSteps.php
+### steps2.php, getWeek.php, drawTable2.php,
 ### drawStepsTable.js, drawHeader.js, drawMethodsSelect.js
 
 1. ascertain where the user is, regarding their steps (defined in "week"s) -on load, call "showWeek"
@@ -178,3 +178,4 @@ Allow users to download documentation for PACE
 * index.php - this became redirect.php
 * updateTargets2.php - this became redirect.php
 * steps_process.php - this became getWeek.php and drawTable.php
+* viewSteps.php 
