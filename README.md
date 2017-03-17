@@ -98,11 +98,11 @@ Main shell of the pages. Shows navbar and main content and footer
 - and finally! use goBack() to draw a select control to allow user to view weeks in the past. 
 
 #### Baseline: 
-Users must be able to enter their steps before being given a target.
-Users must complete a minimum of 3 days within a 7 day epoch. The beginning of that qualifying 7 day epoch becomes the date of baseline. 
-Users who do not enter sufficient step information continue at this level until sufficient data are supplied. 
-When the date of baseline is established, the user is prompted to set a date to begin their step increase. This must be 7 days from baseline and can be up to 7 dates after the current date. 
-Establishment of week 1 should expire after a month. If there is sufficient data within the past month, the earliest valid baseline date will become the new baseline date, and the step target will reflect this new date (completed on 24-02-2017)
+- Users must be able to enter their steps before being given a target.
+- Users must complete a minimum of 3 days within a 7 day epoch. The beginning of that qualifying 7 day epoch becomes the date of baseline. 
+- Users who do not enter sufficient step information continue at this level until sufficient data are supplied. 
+- When the date of baseline is established, the user is prompted to set a date to begin their step increase. This must be 7 days from baseline and can be up to 7 dates after the current date. 
+- Establishment of week 1 should expire after a month. If there is sufficient data within the past month, the earliest valid baseline date will become the new baseline date, and the step target will reflect this new date (completed on 24-02-2017)
 
 #### Odd weeks
 Targets are given for 2 weeks, the odd weeks are the first. Feedback should be given on progress akin to that in the booklet
