@@ -4,11 +4,11 @@ working files for the pace web app
 Files are written in php, html and javascript. Currently they run in WAMP with a MySQL database. (Add SQL for files)
 
 ## Branding
-PACE-UP spelled with capitals
-From logo - Purple is hex #723F97, Green is hex #72C049
-Limit references to trial (confusing)
-Supported by SGUL logo, "Supported by NHS Natioanl Institute for Health research" Do Not Use NIHR logo.
-Text: The research is supported by the National Insitute for Health research (NIHR) Collaboration for Leadership in Applied health Research and Care (CLARHRC) South London at King's College Hospital NHS Foundation Trust. The research is funded by St George's, University of London Strategic Investment Fund.  
+* PACE-UP spelled with capitals
+* From logo - Purple is hex #723F97, Green is hex #72C049
+* Limit references to trial (confusing)
+* Supported by SGUL logo, "Supported by NHS Natioanl Institute for Health research" Do Not Use NIHR logo.
+* Text: The research is supported by the National Insitute for Health research (NIHR) Collaboration for Leadership in Applied health * Research and Care (CLARHRC) South London at King's College Hospital NHS Foundation Trust. The research is funded by St George's, University of London Strategic Investment Fund.  
 
 ## Privacy and Cookies
 Cookies and Privacy Policy stored under cookies.php and privacy.php
