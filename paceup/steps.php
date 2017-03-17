@@ -81,7 +81,7 @@
     	  xhr2.onreadystatechange = function () {	  
     	  if(xhr2.readyState == 4 && xhr2.status ==200){		 
     		  var $drawTable = xhr2.responseText;	  
-    	      if ($response==0){
+    	      if ($drawTable==0){
         	      }
     	      else{
     	    	  document.getElementById("thisTable").innerHTML= $drawTable;
@@ -307,11 +307,11 @@
 	      else{
 	         var json = JSON.parse($response, function(key, value) {
 	        	  if (key!="fail"){
-		        	  console.log(key);
+		        	  //console.log(key);
 	        	    	weekdata[key]=value;
 	        	  }
 	        	  else if (key=="fail"){
-	        	    	console.log("could not get week");	
+	        	    	//console.log("could not get week");	
 	        	    	weekdata['week']="unknown";  
 	        	  }      	  
 	          });

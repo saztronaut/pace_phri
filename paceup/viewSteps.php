@@ -1,4 +1,5 @@
 <?php
+// this has been absorbed into getWeek
 require 'database.php';
 require 'sessions.php';
 $results=[];
@@ -13,13 +14,13 @@ if ($weekno % 2 == 1 || $weekno==0){
 	$get_steps_date = mysqli_query($connection, $get_date)
 	or die("Can't get steps data" . mysql_error());
 	$date_pick = mysqli_fetch_array($get_steps_date);
-	
+
 	$get_end_date = "SELECT DATE_ADD(date_set, INTERVAL 6 DAY) as date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
 	$row_end_date = mysqli_query($connection, $get_end_date)
 	or die("Can't get steps data" . mysql_error());
 	$end_date_pick = mysqli_fetch_array($row_end_date);
 }
-// For even weeks, get 7 days after the target was set and then display up until the target changes. 
+// For even weeks, get 7 days after the target was set and then display up until the target changes.
 // As the draw table function will automatically shift the 7 days, just return the target
 else{
 	$order= $weekno/2;
@@ -27,8 +28,8 @@ else{
 	$get_steps_date = mysqli_query($connection, $get_date)
 	or die("Can't get steps data" . mysql_error());
 	$date_pick = mysqli_fetch_array($get_steps_date);
-	
-    $next= $order + 1;
+
+	$next= $order + 1;
 	$get_end_date = "SELECT DATE_SUB(date_set, INTERVAL 1 DAY) as date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $next .",1;";
 	$row_end_date = mysqli_query($connection, $get_end_date)
 	or die("Can't get steps data" . mysql_error());

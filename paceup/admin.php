@@ -7,13 +7,16 @@
   <div class="col-sm-3"><h3>Generate Registration Codes</h3><br>
   <span class='glyphicon glyphicon-pencil logo' onclick= "javascript:redirect('./getCodes.php')"></span>
   </div>
-  <div class="col-sm-3"><h3>Add New Practice</h3><br>
+  <div class="col-sm-2"><h3>Add New Practice</h3><br>
   <span class='glyphicon glyphicon-thumbs-up logo' onclick="javascript:redirect('./addPractice.php')"></span></div>
-  <div class="col-sm-3"><h3>Download data</h3><br>
+  <div class="col-sm-2"><h3>Download data</h3><br>
     <span class='glyphicon glyphicon-briefcase logo' onclick="javascript:redirect('./downloadData.php')" ></span></div>
   
-    <div class="col-sm-3"><h3>User privileges</h3><br>
+    <div class="col-sm-2"><h3>User privileges</h3><br>
     <span class='glyphicon glyphicon-user logo' onclick="javascript:redirect('./downloadData.php')" ></span></div>
+
+    <div class="col-sm-3"><h3>Update Consent</h3><br>
+    <span class='glyphicon glyphicon-ok logo' onclick="javascript:redirect('./downloadData.php')" ></span></div>
   </div>
 </div>
 

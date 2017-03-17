@@ -26,7 +26,8 @@
         <div class="form-group" id="practice_div">
         <span id="practice_span"></span></div>
                <div class="form-group" id="user_div">
-        <span id="user_span"></span>          </div>
+        <span id="user_span"></span>         
+ </div>
         <span id= "n_span"></span>
         
         
@@ -49,7 +50,12 @@ function getDownload(){
 	  // remove special chars
 	  var whichdata = document.getElementById("whichdata").value;  
 	  var narrowby = document.getElementById("narrowby").value; 
-	  data =  "whichdata=" + whichdata +"&narrowby="+ narrowby;
+	  data =  "whichdata=" + whichdata +"&narrowby="+ narrowby;	  
+	  if (narrowby=="User" ||narrowby=="Practice"){
+          var narrow=document.getElementById('choose'+narrowby).value;
+          data+= "&"+narrowby+"="+narrow;
+		  }
+	  console.log(data);
       url = './download.php';
 	  var xhr = new XMLHttpRequest();
 	  xhr.open("POST", url, true);
@@ -101,5 +107,8 @@ case 'Practice' :
 }
 }
 
+function downloadfile(mydata ){
+//json=JSON.parse(mydata);
+} 
  </script>
  

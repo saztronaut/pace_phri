@@ -10,7 +10,7 @@
 		if (week=='baseline'||week=='getweek1'||week=='delayweek1' || week=='week0'){
 			thisHeader=  "<h2> Baseline week of your walking plan</h2>";
 			 blurb="<p> Before you start to increase your walking it is important to know how much you are currently doing. \
-				 The best way to do this is for you to wear the pedometer and record our step counts each day for a full week. \
+				 The best way to do this is for you to wear the pedometer and record your step counts each day for a full week. \
 				  There is often quite a difference between weekends and weekdays, so it is important to try and record for a full week. \
 				   Don&#8217;t try to increase your walking this week, just do what you normally do, or your targets will be too high and too hard for you to achieve</p>";
 		     thisTitle=  "Frequently asked questions on the PACE-UP trial";  

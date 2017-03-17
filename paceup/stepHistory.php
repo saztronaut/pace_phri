@@ -79,13 +79,14 @@ window.onload = function() {
 	xhr.onreadystatechange = function () {
 		if(xhr.readyState == 4 && xhr.status ==200){
 			var $response = xhr.responseText;
-			//console.log($response);
+			console.log($response);
 			if ($response=="0"){
 				redirect('./steps.php');
 			}
 			else {
 	
 				var json = JSON.parse($response)
+				//console.log(json);
 						targets=json.targets;
 
 						$print="";

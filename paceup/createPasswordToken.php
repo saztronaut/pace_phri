@@ -35,9 +35,9 @@ require 'sessions.php';
 				//Append the email along with a GET???
 				$subject= 'PACE-UP password reset';
 				$message=" Dear ". $username . ", 
-						 Please click on the link to reset your password.
-						http://localhost:3702/paceup/forgotpass.php?token=".$token."
-						If you have received this email in error, please ignore it";
+Please click on the link to reset your password.
+http://localhost:3702/paceup/forgotpass.php?token=".$token."
+If you have received this email in error, please ignore it";
 				$headers = "MIME-Version: 1.0" . "r\n\ ";
 				$headers .= "Content-type:text/html;charset=UTF-8"."\r\n ";
 				$headers .= 'From: noreply@paceup.ac.uk' . "\r\n " .

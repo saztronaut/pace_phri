@@ -15,6 +15,7 @@
 	//And so on for the remaining weeks
 	// If there is no baseline target, add if needed
 	$username = htmlspecialchars($_SESSION['username']);
+	if(isset($_POST['viewWeek'])){ $weekno=$_POST['viewWeek'];} else {$weekno="";}; //if the user is viewing a week in the past, take this week as argument instead of the current week
 	if (isset($username) && $username!=''){
 	
 	//Create any missing baseline targets	
@@ -94,13 +95,24 @@
 					// if the target was set more than 2 weeks ago, you need a new target
 					if ((strtotime('+14 days', $latest_t)<=$today_str)){
 						$n=$row['n_t'];
-				    updateTarget($n, $username, $latest_t, $row['steps']);	
+				    $refresh=updateTarget($n, $username, $latest_t, $row['steps']);	
+				    if ($refresh==1){ $results['refresh']="yes";}
 					}
 				}}
 		if ($w>=13) { $results['week']="week13";}
 		
 		//get any comments from that week. recorded on weeks 2, 3, 4, 5, 6, 8, 10, 12
 		//get comment data
+		if ($weekno!='' && (is_null($weekno)==0) && $weekno!="null"){
+			$results=pastWeek($weekno, $username);
+		} else {
+		$results['steps']=$row['steps'];
+		$results['days']=$row['days'];
+		$results['latest_t']=$row['latest_t'];
+		$results['weekno']=$w;		
+		}
+		
+		
 		$commentq = "SELECT text FROM notes WHERE username='".$username."' AND week=".$w.";";
 		$resultcomment=mysqli_query($connection, $commentq) or die(0);
 		if ($resultcomment->num_rows>0){
@@ -109,15 +121,11 @@
 			else{$comment="";}
 			
 		
-		
-		$results['steps']=$row['steps'];
-		$results['days']=$row['days'];
-		$results['latest_t']=$row['latest_t'];
-		$results['weekno']=$w;
 		if (isset($mybaseline)) 
 		{$results['baseline']=$mybaseline;} 
 		else {$results['baseline'] = $row['steps'];}
 		$results['comment']=$comment;
+		$results['maxweekno']=$w;
 
 	}
 	//so now session contains a value for week which is:
@@ -137,55 +145,103 @@
 		else {echo 0;
 		}
 		
+function pastWeek($weekno, $username){
+	require 'database.php';
+	//require 'sessions.php';
+	// For odd weeks, get the target set and then display values for 7 days afterwards
+	if ($weekno % 2 == 1 || $weekno==0){
+		$order= CEIL($weekno/2);
+		$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
+		$get_steps_date = mysqli_query($connection, $get_date)
+		or die("Can't get steps data" . mysql_error());
+		$date_pick = mysqli_fetch_array($get_steps_date);
+	
+		$get_end_date = "SELECT DATE_ADD(date_set, INTERVAL 6 DAY) as date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
+		$row_end_date = mysqli_query($connection, $get_end_date)
+		or die("Can't get steps data" . mysql_error());
+		$end_date_pick = mysqli_fetch_array($row_end_date);
+	}
+	// For even weeks, get 7 days after the target was set and then display up until the target changes.
+	// As the draw table function will automatically shift the 7 days, just return the target
+	else{
+		$order= $weekno/2;
+		$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .", 1;";
+		$get_steps_date = mysqli_query($connection, $get_date)
+		or die("Can't get steps data" . mysql_error());
+		$date_pick = mysqli_fetch_array($get_steps_date);
+	
+		$next= $order + 1;
+		$get_end_date = "SELECT DATE_SUB(date_set, INTERVAL 1 DAY) as date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $next .",1;";
+		$row_end_date = mysqli_query($connection, $get_end_date)
+		or die("Can't get steps data" . mysql_error());
+		$end_date_pick = mysqli_fetch_array($row_end_date);
+	}
+	$results=[];
+	$start_date= $date_pick['date_set'];
+	$results['steps']=$date_pick['steps'];
+	$results['days']=$date_pick['days'];
+	$results['latest_t']=$date_pick['date_set'];
+	$results['finish']=$end_date_pick['date_set'];
+	$results['week']="week". $weekno;
+	$results['weekno']=$weekno;
+	return $results;
+	
+}
+		
 function updateTarget($numt, $username, $latest_t, $steps)
 		{
 			require 'database.php';
 	//		require 'sessions.php';
 			include 'get_json_encode.php';
+			include 'calcTarget.php';
 			
 			// n_t gives the number of targets that are in the targets table
 			// latest_t gives the date set of the most recent target
 			// steps give the steps at the most recent target
 			// days is the number of days the target was for
-			$getsteps= $steps;
-			if ($numt==1||$numt==3){
-				$days=3;
-				$steptarget=$getsteps+1500;
-			}
-			elseif ($numt==2||$numt==4){
-				$days=5;
-				$steptarget=$getsteps;
-			}
-			elseif ($numt>5){
-				$days=6;
-				$steptarget=$getsteps;
-			}
+			$mytarget=calcTarget($numt, $steps);
+			$days= $mytarget['days'];
+			$steptarget=$mytarget['steptarget'];
+		//	$getsteps= $steps;
+		//	if ($numt==1||$numt==3){
+		//		$days=3;
+		//		$steptarget=$getsteps+1500;
+		//	}
+		//	elseif ($numt==2||$numt==4){
+		//		$days=5;
+		//		$steptarget=$getsteps;
+		//	}
+		//	elseif ($numt>5){
+		//		$days=6;
+		//		$steptarget=$getsteps;
+		//	}
 			
 			// If it is the end of an even week, the participant should achieve their steps goal on a certain number of days. If they achieve it, they go up to the next week
 			// If they do not achieve it, they do not. 
 			// calculate how many days have passed since the latest tar
-			$endEvenWeek = "SELECT COUNT(*) as achieved, days, DATE_ADD(date_set, INTERVAL 14 DAY) as date14
-					FROM readings as r,
-					(SELECT username, steps as target, date_set, days  FROM targets WHERE username='". $username ."' AND date_set=(SELECT MAX(date_set) as latest_t FROM targets WHERE username='". $username ."' ORDER BY date_set DESC)) as t
-					WHERE r.username=t.username AND r.date_read between DATE_ADD(date_set, INTERVAL 7 DAY) AND DATE_ADD(date_set, INTERVAL 13 DAY) AND r.steps>=t.target;";
-			$getEndWeek= mysqli_query($connection, $endEvenWeek);
-			$row2 = mysqli_fetch_array($getEndWeek);
-			$achieved = $row2['achieved'];
-			$goal = $row2['days'];
-		if (($achieved>=$goal) && isset($achieved)){
-				$date_set = $row2['date14'];
-				$target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
-				$gettarget = mysqli_query($connection, $target);
-				$results['refresh']="yes";
-				}
-		else {
+		//	$endEvenWeek = "SELECT COUNT(*) as achieved, days, DATE_ADD(date_set, INTERVAL 14 DAY) as date14
+		//			FROM readings as r,
+		//			(SELECT username, steps as target, date_set, days  FROM targets WHERE username='". $username ."' AND date_set=(SELECT MAX(date_set) as latest_t FROM targets WHERE username='". $username ."' ORDER BY date_set DESC)) as t
+		//			WHERE r.username=t.username AND r.date_read between DATE_ADD(date_set, INTERVAL 7 DAY) AND DATE_ADD(date_set, INTERVAL 13 DAY) AND r.steps>=t.target;";
+		//	$getEndWeek= mysqli_query($connection, $endEvenWeek);
+		//	$row2 = mysqli_fetch_array($getEndWeek);
+		//	$achieved = $row2['achieved'];
+		//	$goal = $row2['days'];
+			//don't need this anymore
+	//	if (($achieved>=$goal) && isset($achieved)){
+	//			$date_set = $row2['date14'];
+	//			$target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
+	//			$gettarget = mysqli_query($connection, $target);
+	//			$results['refresh']="yes";
+	//			}
+	//	else {
 			//how many weeks have there been since the target was set
 			$today_str = strtotime(date('Y-m-d'));
 			$weeksSinceT=FLOOR(($today_str-$latest_t)/(60*60*24*7));
-			if ($weeksSinceT>2){
+			if ($weeksSinceT>1){
 				//If there has been more than 2 week lapse since the last target
 				//find out if the participant achieved their target in each week, beginning with the earliest
-			for ($x = 3; $x <=$weeksSinceT; $x++) {
+			for ($x = 2; $x <=$weeksSinceT; $x++) {
 			//Allow automatic update to next level 
 			//Interval should be 7 X number of weeks
 			$int_days= $x*7;
@@ -202,8 +258,11 @@ function updateTarget($numt, $username, $latest_t, $steps)
 				$target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
 				$gettarget = mysqli_query($connection, $target);
 				$results['refresh']="yes";
+				return 1;
+			      }//achieved target
+			      else if ($x==$weeksSinceT){
+			      	return 0;
 			      }
-			      }
-			}
-		}
+			      }//loop through weeks
+		}//more than 1 week lapsed
 		}

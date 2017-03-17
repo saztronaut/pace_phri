@@ -3,10 +3,10 @@
 <?php
  	require 'database.php';
     require 'sessions.php';
-    
+    include 'calcTarget.php';
  if ($_POST) {
    $date_set=$_POST['date_set'] ;
- 
+   $weekno=$_POST['weekno'] ;
 
   $username = htmlspecialchars($_SESSION['username']);
   $steps = htmlspecialchars($_SESSION['steps']);
@@ -25,28 +25,20 @@
   $result = mysqli_query($connection, $get_week)
       or die("Can't find user week" . mysql_error());
   $row = mysqli_fetch_array($result);
+
   $n_t = $row['n_t'];
   $getsteps= $row['steps'];
-  if ($n_t==1||$n_t==3){
-  	$days=3;
-  	$steptarget=$getsteps+1500;
-  }
-  elseif ($n_t==2||$n_t==4){
-  	$days=5;
-  	$steptarget=$getsteps;
-     }
-  elseif ($n_t>5){
-  	$days=6;
-  	$steptarget=$getsteps;
-     }
-     
-  $onem_target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
-   $gettarget = mysqli_query($connection, $onem_target);
+
+  $mytarget=calcTarget($n_t, $getsteps);
+  $days= $mytarget['days'];
+  $steptarget=$mytarget['steptarget'];
+     // send the target through
+  $insert_target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
+   $gettarget = mysqli_query($connection, $insert_target);
   }
    
  // 	exit;
 
 
-  
 
 ?>

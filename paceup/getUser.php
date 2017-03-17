@@ -12,7 +12,7 @@ if ($_POST){
   $result = mysqli_query($connection, $lookup) 
     or die("Hmm, that didn't seem to work" . mysql_error());
   if ($result){
-	echo "<select name='user' id='chooseuser' class='form-control'>";
+	echo "<select name='user' id='chooseUser' class='form-control'>";
 	echo "<option value='' disabled selected> Select the user</option>";
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			echo "<option value='". $row['username'] ."'> ". $row['username'] ." </option> ";}		
