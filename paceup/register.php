@@ -66,7 +66,15 @@
  // $errors['query']= $addUser;
   //echo $addUser;
    if(mysqli_query($connection, $addUser))
-    {
+    {// send an email to the user as well
+     $email_msg ="Thank you for signing up to the PACE-UP next-steps website!
+All the information you need to start the 12-week walking programme is online, including information on how to use the pedometer and set your walking targets.
+We would be grateful if you could complete and return the paper consent form, enclosed in your pedometer pack, using the free-post envelope provided. If you have misplaced the form or the envelope please contact Charlotte Wahlich (PACE-UP research assistant) on cwahlich@sgul.ac.uk who can provide you with a replacement.
+We hope that you enjoy the 12-week walking programme!
+Best wishes, 
+The PACE-UP team";
+
+     
       $_SESSION['valid'] = true;
       $_SESSION['timeout'] = time();
       $_SESSION['username'] = $username;
