@@ -14,7 +14,15 @@
 				  There is often quite a difference between weekends and weekdays, so it is important to try and record for a full week. \
 				   Don&#8217;t try to increase your walking this week, just do what you normally do, or your targets will be too high and too hard for you to achieve</p>";
 		     thisTitle=  "Frequently asked questions on the PACE-UP trial";  
-			 thisAside="<h3> Frequently asked questions on the PACE-UP trial </h3><br> \
+			 thisAside="<h3>Pedometer instructions</h3> \
+<ul type='circle'> \
+<li>Open the Digi-Walker pedometer and press the yellow reset button to zero.</li>\
+<li>Close the case. Please keep the case closed during use and only open it to see the readings. (The pedometer will not count steps if the case is open).</li> \
+<li>Attach the pedometer to your belt or to the top of your trousers or skirt, over the front of your hip. There is a clip to attach next to it, to make sure that it stays on securely. </li> \
+<li>The Digi-Walker name must be the correct way up to somebody looking at you, if it is upside down it will not record.</li> \
+<li>We suggest that you put the pedometer on as soon as possible after getting out of bed and wear it all day, except for sleeping and showering.</li> \
+<li>At the end of the day write down the number of steps that you have done on your PACE-UP diary and zero the pedometer for the next day. </li></ul>\
+<h3> Frequently asked questions on the PACE-UP trial </h3><br> \
 		        		<ul type='circle'> \
 		     	    <li> What day of the week should I start recording? </li><br> \
 		     	    <p><i> You can start whenever you want </i></p> \
@@ -162,9 +170,9 @@
 	<ul type='circle'> \
 	<li>The local park </li> \
 	<li>Countryside or woodlands </li> \
-	<li>River Thames or Wandle </li> \
+	<li>Riverside walks</li> \
 	<li>Tourist attractions in central London </li> \
-	<li>Look at our <a href='#' onclick='redirect(\"./links.php\")'>suggested websites</a> </li></ul> \
+	<li>Look at our <a href='#' onclick='redirect(\"./links.php\")'>suggested websites</a> for some ideas </li></ul> \
 	<p><b>Time/means:</b> What can you not do in order to make time for your walks and make it a priority?</p> \
 			 <p><b>  Gains:  What changes have you noticed so far? </b></p> \
 			<form><div class='form-group' id='form6'> \
