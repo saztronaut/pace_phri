@@ -132,7 +132,7 @@
 <p><b>- Take some water with you</b> if you are walking a long distance, especially if it is hot weather.</p>
 <p><b>- Regular walking is good for arthritis and back pain</b>, but if walking aggravates these problems, you may have done too much too quickly. Rest for a day or so and then try doing slightly less next time.</p>
 <p><b>- If walking more or faster gives you chest pain, palpitations or dizziness</b>, or makes you feel faint or fall over, you should stop doing it and tell your GP.</p>
-<p><b>- If you are concerned about street safety</b>, identify your local crime hotspots in your area by putting your postcode into <a href="http://www.police.uk">http://www.police.uk</a> and check out advice on keeping yourself safe on <a href=http://www.suzylamplugh.org/personal-safety/personal-safety-tips/street-safety>http://www.suzylamplugh.org/personal-safety/personal-safety-tips/street-safety</a></p>
+<p><b>- If you are concerned about street safety</b>, identify your local crime hotspots in your area by putting your postcode into <a href="http://www.police.uk">http://www.police.uk</a> and check out advice on keeping yourself safe on <a href="https://www.suzylamplugh.org/Pages/FAQs/Category/personal-safety">https://www.suzylamplugh.org/Pages/FAQs/Category/personal-safety</a></p>
 </div></div>
 <div class="row center"><div class="col-sm-12">
 <h4 class="text-center">Now you are ready to start!</h4>
