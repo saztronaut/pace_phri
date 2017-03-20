@@ -38,6 +38,7 @@
  </form>
  </div>
  
+ <script src='download.js'></script>
  <script>
  var download = document.getElementById("downloadBtn");
 download.addEventListener("click", getDownload);
@@ -56,17 +57,13 @@ function getDownload(){
           data+= "&"+narrowby+"="+narrow;
 		  }
 	  console.log(data);
-      url = './download.php';
-	  var xhr = new XMLHttpRequest();
-	  xhr.open("POST", url, true);
-	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	  xhr.send(data);
-	  xhr.onreadystatechange = function () {
-	  if(xhr.readyState == 4 && xhr.status ==200){
-	  var $response = xhr.responseText;
-	  document.getElementById("n_span").innerHTML=$response;
-	  }
-	  };
+      var url = './download.php';
+      var d=new Date();
+      var today = d.getDate() +"_"+ (d.getMonth()+1) +"_"+  d.getFullYear();
+      var filename=whichdata+today+".csv";
+      console.log(filename);
+      console.log(data);
+      createDownload(filename, url, data);
 	  
 }
 
@@ -79,36 +76,20 @@ case 'User' :
 	if (document.getElementById('choosePractice')){
 		data="practice="+document.getElementById('choosePractice').value;}
 	else {data=""}
-	var xhr = new XMLHttpRequest();
-     xhr.open("POST", "./getUser.php", true);
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-xhr.send(data);
-xhr.onreadystatechange = function () {
-if(xhr.readyState == 4 && xhr.status ==200){
-var $response = xhr.responseText;
+	doXHR("./getUser.php", function () {
+var $response = this.responseText;
 console.log($response);
 document.getElementById("user_span").innerHTML=$response;
-}
-};
+},data);
 break;
 case 'Practice' :
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "./getPractice.php", true);
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.send();
-	xhr.onreadystatechange = function () {
-	if(xhr.readyState == 4 && xhr.status ==200){
-	var $response = xhr.responseText;
-
+	doXHR("./getPractice.php", function () {
+	var $response = this.responseText;
 	document.getElementById("practice_span").innerHTML=$response;
-	
-	}};
+	});
 
 }
 }
 
-function downloadfile(mydata ){
-//json=JSON.parse(mydata);
-} 
  </script>
  

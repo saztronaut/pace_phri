@@ -2,9 +2,6 @@
 require 'database.php';
 require 'sessions.php';
 include 'get_json_encode.php';
-include 'createDownload.php';
-
-
 
 
 //using form data, generate so many codes and report them to the browser
@@ -57,15 +54,13 @@ if ($_POST){
 		if ($query!=''){
 			//echo $query;
 		$result= mysqli_query($connection, $query) or die ("Can't fetch download" . mysql_error());
-		//$row = mysqli_fetch_all($result, MYSQLI_ASSOC);
-		$my_csv= array_to_csv_download($result, $data.date('dmy').".csv");
-		
-		echo "<a href='#' onclick='downloadfile(\"" .$my_csv. "\" )'> Your download should begin shortly</a>";
+		$row = mysqli_fetch_all($result, MYSQLI_ASSOC);	
+		echo '{"data":'.json_encode($row).'}';
 		mysqli_free_result($result);
 		mysqli_close($connection);
          exit();
 		}
-	    else{echo "Please make a selection from the list";}}
+	    else {echo "Please make a selection from the list";}}
 		else {echo "You do not have the access privileges to download data";}}
 	else {
 		echo "You do not have the access privileges to download data";

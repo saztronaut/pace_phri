@@ -70,6 +70,9 @@ function doXHR(url, callback, data=null){
 	    }
 	  }
 	  // send the request *after* the event handler is defined 
-	  xhr.send(data);
+	  if (data!=null){
+		  xhr.send(data);}
+	  else {
+	  xhr.send();}
 	}
 </script>

@@ -11,12 +11,15 @@
 	  }
 	 }
   
-  function selectMethods(control_name, pref_method, methods){
+  function selectMethods(control_name, pref_method='PED', methods, show=true){
 	  // Creates the select method DDL
 	  //pref method is the chosen method for the ddl
 	  //methods is the method array
 	  //enable is the status for the control
-	  insert='';
+	  console.log(show);
+	  if (show==false){
+		  print = "<span id='" + control_name +"'>"+ methods[pref_method]+"</span>";
+	  }else{
 	  print= "<select name='"+ control_name +"' id='"+ control_name +"' class='form-control' "+ control_name +" >";
 	  for (i in methods){
 	        if (i==pref_method){
@@ -26,7 +29,7 @@
 						print+=  "<option value='"+ i +"'> "+ methods[i] +" </option> ";}		
 				}					
 	  print+=  "</select>";
-	  
+	  }
 	  return print;
 	  
   }

@@ -45,8 +45,8 @@ if ($_POST){
 		}
 		}
 
-		array_to_csv_download($print_reg_codes, "reg_code".date('d-m-y').".csv");
-		echo "Your download should begin shortly";}
+		//array_to_csv_download($print_reg_codes, "reg_code".date('d-m-y').".csv");
+		echo '{"data":'. json_encode($print_reg_codes).'}';  }
 		else {echo "You do not have the access privileges to generate registration codes";}}
 	else {
 		echo "You do not have the access privileges to generate registration codes";

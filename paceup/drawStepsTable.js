@@ -10,47 +10,45 @@
       	  myString+="&base=" + weekdata['baseline'];
       	  if (finish==true){
       	  myString+="&finish=" + weekdata['finish'];}
-       	  //xhr.open("POST", 'drawTable2.php', true);
-    	  //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    	  //xhr.onreadystatechange = function () 
     	  	  
     	  doXHR("./drawTable2.php", function (){		 
     		  var $drawTable = this.responseText;	    		    
-    	      if ($drawTable==0){
+    	      if ($drawTable==0){ //you don't want to draw the table if there is no data
         	      }
     	      else {       	      
     	         var tabledata = JSON.parse($drawTable);
-                 var n_show= tabledata.n_show;
-                 if (n_show>0){n_show=n_show-1;}
-                 var tableResults= tabledata.tableResults;
-                 var showrow= [];
+                 var n_show= tabledata.n_show; //number of tables to show
+                 if (n_show>0){n_show=n_show-1;} // 0 index
+                 var tableResults= tabledata.tableResults; 
+                 var showrow= []; //create array to store the day-level data
                  var ispast=[];
                  for (i in tableResults){
                      showrow.push(tableResults[i].showrow);
                      ispast[i] = tableResults[i].ispast;
                      }
-         		  mysteps=weekdata['steps'];
-                  week=weekdata['week'];
-                  weekno=weekdata['weekno'];
-                  days=weekdata['days'];
+         		  mysteps=weekdata['steps']; //target steps
+                  week=weekdata['week']; //name of the week
+                  weekno=weekdata['weekno']; // number of the week
+                  days=weekdata['days']; //days to reach target
                  $drawMyTable=[];
                  if (tabledata.bump==1 && tabledata.ispast==0){
                 	 $drawMyTable.push(bumpTarget(weekno, tableResults.newweek));
                  }
-                 for (x = 0; x <=n_show; x++) {   
-                 
+                 for (x = 0; x <=n_show; x++) { 
+                 // for each table to show, draw the table
                  myTable=drawMySteps(x, week, weekno, weekdata['baseline'], days, weekdata['steps'], showrow[x],  methods, mysteps, weekdata['days']);
                  $drawMyTable.push(myTable['mytable']);
                  if (myTable['showtargets']==1){
+                 // if has target give feedback based on achievement
                  $drawMyTable.push(stepsFeedback(week, myTable['targetdays'], myTable['totalsteps'], myTable['totaldays'], days, ispast[x], mysteps));}
                      }
+                 // if not week 0, give option to view data from previous weeks
                  $drawMyTable.push(goBack(week, weekdata['maxweekno']));
          		printThis = $drawMyTable.join('\n');
     	    	  document.getElementById("thisTable").innerHTML= printThis;
         	     
               }
           }, myString);
-    	  //xhr.send(myString);
 		}
 
 	function drawMySteps(x, thisWeek, weekno, baseline="", daysw="", target="", steparray=[], methods, targetstep, targetday){
@@ -60,12 +58,13 @@
 	    var totalsteps=0; // total number of steps for week
 		var totaldays=0; //total number of days with reading for week
 		var targetdays=0; //total number of days achieved target for that week	 
-
+        //draw table header
 		if (thisWeek=='baseline'||thisWeek=='getweek1'||thisWeek=='delayweek1'||thisWeek=='week0'){
 		mytable.push("<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Steps</th><th>Device</th><th></th></tr></thead>");
 			showtargets=0;
 			}
 		else {
+			// number of minutes to show in text "did you add a walk of walkmin minutes or more ..."
 			if(weekno>0 && weekno<5 ){
 				walkmin=15;
 			}else{
@@ -74,7 +73,7 @@
 	    mytable.push("<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Did you add </br>a walk of </br>"+ walkmin +" minutes </br>or more </br>today?</th><th>Steps</th><th>Device</th><th>Achieved </br>target</th><th></th></tr></thead>");
 			showtargets=1;
 			}
-		console.log(steparray);
+		//console.log(steparray);
 
 		for (i in steparray){ //draw each day as a row of information about steps
 			var day = steparray[i].day;
@@ -87,33 +86,38 @@
 			// Show the day of the week and date
 		    mytable.push( "<tr><td data-title='Day'>"+ day+ "</td><td data-title='Date'>"+ stepdate+ " </td>");
 			if (showtargets==1){ //if you are showing targets, ask if the pt had a walk that day
-			if (add_walk!=null){
-				if (add_walk==1){
+			if (add_walk!=null){//if there is already steps data, show a check or a blank
+				if (add_walk==1){ //show a check
 					mytable.push( "<td data-title='Did you add a walk in today?' align='center'> <span id='walk"+ date_set +"' ><span  class='glyphicon glyphicon-ok logo-small'></span></span></td>");}
-				else {
+				else {// show a blank
 					mytable.push( "<td data-title='Did you add a walk in today?' align='center'> <span id='walk"+ date_set +"'></span></td>");}
 			}
-			else {
-				mytable.push( "<td data-title='Did you add a walk in today?' align='center'> <form class = 'form-inline'> <div class='form-group'> ");
-					mytable.push( "<input type='checkbox' class='form-control' id='walk"+ date_set +"'> </div>");
-	        mytable.push("</form></td>");
+			else { //show a checkbox control
+				   mytable.push( "<td data-title='Did you add a walk in today?' align='center'> <form class = 'form-inline'> <div class='form-group'> ");
+				   mytable.push( "<input type='checkbox' class='form-control' id='walk"+ date_set +"'> </div>");
+	               mytable.push("</form></td>");
 			  }
 		     
 			mytable.push("<td data-title='Steps'>");
 		    }
-			if (stepsread!=null){
+			if (stepsread!=null){ // if there is already a step count, add to total and display as text
 				totalsteps= totalsteps+ stepsread;
 				totaldays= totaldays+ 1;
 				mytable.push("<span id='steps"+ date_set +"' value ="+ stepsread + " >"+ stepsread +  "</span>");
+				mytable.push("</td><td data-title='Device'><span id ='methodspan"+ date_set+"'>");
+				mytable.push(selectMethods("method"+ date_set, give_pref, methods, false));
+				mytable.push("</span></td>");
+				
 			}
-			else {
+			else { // if no steps for this date, show a text control
 				mytable.push("<form class = 'form-inline'> <div class='form-group'>");
 				mytable.push("<input type='integer' class='form-control' placeholder='Enter steps' id='steps"+ date_set +"' style='width: 7em' ></div>");
 				mytable.push("</form>");
+				mytable.push("</td><td data-title='Device'><span id ='methodspan"+ date_set+"'>");
+				mytable.push(selectMethods("method"+ date_set, give_pref, methods));
+				mytable.push("</span></td>");
 			}
-			mytable.push("</td><td data-title='Device'><span id ='methodspan"+ date_set+"'>");
-			mytable.push(selectMethods("method"+ date_set, give_pref, methods));
-			mytable.push("</span></td>");
+
 			///Get stars
 			if (showtargets==1){
 				if ((targetstep!=null)&&(targetstep<= stepsread)){
