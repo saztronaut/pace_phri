@@ -28,7 +28,7 @@
       <span class="glyphicon glyphicon-pencil"></span> &nbsp; Generate Codes </button> </div>
  </form>
  </div>
-
+<script src="download.js"></script>
  <script>
  var codeBtn = document.getElementById("getcodesBtn");
 codeBtn.addEventListener("click", getCodes);
@@ -40,16 +40,12 @@ function getCodes(){
 	  var n_codes = document.getElementById("n_codes").value;  
 	  data =  "practice=" + practice + "&n_codes=" + n_codes;
       url = './get_reg_codes.php';
-	  var xhr = new XMLHttpRequest();
-	  xhr.open("POST", url, true);
-	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	  xhr.send(data);
-	  xhr.onreadystatechange = function () {
-	  if(xhr.readyState == 4 && xhr.status ==200){
-	  var $response = xhr.responseText;
-	  document.getElementById("n_span").innerHTML=$response;
-	  }
-	  };
+      var d=new Date();
+      var today = d.getDate() +"_"+ (d.getMonth()+1) +"_"+  d.getFullYear();      
+      filename= "reg_codes_"+ practice +"_"+ today +".csv";
+      createDownload(filename, url, data);
+
+	  
 	  
 }
 

@@ -202,39 +202,7 @@ function updateTarget($numt, $username, $latest_t, $steps)
 			$mytarget=calcTarget($numt, $steps);
 			$days= $mytarget['days'];
 			$steptarget=$mytarget['steptarget'];
-		//	$getsteps= $steps;
-		//	if ($numt==1||$numt==3){
-		//		$days=3;
-		//		$steptarget=$getsteps+1500;
-		//	}
-		//	elseif ($numt==2||$numt==4){
-		//		$days=5;
-		//		$steptarget=$getsteps;
-		//	}
-		//	elseif ($numt>5){
-		//		$days=6;
-		//		$steptarget=$getsteps;
-		//	}
 			
-			// If it is the end of an even week, the participant should achieve their steps goal on a certain number of days. If they achieve it, they go up to the next week
-			// If they do not achieve it, they do not. 
-			// calculate how many days have passed since the latest tar
-		//	$endEvenWeek = "SELECT COUNT(*) as achieved, days, DATE_ADD(date_set, INTERVAL 14 DAY) as date14
-		//			FROM readings as r,
-		//			(SELECT username, steps as target, date_set, days  FROM targets WHERE username='". $username ."' AND date_set=(SELECT MAX(date_set) as latest_t FROM targets WHERE username='". $username ."' ORDER BY date_set DESC)) as t
-		//			WHERE r.username=t.username AND r.date_read between DATE_ADD(date_set, INTERVAL 7 DAY) AND DATE_ADD(date_set, INTERVAL 13 DAY) AND r.steps>=t.target;";
-		//	$getEndWeek= mysqli_query($connection, $endEvenWeek);
-		//	$row2 = mysqli_fetch_array($getEndWeek);
-		//	$achieved = $row2['achieved'];
-		//	$goal = $row2['days'];
-			//don't need this anymore
-	//	if (($achieved>=$goal) && isset($achieved)){
-	//			$date_set = $row2['date14'];
-	//			$target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
-	//			$gettarget = mysqli_query($connection, $target);
-	//			$results['refresh']="yes";
-	//			}
-	//	else {
 			//how many weeks have there been since the target was set
 			$today_str = strtotime(date('Y-m-d'));
 			$weeksSinceT=FLOOR(($today_str-$latest_t)/(60*60*24*7));

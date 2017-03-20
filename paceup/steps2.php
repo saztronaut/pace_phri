@@ -41,6 +41,8 @@
 
 
  function showWeek(past=false, viewWeek=null){
+	 // default show current week. past true/false indicates viewing a week which is not the current week. 
+	 // view Week is the week to display (if past)
 	 doXHR("./getMethods.php", function getThisArray(){
 		  var methods = JSON.parse(this.responseText); //methods just contains the potential methods that the user could draw from
 		  var weekdata= [];   //data about the current week (week name, week num, target steps, target days, comments for that week, current week num)
@@ -70,12 +72,13 @@
 		      if (past==true){
 		    	  weekdata['week']="week" + viewWeek;
 		      	  weekdata['weekno']= viewWeek;
-		          var header= drawHeader2("week"+viewWeek, viewWeek, weekdata['comment']);
+		        //  var header= drawHeader2("week"+viewWeek, viewWeek, weekdata['comment']);
 		      	  //drawTable(weekdata, methods, true);
 		      	  }
-		      else {
-			      var header = drawHeader2(weekdata['week'], weekdata['weekno'], weekdata['comment']);
-			      }
+		      //else {
+			      
+			     // }
+		      var header = drawHeader2(weekdata['week'], weekdata['weekno'], weekdata['comment']);
 		      document.getElementById("thisHeader").innerHTML= header['thisHeader'];
 	          document.getElementById("thisAside").innerHTML= header['thisAside'];
 	          document.getElementById("thisBlurb").innerHTML= header['blurb'];  
@@ -121,7 +124,6 @@
  
   function updateSteps(controlname, edit){
 	  //Potential answers are to not show dates in the future as this would reset the date?
-	  console.log(controlname );
 	  var date_set = new Date();
 	  // get number from string, which is the number from the current date
 	  var nudge = controlname.slice(-(controlname.length-7));
@@ -145,7 +147,8 @@
           }  
 	  //use input, date set and series data to update the step values and store in the database
 	  data= "date_set=" + date_set + "&steps=" + input + "&walk=" + walk_yn + "&method="+methodID;
-	  doXML('./updateSteps', function(){
+	  console.log(data);
+	  doXHR('./updateSteps.php', function(){
 		  var $response = this.responseText;	  
 	     window.location.reload(true);  	
 	  }, data);
@@ -189,8 +192,21 @@
           document.getElementById(walk_ck).innerHTML=chkstr;
           }  
 	  //change the label of the button to "Save"	  
-	  var method_ck = 'method'+nudge;
+	  var method_ck = 'method'+ nudge;
+	  doXHR("./getMethods.php", function getThisArray(){
+			  var methods = JSON.parse(this.responseText); //methods just contains the potential methods that the user could draw from
+			  var mymethod = document.getElementById(method_ck).innerText; 
+			  var methodID = "PED";
+			  for (i in methods){
+				  if (methods[i]== mymethod){
+					  methodID=i;}
+				  }
+              var methodspan='methodspan'+nudge;
+			  document.getElementById(methodspan).innerHTML=selectMethods(method_ck, methodID, methods, true);
+      });
+	  
 	  document.getElementById(controlname).value = "Update";
+	  
 	  //
   }
   
@@ -199,7 +215,6 @@
 	  thisdate = input.options[input.selectedIndex].value;
 	  data="date_set=" + thisdate;
 	  doXHR('updateTarget.php',function(){
-
 		  window.location.reload(true);}, data);
 	  
   }
@@ -220,7 +235,7 @@
 		  if (document.getElementById(editname).value=="Edit"){}else{
         $('#methodModal').modal('show');}}
 		  else{
-		        $('#methodModal').modal('show');}
+		   $('#methodModal').modal('show');}
 	  }
   
   function viewPast(viewWeek){

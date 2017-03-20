@@ -12,9 +12,7 @@ function registerNewUser() {
   //password must be hashed with salt (constant on client side, random per user on server side)
   if (keep_going==1) {
   var data = $(form).serialize();
-  console.log(data);
   getConsent(action, data);
-  //var consent= continueConsent(action, data);
 	}
   else { 
 	  document.getElementById('errorMessage').innerHTML = "Please fill out all the fields correctly";
@@ -25,11 +23,7 @@ function registerNewUser() {
 
 function makeRequest(url, data) {
 
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-      if(xhr.readyState == 4 && xhr.status == 200) {
+  doXHR(url,  function () {
         var result = xhr.responseText;
         console.log('Result: ', result);
 
@@ -43,12 +37,8 @@ function makeRequest(url, data) {
         	  else{
         		  giveFeedback(key, value, true);
         	  }
-          })
+          }, data);
 
-        
-      }
-    }
-  xhr.send(data);
   }
 
 
@@ -69,7 +59,7 @@ function validateRegistration(myform) {
 	return validate;
  }
 	
-function validateUser(givename){
+function validateUser(givename){ //takes the control name as argument
 	
     var AZ09 = new RegExp("^[a-zA-Z0-9_]*$");
     var AZ_space = new RegExp("^[a-zA-Z ]*$");
@@ -298,7 +288,7 @@ function continueConsent(action, data, result){
 		  var consentdata ="e_consent="+e_consent+"&e_consent_v="+e_consent_v+"&e_consent_a="+e_consent_a+"&e_consent_gp="+e_consent_gp+"&e_consent_t="+e_consent_t + "&age="+age+"&gender="+gender+"&ethnicity="+ethnicity;
 	  data+="&"+consentdata;
 	  makeRequest(action, data);}
-	  else { document.getElementById('modal_feedback').innerHTML="<strong>Please fill out all the fields</strong>"}
+	  else { document.getElementById('modal_feedback').innerHTML="<strong>Please fill out all the fields</strong>";}
 	
 }
 

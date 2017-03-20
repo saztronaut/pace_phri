@@ -104,34 +104,13 @@ if ($end>6){
 	    $get_start =strtotime("+". (($n_show-$x)*7)+$thisend . " days", $latest_t);
 	    //$get_start is the first day of the week displayed (??)
 		if ($bump==1){
-			$new_week =date('Y-m-d', strtotime("+". (($n_show)*7) . " days", $latest_t));
-			// Explain that user has been given extra time to hit target. give option to increase time
-			
-		//	echo "<div class='form-group'><p><b>You have been given an extra week to hit the target from week " .$weekno . "    ";
-		//	echo "<button type='button' class='btn btn-default' id='increaseT' onclick=\"javascript:incTarget('".$new_week."')\">Click here to move onto the next target</button></div></form></b></p>";
-		}
-	    if ($ispast==1){
-	    	//echo "</br><h4><b>Last week</b></h4>";
-	    }
-	    else
-	    {    //echo "</br><h4><b>This week</b></h4>";
-	    }
+			$new_week =date('Y-m-d', strtotime("+". (($n_show)*7) . " days", $latest_t));			}
 	$tableResults[$x]=drawTable($thisend, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline, $weekno, $ispast);
 	}
 	else {
-		if ($ispast==1){
-			// If p is looking at steps for a time in the past, then tense as such
-		//	echo "</br></br><h4><b>".$x ." week prior</b></h4>";
-		}
-		else{
-			// If it is the same week as the week shown, talk about time from now
-		//	echo "</br></br><h4><b>".$x ." week ago</b></h4>";
-		}
-	
 	$get_start =strtotime("+". ((($n_show-$x)+1)*7)-1 . " days", $latest_t) ;
 	$ispast=1;
 	$tableResults[$x]=drawTable(6, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline, $weekno,  $ispast);}
-	// separate by week
 	}
 		
 }
@@ -179,16 +158,6 @@ function drawTable($end, $display, $startday, $daysw, $thisWeek, $steps, $userna
 	// $daysw = number of days in the target
 	// $thisWeek = the name of the current week
 	// $steps = the target number of steps
-	//This is the baseline format of the table - key differences are absent: additional walk and achieved target
-if ($thisWeek=='baseline'||$thisWeek=='getweek1'||$thisWeek=='delayweek1'||$thisWeek=='week0'){
-	//	echo "<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Steps</th><th>Collection Method</th><th></th></tr></thead>";
-	//	$showtargets=0;
-	}
-else {
-	//	echo "<p> Your average daily steps at baseline were <b>". $baseline ." steps</b>. This week your target is to to increase this to <b>". $steps ." steps on ". $daysw ." days per week</b></p>";
-	//	echo "<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Did you add </br>a walk of </br>".$walkmin." minutes </br>or more </br>today?</th><th>Steps</th><th>Collection Method</th><th>Achieved </br>target</th><th></th></tr></thead>";
-	//	$showtargets=1;
-	}
 	
 	
 $mytable=array();
@@ -256,38 +225,6 @@ $table['showrow']=$myrow;
 $table['ispast']=$ispast;
 $table['end']=$end;
 return $table;
-}
-
-
-
-function setWeekOne($latest_7, $in_7, $today_str)
-{$offer_dates=array(); //create array of dates starting from the end of the baseline week, to a week from now
-	if ($latest_7<$in_7){
-		$y=$latest_7;
-		while ($y<$in_7){
-			$offer_dates[]= $y;
-			$y=strtotime("+1 days", $y);
-		}
-	}
-	//Ask participant to select date to start increasing steps
-	echo "<p>You should start to increase your steps now. Select a day to start from</p>";
-	echo " <form class = 'form-inline'> <div class='form-group'>
-        <select class='form-control' placeholder='Select day to start your program' id='setTarget' name='setTarget'>";
-	foreach ($offer_dates as $x){
-		$y_date=date('Y-m-d', $x);
-		if ($x==$today_str){
-			echo "<option selected='selected' value ='". $y_date ."'>";
-			echo "Today ";
-		}
-		else {
-			echo "<option value ='". $y_date ."'>";
-			echo date('l', $x);
-			echo " ";}
-			echo date('d-m-Y', $x);
-			echo "</option>";
-	}
-	echo "</select></div> <div class='form-group'>";
-	echo "<button type='button' class='btn btn-default' id='onemonthBtn'> Set date </button> </div></form>";
 }
 
 		mysqli_close($connection);
