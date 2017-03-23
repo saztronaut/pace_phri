@@ -30,14 +30,14 @@
           </ul>
         </li>
        </ul>
-      <ul class="nav navbar-nav navbar-right">
-		<?php include './loggedon.php';?>
+      <ul class="nav navbar-nav navbar-right" id="login_bar">
 	  <!--  check to see if logged in - if so then offer log out if not then offer sign up login -->
 		</ul>
     </div>
   </div>
 </nav>
 <script>
+window.onload=getlogin();
 
 function redirect(gothere){
 	console.log(gothere);
@@ -52,6 +52,7 @@ function redirect(gothere){
 	  }
 	  xhr.send(dataString);  
 	}
+	
 
 
 function doXHR(url, callback, data=null){
@@ -75,4 +76,30 @@ function doXHR(url, callback, data=null){
 	  else {
 	  xhr.send();}
 	}
+
+function getlogin(){
+	
+	doXHR('./loggedon.php', function(){
+		response= this.responseText;
+		console.log(response);
+		print=[];
+		if (response==0){
+			print.push("<li><a href='#' onclick='javascript:redirect(\"./register_form.php\")'>");
+			print.push("<span class='glyphicon glyphicon-user'> </span> Sign Up </a></li>");
+			print.push("<li><a href='#' onclick='javascript:redirect(\"./landing_text.php\")'>");
+			print.push("<span class='glyphicon glyphicon-log-in'></span> Login </a></li>");
+			}
+		else {
+			userdata=JSON.parse(response);
+			if (userdata['role']=="R"||userdata['role']=="S"){
+				print.push("<li><a href='#' onclick='javascript:redirect(");
+				print.push('"./admin.php"');
+				print.push(")'><span class='glyphicon glyphicon-pencil'></span> Admin </a></li>");
+	            }
+			print.push("<li><a href='#'><span class='glyphicon glyphicon-user'></span> Welcome " + userdata['username'] +" </a></li>");
+			print.push("<li><a href='./logout.php'><span class='glyphicon glyphicon-log-in' id='logout'></span> Log out</a></li>");}
+	        login=print.join("\n");
+	        document.getElementById('login_bar').innerHTML= login;
+	    	        });
+		  }
 </script>

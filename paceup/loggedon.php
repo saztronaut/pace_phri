@@ -1,47 +1,17 @@
-
 <?php
-	if (isset($_SESSION['username'])){
-	  $username = $_SESSION['username'];
-	  $role = $_SESSION['roleID'];
-	  if ($role=="R"||$role=="S"){
-	  	echo "<li><a href='#' onclick='javascript:redirect(";
-	echo '"./admin.php"';
-	echo ")'><span class='glyphicon glyphicon-pencil'></span> Admin </a></li>";
-	  }
-	  echo "<li><a href='#' onclick='javascript:redirect(";
-	echo '"./showData.php"';
-	echo ")'><span class='glyphicon glyphicon-user'></span> Welcome " . $username . " </a></li>";
-    echo "<li><a href='./logout.php'><span class='glyphicon glyphicon-log-in' id='logout'></span> Log out</a></li>";
-	}
-	else
-	{
-	echo "<li><a href='#' onclick='javascript:redirect(";
-	echo '"./register_form.php"';
-	echo ")'><span class='glyphicon glyphicon-user'> </span> Sign Up </a></li>";
-    echo "<li><a href='#' onclick='javascript:redirect(";
-    echo '"./landing_text.php"';
-    echo ")'><span class='glyphicon glyphicon-log-in'></span> Login </a></li>";
-	}
+require 'database.php';
+require 'sessions.php';
+	if ($_SESSION['username']){
+	  $username = htmlspecialchars($_SESSION['username']);
+	  $role = htmlspecialchars($_SESSION['roleID']);
+	  $results=[];
+	  $results['role']=$role;
+	  $results['username']=$username;
+	echo json_encode($results);
+	} 
+	else { echo 0;}
+
 
 ?>
 
-<script>
-function redirect2(myform){
-	  console.log('trigger');
-	  var dataString="choose_form=./"+myform;
-	  	  var xhr = new XMLHttpRequest();
-	  xhr.open("POST", './redirect.php', true);
-	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	  xhr.onreadystatechange = function () {	  
-	  if(xhr.readyState ==4 && xhr.status ==200){
-		  window.location.reload(true);
-	      }
-	  }
-	  xhr.send(dataString);  
-	}
-
-
-
-
-</script>
 

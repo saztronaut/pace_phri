@@ -6,7 +6,6 @@
  $errors = [];
  if($_POST)
  {
-
   $username = htmlspecialchars($_POST['username']);
   $firstname = htmlspecialchars($_POST['firstname']);
   $lastname = htmlspecialchars($_POST['lastname']);
@@ -31,7 +30,6 @@
    $salt = IND_SALT;
   //
   
-
   $email = filter_var($email, FILTER_SANITIZE_EMAIL);
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   	$errors['email'] = 'Please use a valid email address';
@@ -61,43 +59,39 @@
   if ($email_unique->num_rows>0) {$errors['email']= 'Email already in use'; }  
   else if ($username_unique->num_rows<1 && $email_unique->num_rows<1 ) {
   	
-   $addUser = "INSERT INTO users(username, password, email, forename, lastname, pracID, start_date, e_consent, e_consent_v, e_consent_a, e_consent_gp, e_consent_t, pref_method, other_method, age, gender, ethnicity, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', LOWER('" . $email . "'), LOWER('" . $firstname . "'), LOWER('" . $lastname . "'), '". $practice ."', '" . $startdate . "', '" . $e_consent . "', '" . $e_consent_v . "', '" . $e_consent_a . "', '" . $e_consent_gp . "', '" . $e_consent_t . "', '". $method ."', '". $other_method ."', '". $age ."', '". $gender ."', '". $ethnicity ."',  'U', '". $registration ."');";
- 
+   $addUser = "INSERT INTO users(username, password, email, forename, lastname, pracID, start_date, pref_method, other_method, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', LOWER('" . $email . "'), LOWER('" . $firstname . "'), LOWER('" . $lastname . "'), '". $practice ."', '" . $startdate . "', '". $method ."', '". $other_method ."',  'U', '". $registration ."');";
+   $updateConsent = "UPDATE reference SET  e_consent = '" . $e_consent . "', e_consent_v= '" . $e_consent_v . "', e_consent_a= '" . $e_consent_a . "', e_consent_gp='" . $e_consent_gp . "', e_consent_t= '" . $e_consent_t . "', age  =". $age .", gender = '". $gender ."', ethnicity='". $ethnicity ."' WHERE referenceID '". $registration ."';";
  // $errors['query']= $addUser;
   //echo $addUser;
    if(mysqli_query($connection, $addUser))
     {// send an email to the user as well
+    	mysqli_query($connection, $updateConsent);
      $email_msg ="Thank you for signing up to the PACE-UP next-steps website!
 All the information you need to start the 12-week walking programme is online, including information on how to use the pedometer and set your walking targets.
 We would be grateful if you could complete and return the paper consent form, enclosed in your pedometer pack, using the free-post envelope provided. If you have misplaced the form or the envelope please contact Charlotte Wahlich (PACE-UP research assistant) on cwahlich@sgul.ac.uk who can provide you with a replacement.
 We hope that you enjoy the 12-week walking programme!
 Best wishes, 
 The PACE-UP team";
-
      
       $_SESSION['valid'] = true;
       $_SESSION['timeout'] = time();
       $_SESSION['username'] = $username;
-      $_SESSION['roleID'] = $row['U'];
+      $_SESSION['roleID'] = 'U';
       $_SESSION['choose_form']='./intro.php';
          header('Refresh: 0; URL = main_index.php');
     }
    
-
   }
   }}
   catch(PDOException $e){
        echo $e->getMessage();
   }
   
-
   }
   if(!empty($errors)) {
-
   	$result_array = $errors;
   	echo json_encode($result_array); }
   	else {echo json_encode(array('success' => 'yes'));}
   	exit;  
   
-
 ?>

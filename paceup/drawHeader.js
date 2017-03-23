@@ -1,4 +1,4 @@
-  function drawHeader2(week, weekno, comment=''){
+function drawHeader2(week, weekno, comment=''){
 	  //show supplementary BCT and introductory text to go with corresponding week. 
 	  //output thisHeader (the header for the week) blurb (the introductory text for the week) and thisAside (the bulk of the BCT)
 	  

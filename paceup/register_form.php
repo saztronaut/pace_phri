@@ -64,6 +64,5 @@
 
   </div>
 </div>
-
-  <script src="register.js"> </script>
 <script src="drawMethodsSelect.js"> </script>
+<script src="register.js"> </script>

@@ -1,9 +1,14 @@
-  window.onload = function() {
-	showMethodsSelect()
+  window.onload = showMethodsSelect();
 
+  function showMethodsSelect(){
+		 doXHR("./getMethods.php", function getThisArray(){
+			  var methods = JSON.parse(this.responseText); //methods just contains the potential methods that the user could draw from
+			  var pref_method="PED";
+			  document.getElementById('method_div').innerHTML=selectMethods("steps", "PED", methods, true);		 
+		 });	
 	}
 
-function registerNewUser() {
+function registerNewUser(){
   var form = document.getElementById("register-form");
   var action = form.getAttribute("action");
   var keep_going = validateRegistration(form);
@@ -21,27 +26,26 @@ function registerNewUser() {
 
 
 
-function makeRequest(url, data) {
+function makeRequest(url, data){
 
-  doXHR(url,  function () {
-        var result = xhr.responseText;
+  doXHR(url,  function (){
+        var result = this.responseText;
         console.log('Result: ', result);
 
-          var json = JSON.parse(result, function(key, value) {
+          var json = JSON.parse(result, function(key, value){
         	  if (key=="success"){
         	    	//refresh the page
         	    	window.location.reload(true);
         	  }
-        	  else if (key==""){	  
+        	  else if (key==""){
         	  }
         	  else{
         		  giveFeedback(key, value, true);
         	  }
-          }, data);
-
-  }
-
-
+          
+          }); }
+  , data);
+      }
 
 function validateRegistration(myform) {
 	var validate = 1;
@@ -155,7 +159,7 @@ function getOther(methodv){
 
 function getConsent(action, data){
 	
-	 doXHR('./checkconsent',function () {
+	 doXHR('./checkconsent.php',function (){
 
 	        var result = this.responseText;
 	        console.log('Result: ', result);
@@ -175,42 +179,41 @@ function getConsent(action, data){
 
 	        //only show modal popup if the data on the first form is valid
 	        if (valid==1 && (consent==1||consent==0)){
-	        	var getconsent=[];
-	       	 getconsent.push=( "<form> <div class='form-group' id='consent-form'>");
+	        	var getconsenttxt=[];
+	       	 getconsenttxt.push( "<form> <div class='form-group' id='consent-form'>");
 	    	 // if the registration code has a consent form recorded, only ask for consent in terms of the website. 
-	    	 getconsent.push=( "<div class='row'> <div class='col-md-10'><strong>Please read the form carefully and check each box to state you agree</strong><br></div>\
+	    	 getconsenttxt.push( "<div class='row'> <div class='col-sm-1'></div><div class='col-sm-9'><strong>Please read the form carefully and check each box to state you agree</strong><br></div>\
 	    	 <div class='col-md-2'><strong>* = mandatory</strong></div>");
-	        
 	        if (consent==1){;
             	//this user has already signed consent
-       	 getconsent.push=( "<div class='row'> <div class='col-md-10'><p>I agree to take part in PACE-UP Next Steps </p></div>\
+       	 getconsenttxt.push( "<div class='row'> <div class='col-sm-1'></div><div class='col-sm-9'><p>I agree to take part in PACE-UP Next Steps </p></div>\
     	 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_a'>*<br></div></div></div>\
-	   	 <div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a> </p></div>\
+	   	 <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a> </p></div>\
 		 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='privacy'>*<br></div></div></div>\
-		 <div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a>  </p></div>\
+		 <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a>  </p></div>\
 		 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='cookies'>*<br></div></div></div>");
             }
             else if (consent==0){//this user has not signed consent
            	 //read and understood
-           	 getconsent.push=( '<div class="row"> <div class="col-md-10"> <p>I have read and understood the Patient Information Sheet for PACE-UP Next Steps. I have had the opportunity to consider the information </p></div>');
-        	 getconsent.push=( "<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent'><br>*</div></div></div>");
+           	 getconsenttxt.push( '<div class="row">  <div class="col-sm-1"></div><div class="col-sm-9"> <p>I have read and understood the Patient Information Sheet for PACE-UP Next Steps. I have had the opportunity to consider the information </p></div>');
+        	 getconsenttxt.push( "<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent'><br>*</div></div></div>");
         	 //my participation is voluntary
-        	 getconsent.push=( "<div class='row'> <div class='col-md-10'><p>I understand that my participation is voluntary and that I am free to withdraw at any time, without giving any reason, without my medical care or legal rights being affected</p></div>\
+        	 getconsenttxt.push( "<div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I understand that my participation is voluntary and that I am free to withdraw at any time, without giving any reason, without my medical care or legal rights being affected</p></div>\
         	 <div class='col-md-2'> <div class='checkbox'> <input type='checkbox' value='1' id='e_consent_v'><br>*</div></div></div>");
         	 //agree to participate
-        	 getconsent.push=( "<div class='row'> <div class='col-md-10'><p>I agree to take part in PACE-UP Next Steps</p></div>");
-        	 getconsent.push=( "<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_a'>*<br></div></div></div>");
+        	 getconsenttxt.push( "<div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I agree to take part in PACE-UP Next Steps</p></div>");
+        	 getconsenttxt.push( "<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_a'>*<br></div></div></div>");
         	 //GP records
-        	 getconsent.push=( "<div class='row'> <div class='col-md-10'><p>I give permission for my GP records to be looked at by responsible individuals from St Georges, University of London </p></div>\
+        	 getconsenttxt.push( "<div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I give permission for my GP records to be looked at by responsible individuals from St Georges, University of London </p></div>\
         	 <div class='col-md-2'><div class='checkbox' ><input type='checkbox' value='1' id='e_consent_gp'><br></div></div></div>");
         	 //agree to contact
-        	 getconsent.push=( "<div class='row'> <div class='col-md-10'><p>I agree to being contacted for a short telephone interview about my physical activity and taking part in this study, if I am selected for this </p></div>\
+        	 getconsenttxt.push( "<div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I agree to being contacted for a short telephone interview about my physical activity and taking part in this study, if I am selected for this </p></div>\
         	 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_t'><br></div></div></div>\
-    	   	 <div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a> *</p></div>\
-    		 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='privacy'><br></div></div></div>\
-    		 <div class='row'> <div class='col-md-10'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a> *</p></div>\
-            <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='cookies'><br></div></div></div>\
-    		 		<a href='#' data-toggle='tooltip' title=''><strong> Please complete this information</strong></a>\
+    	   	 <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a></p></div>\
+    		 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='privacy'>*<br></div></div></div>\
+    		 <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a></p></div>\
+            <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='cookies'>*<br></div></div></div>\
+    		 <div class= 'row'><div class='col-sm-1'></div><div class='col-sm-11'><a href='#' data-toggle='tooltip' title=''><strong> Please complete this information</strong></a></div></div>\
     		 <div class='row'> <div class='col-md-1'></div> <div class='col-md-3'><strong> Gender </strong>\
             <div class='radio'><label><input type='radio' value='F' name='gender'> Female</label></div>\
              <div class='radio'><label><input type='radio' value='M' name='gender'> Male</label></div></div>\
@@ -225,13 +228,11 @@ function getConsent(action, data){
              <div class='radio'><label><input type='radio' value='60' name='age'> 60-74 years </label></div>\
              <div class='radio'><label><input type='radio' value='75' name='age'> 75 years and older</label></div></div></div>\
              <span id='modal_feedback'></span>");
-            }
-
-		 getconsent.push('</div></form></div>\
-		 <div class="modal-footer">');
-		 getconsent.push('<button type="button" class="btn btn-default" onclick="continueConsent(\''+ action +'\',\''+ data +'\',\''+ consent+'\')"> Continue </button></div>');
+            };
+		 getconsenttxt.push('</div></form></div> <div class="modal-footer">');
+		 getconsenttxt.push('<button type="button" class="btn btn-default" onclick="continueConsent(\''+ action +'\',\''+ data +'\',\''+ consent+'\')"> Continue </button></div>');
 		 console.log(data);
-		 consentdialog=getconsent.join("");
+		 consentdialog=getconsenttxt.join("");
 		 document.getElementById('consent_message').innerHTML= consentdialog;
 		 $('#consentModal').modal('show');
             
@@ -243,16 +244,7 @@ function getConsent(action, data){
               	
 	  }
 
-function showMethodsSelect(){
-	 doXHR("./getMethods.php", function getThisArray(){
-		  var methods = JSON.parse(this.responseText); //methods just contains the potential methods that the user could draw from
-		  var pref_method="PED";
-		  document.getElementById('method_div').innerHTML=selectMethods("steps", "PED", methods);
-		  
-	 
-	 });
-	
-}
+
 
 function continueConsent(action, data, result){
 	 
@@ -287,6 +279,7 @@ function continueConsent(action, data, result){
 	  if (consented==1){
 		  var consentdata ="e_consent="+e_consent+"&e_consent_v="+e_consent_v+"&e_consent_a="+e_consent_a+"&e_consent_gp="+e_consent_gp+"&e_consent_t="+e_consent_t + "&age="+age+"&gender="+gender+"&ethnicity="+ethnicity;
 	  data+="&"+consentdata;
+	  console.log(data);
 	  makeRequest(action, data);}
 	  else { document.getElementById('modal_feedback').innerHTML="<strong>Please fill out all the fields</strong>";}
 	
@@ -317,7 +310,7 @@ $('#user_email').bind('input', function(){
 
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();;
-})
+});
 
 
 

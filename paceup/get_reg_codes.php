@@ -2,11 +2,9 @@
 require 'database.php';
 require 'sessions.php';
 include 'get_json_encode.php';
-include 'createDownload.php';
 
 
 //check user has authority to generate codes R= researcher S= superuser
-
 //using form data, generate so many codes and report them to the browser
 	$results=[];
 if ($_POST){
@@ -38,14 +36,10 @@ if ($_POST){
 		}else {
 		$add_reg="INSERT INTO reference(referenceID, issue_date, practice, in_use, consent) VALUES ('". $reg_codes[$x]."',CURDATE(),'".$practice."', 0, 0);";
 		mysqli_query($connection, $add_reg) or die(0);
-		//print the registration code to the browser
-		//echo "<p>". $reg_codes[$x]. " ". $practice . " ". date("d-m-y"). "</p>";
 		$print_reg_codes[$x+1]= array($reg_codes[$x], $practice, date("d-m-y"));
-		//$results['response'].= $response;
 		}
 		}
 
-		//array_to_csv_download($print_reg_codes, "reg_code".date('d-m-y').".csv");
 		echo '{"data":'. json_encode($print_reg_codes).'}';  }
 		else {echo "You do not have the access privileges to generate registration codes";}}
 	else {

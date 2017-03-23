@@ -13,13 +13,8 @@
 
 <script>
 window.onload = function() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", 'get_my_data.php', true);
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	var user= [];
-	xhr.onreadystatechange = function () {
-		if(xhr.readyState == 4 && xhr.status ==200){
-			var $response = xhr.responseText;
+	doXHR('get_my_data.php', function () {
+			var $response = this.responseText;
 			console.log($response);
 			if ($response=="0"){
 				redirect('./landing_text.php');
@@ -59,8 +54,7 @@ window.onload = function() {
 					//document.getElementById('secondCol').innerHTML= print2;
 						
 						}}
-	                    }}
-	xhr.send();
+	                    });
 }
 
 function edit(control, input){

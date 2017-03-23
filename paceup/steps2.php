@@ -33,12 +33,7 @@
 <script src="./drawMethodsSelect.js"></script>
 <script src="./drawStepsTable.js"></script>
   <script> 
-  window.onload = function() {
-    showWeek(false);
-
-	}
-
-
+  window.onload = showWeek(false);
 
  function showWeek(past=false, viewWeek=null){
 	 // default show current week. past true/false indicates viewing a week which is not the current week. 

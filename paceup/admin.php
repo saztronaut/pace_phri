@@ -13,10 +13,10 @@
     <span class='glyphicon glyphicon-briefcase logo' onclick="javascript:redirect('./downloadData.php')" ></span></div>
   
     <div class="col-sm-2"><h3>User privileges</h3><br>
-    <span class='glyphicon glyphicon-user logo' onclick="javascript:redirect('./downloadData.php')" ></span></div>
+    <span class='glyphicon glyphicon-user logo' onclick="javascript:redirect('./userRights.php')" ></span></div>
 
     <div class="col-sm-3"><h3>Update Consent</h3><br>
-    <span class='glyphicon glyphicon-ok logo' onclick="javascript:redirect('./downloadData.php')" ></span></div>
+    <span class='glyphicon glyphicon-ok logo' onclick="javascript:redirect('./updateConsent.php')" ></span></div>
   </div>
 </div>
 

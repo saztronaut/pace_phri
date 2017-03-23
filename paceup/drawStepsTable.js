@@ -97,14 +97,13 @@
 				   mytable.push( "<input type='checkbox' class='form-control' id='walk"+ date_set +"'> </div>");
 	               mytable.push("</form></td>");
 			  }
-		     
-			mytable.push("<td data-title='Steps'>");
 		    }
-			if (stepsread!=null){ // if there is already a step count, add to total and display as text
+			mytable.push("<td data-title='Steps'>");
+			if (stepsread!=null) { // if there is already a step count, add to total and display as text
 				totalsteps= totalsteps+ stepsread;
 				totaldays= totaldays+ 1;
 				mytable.push("<span id='steps"+ date_set +"' value ="+ stepsread + " >"+ stepsread +  "</span>");
-				mytable.push("</td><td data-title='Device'><span id ='methodspan"+ date_set+"'>");
+				mytable.push("</td><td data-title='Device'><span id='methodspan"+ date_set+"'>");
 				mytable.push(selectMethods("method"+ date_set, give_pref, methods, false));
 				mytable.push("</span></td>");
 				
