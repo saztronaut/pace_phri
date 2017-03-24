@@ -32,7 +32,8 @@
                   days=weekdata['days']; //days to reach target
                  $drawMyTable=[];
                  if (tabledata.bump==1 && tabledata.ispast==0){
-                	 $drawMyTable.push(bumpTarget(weekno, tableResults.newweek));
+                	 $drawMyTable.push(bumpTarget(weekno, tabledata.new_week));
+                	 console.log("I'm drawing the bump");
                  }
                  for (x = 0; x <=n_show; x++) { 
                  // for each table to show, draw the table
@@ -119,7 +120,7 @@
 
 			///Get stars
 			if (showtargets==1){
-				if ((targetstep!=null)&&(targetstep<= stepsread)){
+				if ((targetstep!=null)&&(parseInt(targetstep)<= parseInt(stepsread))){
 					mytable.push("<td  data-title='Achieved target'  align='center'><span class='glyphicon glyphicon-star logo-small'></span></td>");
 					targetdays= targetdays+1;
 				}
@@ -224,7 +225,7 @@
 	function bumpTarget(weekno, newweek){ // allows user to move to next target even if they didn't hit it
 		var print="";
 		print+="<div class='form-group'><p><b>You have been given an extra week to hit the target from week " + weekno + " ";
-		print+="<button type='button' class='btn btn-default' id='increaseT' onclick=\"javascript:incTarget('"+$new_week+"')\">Click here to move onto the next target</button></div></form></b></p>";
+		print+="<button type='button' class='btn btn-default' id='increaseT' onclick=\"javascript:incTarget('"+ newweek +"')\">Click here to move onto the next target</button></div></form></b></p>";
 
 		return print
 	}

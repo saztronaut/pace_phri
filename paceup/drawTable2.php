@@ -24,6 +24,7 @@ if ($maxweekno>$weekno){
     $finish_date = isset($_POST['finish']) ? $_POST['finish']:date('Y-m-d'); //For looking at historical data
 } else { $finish_date=date('Y-m-d');}
 
+$pageispast=$ispast;
 
 $today = $finish_date;
 $today_str = strtotime($today);
@@ -104,8 +105,10 @@ if ($end>6){
 	    $get_start =strtotime("+". (($n_show-$x)*7)+$thisend . " days", $latest_t);
 	    //$get_start is the first day of the week displayed (??)
 		if ($bump==1){
-			$new_week =date('Y-m-d', strtotime("+". (($n_show)*7) . " days", $latest_t));			}
-	$tableResults[$x]=drawTable($thisend, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline, $weekno, $ispast);
+			$new_week =date('Y-m-d', strtotime("+". (($n_show)*7) . " days", $latest_t));
+			$getTable['new_week']=$new_week;
+		}
+	$tableResults[$x]=drawTable($thisend, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline, $weekno, $ispast, $new_week);
 	}
 	else {
 	$get_start =strtotime("+". ((($n_show-$x)+1)*7)-1 . " days", $latest_t) ;
@@ -119,7 +122,7 @@ else{
 }
 
 $getTable['iseven'] = $iseven;
-$getTable['ispast'] = $ispast;
+$getTable['ispast'] = $pageispast;
 $getTable['displayavg'] = $display;
 $getTable['splittable'] = $split_table;
 $getTable['n_show'] = $n_show;
@@ -142,7 +145,7 @@ if(!empty($getTable)) {
 //Ask how long it has been since sign up (days)
 // For loop - for each day from today to either 7 or $days
 // Get day of the week, date and step information
-function drawTable($end, $display, $startday, $daysw, $thisWeek, $steps, $username, $baseline, $weekno, $ispast=0){
+function drawTable($end, $display, $startday, $daysw, $thisWeek, $steps, $username, $baseline, $weekno, $ispast=0, $new_week=null){
 	require 'database.php';
 
 
@@ -224,6 +227,7 @@ foreach ($mytable as $x){
 $table['showrow']=$myrow;
 $table['ispast']=$ispast;
 $table['end']=$end;
+//$table['new_week']=$new_week;
 return $table;
 }
 

@@ -118,8 +118,6 @@
   
  
   function updateSteps(controlname, edit){
-	  //Potential answers are to not show dates in the future as this would reset the date?
-	  var date_set = new Date();
 	  // get number from string, which is the number from the current date
 	  var nudge = controlname.slice(-(controlname.length-7));
 	  // get steps
@@ -133,7 +131,7 @@
 	    }
 	  var method= 'method'+nudge;	  
 	  input = document.getElementById(inputname).value;	  
-      date_set = nudge;	
+      var date_set = nudge;	
 	  methodID = document.getElementById(method).value; 
 	      //find out if there is a walk check box
       var walk_yn= '';
@@ -208,9 +206,10 @@
   function updateTarget(){
 	  input = document.getElementById('setTarget');
 	  thisdate = input.options[input.selectedIndex].value;
-	  data="date_set=" + thisdate;
-	  doXHR('updateTarget.php',function(){
-		  window.location.reload(true);}, data);
+	  incTarget(thisdate);
+	  //data="date_set=" + thisdate;
+	  //doXHR('updateTarget.php',function(){
+		//  window.location.reload(true);}, data);
 	  
   }
 
