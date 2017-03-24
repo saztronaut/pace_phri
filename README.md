@@ -79,7 +79,7 @@ Main shell of the pages. Shows navbar and main content and footer
 *drawTable*
 - sends weekdata to drawTable2 and retrieves tabledata. this comprises: 
    * n_show - the number of weeks to show [ if a participant does not hit a target, then they stay on the even week unless they choose otherwise], 
-   * bump - 0/1 show button to increase target, 
+   * bump - 0/1 show button to increase target
    * newweek (if bump, this is the date the new target starts), 
    * tableResults - for each week to show 
       - {for each week: ispast (is this particular week table in the past or the current week), 
@@ -128,9 +128,12 @@ The page is then refreshed - this updates the field, but also any targets if rel
 This gets the value in comments+weekno and sends it to **addComment.php**
 
 #### Setting manual targets
-- getWeek.php should handle all automatic target updates. If a participant does not reach their target for an even week, they do not automatically progress to the next target - this avoids target increasing and increasing out of reach, particularly if the participant has a break in step recording. The event that they wish to make their target harder despite not reaching it must be accommodated. this is drawn by drawHeader above the steps table
+- getWeek.php should handle all automatic target updates. If a participant does not reach their target for an even week, they do not automatically progress to the next target - this avoids target increasing and increasing out of reach, particularly if the participant has a break in step recording. The event that they wish to make their target harder despite not reaching it must be accommodated. this is drawn by drawHeader above the steps table. 
 
-
+*updateTarget()*
+get date for week one target from DDL
+*incTarget()*
+send date from updateTarget or from bump button to updateTarget.php
 
 #### Baseline: 
 - Users must be able to enter their steps before being given a target.
@@ -163,7 +166,7 @@ Produce graphs to show the users progress over time
 ## Administrative functions
 ### admin.php
 [DONE] Allow a super user to access download data, add practice, create registration code 
-[NOT DONE] Allow a super user to allocate a role to another user, for example Researcher, Nurse or Superuser 
+[~~NOT~~ DONE] Allow a super user to allocate a role to another user, for example Researcher or Superuser 
 
 ### Create registration code getCodes.php, get_reg_codes.php, WEB ONLY NOT APP
 * getCodes.php - HTML JS basic form to complete to get the registration codes
@@ -171,14 +174,15 @@ Produce graphs to show the users progress over time
 
 For Research Assistant. Should be able to generate and download lists of registration code, specifying practice beforehand
 getCodes.php is the data entry form and get_reg_codes.php processes the data. 
-AT THE MOMENT THE DATA WON'T DOWNLOAD! BUG NEEDS FIXING
+~~AT THE MOMENT THE DATA WON'T DOWNLOAD! BUG NEEDS FIXING~~
 
-### download data downloadData.php
+### download data downloadData.php 
 * downloadData.php form to request download data - can download users (no pword), steps, targets, practices, methods. Can narrow by user or practice or both
 * download.php check user in session is S or R (otherwise no permission). produce csv for download
 
 Research Assistant should be able to download all of the data in the database
-As SKB can't get the download function to work, first write up the code to generate the csv in text form and then worry about the download function later
+
+### 
 
 ### reset password createPasswordToken.php, forgotpass.php, process_pwd_reset.php, reset_password.php, resetpwd.php
 * reset_password.php - HTML JS data entry for to create the password token
