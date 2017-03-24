@@ -92,10 +92,17 @@ Main shell of the pages. Shows navbar and main content and footer
            add_walk (0/1 did the participant add a walk of 15/30 mins), 
            give_pref (if there is step data, the device identified when entering data otherwise their default device), 
            stepsread (number of steps read)}, 
+- looks a bit like this:
+Day | Date | HasWalk | Steps | Device | Feedback | Button 
+Monday | 20-03-2017 | walk2017-03-20 | steps2017-03-20 | method2017-03-20 (PED) | |saveBtn2017-03-20
+Tuesday | 21-03-2017 | walk2017-03-21 (on) | steps2017-03-21 (7890) | method2017-03-21 (PED) | | edit2017-03-21
+
 - if bump is 1 then send newweek to *bumpTarget* which draws the button to set a new target
 - for each week to view, call drawMySteps. drawMySteps will select the correct table header and introduction  to the week (i.e. "Your average daily steps at baseline were xxx. This week your target is to increase your step count to XX steps on XX days. One way to do this is a 30 minute walk"). For every day to display, show the day name, the date, did you add a walk  (check box or static tick), step count (static text or control box), method select, star if achieved target and an "Add/Edit" button (Add if no steps yet, Edit if has data).
 - for each week to view, call stepsFeedback. Gives feedback based on progress so far [NOTE needs work on tenses/ viewing past]
 - and finally! use goBack() to draw a select control to allow user to view weeks in the past. 
+
+
 #### Adding steps & Editing steps
 - Each row has a button, with id "editBtn"+ date of reading or "saveBtn" +date of reading. The date can be used to update the correct row
 - If there is no step value, the row button reads "Add" and there is a control box for walk, steps and device. Clicking "Add" triggers *updateSteps()* 
@@ -112,6 +119,16 @@ Edit is true/ false - if half the row is edited, don't lose the old row, use upd
 The date of the step count is used to get the input data of the walk, device and steps controls. 
 Then this is sent as date_set, steps, walk and method to **updateSteps.php**
 The page is then refreshed - this updates the field, but also any targets if relevant
+
+#### Adding comments
+- when thisAside is drawn by drawHeader a comments box is drawn in with id comment# where # is the week number. 
+*recordComment(weekno)*
+This gets the value in comments+weekno and sends it to **addComment.php**
+
+#### Setting manual targets
+- getWeek.php should handle all automatic target updates. If a participant does not reach their target for an even week, they do not automatically progress to the next target - this avoids target increasing and increasing out of reach, particularly if the participant has a break in step recording. The event that they wish to make their target harder despite not reaching it must be accommodated. this is drawn by drawHeader above the steps table
+
+
 
 #### Baseline: 
 - Users must be able to enter their steps before being given a target.
