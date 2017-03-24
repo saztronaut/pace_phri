@@ -94,6 +94,7 @@ Main shell of the pages. Shows navbar and main content and footer
            stepsread (number of steps read)}, 
 - looks a bit like this:
 Day | Date | HasWalk | Steps | Device | Feedback | Button 
+--- | --- | --- | --- | --- | --- | ---
 Monday | 20-03-2017 | walk2017-03-20 | steps2017-03-20 | method2017-03-20 (PED) | |saveBtn2017-03-20
 Tuesday | 21-03-2017 | walk2017-03-21 (on) | steps2017-03-21 (7890) | method2017-03-21 (PED) | | edit2017-03-21
 
