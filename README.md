@@ -50,7 +50,7 @@ Main shell of the pages. Shows navbar and main content and footer
   * *validateCopy* - password must be 8 digits long (at least) and contain at least one letter and at least one number. Copy must match original
   * *giveFeedback* - if any of the validations fail, this function is used to inform the user
   * *getConsent* - if passes all validation - check registration, extract consent information and show consent modal. If the individual has sent back their postal consent, we only need to have consent for privacy and cookies. I have added in "I consent to take part in the study" as well. We do really want the postal consent forms, but in the interim we will get digital consent and then chase them. 
-  * *continueConsent* - activated by a button in *getConsent*. This checks that the necessary consent has been given and then uses *makeRequest* to send the data to **register.php** which should create a new user. 
+  * *continueConsent* - activated by a button in *getConsent*. This checks that the necessary consent has been given and then uses *makeRequest* to send the data to **register.php** which should create a new user. New users are then sent to "intro.php".
   
   * Username and email checked for uniqueness, non unique usernames are reported as errors on form
   * Non matching passwords error on form
@@ -93,9 +93,25 @@ Main shell of the pages. Shows navbar and main content and footer
            give_pref (if there is step data, the device identified when entering data otherwise their default device), 
            stepsread (number of steps read)}, 
 - if bump is 1 then send newweek to *bumpTarget* which draws the button to set a new target
-- for each week to view, call drawMySteps. drawMySteps will select the correct table header and introduction  to the week (i.e. "Your average daily steps at baseline were xxx. This week your target is to increase your step count to XX steps on XX days. One way to do this is a 30 minute walk"). For every day to display, show the day name, the date, did you add a walk  (check box or static tick), step count (static text or control box), method select, star if achieved target and an "Add/Edit" button (add if no steps yet, Edit if has data).
+- for each week to view, call drawMySteps. drawMySteps will select the correct table header and introduction  to the week (i.e. "Your average daily steps at baseline were xxx. This week your target is to increase your step count to XX steps on XX days. One way to do this is a 30 minute walk"). For every day to display, show the day name, the date, did you add a walk  (check box or static tick), step count (static text or control box), method select, star if achieved target and an "Add/Edit" button (Add if no steps yet, Edit if has data).
 - for each week to view, call stepsFeedback. Gives feedback based on progress so far [NOTE needs work on tenses/ viewing past]
 - and finally! use goBack() to draw a select control to allow user to view weeks in the past. 
+#### Adding steps & Editing steps
+- Each row has a button, with id "editBtn"+ date of reading or "saveBtn" +date of reading. The date can be used to update the correct row
+- If there is no step value, the row button reads "Add" and there is a control box for walk, steps and device. Clicking "Add" triggers *updateSteps()* 
+- If there is a steps value, the data will be shown as static text. The row button reads "Edit". This triggers *editSteps()*
+
+*editSteps(controlname)*
+The date is taken from the control name.  
+Then the date is used to first get the values of the static text and then replace the text with a control so these values can be altered.
+Then the name of the button is changed to "Update".
+
+*updateSteps(controlname, edit)*
+The date of the step count is taken from the end of the controlname
+Edit is true/ false - if half the row is edited, don't lose the old row, use update instead of insert.
+The date of the step count is used to get the input data of the walk, device and steps controls. 
+Then this is sent as date_set, steps, walk and method to **updateSteps.php**
+The page is then refreshed - this updates the field, but also any targets if relevant
 
 #### Baseline: 
 - Users must be able to enter their steps before being given a target.
