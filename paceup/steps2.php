@@ -32,6 +32,7 @@
 <script src="./drawHeader.js"></script>
 <script src="./drawMethodsSelect.js"></script>
 <script src="./drawStepsTable.js"></script>
+<script src="./dateFunctions.js"></script>
   <script> 
   window.onload = showWeek(false);
 
@@ -207,6 +208,7 @@
 	  input = document.getElementById('setTarget');
 	  thisdate = input.options[input.selectedIndex].value;
 	  incTarget(thisdate);
+	  
 	  //data="date_set=" + thisdate;
 	  //doXHR('updateTarget.php',function(){
 		//  window.location.reload(true);}, data);
@@ -216,6 +218,7 @@
   
   function incTarget(newtarget){
 	  data="date_set=" + newtarget;
+	  console.log(data);
 	  doXHR("updateTarget.php", function(){
 		  window.location.reload(true);}, data);
   }

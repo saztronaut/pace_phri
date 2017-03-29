@@ -7,15 +7,6 @@
 <p>We will not pass on or sell your personal data to any other organisations for marketing purposes. </p>
 <p>Under the Data Protection Act you have the right to request a copy of the information held about you by St George&#8217;s, University of London. This is subject to providing proof of ID and payment of a &#163;10 charge. Requests should be submitted in writing (this can include email) to the Data Protection Officer using the contact details below.</p>
 <p>Details about how the University uses personal data can be found in our entry in the Data Protection Public Register. This can be accessed via the Information Commissioner&#8217;s Office website, searching for &#8217;St George&#8217;s Hospital Medical School&#8217;</p>
-<p>Data Protection Officer</p>
-<p>Queries and requests relating to Data Protection and the processing of personal data by St George&#8217;s, University of London should be directed to:</p>
-<address>
-<strong>Claire Morrissey</strong><br>
-<strong>Data Protection Officer</strong><br>
-St George's, University of London<br>
-Cranmer Terrace<br>
-Tooting<br>
-LONDON SW17 0RE<br>
-Telephone: 020 8725 0668<br>
-Email: dataprotection@sgul.ac.uk</address>
+<p><a href="www.sgul.ac.uk/privacy"> Data Protection Officer</a></p>
+
 </div>

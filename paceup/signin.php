@@ -20,7 +20,7 @@
 
 <form class="form-inline" id ="reset-form">
 <label for="resetBtn"> Forgotten your password? :</label>
-<button type="button" class="btn btn-default" id="resetBtn">Click here</button>
+<button type="button" class="btn btn-default" id="resetBtn" onclick = "redirect('./reset_password.php')" >Click here</button>
 
 </form>
 </div>

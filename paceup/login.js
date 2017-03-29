@@ -12,13 +12,9 @@ function login() {
 
 
 function makeRequest(url, data) {
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhr.send(data);
-  xhr.onreadystatechange = function () {
-  if(xhr.readyState == 4 && xhr.status ==200){
-  var $response = xhr.responseText;
+
+  doXHR(url, function () {
+  var $response = this.responseText;
   console.log($response);
     if ($response==1){
     	//refresh the page
@@ -32,45 +28,12 @@ function makeRequest(url, data) {
     	document.getElementById('response').innerHTML= 'Please provide both values';  	
     	  console.log($response);
     }
-  }
-  }
-}
-
-
-function giveFeedback(x, message, error){
-	//x is the object of feedback, message is the feedback message, error =yes if about an error or no if not error
-	
-	var divname= x +"_div";
-	var msgname= x +"_span";
-	if (error==true){ 
-		formgroup="form-group has-error";
-		document.getElementById(msgname).className= "help-block";
-		}
-	else { 
-		formgroup="form-group";
-		}
-	 document.getElementById(divname).className= formgroup;	
-	 document.getElementById(msgname).innerHTML= message;	
+  }, data);
 }
 
 //
-function redirect3(){
-	  var dataString="choose_form=./reset_password.php";
-	  var xhr = new XMLHttpRequest();
-	  xhr.open("POST", './redirect.php', true);
-	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	  xhr.onreadystatechange = function () {	  
-	  if(xhr.readyState ==4 && xhr.status ==200){		  
-		  window.location.reload(true);
-	  }
-	      }
-	  xhr.send(dataString);  
-	}
 
 
-var rstbutton = document.getElementById("resetBtn");
-rstbutton.addEventListener("click", redirect3);	
-	
 
 var logbutton = document.getElementById("loginBtn");
 logbutton.addEventListener("click", login);	

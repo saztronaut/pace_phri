@@ -73,6 +73,7 @@
 <div class = "col-md-4"> <p id="thisAside_12"></p></div>
 </div>
 </div>
+<script src="./dateFunctions.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script>
 window.onload = function() {
@@ -164,10 +165,10 @@ function drawTables ($response){
             	
             		
             //print day of week
-				$print+="<tr> <td>"+ daystxt[date_read.getDay()] +"</td>";
-				daysdta.push(daystxt[date_read.getDay()]) ;
+				$print+="<tr> <td>"+ giveDay(date_read) +"</td>";
+				daysdta.push(giveDay(date_read)) ;
 				// print date
-				$print+="<td>"+ date_read.getDate() +" - "+ (date_read.getMonth()+1) +" - " + date_read.getFullYear() +"</td>";
+				$print+="<td>"+ forwardsDate(date_read) +"</td>";
 				// print steps
 				$print+="<td>"+ steps[j].steps +"</td>";
 				stepsdta.push(steps[j].steps);

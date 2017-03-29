@@ -1,7 +1,7 @@
 <br><br><div class="container-fluid text-center">
 <form class="form-inline" method="POST" action="./userConsent.php" id="user-consent">
 
-<h2 class="form-signin-heading">Download study data</h2><hr />
+<h2 class="form-signin-heading">Update consent data</h2><hr />
 
 <p id="errorMessage"></p>
         <div class="form-group" id="practice_div">

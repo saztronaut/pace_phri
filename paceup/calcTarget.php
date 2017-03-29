@@ -9,7 +9,7 @@ function calcTarget($n_t, $getsteps){
 		$days=5;
 		$steptarget=$getsteps;
 	}
-	elseif ($n_t>5){
+	elseif ($n_t>=5){
 		$days=6;
 		$steptarget=$getsteps;
 	}
@@ -17,6 +17,7 @@ function calcTarget($n_t, $getsteps){
 	$results['days']=$days;
 	$results['steptarget']=$steptarget;
 	return $results;
+    
 
 }
 ?>
