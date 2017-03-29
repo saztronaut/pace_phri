@@ -1,7 +1,8 @@
 <?php
 require 'database.php';
 require 'sessions.php';
-	if ($_SESSION['username']){
+	
+	if (isset($_SESSION['username'])){
 	  $username = htmlspecialchars($_SESSION['username']);
 	  $role = htmlspecialchars($_SESSION['roleID']);
 	  $results=[];

@@ -42,7 +42,7 @@ If you have received this email in error, please ignore it";
 				$headers .= "Content-type:text/html;charset=UTF-8"."\r\n ";
 				$headers .= 'From: noreply@paceup.ac.uk' . "\r\n " .
 						'X-Mailer: PHP/' . phpversion();
-				mail ($email, $subject , $message, $headers);
+				mail($email, $subject , $message, $headers);
 				$msg=1;
 				// Use this to make sure the user is using the same device as the one used to reset the password
 				$_SESSION['reset_user']=$username;

@@ -5,7 +5,7 @@
 </div></div>
 <div class="container-fluid-extrapad"> 
 <p id="thisAside"><span id="thisTable">Explanation of the study will appear her</span> </p>
-<p> To get started recording steps for your first week, <a href="#" onclick='redirect("./steps2.php")'> click here</a> </p>
+<h3> To get started recording steps for your first week, <a href="#" onclick='redirect("./steps2.php")'> click here</a> </h3>
 
 </div>
 

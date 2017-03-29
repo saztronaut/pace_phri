@@ -6,7 +6,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="#">HOME</a></li>
+        <li><a href="#" onclick='redirect("./intro.php")'>HOME</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MY STEPS <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -42,15 +42,10 @@ window.onload=getlogin();
 function redirect(gothere){
 	console.log(gothere);
 	  var dataString='choose_form=' + gothere;
-	  var xhr = new XMLHttpRequest();
-	  xhr.open("POST", './redirect.php', true);
-	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	  xhr.onreadystatechange = function () {	  
-	  if(xhr.readyState == 4 && xhr.status ==200){	
+	  console.log(dataString);
+	  doXHR('./redirect.php', function () {	
 		  window.location.reload(true);	 
-	  }
-	  }
-	  xhr.send(dataString);  
+	  }, dataString);  
 	}
 	
 

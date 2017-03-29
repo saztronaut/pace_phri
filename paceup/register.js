@@ -166,15 +166,31 @@ function getConsent(action, data){
 	        var consent='';
 	        var valid=1;
 	        var json = JSON.parse(result, function(key, value) {
-	        	  if (key=="consent"){
-	        		  consent=value;
-	        	  }
-	          	  else if (key=="msg"){	 ; 
-	        	  }
-	        	  else if (key=="email"|| key=="username"){
-	        		  giveFeedback(key, value, true);
+	        	switch (key){
+	        	case "consent": consent=value;
+	        	break;
+	        	case "e_consent": e_consent=value;
+	        	break;
+	        	case "e_consent_v": e_consent_v=value;
+	        	break;
+	        	case "e_consent_a": e_consent_a=value;
+	        	break;
+	        	case "e_consent_t": e_consent_t=value;
+	        	break;
+	        	case "e_consent_gp": e_consent_gp=value;
+	        	break;
+	        	case "age": age=value;
+	        	break;
+	        	case "gender": gender=value;
+	        	break;
+	        	case "ethnicity": ethnicity=value;
+	        	break;
+	        	case "email":
+	        	case "username":
+	        		giveFeedback(key, value, true);
 	        		  valid=0;
-	        	  }
+	        		  break;
+	        	}  
 	          })
 
 	        //only show modal popup if the data on the first form is valid
@@ -186,11 +202,11 @@ function getConsent(action, data){
 	    	 <div class='col-md-2'><strong>* = mandatory</strong></div>");
 	        if (consent==1){;
             	//this user has already signed consent
-       	 getconsenttxt.push( "<div class='row'> <div class='col-sm-1'></div><div class='col-sm-9'><p>I agree to take part in PACE-UP Next Steps </p></div>\
-    	 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_a'>*<br></div></div></div>\
-	   	 <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a> </p></div>\
-		 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='privacy'>*<br></div></div></div>\
-		 <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a>  </p></div>\
+       	  getconsenttxt.push( "<div class='row'> <div class='col-sm-1'></div><div class='col-sm-9'><p>I agree to take part in PACE-UP Next Steps </p></div>");
+       	  getconsenttxt.push("<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_a'>*<br></div></div></div>");
+       	  getconsenttxt.push(" <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a> </p></div>\
+		 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='privacy'>*<br></div></div></div>");       	
+       	  getconsenttxt.push(" <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a>  </p></div>\
 		 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='cookies'>*<br></div></div></div>");
             }
             else if (consent==0){//this user has not signed consent

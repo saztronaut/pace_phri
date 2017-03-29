@@ -31,6 +31,15 @@
                   weekno=weekdata['weekno']; // number of the week
                   days=weekdata['days']; //days to reach target
                  $drawMyTable=[];
+                 if (weekdata['week']=="getweek1"){
+                	 //show select week button
+                	 var onew= setWeekOne(weekdata['latest_t'], weekdata['baseline']);
+                	 $drawMyTable.push(onew);
+                 }
+                 else if (weekdata['week']=="delayweek1"){
+                	 var showDate= new Date(weekdata['latest_t']);
+                	 $drawMyTable.push("<p>You will start to increase your steps from "+ giveDay(weekdata['latest_t']) + " ( " + forwardsDate(weekdata['latest_t'])+ ")</p>");
+                 }
                  if (tabledata.bump==1 && tabledata.ispast==0){
                 	 $drawMyTable.push(bumpTarget(weekno, tabledata.new_week));
                 	 console.log("I'm drawing the bump");
@@ -77,8 +86,8 @@
 		//console.log(steparray);
 
 		for (i in steparray){ //draw each day as a row of information about steps
-			var day = steparray[i].day;
-			var stepdate = steparray[i].stepdate;
+			var day = giveDay(steparray[i].date_set);
+			var stepdate = forwardsDate(steparray[i].date_set);
 			var date_set = steparray[i].date_set;
 			var add_walk = steparray[i].addwalk;
 			var give_pref = steparray[i].give_pref;
@@ -229,4 +238,41 @@
 
 		return print
 	}
+	
+	function setWeekOne(latest_t, baseline){
+		var print=[];
+		console.log(latest_t, baseline);
+		print.push("<p>Congratulations, you completed the baseline week. You walked an average of "+ baseline +" steps per day </p>");
+		print.push("<p>You should start to increase your steps. Please select a day to begin </p>");		
+	    print.push("<form class = 'form-inline'> <div class='form-group'>");
+		print.push("<select class='form-control' placeholder='Select a date to start' id='setTarget' name='setOneweek'>");
+		//date of target should be minimum latest_t+7
+		var daystxt = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+		var baseline= new Date(latest_t);
+		var today = new Date();
+		console.log(today);
+		var days= Math.floor((today.getTime()-baseline.getTime())/(24*60*60*1000));
+		console.log(days);
+		for (i=days; i>=0; i--){
+			var thisday=new Date(today.getTime() + ((7-i)*24*60*60*1000));			
+			var print_date= forwardsDate(thisday);
+			var val_date= valDate(thisday);
+			if (i==7){
+				print.push("<option selected='selected' value= '"+ val_date +"'> Today");
+			}
+			//else if (i==6){
+			//	print.push("<option value= '"+ val_date +"'> Tomorrow");
+			//}
+			else{
+				print.push("<option value= '"+ val_date +"'>"+ daystxt[thisday.getDay()] + " " + print_date );
+			}	
+			print.push("</option>");
+		}
+	    print.push("</select></div><div class='form-group'> ");
+	    print.push("<button type ='button' class='btn btn-default' id='onemonthBtn'> Set Date</button></div></form>");	
+	    return print.join('\n');
+	    
+	}
+	
+
 	

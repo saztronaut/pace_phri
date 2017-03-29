@@ -16,21 +16,15 @@
 <script>
 
 var button = document.getElementById("resetBtn");
-button.addEventListener("click", redirect);
+button.addEventListener("click", redirectGo);
 
-function redirect(){
+function redirectGo(){
 	  var data= document.getElementById('email').value;
-	  var xhr = new XMLHttpRequest();
-	  xhr.open("POST", './createPasswordToken.php', true);
-	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	  xhr.onreadystatechange = function () {	  
-	  if(xhr.readyState == 4 && xhr.status ==200){		
-		  var $response = xhr.responseText;
+	  doXHR('./createPasswordToken.php', function () {	  	
+		  var $response = this.responseText;
 		  document.getElementById("response").innerHTML= "Please check your inbox - you should have received an email to reset your password";
 		  console.log($response);
-	  }
-	  }
-	  xhr.send('email='+data);  
+	  }, 'email='+data);  
 	}
 	
 </script>
