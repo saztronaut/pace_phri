@@ -18,7 +18,7 @@
   $checkSteps= mysqli_query($connection, $query);
   
   if ($checkSteps-> num_rows<1) {
-  	$addSteps = "INSERT INTO readings (username, date_read, date_entered, add_walk, steps, method) VALUES ('". $username ."', '". $date_set ."', CURDATE(), '". $walk ."','". $input ."', '". $method ."');" ;
+  	$addSteps = "INSERT INTO readings (username, date_read, date_entered, add_walk, steps, method) VALUES ('". $username ."', '". $date_set ."', NOW(), '". $walk ."','". $input ."', '". $method ."');" ;
    if (mysqli_query($connection, $addSteps))
     { $_SESSION['valid'] = true;
       $_SESSION['timeout'] = time();
@@ -40,7 +40,7 @@
     	if ($method=="" ||isset($method)==0){
     		$method=$oldmethod;
     	}
-    	$addSteps = "UPDATE readings SET date_entered=CURDATE(), add_walk=". $walk .", steps='". $input ."', method='". $method ."' WHERE username='". $username ."' AND date_read='". $date_set ."';";
+    	$addSteps = "UPDATE readings SET date_entered=NOW(), add_walk=". $walk .", steps='". $input ."', method='". $method ."' WHERE username='". $username ."' AND date_read='". $date_set ."';";
     	if (mysqli_query($connection, $addSteps)){
     		$msg="Success";
     	}
