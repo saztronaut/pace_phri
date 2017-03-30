@@ -326,8 +326,8 @@ adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of t
 <li>Try out new walks near you or think about a walking group, the websites listed have lots of ideas for local walks, or your local library will have information.</li> </ul>";
 					  break;
 					  default:	
-						  thisTitle= "How to keep going when your PACE-UP -Next Steps Programme finishes";
-				      blurb="<p> Congratulations – you have now completed the 12-week walking programme!</p>";
+						  thisTitle= "Beyond the 12 weeks of the PACE-UP Next Steps programme";
+				      blurb="<p>How to keep you walking</p>";
 					  thisAside = "<h3>How to keep going when your <img src='images/logo_mini.png'>-Next Steps walking programme finishes </h3><br>\
 					  <ul type='circle'> <li>Keep the habit of going for a 30 minute walk or doing 30 minutes of other moderate activity to keep up your step-count, most days of the week.</li> \
 					   <li>Keep your pedometer and use it sometimes to show you how active you are. It is easy to be very busy without being very active, the pedometer shows you accurately how many steps you are taking.</li> \
