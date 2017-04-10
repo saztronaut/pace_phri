@@ -223,6 +223,7 @@ function getAvg(array){
     var avg = Math.round(sum / array.length);
     return avg;
 }
+
 function getChartlayout(label, base_steps, target_steps) {	
 	var layout = { 
 			  title: label,
@@ -236,6 +237,7 @@ function getChartlayout(label, base_steps, target_steps) {
 			      size: 16,
 			      color: 'rgb(107, 107, 107)'
 			    },
+			    	  exponentformat:  'none',
 			    tickfont: {
 			      size: 14,
 			      color: 'rgb(107, 107, 107)'

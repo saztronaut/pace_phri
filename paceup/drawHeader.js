@@ -334,10 +334,10 @@ adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of t
 					   <li>Remind yourself about what you have achieved by increasing your activity and any positive benefits it has had on your health, weight, mood, sleeping etc. This may motivate you to keep up good habits, or to try again if you feel you have slipped back.</li> \
 					   <li>Enlist a friend or family member to walk with you, it is easier to walk regularly and walk further if you have some company.</li> \
 					   <li>Try out new walks near you or think about a walking group, the websites listed have lots of ideas for local walks, or your local library will have information.</li> </ul>\
-					   <form><div class='form-group' id='form12'> \
-					   <label for = 'comment12'>  Here are your reminders from week 12, feel free to add to them:</label> \
-					   <textarea class='form-control' rows= '4' id='comment12' placeholder 'You can use this box to record your reminders'>"+ comment +"</textarea></div>\
-					   <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"12\")'>Save</button></form> ";
+					   <form><div class='form-group' id='form"+ weekno +"'> \
+					   <label for = 'comment"+ weekno +"'>  Here are your reminders from week 12, feel free to add to them:</label> \
+					   <textarea class='form-control' rows= '4' id='comment"+ weekno +"' placeholder 'You can use this box to record your reminders'>"+ comment +"</textarea></div>\
+					   <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\""+ weekno +"\")'>Save</button></form> ";
 
 					  }
 			}

@@ -18,6 +18,7 @@
     	      else {       	      
     	         var tabledata = JSON.parse($drawTable);
                  var n_show= tabledata.n_show; //number of tables to show
+                 var display13=1;
                  if (n_show>0){n_show=n_show-1;} // 0 index
                  var tableResults= tabledata.tableResults; 
                  var showrow= []; //create array to store the day-level data
@@ -39,10 +40,25 @@
                  else if (weekdata['week']=="delayweek1"){
                 	 var showDate= new Date(weekdata['latest_t']);
                 	 $drawMyTable.push("<p>You will start to increase your steps from "+ giveDay(weekdata['latest_t']) + " ( " + forwardsDate(weekdata['latest_t'])+ ")</p>");
+                 } 
+                 if (weekno>=13){
+                	 console.log(weekdata['summary']);
+                	 if (weekdata['summary']==1){
+                		 //display chart
+                		 twelveWeek();
+                	 }
+                	 else if (weekdata['summary']==3){
+                		 week='week13';
+                		 weekno=13;
+                	 }
+                	 else if (weekdata['summary']==3){
+                		 display13=0;
+                	 }
+                	 
                  }
+                 if (display13==1){
                  if (tabledata.bump==1 && tabledata.ispast==0){
                 	 $drawMyTable.push(bumpTarget(weekno, tabledata.new_week));
-                	 console.log("I'm drawing the bump");
                  }
                  for (x = 0; x <=n_show; x++) { 
                  // for each table to show, draw the table
@@ -53,11 +69,13 @@
                  $drawMyTable.push(stepsFeedback(week, myTable['targetdays'], myTable['totalsteps'], myTable['totaldays'], days, ispast[x], mysteps));}
                      }
                  // if not week 0, give option to view data from previous weeks
-                 $drawMyTable.push(goBack(week, weekdata['maxweekno']));
+                 $drawMyTable.push(goBack(week, weekdata['maxweekno'], weekno));
          		printThis = $drawMyTable.join('\n');
     	    	  document.getElementById("thisTable").innerHTML= printThis;
-        	     
-              }
+                 }
+                 else{ //display the summary
+                	 }
+                 }
           }, myString);
 		}
 
@@ -68,6 +86,8 @@
 	    var totalsteps=0; // total number of steps for week
 		var totaldays=0; //total number of days with reading for week
 		var targetdays=0; //total number of days achieved target for that week	 
+		var showdays=daysw;
+		if (showdays>5){showdays="most";}
         //draw table header
 		if (thisWeek=='baseline'||thisWeek=='getweek1'||thisWeek=='delayweek1'||thisWeek=='week0'){
 		mytable.push("<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Steps</th><th>Device</th><th></th></tr></thead>");
@@ -79,7 +99,8 @@
 				walkmin=15;
 			}else{
 				walkmin=30;}
-	    mytable.push("<p> Your average daily steps at baseline were <b>"+ baseline +" steps</b>. This week your target is to to increase this to <b>"+ target +" steps on "+ daysw +" days per week</b></p>");
+			
+	    mytable.push("<p> Your average daily steps at baseline were <b>"+ baseline +" steps</b>. This week your target is to to increase this to <b>"+ target +" steps on "+ showdays +" days per week</b></p>");
 	    mytable.push("<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Did you add </br>a walk of </br>"+ walkmin +" minutes </br>or more </br>today?</th><th>Steps</th><th>Device</th><th>Achieved </br>target</th><th></th></tr></thead>");
 			showtargets=1;
 			}
@@ -210,14 +231,19 @@
 		printThis = print.join('\n');
 		return printThis;
 	}
-	function goBack(week, maxweek){
+	function goBack(week, maxweek, showweek){
 	////This gives the option to view previous weeks (if they have any)
        var print=[];
 	   if ((week=='baseline'||week=='getweek1'||week=='delayweek1')==0){
 	     print.push("<br><p><b>View your step counts from previous weeks </b></p>");
 		 print.push(" <form class = 'form-inline'> <div class='form-group'>");
 		 print.push("<select class='form-control' placeholder='View previous step counts' id='viewSteps' name='viewSteps'>");
-		for (x = maxweek; x >=0; x--) {
+		var topshow=parseInt(showweek)+6;
+		console.log("topshow " + topshow + showweek);
+		if (topshow>maxweek){ topshow=maxweek;}
+		var baseshow= showweek-6;
+		if (baseshow<0){ baseshow=0;}		
+		for (x = topshow; x >=baseshow; x--) {
 				// if the week is odd, start date is the target date
 				// if the week is even, the start date is the target date + 7
 			print.push( "<option value ='"+ x +"'>");
@@ -274,5 +300,33 @@
 	    
 	}
 	
-
+function twelveWeek(){
 	
+	   document.getElementById('getModalHeader').innerHTML= "<h4> Well done! You have completed the PACE-UP Programme </h4>";
+	   var showMessage=[];
+	   showMessage.push("<div class = 'row'> <div class = 'col-md-8'>");
+	   showMessage.push("<p> How did it go? You can click below to see how your walking changed over the past 3 months </p></div>");
+	   showMessage.push("<div class = 'col-md-4'> <form><div class='form-group'> <button type ='button' class='btn btn-default' id='summaryBtn' onclick='redirect(\"./summary.php\")'>View your progress</button></div></form><br></div></div>");	   
+	   showMessage.push("<hr><div class = 'row'> <div class = 'col-md-8'> ");
+	   showMessage.push("<p> If you'd like to carry on, you can continue to use PACE-UP to record your steps and set your own targets </p></div>");
+	   showMessage.push("<div class = 'col-md-4'><form><div class='form-group'> <button type ='button' class='btn btn-default' id='docont12Btn' onclick='carryOn(true)'> Keep going </button></div></form>");
+	   showMessage.push("<div class='form-group'> <button type ='button' class='btn btn-default' id='dontcont12Btn' onclick='carryOn(false)'> I'm finished </button></div></form></div><br></div>");
+       showMessage.push("<hr><div class = 'row'> <div class = 'col-md-8'> ");
+	   showMessage.push("<p> Hearing about how the programme may have helped you or how it could do improve helps us to provide a better service </p>");
+	   showMessage.push("<p> Please fill out our feedback form </p></div>");
+	   showMessage.push("<div class = 'col-md-4'><form><div class='form-group'> <button type ='button' class='btn btn-default' id='feedbackBtn' onclick='redirect(\"./feedback.php\")'>Give Feedback</button></div></form><br></div></div>");	   
+	   var message=showMessage.join("\n");
+	   //console.log("Message:" + showMessage);
+	   document.getElementById('method_message').innerHTML= message;
+	   $('#methodModal').modal('show');
+	   
+}
+	
+function carryOn(keepgoing){
+	data="carryon="+keepgoing;
+	console.log(data);
+	doXHR('./twelve_continue.php', function(){
+		response=this.responseText;
+	}, data);
+	
+}

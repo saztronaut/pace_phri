@@ -23,7 +23,7 @@
 	//getValues looks for the readings within 7 days
 	//getDays uses the output of getValues and counts up how many have step counts, the average step count and gives the start (baseline) date
 	//from this - the number of step counts must be >2 and the current date must be more than 6 days after the baseline and the user must already not have a baseline target
-	$comparator=">";
+	$comparator=">"; // if there is a value entered today, then can calculate baseline, otherwise hold off calculating baseline- otherwise baseline could be calculated prematurely
 	$readingtoday= "SELECT * FROM readings WHERE username='". $username ."' AND date_read=CURDATE();";
 	$checkreading= mysqli_query($connection, $readingtoday) or die("Error checking today's reading");
 	if ($checkreading->num_rows==1){$comparator=">=";}
@@ -102,26 +102,62 @@
 				    if ($refresh==1){ $results['refresh']="yes";}
 					}
 				}}
-		if ($w>=13) { $results['week']="week13";}
+		if ($w>=13) { 
+			//show 12 week summary to user?
+			$showSumm= "SELECT finish_show FROM users WHERE username='".$username."' ;";
+			$summResult= mysqli_query($connection, $showSumm) or die("Error checking if summary or no");
+			$getSum= mysqli_fetch_array($summResult);
+			$summary=$getSum['finish_show'];
+			if ($summary==0){
+				//update finish_show to 1 so that the summary will be shown
+				$updateSumm= "UPDATE users SET finish_show=1 WHERE username='". $username ."';";
+				mysqli_query($connection, $updateSumm) or die($updateSumm.mysql_error());
+				$summary=1;
+			}
+			$results['summary']= $summary;
+            //now need to calculate how many weeks since week 12 finished
+			$order= 7;
+			$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
+			$get_steps_date = mysqli_query($connection, $get_date)
+			or die("Can't get steps data" . mysql_error());
+			$date_pick = mysqli_fetch_array($get_steps_date);
+			// week 13 starts on $get_steps_date['date_set']
+			$today_str = strtotime(date('Y-m-d'));
+			$latest_t = strtotime($date_pick['date_set']);
+			$weeksSince13=FLOOR(($today_str-$latest_t)/(60*60*24*7));
+			//get the beginning of this week
+			$thisStart= date("Y-m-d", ($latest_t + ($weeksSince13* 60*60*24*7)));
+			$results['start']= $thisStart;
+			$results['week']="week". (13 + $weeksSince13);
+			$w=(13 + $weeksSince13);
+			}
 		
 		//get any comments from that week. recorded on weeks 2, 3, 4, 5, 6, 8, 10, 12
 		//get comment data
 		if ($weekno!='' && (is_null($weekno)==0) && $weekno!="null"){
 			$results=pastWeek($weekno, $username);
-		} else {
-		$results['steps']=$row['steps'];
-		$results['days']=$row['days'];
-		$results['latest_t']=$row['latest_t'];
-		$results['weekno']=$w;		
-		}
-		
-		
-		$commentq = "SELECT text FROM notes WHERE username='".$username."' AND week=".$w.";";
+			//get comment from the past week
+		$commentq = "SELECT text FROM notes WHERE username='".$username."' AND week=".$weekno.";";
 		$resultcomment=mysqli_query($connection, $commentq) or die(0);
 		if ($resultcomment->num_rows>0){
 			$rowcomment= mysqli_fetch_array($resultcomment);
 			$comment=$rowcomment['text'];}
-			else{$comment="";}
+			else{$comment="";}					
+		} else {
+		$results['steps']=$row['steps'];
+		$results['days']=$row['days'];
+		$results['latest_t']=$row['latest_t'];
+		$results['weekno']=$w;	
+
+			$commentq = "SELECT text FROM notes WHERE username='".$username."' AND week=".$w.";";
+			$resultcomment=mysqli_query($connection, $commentq) or die(0);
+			if ($resultcomment->num_rows>0){
+				$rowcomment= mysqli_fetch_array($resultcomment);
+				$comment=$rowcomment['text'];}
+				else{$comment="";}
+		}
+		
+		
 			
 		
 		if (isset($mybaseline)) 
@@ -152,6 +188,8 @@ function pastWeek($weekno, $username){
 	require 'database.php';
 	//require 'sessions.php';
 	// For odd weeks, get the target set and then display values for 7 days afterwards
+	$results=[];
+	if ($weekno<13){
 	if ($weekno % 2 == 1 || $weekno==0){
 		$order= CEIL($weekno/2);
 		$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
@@ -179,13 +217,39 @@ function pastWeek($weekno, $username){
 		or die("Can't get steps data" . mysql_error());
 		$end_date_pick = mysqli_fetch_array($row_end_date);
 	}
-	$results=[];
-	$start_date= $date_pick['date_set'];
-	$results['steps']=$date_pick['steps'];
-	$results['days']=$date_pick['days'];
-	$results['latest_t']=$date_pick['date_set'];
-	$results['finish']=$end_date_pick['date_set'];
-	$results['week']="week". $weekno;
+	    $start_date= $date_pick['date_set'];
+	    $results['steps']=$date_pick['steps'];
+	    $results['days']=$date_pick['days'];
+	    $results['latest_t']=$date_pick['date_set'];
+	    $results['finish']=$end_date_pick['date_set'];
+	    $results['week']="week". $weekno;
+	}
+	else {
+		$order= 7;
+		$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
+		$get_steps_date = mysqli_query($connection, $get_date)
+		or die("Can't get steps data" . mysql_error());
+		$date_pick = mysqli_fetch_array($get_steps_date);
+		
+		//Date today
+		$today_str = strtotime(date('Y-m-d'));
+		//How long ago was the "13 week target" set
+		$latest_t = strtotime($date_pick['date_set']);
+		//how many weeks since that target was set
+		$weeksSince13= $weekno-13;
+		//get the beginning of this week
+		$thisStart= date("Y-m-d", ($latest_t + ($weeksSince13* 60*60*24*7)));
+		$results['start']= $thisStart;
+		$results['week']="week". $weekno;
+		$w=$weekno;
+		$end_date_pick = 0; //This should just show a 7 day epoch or however many days this week
+		$results['steps']=$date_pick['steps'];
+		$results['days']=$date_pick['days'];
+		$results['latest_t']=date("Y-m-d", $latest_t);
+		$results['finish']=date('Y-m-d',strtotime('+7 days', strtotime($thisStart)));
+		$results['maxweekno']=$w;
+	}
+
 	$results['weekno']=$weekno;
 	return $results;
 	
@@ -224,6 +288,7 @@ function updateTarget($numt, $username, $latest_t, $steps)
 			$row2 = mysqli_fetch_array($getEndWeek);
 			$achieved = $row2['achieved'];
 			$goal = $row2['days'];
+			if ($goal>5){ $goal==5;} //"most days"
 			if (($achieved>=$goal) && isset($achieved)){
 				$date_set = $row2['date14'];
 				$target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";

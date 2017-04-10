@@ -96,6 +96,9 @@ if ($end>6){
 	//echo $end;
 	$n_show= CEIL(($end+1)/7); //how many tables to show
 	//If $n_show is higher than 2 this will end up displaying a lot of data 
+	// lets make 4 the maximum number to show
+	if ($n_show>4){$n_show=4;}
+	if ($weekno>12) {$n_show=1;}
 	// $n_show is the number of weeks you want to show
 	if ($iseven==1 && $ispast==0){$bump=1;} else {$bump=0;}
 	//$x is an integer between 0 and $n_show.
@@ -107,7 +110,7 @@ if ($end>6){
 		if ($bump==1){
 			$new_week =date('Y-m-d', strtotime("+". (($n_show)*7) . " days", $latest_t));
 			$getTable['new_week']=$new_week;
-		}
+		} else { $new_week=null;}
 	$tableResults[$x]=drawTable($thisend, $display, $get_start, $daysw, $thisWeek, $steps, $username, $baseline, $weekno, $ispast, $new_week);
 	}
 	else {
