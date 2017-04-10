@@ -16,11 +16,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Changing step methods</h4>
+        <h4 class="modal-title" id="getModalHeader"></h4>
       </div>
       <div class="modal-body">
-        <p id="method_message">
-	</p>
+        <p id="method_message"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -29,10 +28,12 @@
 
   </div>
 </div>
+
 <script src="./drawHeader.js"></script>
 <script src="./drawMethodsSelect.js"></script>
 <script src="./drawStepsTable.js"></script>
 <script src="./dateFunctions.js"></script>
+<script src="./twelveWeekSummary.js"></script>
   <script> 
   window.onload = showWeek(false);
 
@@ -228,6 +229,7 @@
 	  var nudge = input.slice(-(input.length-6));
 	  document.getElementById('method_message').innerHTML= "Using different devices to collect your steps data can give readings that differ. It is best to stick to the same device";
 	  var editname="editBtn"+nudge;
+	  document.getElementById('getModalHeader').innerHTML= "Changing method of step recording";
 	  if (document.getElementById(editname)){
 		  if (document.getElementById(editname).value=="Edit"){}else{
         $('#methodModal').modal('show');}}
