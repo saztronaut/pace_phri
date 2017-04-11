@@ -80,6 +80,7 @@ Main shell of the pages. Shows navbar and main content and footer
 - sends weekdata to drawTable2 and retrieves tabledata. this comprises: 
    * n_show - the number of weeks to show [ if a participant does not hit a target, then they stay on the even week unless they choose otherwise], 
    * bump - 0/1 show button to increase target
+   * if week>=13, summary - 1= display summary chart (function= *twelveWeek()*, 2= display continuing data input, 3= do not continue to collect data
    * newweek (if bump, this is the date the new target starts), 
    * tableResults - for each week to show 
       - {for each week: ispast (is this particular week table in the past or the current week), 
@@ -134,6 +135,9 @@ This gets the value in comments+weekno and sends it to **addComment.php**
 get date for week one target from DDL
 *incTarget()*
 send date from updateTarget or from bump button to updateTarget.php
+
+#### At the end of 12 weeks
+*twelveWeek()* - appears if not yet dismissed and participant has finished week 12. Shows a modal to redirect participants to a summary to see how their walking progressed over the 12 months, to allow them to complete a feedback form and to state whether they want to continue or not
 
 #### Baseline: 
 - Users must be able to enter their steps before being given a target.
