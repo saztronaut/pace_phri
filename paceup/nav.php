@@ -6,7 +6,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="#" onclick='redirect("./intro.php")'>HOME</a></li>
+        <li><a href="#" onclick='redirect("./feedbackQuestionnaire.php")'>HOME</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MY STEPS <span class="caret"></span></a>
           <ul class="dropdown-menu">
