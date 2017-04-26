@@ -2,6 +2,8 @@
 	require 'database.php';
 	require 'sessions.php';
 	include 'get_json_encode.php';
+	include 'setBaseline.php';
+	include 'updateTargetAuto.php';
     $results=[];
     //Takes the session['username'] as parameter
 	//Query the database to find out where the participant is in terms of targets and weeks.
@@ -18,49 +20,24 @@
 	if(isset($_POST['viewWeek'])){ $weekno=$_POST['viewWeek'];} else {$weekno="";}; //if the user is viewing a week in the past, take this week as argument instead of the current week
 	if (isset($username) && $username!=''){
 	
-	//Create any missing baseline targets	
-	//subquery getValues queries the readings table against itsself, where r gives the date of the beginning of the epoch and m gives the steps in that epoch
-	//getValues looks for the readings within 7 days
-	//getDays uses the output of getValues and counts up how many have step counts, the average step count and gives the start (baseline) date
-	//from this - the number of step counts must be >2 and the current date must be more than 6 days after the baseline and the user must already not have a baseline target
-	$comparator=">"; // if there is a value entered today, then can calculate baseline, otherwise hold off calculating baseline- otherwise baseline could be calculated prematurely
-	$readingtoday= "SELECT * FROM readings WHERE username='". $username ."' AND date_read=CURDATE();";
-	$checkreading= mysqli_query($connection, $readingtoday) or die("Error checking today's reading");
-	if ($checkreading->num_rows==1){$comparator=">=";}
-	
-	$baseline_target = "INSERT INTO targets (username, date_set, steps, days)
-                      SELECT getDays.username, getDays.start, getDays.base_steps, 0
-                      FROM 
-			          (SELECT COUNT(steps) as n, (CEIL(AVG(steps)/50)*50) as base_steps, getValues.date_read as start, username
-                      FROM (SELECT r.date_read, m.steps, r.username
-                      FROM readings as r,
-                      readings as m
-                      WHERE r.date_read<= m.date_read AND DATEDIFF(m.date_read, r.date_read)<7 AND DATEDIFF(m.date_read, r.date_read)>=0 AND r.username= m.username) as getValues
-                      GROUP BY getValues.date_read, getValues.username) as getDays
-                      WHERE getDays.n>2 AND DATEDIFF(CURDATE(), getDays.start)".$comparator."6 AND DATEDIFF(CURDATE(), getDays.start)<=35 AND getDays.username NOT IN
-                      (SELECT username FROM targets) AND getDays.username='". $username ."' 
-			          GROUP BY getDays.username
-                      ORDER BY getDays.start LIMIT 1;";
 
-	$getbase= mysqli_query($connection, $baseline_target);
 	$results['week']='baseline';
 	$today = date('Y-m-d');
 	$today_str = strtotime($today);
-
-	$get_week= "SELECT n_t, latest_t, steps, days 
-			    FROM targets as t, 
-               (SELECT COUNT(*) as n_t, MAX(date_set) as latest_t FROM targets WHERE username='". $username ."' ORDER BY date_set) as a 
-                WHERE a.latest_t=t.date_set AND t.username='". $username ."';";
-
-	$result = mysqli_query($connection, $get_week)
-	      or die(0);
+    // Query the database for the number of targets for this user
+    $result= numTargets($username);
 	$row = mysqli_fetch_array($result);
 
 	if ($result->num_rows==0){
+		//check for baseline steps
+		setBase($username);
+		// requery to check baseline
+		$result= numTargets($username);
 		$results['week']='baseline';
 		$w=0;
+		
 	}
-	else {
+	if ($result->num_rows!=0){
 		$latest_t=strtotime($row['latest_t']);
 		$getbase="SELECT steps  
 			    FROM targets as t
@@ -70,13 +47,15 @@
 		$basesteps=mysqli_fetch_array($baselinesteps);
 		$mybaseline=$basesteps['steps'];	
 		if ($row['n_t']==1){
-			$results['week']='getweek1';
+			$results['week']='getweek1';		
 			$w=1;
 			// if the baseline was more than 5 weeks ago and they have not set a target, delete baseline from the database
 			if (strtotime("+35 days", $latest_t)< $today_str){
 				//delete the target
 				$delete_target= "DELETE FROM targets WHERE username='".$username."';";
 				 mysqli_query($connection, $delete_target) or die(0);
+				 setBase($username);
+				 $result= numTargets($username);
 				 $results['refresh']='yes';
 				 
 			}
@@ -255,50 +234,18 @@ function pastWeek($weekno, $username){
 	
 }
 		
-function updateTarget($numt, $username, $latest_t, $steps)
-		{
-			require 'database.php';
-	//		require 'sessions.php';
-			include 'get_json_encode.php';
-			include 'calcTarget.php';
-			
-			// n_t gives the number of targets that are in the targets table
-			// latest_t gives the date set of the most recent target
-			// steps give the steps at the most recent target
-			// days is the number of days the target was for
-			$mytarget=calcTarget($numt, $steps);
-			$days= $mytarget['days'];
-			$steptarget=$mytarget['steptarget'];
-			
-			//how many weeks have there been since the target was set
-			$today_str = strtotime(date('Y-m-d'));
-			$weeksSinceT=FLOOR(($today_str-$latest_t)/(60*60*24*7));
-			if ($weeksSinceT>1){
-				//If there has been more than 2 week lapse since the last target
-				//find out if the participant achieved their target in each week, beginning with the earliest
-			for ($x = 2; $x <=$weeksSinceT; $x++) {
-			//Allow automatic update to next level 
-			//Interval should be 7 X number of weeks
-			$int_days= $x*7;
-			$endEvenWeek = "SELECT COUNT(*) as achieved, days, DATE_ADD(date_set, INTERVAL ". $int_days ." DAY) as date14
-					FROM readings as r,
-					(SELECT username, steps as target, date_set, days  FROM targets WHERE username='". $username ."' AND date_set=(SELECT MAX(date_set) as latest_t FROM targets WHERE username='". $username ."' ORDER BY date_set DESC)) as t
-					WHERE r.username=t.username AND r.date_read between DATE_ADD(date_set, INTERVAL ". ($int_days-7) ." DAY) AND DATE_ADD(date_set, INTERVAL ". ($int_days-1) ." DAY);";
-			$getEndWeek= mysqli_query($connection, $endEvenWeek);
-			$row2 = mysqli_fetch_array($getEndWeek);
-			$achieved = $row2['achieved'];
-			$goal = $row2['days'];
-			if ($goal>5){ $goal==5;} //"most days"
-			if (($achieved>=$goal) && isset($achieved)){
-				$date_set = $row2['date14'];
-				$target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
-				$gettarget = mysqli_query($connection, $target);
-				$results['refresh']="yes";
-				return 1;
-			      }//achieved target
-			      else if ($x==$weeksSinceT){
-			      	return 0;
-			      }
-			      }//loop through weeks
-		}//more than 1 week lapsed
-		}
+
+
+function numTargets($username){
+	require 'database.php';
+	$get_week= "SELECT n_t, latest_t, steps, days
+			    FROM targets as t,
+               (SELECT COUNT(*) as n_t, MAX(date_set) as latest_t FROM targets WHERE username='". $username ."' ORDER BY date_set) as a
+                WHERE a.latest_t=t.date_set AND t.username='". $username ."';";
+	
+	$result = mysqli_query($connection, $get_week)
+	or die(0);
+	
+	return $result;
+	
+}

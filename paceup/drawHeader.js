@@ -328,14 +328,15 @@ adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of t
 					  default:	
 						  thisTitle= "Beyond the 12 weeks of the PACE-UP Next Steps programme";
 				      blurb="<p>How to keep you walking</p>";
-					  thisAside = "<h3>How to keep going when your <img src='images/logo_mini.png'>-Next Steps walking programme finishes </h3><br>\
+					  thisAside = "<h3>How to keep going </h3><br>\
+					  	<a href='#' onclick='redirect(\"./summary.php\")'> Click here to see a summary of your progress over the 12 week programme</a>\
 					  <ul type='circle'> <li>Keep the habit of going for a 30 minute walk or doing 30 minutes of other moderate activity to keep up your step-count, most days of the week.</li> \
 					   <li>Keep your pedometer and use it sometimes to show you how active you are. It is easy to be very busy without being very active, the pedometer shows you accurately how many steps you are taking.</li> \
 					   <li>Remind yourself about what you have achieved by increasing your activity and any positive benefits it has had on your health, weight, mood, sleeping etc. This may motivate you to keep up good habits, or to try again if you feel you have slipped back.</li> \
 					   <li>Enlist a friend or family member to walk with you, it is easier to walk regularly and walk further if you have some company.</li> \
 					   <li>Try out new walks near you or think about a walking group, the websites listed have lots of ideas for local walks, or your local library will have information.</li> </ul>\
 					   <form><div class='form-group' id='form"+ weekno +"'> \
-					   <label for = 'comment"+ weekno +"'>  Here are your reminders from week 12, feel free to add to them:</label> \
+					   <label for = 'comment"+ weekno +"'>  Feel free to add your own notes here:</label> \
 					   <textarea class='form-control' rows= '4' id='comment"+ weekno +"' placeholder 'You can use this box to record your reminders'>"+ comment +"</textarea></div>\
 					   <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\""+ weekno +"\")'>Save</button></form> ";
 

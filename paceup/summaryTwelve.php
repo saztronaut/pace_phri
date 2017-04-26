@@ -18,7 +18,8 @@ $baseline_a= [];
 $baseline_a['baseline']=$date_base;
 $baseline_a['mean_steps']= $baseline_steps;
 $summary[0]=$baseline_a;
-
+$summary['achieved_w']=0;
+$summary['achieved_d']=0;
 // Get date of first week. 
 $getWeekOne= "SELECT date_set, steps, days FROM targets WHERE username='". $username."'  ORDER BY date_set LIMIT 1, 1;";
 $w1=mysqli_query($connection, $getWeekOne);
@@ -79,6 +80,9 @@ for ($x = 0; $x <$n_weeks; $x++) {
 	$week['target']= $target;
 	$week['targetdays']= $days;
 	$week['date']= $thisDate;
+	$summary['achieved_d']= $summary['achieved_d'] + $targetResults['n_days'];
+	if ($week['targetdays']<=$week['achieved_t']){
+	$summary['achieved_w']= $summary['achieved_w']+1;}
 	$summary[$x+1]=$week;
 
 }

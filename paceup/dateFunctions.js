@@ -5,7 +5,7 @@
 	}
 	
 	function valDate(datevar) {
-		thisday = newDate(datevar);
+		thisday = new Date(datevar);
 		if (thisday.getMonth()<9){
 			var val_date= thisday.getFullYear() +"-0"+ (thisday.getMonth()+ 1) +"-" + thisday.getDate();				
 		} else{

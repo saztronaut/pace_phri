@@ -17,6 +17,7 @@
 
     <div class="col-sm-3"><h3>Update Consent</h3><br>
     <span class='glyphicon glyphicon-ok logo' onclick="javascript:redirect('./updateConsent.php')" ></span></div>
+  
   </div>
 </div>
 

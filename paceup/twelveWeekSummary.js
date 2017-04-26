@@ -20,6 +20,7 @@ function drawSummary(){
 		   carousel.push('<li data-target="#myCarousel" data-slide-to="0" class="active"></li>');
 		   carousel.push('<li data-target="#myCarousel" data-slide-to="1"></li>');
 		   carousel.push('<li data-target="#myCarousel" data-slide-to="2"></li>');
+		   carousel.push('<li data-target="#myCarousel" data-slide-to="3"></li>');
 		   carousel.push('</ol>');
 		   carousel.push('  <div class="carousel-inner" role="listbox">');
 		   carousel.push('<div class="item active">');
@@ -27,21 +28,11 @@ function drawSummary(){
 		   carousel.push('<div class = "col-md-10"> <p id="total_steps_chart"></p>');
 		   carousel.push('<span id="total_steps_text">Your steps should appear here</span></div>');
 		   carousel.push('<div class = "col-md-1"> </div></div></div>');
-
-		 carousel.push('<div class="item"><div class = "row">');
-		 carousel.push('<div class = "col-md-1"> </div>');
-		 carousel.push('<div class = "col-md-10"><p id="avg_steps_chart"></p>');
-		 carousel.push(' <span id="avg_steps_text">Your steps should appear here</span></div>');
-		 carousel.push(' <div class = "col-md-1"> </div></div> </div>');
-
-		 carousel.push('<div class="item">');
-		 carousel.push('<div class = "row">');
-	     carousel.push('<div class = "col-md-1"> </div>');
-		 carousel.push('<div class = "col-md-10"> <p id="walk_chart"></p>');
-		 carousel.push('<span id="walk_text">Your steps should appear here</span></div>'); 
-		 carousel.push('<div class = "col-md-1"></div></div></div>');
+	     carousel.push(getCarouselElement('avg_steps'));
+		 carousel.push(getCarouselElement('walk'));
+		 carousel.push(getCarouselElement('achieved_d'));
 		 carousel.push('</div>');
-
+		 
 		 carousel.push(' <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">');
 		 carousel.push('<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>');
 		 carousel.push('<span class="sr-only">Previous</span>');
@@ -67,17 +58,20 @@ function drawSummary(){
 		   total_steps.push("<h4> Over the 12 weeks of PACE-UP, you recorded your walking on "+ json['total_days'] +" days and took " + json['total_steps'] +" steps</h4></br></br></div>");
 		   total_steps_print= total_steps.join("\n");
 		   document.getElementById('total_steps_text').innerHTML= total_steps_print;
-		   drawChart(response, 'total_steps', "Total number of steps you walked each week", weeks, "total_steps_chart");
+		   drawChart(response, 'total_steps', "Total number of steps you walked each week", weeks, "total_steps_chart", 'Steps');
 		   avg_steps.push("<div class='well well-inverse'><h4>In your baseline week (the week before you started to increase walking), you walked " + json[0]['mean_steps'] +" steps on <b>average</b></h4>");
 		   avg_steps.push("<h4> Over the 12 weeks of PACE-UP, you recorded your walking on "+ json['total_days'] +" days and took an average of " + json['total_avg'] +" steps</h4></br></br></div>");
 		   avg_steps_print= avg_steps.join("\n");
 		   document.getElementById('avg_steps_text').innerHTML= avg_steps_print;
-		   drawChart(response, 'mean_steps', "Average number of steps you walked each day", weeks, "avg_steps_chart");
+		   drawChart(response, 'mean_steps', "Average number of steps you walked each day", weeks, "avg_steps_chart", 'Steps');
 		   //myWalk= drawStar(response, weeks);
 		   walk_print= "<div class='well well-inverse'><h4>You added a walk in on "+ json['add_walk'] +" days altogether. Well done! </h4></br></br></div>"
 		   document.getElementById('walk_text').innerHTML= walk_print;
-		   drawChart(response, 'walk', "On how many days each week did you add a walk?", weeks, "walk_chart");
+		   drawChart(response, 'walk', "On how many days each week did you add a walk?", weeks, "walk_chart", 'Days');
 		   //document.getElementById("walk_chart").innerHTML=myWalk;
+		   achieved_print= "<div class='well well-inverse'><h4>You achieved your target on "+ json['achieved_d'] +" days and achieved your weekly target on "+ json['achieved_w'] +" weeks during the 12 weeks. Well done! </h4></br></br></div>";
+		   document.getElementById('achieved_d_text').innerHTML= achieved_print;
+		   drawChart(response, 'achieved_t', "On how many days did you hit your target?", weeks, "achieved_d_chart", 'Days');
 		   
 	   })
 }
@@ -111,7 +105,18 @@ function drawStar(response, weeks){
 
 }
 
-function drawChart(response, field, label, weeks, place){
+function getCarouselElement(root_name){
+	 myarray=[];
+	 myarray.push('<div class="item">');
+	 myarray.push('<div class = "row">');
+	 myarray.push('<div class = "col-md-1"> </div>');
+	 myarray.push('<div class = "col-md-10"> <p id="'+ root_name +'_chart"></p>');
+	 myarray.push('<span id="'+root_name+'_text">Your steps should appear here</span></div>'); 
+	 myarray.push('<div class = "col-md-1"></div></div></div>');
+	return myarray.join("\n");
+}
+
+function drawChart(response, field, label, weeks, place, my_x){
 	//summary is an array of data.
 	// field is the field to look at
 	// label is the label for the graph
@@ -127,7 +132,7 @@ function drawChart(response, field, label, weeks, place){
 		y_data.push(summary[x][field]);
 	}
 	data=getChartdata(x_data, y_data);
-	layout=getChartlayout(label);
+	layout=getChartlayout(label, my_x);
     $myBarChart= Plotly.newPlot(place, data, layout);
 	
 	
@@ -145,7 +150,7 @@ function getChartdata(x_data, y_data){
 		];
 	return data;}
 
-function getChartlayout(label) {	
+function getChartlayout(label, my_x) {	
 	var layout = { 
 			  title: label,
 			  xaxis: {tickfont: {
@@ -154,7 +159,7 @@ function getChartlayout(label) {
 			      exponentformat:'none'
 			    }},
 			  yaxis: {
-			    title: 'Steps',
+			    title: my_x,
 			    titlefont: {
 			      size: 16,
 			      color: 'rgb(107, 107, 107)'
