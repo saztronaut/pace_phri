@@ -1,9 +1,26 @@
 <?php
 
-function updateTarget($numt, $username, $latest_t, $steps)
+if (isset($_POST['numt'])==1){
+	require 'sessions.php';
+	
+	$numt= htmlspecialchars($_POST['numt']);
+	$username = htmlspecialchars($_SESSION['username']);
+	
+	updateTarget($username);
+	
+}
+
+function updateTarget($username)
 {
 	require 'database.php';
 	include 'calcTarget.php';
+	include 'updateTarget.php';
+	
+	$row=getLatestTarget($username);
+	$numt = $row['n_t'];
+	$steps= $row['steps'];
+	$latest_t= $row['latest_t'];
+
 	
 	// n_t gives the number of targets that are in the targets table
 	// latest_t gives the date set of the most recent target

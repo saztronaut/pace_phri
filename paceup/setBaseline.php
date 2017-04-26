@@ -2,7 +2,7 @@
 require 'database.php';
 
 
-if ($_POST){
+if (isset($_POST['username'])){
 	$username = htmlspecialchars($_SESSION['username']);
 	setBase($username);
 	
