@@ -1,6 +1,7 @@
 <?php
  require 'database.php';
  require 'sessions.php';
+ require 'setBaseline.php';
  $msg=''; 
  if ($_POST)
  {$username = htmlspecialchars($_SESSION['username']);
@@ -23,7 +24,13 @@
     { $_SESSION['valid'] = true;
       $_SESSION['timeout'] = time();
       $_SESSION['username'] = $username;
-         $msg="Success";}
+         $msg="Success";
+   
+   // update targets here. 
+         //check for baseline steps
+         setBase($username);
+   
+   }
          else {$msg="Fail";}
    }
    else {	

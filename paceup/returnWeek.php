@@ -28,14 +28,13 @@ function returnWeek($username){
 	$row = mysqli_fetch_array($result);
 	
 	if ($result->num_rows==0){
-		//check for baseline steps
-		setBase($username);
+		// check for baseline steps
+		// setBase($username);
 		// requery to check baseline
-		$result= numTargets($username);
+		// $result= numTargets($username);
 		$results['week']='baseline';
 		$w=0;
 	}
-	
 	if ($result->num_rows!=0){
 		$latest_t=strtotime($row['latest_t']);
 		$getbase="SELECT steps
@@ -62,7 +61,7 @@ function returnWeek($username){
 			}
 			
 		}
-		elseif ($row['n_t']>1 ){
+		elseif ($row['n_t']>1)
 			$w=((($row['n_t'])-2)*2)+1;
 			//if the target is in the future, you know that the participant has chosen when to increase but it is not yet (week 1 only)
 			if ($latest_t> $today_str){
@@ -76,12 +75,12 @@ function returnWeek($username){
 					$w=$w+1;
 					$results['week']="week".$w;
 					// if the target was set more than 2 weeks ago, you need a new target
-					if ((strtotime('+14 days', $latest_t)<=$today_str)){
+					if ((strtotime('+14 days', $latest_t)<=$today_str) && $w<13){
 						$n=$row['n_t'];
 						$refresh=updateTarget($username);
 						if ($refresh==1){ $results['refresh']="yes";}
 					}
-				}}
+				}
 				if ($w>=13) {
 					//show 12 week summary to user?
 					
