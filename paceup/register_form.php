@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br><br>
 <div class="container-fluid text-center">
   
@@ -44,7 +45,7 @@
       <span class="glyphicon glyphicon-log-in"></span> &nbsp; Create Account </button> </div>
  </form>
  </div>
-
+<?php include './footer.php';?>
 <!-- Modal -->
 <div id="consentModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">

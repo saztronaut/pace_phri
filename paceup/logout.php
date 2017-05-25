@@ -9,7 +9,7 @@ include 'sessions.php';
    unset($_SESSION["choose_form"]);
    mysqli_close($connection);
    
-   header('Refresh: 1; URL = ./main_index.php');
+   header('Refresh: 1; URL = ./landing_text.php');
 ?>
 
 

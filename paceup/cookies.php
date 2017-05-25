@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br> <div class = "container">
 ><h2>Cookies</h2>
 
@@ -15,3 +16,4 @@
 <p>For more information about Google Analytics <a href="http://www.google.com/analytics/learn/privacy.html">http://www.google.com/analytics/learn/privacy.html</a></p>
 <p>To opt out of being tracked by Google Analytics across all websites visit <a href="http://tools.google.com/dlpage/gaoptout">http://tools.google.com/dlpage/gaoptout</a></p>
 </div>
+<?php include './footer.php';?>

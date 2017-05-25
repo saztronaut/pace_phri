@@ -22,11 +22,11 @@ if ($_POST){
 	$mydata=mysqli_fetch_array($ref);
 	echo '{"data":'. json_encode($mydata).'}';}	
 
-	else {echo "Oops, something went wrong";}
+	else {echo "Error retrieving data";}
 	}
 	else {echo "You do not have sufficient access privileges to view this data";}
 	
 	
 }
 
-		?>
+?>

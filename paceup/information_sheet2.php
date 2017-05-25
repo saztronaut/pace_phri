@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br> <div class = "container">
 <div class="jumbotron"><h2>Participant information</h2>
 </div></div>
@@ -188,10 +189,19 @@ Contact us  </a>
 </div>
 <div id="collapse15" class="panel-collapse collapse">
 <div class="panel-body"><p>Contact Details:
-Research assistant: Charlotte Wahlich cwahlich@sgul.ac.uk or 07976 043262 </p>
-<p>Main investigator: Dr Tess Harris, email: tharris@sgul.ac.uk </p>
+Research assistant: <b>Charlotte Wahlich</b> 
+<SCRIPT type='text/javascript'>a='cwahlich'; b='sgul.ac.uk'
+document.write('<A hre'+'f="mai'+'lto:'+a+'@'+b+'">');
+document.write(a+'@'+b+'</a>');
+</SCRIPT> or 07976 043262 </p>
+<p>Main investigator: <b>Dr Tess Harris</b>, email: 
+<SCRIPT type='text/javascript'>a='tharris'; b='sgul.ac.uk'
+document.write('<A hre'+'f="mai'+'lto:'+a+'@'+b+'">');
+document.write(a+'@'+b+'</a>');
+</SCRIPT> </p>
 </div>
 </div>
 </div>
 </div>
 </div>
+<?php include './footer.php';?>

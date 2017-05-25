@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br><br>
 <div class="container-fluid text-center">
   
@@ -28,8 +29,25 @@
       <span class="glyphicon glyphicon-pencil"></span> &nbsp; Generate Codes </button> </div>
  </form>
  </div>
+ <?php include './footer.php';?>
 <script src="download.js"></script>
- <script>
+ <script> 
+ window.onload = checkPrivilege('R');
+
+ function checkPrivilege(min_account){
+ 	///check to see if user has sufficient privileges for page
+ 	data="roleID="+min_account;
+ 	doXHR('./checkRights.php, function(){
+ 	var response=this.responseText;
+ 	if (response=="0"){
+ 	 window.location.assign('./landing_text.php');
+ 				}
+ 	  else {}
+ 	  return response;
+ 	}, data);
+
+ 	}
+
  var codeBtn = document.getElementById("getcodesBtn");
 codeBtn.addEventListener("click", getCodes);
 

@@ -25,3 +25,4 @@ else {
 mysqli_close($connection);
 
 exit;
+?>

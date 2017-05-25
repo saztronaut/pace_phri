@@ -16,6 +16,7 @@
 	//Looking at the time difference between the target setting and the curdate.
 	//And so on for the remaining weeks
 	// If there is no baseline target, add if needed
+	if (isset($_SESSION['username'])){
 	$username = htmlspecialchars($_SESSION['username']);
 	if (isset($_POST['viewWeek'])){ $weekno=$_POST['viewWeek'];} else {$weekno="";}; //if the user is viewing a week in the past, take this week as argument instead of the current week
 	if (isset($username) && $username!=''){
@@ -32,6 +33,8 @@
 		$results['steps']=$row['steps'];
 		$results['days']=$row['days'];
 		$results['latest_t']=$row['latest_t'];
+		$today= date('Y-m-d');
+		$latest_t=date('Y-m-d', strtotime($results['latest_t']));
 		}
 		if ($w>13){
 			$showSumm= "SELECT finish_show FROM users WHERE username='".$username."' ;";
@@ -45,6 +48,21 @@
 				$summary=1;
 			}
 			$results['summary']= $summary;
+			if ($latest_t>$today){
+				// get previous// current target
+				$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set DESC LIMIT 1, 1;";
+				$myresults= mysqli_query($connection, $get_date);
+				$row=mysqli_fetch_array($myresults);
+				$results['steps']=$row['steps'];
+				$results['days']=$row['days'];
+				$results['latest_t']=$row['date_set'];
+				$weeksSince13=FLOOR((strtotime($today)-strtotime($results['latest_t']))/(60*60*24*7));
+				//get the beginning of this week
+				$thisStart= date("Y-m-d", (strtotime($results['latest_t'])+ ($weeksSince13* 60*60*24*7)));
+				$results['start']= $thisStart;
+				
+			}
+			
 		}
 
 		//get any comments from that week. recorded on weeks 2, 3, 4, 5, 6, 8, 10, 12
@@ -73,8 +91,8 @@
 		
 			
 		
-		if (isset($mybaseline)) 
-		{$results['baseline']=$mybaseline;} 
+		if (isset($results['mybaseline'])) 
+		{$results['baseline']=$results['mybaseline'];} 
 		//else {$results['baseline'] = $row['steps'];}
 		$results['comment']=$comment;
 		$results['maxweekno']=$w;
@@ -96,6 +114,12 @@
 		else {echo 0;
 		}
 		
+	}
+	else {
+		echo 0;
+	}
+	
+	
 function pastWeek($weekno, $username){
 	require 'database.php';
 	//require 'sessions.php';
@@ -104,11 +128,12 @@ function pastWeek($weekno, $username){
 	if ($weekno<13){
 	if ($weekno % 2 == 1 || $weekno==0){
 		$order= CEIL($weekno/2);
-		$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
-		$get_steps_date = mysqli_query($connection, $get_date)
-		or die("Can't get steps data" . mysql_error());
-		$date_pick = mysqli_fetch_array($get_steps_date);
+		//$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
+		//$get_steps_date = mysqli_query($connection, $get_date)
+		//or die("Can't get steps data" . mysql_error());
+		//$date_pick = mysqli_fetch_array($get_steps_date);
 	
+		$date_pick=getPastWeek($username, $order);
 		$get_end_date = "SELECT DATE_ADD(date_set, INTERVAL 6 DAY) as date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
 		$row_end_date = mysqli_query($connection, $get_end_date)
 		or die("Can't get steps data" . mysql_error());
@@ -118,11 +143,12 @@ function pastWeek($weekno, $username){
 	// As the draw table function will automatically shift the 7 days, just return the target
 	else{
 		$order= $weekno/2;
-		$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .", 1;";
-		$get_steps_date = mysqli_query($connection, $get_date)
-		or die("Can't get steps data" . mysql_error());
-		$date_pick = mysqli_fetch_array($get_steps_date);
-	
+		//$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .", 1;";
+		//$get_steps_date = mysqli_query($connection, $get_date)
+		//or die("Can't get steps data" . mysql_error());
+		//$date_pick = mysqli_fetch_array($get_steps_date);
+		$date_pick=getPastWeek($username, $order);
+		
 		$next= $order + 1;
 		$get_end_date = "SELECT DATE_SUB(date_set, INTERVAL 1 DAY) as date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $next .",1;";
 		$row_end_date = mysqli_query($connection, $get_end_date)
@@ -137,11 +163,7 @@ function pastWeek($weekno, $username){
 	    $results['week']="week". $weekno;
 	}
 	else {
-		$order= 7;
-		$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
-		$get_steps_date = mysqli_query($connection, $get_date)
-		or die("Can't get steps data" . mysql_error());
-		$date_pick = mysqli_fetch_array($get_steps_date);
+		$date_pick= getPastWeek($username, 7);
 		
 		//Date today
 		$today_str = strtotime(date('Y-m-d'));
@@ -167,6 +189,13 @@ function pastWeek($weekno, $username){
 	
 }
 		
-
+function getPastWeek($username, $order){
+	require 'database.php';
+	$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
+	$get_steps_date = mysqli_query($connection, $get_date)
+	or die("Can't get steps data" . mysql_error());
+	$date_pick = mysqli_fetch_array($get_steps_date);
+	return $date_pick;
+}
 
 

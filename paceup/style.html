@@ -13,6 +13,11 @@
     padding-top: 15px;
 }
 
+.container-extrapad {
+    padding: 25px 25px;
+    padding-top: 15px;
+}
+
 .navbar {
     margin-bottom: 0;
     background-color: #723F97;
@@ -198,7 +203,7 @@ Generic Styling, for Desktops/Laptops
     width: 100%;
      }
      
-   .is-table-row [class*="col-"]{
+   .is-table-row [class*="col-md"]{
    float: none;
    display: table-cell;
    vertical-align: top;
@@ -207,13 +212,13 @@ Generic Styling, for Desktops/Laptops
 @media 
 only screen and (max-width: 760px) {
 	.is-table-row {
-     display: table;
+     display: block;
      width: 100%;
      }
      
      .is-table-row [class*="col-"]{
      float: none;
-     display: table-cell;
+     display: inline-block;
      vertical-align: top;
      width: 100%;
      }

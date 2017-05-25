@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <div class="jumbotron text-center">
 <h1>PACE-UP</h1>
 <p>A Pedometer Intervention to Increase Walking in Adults</p>
@@ -13,6 +14,7 @@
 </form>
 <p id= "response"></p>
 </div>
+<?php include './footer.php';?>
 <script>
 
 var button = document.getElementById("resetBtn");

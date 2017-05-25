@@ -3,8 +3,6 @@ require 'database.php';
 require 'sessions.php';
 include 'get_json_encode.php';
 
-
-
 $msg="";
 $results=[];
 
@@ -45,8 +43,7 @@ if ($get_reg->num_rows==0){
     	$errors['email'] = 'Please use a valid email address';}
     
     	//Insert query here to look up practice code from the registration code	 
-     
-    
+        
     	$check_user = "SELECT * FROM users WHERE username ='" . $username . "';" ;
     	$check_email = "SELECT * FROM users WHERE email ='" . $email . "';" ;
     	$username_unique= (mysqli_query($connection, $check_user));

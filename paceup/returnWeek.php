@@ -3,6 +3,9 @@
 if (isset($_POST['username'])){
 	//if not post, then sessions already declared
 	require 'sessions.php';
+	if (isset($_SESSION['username'])==0){
+		echo 0;
+	} else{
 	$username = htmlspecialchars($_SESSION['username']);
 	if ($username!=''){
 	$myweek=returnWeek($username);
@@ -10,7 +13,7 @@ if (isset($_POST['username'])){
 		$myweek=returnWeek($username);
 	}
 	echo json_encode($myweek);
-	}
+	}}
 	
 }
 
@@ -44,6 +47,7 @@ function returnWeek($username){
 		or die(0);
 		$basesteps=mysqli_fetch_array($baselinesteps);
 		$mybaseline=$basesteps['steps'];
+		$results['mybaseline']=$mybaseline;
 		
 		if ($row['n_t']==1){
 			$results['week']='getweek1';
@@ -96,13 +100,15 @@ function returnWeek($username){
 					$weeksSince13=FLOOR(($today_str-$latest_t)/(60*60*24*7));
 					//get the beginning of this week
 					$thisStart= date("Y-m-d", ($latest_t + ($weeksSince13* 60*60*24*7)));
+					$results['days']= $date_pick['days'];
+					$results['steps']= $date_pick['steps'];
 					$results['start']= $thisStart;
 					$results['week']="week". (13 + $weeksSince13);
 					$w=(13 + $weeksSince13);
 				}
 
 	$results['row']=$row;
-	$results['latest_t']=$latest_t;				
+	$results['latest_t']=date("Y-m-d",$latest_t);				
 	}
 	$results['weekno']=$w;
 	$_SESSION['week']=$w;

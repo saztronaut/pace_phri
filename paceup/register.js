@@ -33,17 +33,22 @@ function makeRequest(url, data){
         console.log('Result: ', result);
 
           var json = JSON.parse(result, function(key, value){
+        	  var hidemodal=0
         	  if (key=="success"){
         	    	//refresh the page
-        	    	window.location.reload(true);
+        		  window.location.assign('./intro.php');
         	  }
         	  else if (key==""){
         	  }
         	  else{
         		  giveFeedback(key, value, true);
+        		  hidemodal=1;
         	  }
           
-          }); }
+          }); 
+          if (hidemodal==1){
+     		 $('#consentModal').modal('hide');
+          }}
   , data);
       }
 
@@ -130,7 +135,6 @@ function validateEmail(email) {
 
 function giveFeedback(x, message, error){
 	//x is the object of feedback, message is the feedback message, error =yes if about an error or no if not error
-	
 	var divname= x +"_div";
 	var msgname= x +"_span";
 	if (error==true){ 

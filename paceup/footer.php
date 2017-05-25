@@ -7,5 +7,5 @@
 	  <div  class = "col-lg-6"><p><img src="images/sgul.png" class="img-noborder" alt="SGUL logo"> </p></div></div></div>
 	  <div  class = "col-sm-6 col-lg-5"><p><img src="images/nihr.png" class="img-noborder" alt="NiHR support"></p></div><!-- col --></div><!-- row --> </div><!-- well --></div> <!-- row --></div>
 	<br><p>The research is supported by the National Insitute for Health research (NIHR) Collaboration for Leadership in Applied Health Research and Care (CLAHRC) South London at King's College Hospital NHS Foundation Trust, and by St George's, University of London Strategic Investment Fund</p>
-	<p><a href="#" onclick='redirect("./cookies.php")'>Cookies </a> <a onclick='redirect("./privacy.php")'>Privacy </a></p>
+	<p><a href="./cookies.php">Cookies </a> <a href="./privacy.php">Privacy </a></p>
 </footer>

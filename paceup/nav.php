@@ -6,27 +6,27 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="#" onclick='redirect("./feedbackQuestionnaire.php")'>HOME</a></li>
+        <li><a href="./AddNewTarget.php">HOME</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MY STEPS <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"  onclick='redirect("./steps2.php")'><span id="recordsteps">RECORD STEP COUNT</span></a></li>
-            <li><a href="#" onclick='redirect("./stepHistory.php")'><span id="reviewsteps">REVIEW STEP HISTORY</span></a></li>
+            <li><a href="./steps2.php"><span id="recordsteps">RECORD STEP COUNT</span></a></li>
+            <li><a href="#"><span id="reviewsteps">REVIEW STEP HISTORY</span></a></li>
           </ul>
         </li>
    <li class="dropdown">
    <a class="dropdown-toggle" data-toggle="dropdown" href="#">TARGETS <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#" onclick='redirect("./explain_targets.php")'><span id="currenttarget">TARGETS EXPLAINED</span></a></li>
+            <li><a href="./explain_targets.php"><span id="currenttarget">TARGETS EXPLAINED</span></a></li>
           </ul>
         </li>
          <li class="dropdown">
        <a class="dropdown-toggle" data-toggle="dropdown" href="#">MATERIALS<span class="caret"></span></a>
        <ul class="dropdown-menu">
-             <li><a href="#" onclick='redirect("./links.php")'><span id="links">LINKS</span></a></li>
-             <li><a href="#" onclick='redirect("./handbook.php")'><span id="handbook">HANDBOOK</span></a></li>
-             <li><a href="#" onclick='redirect("./diary.php")'><span id="diary">DIARY</span></a></li>
-            <li><a href="#" onclick='redirect("./information_sheet.php")'><span id="informationsht">INFORMATION SHEET</span></a></li>       
+             <li><a href="./links.php"><span id="links">LINKS</span></a></li>
+             <li><a href="./handbook.php"><span id="handbook">HANDBOOK</span></a></li>
+             <li><a href="./diary.php"><span id="diary">DIARY</span></a></li>
+            <li><a href="./information_sheet.php"><span id="informationsht">INFORMATION SHEET</span></a></li>       
           </ul>
         </li>
        </ul>
@@ -39,14 +39,14 @@
 <script>
 window.onload=getlogin();
 
-function redirect(gothere){
-	console.log(gothere);
-	  var dataString='choose_form=' + gothere;
-	  console.log(dataString);
-	  doXHR('./redirect.php', function () {	
-		  window.location.reload(true);	 
-	  }, dataString);  
-	}
+//function redirect(gothere){
+	//console.log(gothere);
+	//  var dataString='choose_form=' + gothere;
+	//  console.log(dataString);
+	//  doXHR('./redirect.php', function () {	
+	//	  //window.location.reload(true);	 
+	//  }, dataString);  
+//	}
 	
 
 
@@ -79,17 +79,15 @@ function getlogin(){
 		console.log(response);
 		print=[];
 		if (response==0){
-			print.push("<li><a href='#' onclick='javascript:redirect(\"./register_form.php\")'>");
+			print.push("<li><a href='./register_form.php'>");
 			print.push("<span class='glyphicon glyphicon-user'> </span> Sign Up </a></li>");
-			print.push("<li><a href='#' onclick='javascript:redirect(\"./landing_text.php\")'>");
+			print.push("<li><a href='./landing_text.php'>");
 			print.push("<span class='glyphicon glyphicon-log-in'></span> Login </a></li>");
 			}
 		else {
 			userdata=JSON.parse(response);
 			if (userdata['role']=="R"||userdata['role']=="S"){
-				print.push("<li><a href='#' onclick='javascript:redirect(");
-				print.push('"./admin.php"');
-				print.push(")'><span class='glyphicon glyphicon-pencil'></span> Admin </a></li>");
+				print.push("<li><a href='./admin.php'><span class='glyphicon glyphicon-pencil'></span> Admin </a></li>");
 	            }
 			print.push("<li><a href='#'><span class='glyphicon glyphicon-user'></span> Welcome " + userdata['username'] +" </a></li>");
 			print.push("<li><a href='./logout.php'><span class='glyphicon glyphicon-log-in' id='logout'></span> Log out</a></li>");}

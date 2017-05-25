@@ -1,3 +1,22 @@
+<?php include './template.php';?>
+<div class= "container text-center ">
+<div class= "jumbotron">
+<h1> PACE-UP - Next Steps</h1>
+<p>Your Twelve Week Diary</p>
+</div> <!-- jumbotron -->
+</div> <!-- container -->
+<div class="container-fluid-extrapad">
+<div class="row">
+<div class="col-sm-5" id="sidebar" class="well sidebar-nav">
+<span id="pills"></span>
+</div> <!-- well -->
+<div class="col-sm-7">
+<span id="text"></span>
+
+</div> <!-- main text -->
+</div> <!-- row -->
+</div>  <!-- container -->
+<?php include './footer.php';?>
 <script src="./drawHeader.js"></script>
 <script>
 window.onload = function() {
@@ -57,7 +76,7 @@ function drawDiary (){
 			var $response = xhr.responseText;
 			//console.log($response);
 			if ($response=="0"){
-				redirect('./steps.php');
+				window.location.assign('./landing_text.php');
 			}
 			else {
 	// for each value in the array loop through and draw the respective html code
@@ -91,21 +110,6 @@ function drawDiary (){
 	 
  }
 </script>
-<div class= "container text-center ">
-<div class= "jumbotron">
-<h1> PACE-UP - Next Steps</h1>
-<p>Your Twelve Week Diary</p>
-</div> <!-- jumbotron -->
-</div> <!-- container -->
-<div class="container-fluid-extrapad">
-<div class="row">
-<div class="col-sm-5" id="sidebar" class="well sidebar-nav">
-<span id="pills"></span>
-</div> <!-- well -->
-<div class="col-sm-7">
-<span id="text"></span>
-</div> <!-- main text -->
-</div> <!-- row -->
-</div>  <!-- container -->
+
 
 

@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br>
 <br>
 <div class="container-fluid text-center">
@@ -21,6 +22,7 @@
       <span class="glyphicon glyphicon-home"></span> &nbsp; Add Practice </button> </div>
  </form>
  </div>
+ <?php include './footer.php';?>
  <script>
  //check that the code Practice name and the code are unique, and that both fields are entered and both are unique
  

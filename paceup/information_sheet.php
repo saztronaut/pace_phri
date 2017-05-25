@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br> <div class = "container">
 <div class="jumbotron"><h2>Participant information</h2>
 </div></div>
@@ -53,4 +54,4 @@ document.write('<A hre'+'f="mai'+'lto:'+a+'@'+b+'">');
 document.write(a+'@'+b+'</a>');
 </SCRIPT> </p>
 </div>
-
+<?php include './footer.php';?>
