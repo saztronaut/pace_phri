@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br><br><div class="container-fluid text-center">
 <form class="form-inline" method="POST" action="./userConsent.php" id="user-consent">
 
@@ -28,7 +29,7 @@
  </form>
  </div><br>
  <span id="participant-consent"></span>
-
+<?php include './footer.php';?>
  <script>
 
 window.onload = getPractice();

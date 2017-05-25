@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br><br>
 <div class="container-fluid">
 <h2>Privacy</h2>
@@ -10,3 +11,4 @@
 <p><a href="www.sgul.ac.uk/privacy"> Data Protection Officer</a></p>
 
 </div>
+<?php include './footer.php';?>

@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br><br><div class="container-fluid text-center">
 
 <form class="form-signin" method="POST" action="./download.php" id="download">
@@ -37,7 +38,7 @@
       <span class="glyphicon glyphicon-log-in"></span> &nbsp; Download </button> </div></div>
  </form>
  </div>
- 
+ <?php include './footer.php';?>
  <script src='download.js'></script>
  <script>
  var download = document.getElementById("downloadBtn");

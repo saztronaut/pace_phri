@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br><br><div class="container-fluid text-center">
 <form class="form-signin" method="POST" action="./updateRights.php" id="user-rights">
 
@@ -22,7 +23,7 @@
  </form>
  </div>
  
-
+<?php include './footer.php';?>
  <script>
 
 window.onload = getUser();

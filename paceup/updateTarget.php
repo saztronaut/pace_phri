@@ -2,15 +2,25 @@
 <?php
 
  if (isset($_POST['date_set'])==1) {
- 	//require 'database.php';
     require 'sessions.php';
-    //include 'calcTarget.php';
-   $date_set=$_POST['date_set'] ;
-  // $weekno=$_POST['weekno'] ;
-
-  $username = htmlspecialchars($_SESSION['username']);
- // $steps = htmlspecialchars($_SESSION['steps']);
-  manualUpdateTarget($username, $date_set);
+   $date_set=date("Y-m-d",strtotime($_POST['date_set']));
+   $username = htmlspecialchars($_SESSION['username']);
+   if (isset($_POST['post12'])==1){
+   	$steptarget=$_POST['steptarget'];
+   	$days=$_POST['days'];
+   	if (checkTarget($username, $date_set)==0){
+   	if (insertTarget($username, $date_set, $steptarget, $days)){
+   		echo "target updated";
+   	}
+   }
+   else{
+   	if (updateTarget($username, $date_set, $steptarget, $days)){
+   		echo "target updated";
+   	}
+   }
+   }
+   else{
+    manualUpdateTarget($username, $date_set);}
  }
 
  //manually updated targets are for participants who do not hit the previous target but want to continue
@@ -25,11 +35,33 @@ function manualUpdateTarget($username, $date_set){
   $days= $mytarget['days'];
   $steptarget=$mytarget['steptarget'];
      // send the target through
-  $insert_target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
-   $gettarget = mysqli_query($connection, $insert_target);
+  insertTarget($username, $date_set, $steptarget, $days);
+ // $insert_target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
+ //  $gettarget = mysqli_query($connection, $insert_target);
   }
   
- 
+function checkTarget($username, $date_set){
+	require 'database.php';
+	$checkTargetQ= "SELECT * FROM targets WHERE date_set='". $date_set ."' AND username='".$username."';";
+	$result=mysqli_query($connection, $checkTargetQ);
+	if ($result->num_rows>0){
+		return 1;
+	} else return 0;
+	
+}  
+
+function updateTarget($username, $date_set, $steptarget, $days){
+	require 'database.php';
+	$update_target = "UPDATE targets SET steps= '". $steptarget ."', days= '". $days ."' WHERE username='". $username ."' AND date_set='". $date_set ."';";
+	$gettarget = mysqli_query($connection, $update_target);
+} 
+
+function insertTarget($username, $date_set, $steptarget, $days){
+	require 'database.php';
+	$insert_target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
+	$gettarget = mysqli_query($connection, $insert_target);
+} 
+  
  function getLatestTarget($username){
  	require 'database.php';
  	//how many targets has this user had, what was the latest target, how many steps was it, and on how many days

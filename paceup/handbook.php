@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <div class='jumbotron text-center'>
 <h1>PACE-UP - Next Steps</h1>
 <p> Handbook</p> </div>
@@ -14,7 +15,7 @@ The benefits of increasing your walking</a>
 <div class="panel-body">
 <div class="row center"><div class="col-sm-12"><p class="text-center"><img src="images/walk_heart.png" class="img-noborder" alt="getwalking"></p></div></div>
 <div class="row is-table-row">
-<div class="col-sm-3 bg-info">
+<div class="col-md-3 col-xs-* bg-info" >
 <h4 class="text-center">Reduce health problems</h4>
 <p  class="text-center">Walking regularly can prevent or improve:</p>
 <p  class="text-center">Heart Disease, Stroke</p>
@@ -23,7 +24,7 @@ The benefits of increasing your walking</a>
 <p class="text-center">Arthritis, Breathing problems </p>
 <p class="text-center">Back pain</p>
 <p class="text-center"><img src="images/heart_brain_mini.png" class="img-noborder"  alt="brain_heart"></p></div>
-<div class="col-sm-3 bg-danger">
+<div class="col-md-3 col-xs-* bg-danger">
 <h4  class="text-center">Improve wellbeing</h4>
 <p  class="text-center">Walking regularly can:</p>
 <p  class="text-center">Relieve stress, anxiety and depression</p>
@@ -33,7 +34,7 @@ The benefits of increasing your walking</a>
 <p class="text-center">Improve your quality of life</p>
 <p class="text-center">Get you out of the house meeting people</p>
 </div>
-<div class="col-sm-3 bg-success">
+<div class="col-md-3 col-xs-* bg-success">
 <h4  class="text-center">Reduce some of the effects of ageing</h4>
 <p  class="text-center">Walking regularly can:</p>
 <p  class="text-center">Improve flexibility and balance</p>
@@ -41,7 +42,7 @@ The benefits of increasing your walking</a>
 <p class="text-center">Maintain mobility and being able to live independently</p><br>
 <p class="text-center"><img src="images/stretching.png" class="img-logo"  alt="stretch" ></p>
 </div>
- <div class="col-sm-3 bg-warning">
+ <div class="col-md-3 col-xs-* bg-warning">
 <h4  class="text-center">Help maintain a healthy weight</h4>
 <p  class="text-center">Walking regularly can:</p>
 <p class="text-center">Help you to maintain a healthy weight</p>
@@ -147,6 +148,8 @@ How to keep going when PACE-UP finishes</a>
 </div>
 </div>
 </div></div>
+<?php include './footer.php';?>
+</body>
 <script src= "./loadText.js"></script>
 <script>
 window.onload= function(){

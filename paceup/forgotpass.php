@@ -21,8 +21,8 @@ else{
 	// username should not be set but if it is unset it
 	unset($_SESSION['username']);
 	// choose new form
-	$_SESSION['choose_form']='./resetpwd.php';
-	header('Refresh: 1; URL = ./main_index.php');
+	//$_SESSION['choose_form']='./resetpwd.php';
+	header('Refresh: 1; URL = ./resetpwd.php');
 	
 	
 }

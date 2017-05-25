@@ -173,7 +173,7 @@ function drawHeader2(week, weekno, comment=''){
 	<li>Countryside or woodlands </li> \
 	<li>Riverside walks</li> \
 	<li>Tourist attractions in central London </li> \
-	<li>Look at our <a href='#' onclick='redirect(\"./links.php\")'>suggested websites</a> for some ideas </li></ul> \
+	<li>Look at our <a href=\"./links.php\">suggested websites</a> for some ideas </li></ul> \
 	<p><b>Time/means:</b> What can you not do in order to make time for your walks and make it a priority?</p> \
 			 <p><b>  Gains:  What changes have you noticed so far? </b></p> \
 			<form><div class='form-group' id='form6'> \
@@ -239,17 +239,17 @@ Then build up again as you start to feel better.  This will help to build up you
 				     blurb="<p> Weeks 9-12 of your walking plan are about trying to maintain what you have achieved, \
 adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of the week</b>.</p> \
 	<p>One good way to do this is to add in a 30 minute walk.</p>\
-<p>If you haven’t achieved this, these weeks are another opportunity for you to achieve this goal.  \
+<p>If you haven&#8217t achieved this, these weeks are another opportunity for you to achieve this goal.  \
 If you have achieved this, you could try increasing your walking speed.</p>";
 				     thisTitle= "Change does not happen in a straight line";
 					 thisAside = "<h3>Change does not happen in a straight line!</h3> <br>\
 <p>Successfully making a change like increasing your walking is not a smooth process and usually involves some ups and downs.  \
 Most people experience some setbacks before things pick up again.</p> \
-<p>Don’t get disheartened or give up when you experience a setback - see it as an opportunity for learning what went wrong.  </p>\
+<p>Don&#8217t get disheartened or give up when you experience a setback - see it as an opportunity for learning what went wrong.  </p>\
 <p>Key points for coping with setbacks:</p> \
 			<ul type='circle'> \
-<li>Don’t be too hard on yourself – and don’t give up!  Missing a few walks is not a failure unless you let it become one.  If you need to, drop back to an earlier stage and start building up again from there.</li> \
-<li>Avoid ‘risky’ situations, for example, don’t sit down to watch your favourite TV programme 10 minutes before you are due to go for a walk</li> \
+<li>Don&#8217t be too hard on yourself – and don&#8217t give up!  Missing a few walks is not a failure unless you let it become one.  If you need to, drop back to an earlier stage and start building up again from there.</li> \
+<li>Avoid ‘risky’ situations, for example, don&#8217t sit down to watch your favourite TV programme 10 minutes before you are due to go for a walk</li> \
 <li>Plan to overcome possible obstacles: for example, carry a banana in your bag to eat if you get hungry out walking</li> \
 <li>Remember to give yourself rewards for your successes</li> \
 <li>Remind yourself why you wanted to be involved in this programme, to increase your walking, and the reasons why it is important for you to increase your activity and fitness levels</li></ul> \
@@ -295,7 +295,7 @@ adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of t
 <p>Think about how you will keep up your walking when this programme finishes.  The health benefits will only stay with you if you keep up your regular walking.</p> \
 <p>Have you got a friend you could commit to walking regularly with?</p>\
 <p>Could you join a local walking group or go on local health walks? </p> \
-<p>Why not <a href='#' onclick='redirect(\"./handbook.php\")'> revisit the handbook for some tips on keeping going?</a></p> \
+<p>Why not <a href=\"./handbook.php\"> revisit the handbook for some tips on keeping going?</a></p> \
 			<form><div class='form-group' id='form11'> \
 		 <label for = 'comment11'>  My notes </label> \
 		 <textarea class='form-control' rows= '3' id='comment11'>"+ comment +"</textarea></div>\
@@ -308,7 +308,7 @@ adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of t
 adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of the week</b>.If you have achieved this, you could try increasing your walking speed.</p> \
 	<p>One good way to do this is to add in a 30 minute walk.</p>";
 				          thisTitle= "How to keep going when your PACE-UP -Next Steps Programme finishes";
-					  thisAside = "<h3>Congratulations – you have now completed the 12-week walking programme!</h3><br> \
+					  thisAside = "<h3>Congratulations – you have reached week 12 of the walking programme!</h3><br> \
 <p>Why not take a few minutes to think about the changes you have made over this time? </p>\
 <p>How long are you walking for each day compared with when you started?  What changes have you made in your daily and weekly step counts?  </p>\
 <p>What are you doing differently?  How have your activities changed?</p> \
@@ -329,7 +329,7 @@ adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of t
 						  thisTitle= "Beyond the 12 weeks of the PACE-UP Next Steps programme";
 				      blurb="<p>How to keep you walking</p>";
 					  thisAside = "<h3>How to keep going </h3><br>\
-					  	<a href='#' onclick='redirect(\"./summary.php\")'> Click here to see a summary of your progress over the 12 week programme</a>\
+					  	<a href=\"./summary.php\"> Click here to see a summary of your progress over the 12 week programme</a>\
 					  <ul type='circle'> <li>Keep the habit of going for a 30 minute walk or doing 30 minutes of other moderate activity to keep up your step-count, most days of the week.</li> \
 					   <li>Keep your pedometer and use it sometimes to show you how active you are. It is easy to be very busy without being very active, the pedometer shows you accurately how many steps you are taking.</li> \
 					   <li>Remind yourself about what you have achieved by increasing your activity and any positive benefits it has had on your health, weight, mood, sleeping etc. This may motivate you to keep up good habits, or to try again if you feel you have slipped back.</li> \
@@ -338,7 +338,8 @@ adding in an extra <b>3000</b> steps to your baseline steps on <b>most days of t
 					   <form><div class='form-group' id='form"+ weekno +"'> \
 					   <label for = 'comment"+ weekno +"'>  Feel free to add your own notes here:</label> \
 					   <textarea class='form-control' rows= '4' id='comment"+ weekno +"' placeholder 'You can use this box to record your reminders'>"+ comment +"</textarea></div>\
-					   <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\""+ weekno +"\")'>Save</button></form> ";
+					   <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\""+ weekno +"\")'>Save</button></form>\
+					   	<br> <a href=\"./AddNewTarget.php\"> Click here to add a new target</a>	 ";
 
 					  }
 			}

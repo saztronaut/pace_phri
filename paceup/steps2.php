@@ -1,4 +1,5 @@
 <!-- -->
+<?php include './template.php';?>
 <br><div class= "container">
 <div class= "jumbotron">
 <span id="thisHeader">Introduction to the week here</span>
@@ -28,7 +29,7 @@
 
   </div>
 </div>
-
+<?php include './footer.php';?>
 <script src="./drawHeader.js"></script>
 <script src="./drawMethodsSelect.js"></script>
 <script src="./drawStepsTable.js"></script>
@@ -47,10 +48,10 @@
 	     doXHR("./getWeek.php", function getWeek(){	  	 
 		   var $response = this.responseText;	
 		   console.log($response);  
-		      if ($response=="0"){
-			      redirect('./landing_text.php'); //if you couldn't get any data on the individual, send them to the landing page
-			      }
-		      else {
+			if ($response=="0"){
+				window.location.assign('./landing_text.php');
+			}
+			else {
 		        var json = JSON.parse($response, function(key, value) {
 		        if (key!="fail"){
 		        	weekdata[key]=value; // all week info to go in week array

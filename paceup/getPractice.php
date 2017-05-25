@@ -1,7 +1,6 @@
 <?php
-
-    require 'database.php';
-	require 'sessions.php';	
+require 'sessions.php';	
+require 'database.php';
 
   
   $lookup = "SELECT pracID, practice_name FROM practices;";

@@ -22,7 +22,8 @@ $getTable=[]; //array to parse information back to the steps page to be drawn as
 if ($maxweekno>$weekno){
 	$ispast=1;
     $finish_date = isset($_POST['finish']) ? $_POST['finish']:date('Y-m-d'); //For looking at historical data
-} else { $finish_date=date('Y-m-d');}
+} 
+else { $finish_date=date('Y-m-d');}
 
 $pageispast=$ispast;
 
@@ -67,7 +68,7 @@ if 	 (($thisWeek=='baseline'||$thisWeek=='getweek1'||$thisWeek=='delayweek1')==1
 	$startday = strtotime("today");
 }
 else{ // Non baseline view - show values from the last target set, i.e. in "weeks". 
-	if ($weekno % 2 == 1 ||$thisWeek=='week0'){
+	if (($weekno % 2 == 1 ||$thisWeek=='week0') && $weekno<13 ){
 //If the week is odd, show the 7 days from the target set
 //Days since works out the date from today until the start date, which defaults at today
 		$days_since =FLOOR(($today_str- $latest_t)/(60*60*24));
@@ -78,7 +79,21 @@ else{ // Non baseline view - show values from the last target set, i.e. in "week
 		// Don't display the mean number of steps
 		$display=0;
 		$iseven=0;
-	} else {
+	} else if ($weekno>12){
+		//Days since works out the number of days from today until the start date, which defaults at today
+		//As this is post 12 weeks, any amount of weeks could have elapsed since the last target, you only want the last 7 days
+		$days_since =FLOOR(($today_str- $latest_t)/(60*60*24)) % 7;
+		//The start day is typically the current date, from which you go "back in time" to get the rows to display
+		$startday =strtotime("-1 day", $today_str);
+		//$end = how many rows to iterate through in the table. if there are 7 days, this 
+		if ($days_since==0){$days_since=6;}
+		$end= $days_since;
+		// Don't display the mean number of steps
+		$display=0;
+		$iseven=0;
+	}
+	
+	else {
 		//If it is the second week, show 7 days from the target
 		$days_since= FLOOR(($today_str- strtotime("+7 days", $latest_t))/(60*60*24));	
 		$n_days_since= $days_since +7;
