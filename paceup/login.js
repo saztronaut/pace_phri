@@ -18,7 +18,11 @@ function makeRequest(url, data) {
   console.log($response);
     if ($response==1){
     	//refresh the page
-    	window.location.reload(true);
+    	window.location.assign('./steps2.php');
+    }
+    else if ($response==3){
+    	//refresh the page
+    	window.location.assign('./admin.php');
     }
     else if ($response ==0){
     	document.getElementById('response').innerHTML= 'Incorrect email, username or password';  

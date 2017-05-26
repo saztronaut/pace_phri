@@ -39,14 +39,9 @@
 <script>
 window.onload=getlogin();
 
-//function redirect(gothere){
-	//console.log(gothere);
-	//  var dataString='choose_form=' + gothere;
-	//  console.log(dataString);
-	//  doXHR('./redirect.php', function () {	
-	//	  //window.location.reload(true);	 
-	//  }, dataString);  
-//	}
+function redirect(gothere){
+	  window.location.assign(gothere);	 
+	}
 	
 
 

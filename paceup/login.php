@@ -27,13 +27,10 @@
                   $_SESSION['username'] = $username;
                   $_SESSION['roleID'] = $row['roleID'];
 				if ($row['roleID']=="R"||$row['roleID']=="S"){
-					$_SESSION['choose_form']= 'admin.php';
+					$msg= 3;
 			}   else{     
-                  $_SESSION['choose_form']= 'steps2.php';
+                   $msg= 1;}
 			}
-                   $msg= 1;
-                     header('Refresh: 0; URL = main_index.php');
-			}
-			}
+            }
 			echo $msg;           
-         ?>      
+?>      
