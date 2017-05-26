@@ -86,7 +86,8 @@ function returnWeek($username){
 					}
 				}
 				if ($w>=13) {
-					//show 12 week summary to user?
+					// if it is post week 12 but the user has decided not to carry on you don't want to do all this - revert to week 12
+					
 					
 					//now need to calculate how many weeks since week 12 finished
 					$order= 7;

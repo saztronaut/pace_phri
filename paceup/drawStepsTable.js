@@ -10,6 +10,17 @@
       	  myString+="&base=" + weekdata['baseline'];
       	  if (finish==true){
       	  myString+="&finish=" + weekdata['finish'];}
+          		  mysteps=weekdata['steps']; //target steps
+                  week=weekdata['week']; //name of the week
+                  weekno=weekdata['weekno']; // number of the week
+                  days=weekdata['days']; //days to reach target   
+          if (week='finished'){
+     		 var post12message=drawNoContinue();
+       		var printThis = post12message.join('\n');
+	    	  document.getElementById("thisTable").innerHTML= printThis;
+
+          }
+          else {
     	  	  
     	  doXHR("./drawTable2.php", function (){		 
     		  var $drawTable = this.responseText;	    		    
@@ -27,10 +38,7 @@
                      showrow.push(tableResults[i].showrow);
                      ispast[i] = tableResults[i].ispast;
                      }
-         		  mysteps=weekdata['steps']; //target steps
-                  week=weekdata['week']; //name of the week
-                  weekno=weekdata['weekno']; // number of the week
-                  days=weekdata['days']; //days to reach target
+
                  $drawMyTable=[];
                  if (weekdata['week']=="getweek1"){
                 	 //show select week button
@@ -41,6 +49,12 @@
                 	 var showDate= new Date(weekdata['latest_t']);
                 	 $drawMyTable.push("<p>You will start to increase your steps from "+ giveDay(weekdata['latest_t']) + " ( " + forwardsDate(weekdata['latest_t'])+ ")</p>");
                  } 
+                 else if (weekdata['week']=="finished"){
+            		 
+            	//	 var post12message=drawNoContinue();
+              	//	var printThis = post12message.join('\n');
+      	    	//  document.getElementById("thisTable").innerHTML= printThis;
+                 }
                  if (weekno>=13){
                 	 console.log(weekdata['summary']);
                 	 if (weekdata['summary']==1){
@@ -48,11 +62,9 @@
                 		 twelveWeek();
                 	 }
                 	 else if (weekdata['summary']==3){
-                		 week='week13';
-                		 weekno=13;
-                	 }
-                	 else if (weekdata['summary']==3){
                 		 display13=0;
+                		 week='finished';
+                		 weekno=13;
                 	 }
                 	 
                  }
@@ -76,7 +88,7 @@
                  else{ //display the summary
                 	 }
                  }
-          }, myString);
+          }, myString);}
 		}
 
 	function drawMySteps(x, thisWeek, weekno, baseline="", daysw="", target="", steparray=[], methods, targetstep, targetday){
@@ -183,7 +195,9 @@
 // daysw - number of days in target
 //ispast - this week is not the current week
 // steps - target
+		
         var print=[];
+        print.push("<h3>You can record your step counts here.</h3>");
 		if (week=="baseline" ||week=="week0" || week=="getweekone"){
 			if (steps>0) {	
 				print.push("<p><b>Your average daily step count ="+ steps +"</b>. This number is your <b>baseline steps</b><br></p><br>");
@@ -321,6 +335,17 @@ function twelveWeek(){
 	   $('#methodModal').modal('show');
 	   
 }
+
+function drawNoContinue(){
+	var myMessage=[];
+	myMessage.push("<h3>Now you have finished the twelve weeks of PACE-UP Next Steps</h3>");
+	myMessage.push("<p>We've put together a summary of your progress over the PACE-UP Next Steps programme, if you've like to see it, click the button below</p><br>");
+	myMessage.push("<form><div class='form-group'> <button type ='button' class='btn btn-default' id='summaryBtn' onclick='redirect(\"./summary.php\")'>View your progress</button></div></form><br>");	   
+	myMessage.push("<p> Hearing about how the programme may have helped you or how it could do improve helps us to provide a better service </p>");
+	myMessage.push("<p> Please fill out our feedback form </p><br>");
+	myMessage.push("<form><div class='form-group'> <button type ='button' class='btn btn-default' id='feedbackBtn' onclick='redirect(\"./feedback.php\")'>Give Feedback</button></div></form><br>");	   
+    return myMessage;
+    }
 	
 function carryOn(keepgoing){
 	data="carryon="+keepgoing;

@@ -6,7 +6,7 @@
 <span id="thisBlurb">Explanation of the week here</span>
 </div></div>
 <div class="container-fluid-extrapad"> <div class = "row">
-<div class = "col-md-7"> <h3>You can record your step counts here.</h3> <span id="thisTable">Your steps should appear here</span> </div>
+<div class = "col-md-7"><span id="thisTable">Your steps should appear here</span> </div>
 <div class = "col-md-5"> <p id="thisAside"><span id="thisTable">Message to motivate you should appear here</span> </p></div>
 </div></div>
 <!-- Modal -->
@@ -63,9 +63,6 @@
 		        });
 		    if (weekdata['week']=='baseline'){
 			       weekdata['weekno']=0;}
-			if (weekdata['refresh']=='yes'){
-				window.location.reload(true); //if changes are made to the target during the running of getWeek, the data returned should be refreshed
-			}
 
 		      if (past==true){
 		    	  weekdata['week']="week" + viewWeek;

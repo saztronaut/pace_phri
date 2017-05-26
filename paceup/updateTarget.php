@@ -14,7 +14,7 @@
    	}
    }
    else{
-   	if (updateTarget($username, $date_set, $steptarget, $days)){
+   	if (updateTargetQ($username, $date_set, $steptarget, $days)){
    		echo "target updated";
    	}
    }
@@ -24,6 +24,8 @@
  }
 
  //manually updated targets are for participants who do not hit the previous target but want to continue
+if (function_exists('manualUpdateTarget')){}
+else {
 function manualUpdateTarget($username, $date_set){
 	require 'database.php';
 	include 'calcTarget.php';
@@ -39,7 +41,10 @@ function manualUpdateTarget($username, $date_set){
  // $insert_target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
  //  $gettarget = mysqli_query($connection, $insert_target);
   }
+}
   
+if (function_exists('checkTarget')){}
+else {
 function checkTarget($username, $date_set){
 	require 'database.php';
 	$checkTargetQ= "SELECT * FROM targets WHERE date_set='". $date_set ."' AND username='".$username."';";
@@ -47,21 +52,27 @@ function checkTarget($username, $date_set){
 	if ($result->num_rows>0){
 		return 1;
 	} else return 0;
-	
-}  
+}  }
 
-function updateTarget($username, $date_set, $steptarget, $days){
+if (function_exists('updateTargetQ')){}
+else {
+function updateTargetQ($username, $date_set, $steptarget, $days){
 	require 'database.php';
 	$update_target = "UPDATE targets SET steps= '". $steptarget ."', days= '". $days ."' WHERE username='". $username ."' AND date_set='". $date_set ."';";
 	$gettarget = mysqli_query($connection, $update_target);
 } 
+}
 
+if (function_exists('insertTarget')){}
+else {
 function insertTarget($username, $date_set, $steptarget, $days){
 	require 'database.php';
 	$insert_target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
 	$gettarget = mysqli_query($connection, $insert_target);
 } 
-  
+}
+if (function_exists('getLatestTarget')){}
+else {
  function getLatestTarget($username){
  	require 'database.php';
  	//how many targets has this user had, what was the latest target, how many steps was it, and on how many days
@@ -78,7 +89,7 @@ function insertTarget($username, $date_set, $steptarget, $days){
  	or die("Can't find user week" . mysql_error());
  	$row = mysqli_fetch_array($result);
  	return $row;
- }
+ } }
  
    
  // 	exit;

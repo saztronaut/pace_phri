@@ -7,7 +7,7 @@ $username = htmlspecialchars($_SESSION['username']);
 $msg=0;
 if ($_POST){
 	
-    if ($_POST['carryon']==true){
+    if ($_POST['carryon']=='true'){
     	$keepgoing=2;
     }
     else {
