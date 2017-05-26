@@ -36,7 +36,7 @@
 		$today= date('Y-m-d');
 		$latest_t=date('Y-m-d', strtotime($results['latest_t']));
 		}
-		if ($w>13){
+		if ($w>=13){
 			$showSumm= "SELECT finish_show FROM users WHERE username='".$username."' ;";
 			$summResult= mysqli_query($connection, $showSumm) or die("Error checking if summary or no");
 			$getSum= mysqli_fetch_array($summResult);
@@ -48,8 +48,14 @@
 				$summary=1;
 			}
 			$results['summary']= $summary;
+			if ($summary==3){
+				//user does not want to collect any more data.
+				$week="finished";
+	
+			}else{
+			
 			if ($latest_t>$today){
-				// get previous// current target
+				// if the most recent target is in the future, get previous/ current target
 				$get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set DESC LIMIT 1, 1;";
 				$myresults= mysqli_query($connection, $get_date);
 				$row=mysqli_fetch_array($myresults);
@@ -61,7 +67,7 @@
 				$thisStart= date("Y-m-d", (strtotime($results['latest_t'])+ ($weeksSince13* 60*60*24*7)));
 				$results['start']= $thisStart;
 				
-			}
+			}}
 			
 		}
 

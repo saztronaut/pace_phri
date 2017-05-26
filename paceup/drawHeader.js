@@ -13,7 +13,7 @@ function drawHeader2(week, weekno, comment=''){
 				 The best way to do this is for you to wear the pedometer and record your step counts each day for a full week. \
 				  There is often quite a difference between weekends and weekdays, so it is important to try and record for a full week. \
 				   Don&#8217;t try to increase your walking this week, just do what you normally do, or your targets will be too high and too hard for you to achieve</p>";
-		     thisTitle=  "Frequently asked questions on the PACE-UP trial";  
+		     thisTitle=  "Frequently asked questions on the PACE-UP programme";  
 			 thisAside="<div class='row'><div class='col-lg-8 col-md-9'><h3>Pedometer instructions</h3> \
 <ul type='circle'> \
 <li>Open the Digi-Walker pedometer and press the yellow reset button to zero.</li>\
@@ -35,7 +35,22 @@ function drawHeader2(week, weekno, comment=''){
 			//if (weekno=="0"){
 				 //thisAside+= "<p><b> Please note, any changes you now make will not alter your baseline steps</b></p>";}
 			 }
-			else {
+			else if (week='finished'){
+				thisHeader= "<h2>Beyond PACE-UP Next Steps </h2>";
+			      blurb="<p>Congratulations, you have finished the PACE-UP Next Steps programme</p>";
+				  thisAside = "<h3>How to keep going </h3><br>\
+				  <ul type='circle'> <li>Keep the habit of going for a 30 minute walk or doing 30 minutes of other moderate activity to keep up your step-count, most days of the week.</li> \
+				   <li>Keep your pedometer and use it sometimes to show you how active you are. It is easy to be very busy without being very active, the pedometer shows you accurately how many steps you are taking.</li> \
+				   <li>Remind yourself about what you have achieved by increasing your activity and any positive benefits it has had on your health, weight, mood, sleeping etc. This may motivate you to keep up good habits, or to try again if you feel you have slipped back.</li> \
+				   <li>Enlist a friend or family member to walk with you, it is easier to walk regularly and walk further if you have some company.</li> \
+				   <li>Try out new walks near you or think about a walking group, the websites listed have lots of ideas for local walks, or your local library will have information.</li> </ul>\
+				   <form><div class='form-group' id='form"+ weekno +"'> \
+				   <label for = 'comment"+ weekno +"'>  Feel free to add your own notes here:</label> \
+				   <textarea class='form-control' rows= '4' id='comment"+ weekno +"' placeholder 'You can use this box to record your reminders'>"+ comment +"</textarea></div>\
+				   <button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\""+ weekno +"\")'>Save</button></form>\
+				   	<br>	 ";	
+			}
+			else{
 				$getweek=weekno;
 				thisHeader= "<h2> Week "+ $getweek +" of your walking plan</h2>"
 					switch ($getweek){	
