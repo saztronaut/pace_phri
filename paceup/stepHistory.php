@@ -1,77 +1,12 @@
+<?php include './template.php';?>
 
-<!-- -->
 <br><div class= "container">
 <div class= "jumbotron">
 <h2>Your progress on PACE-UP Next Steps </h2>
 </div></div>
 <div class="container-fluid-extrapad"> 
-<div class = "row">
-<div class = "col-md-2"> <p id="thisAvg_0"></p></div>
-<div class = "col-md-6"> <span id="thisTable_0">Your steps should appear here</span> </div>
+<p id="showAllData"></p>
 
-<div class = "col-md-4"> <p id="thisAside_0"></p></div>
-</div>
- <div class = "row">
- <div class = "col-md-2"> <p id="thisAvg_1"></p></div>
-<div class = "col-md-6"><span id="thisTable_1"></span> </div>
-<div class = "col-md-4"> <p id="thisAside_1"></p></div>
-</div>
- <div class = "row">
- <div class = "col-md-2"> <p id="thisAvg_2"></p></div>
-<div class = "col-md-6"> <span id="thisTable_2"></span> </div>
-
-<div class = "col-md-4"> <p id="thisAside_2"></p></div>
-</div>
- <div class = "row">
- <div class = "col-md-2"> <p id="thisAvg_3"></p></div>
-<div class = "col-md-6"> <span id="thisTable_3"></span> </div>
-<div class = "col-md-4"> <p id="thisAside_3"></p></div>
-</div>
- <div class = "row">
- <div class = "col-md-2"> <p id="thisAvg_4"></p></div>
-<div class = "col-md-6"> <span id="thisTable_4"></span> </div>
-<div class = "col-md-4"> <p id="thisAside_4"></p></div>
-</div>
- <div class = "row">
- <div class = "col-md-2"> <p id="thisAvg_5"></p></div>
-<div class = "col-md-6"> <span id="thisTable_5"></span> </div>
-<div class = "col-md-4"> <p id="thisAside_5"></p></div>
-</div>
- <div class = "row">
- <div class = "col-md-2"> <p id="thisAvg_6"></p></div>
-<div class = "col-md-6"> <span id="thisTable_6"></span> </div>
-<div class = "col-md-4"> <p id="thisAside_6"></p></div>
-</div>
- <div class = "row">
-  <div class = "col-md-2"> <p id="thisAvg_7"></p></div>
-<div class = "col-md-6"> <span id="thisTable_7"></span> </div>
-<div class = "col-md-4"> <p id="thisAside_7"></p></div>
-</div>
- <div class = "row">
-  <div class = "col-md-2"> <p id="thisAvg_8"></p></div>
-<div class = "col-md-6"> <span id="thisTable_8"></span> </div>
-<div class = "col-md-4"> <p id="thisAside_8"></p></div>
-</div>
- <div class = "row">
-  <div class = "col-md-2"> <p id="thisAvg_9"></p></div>
-<div class = "col-md-6"> <span id="thisTable_9"></span> </div>
-<div class = "col-md-4"> <p id="thisAside_9"></p></div>
-</div>
- <div class = "row">
-  <div class = "col-md-2"> <p id="thisAvg_10"></p></div>
-<div class = "col-md-6"> <span id="thisTable_10"></span> </div>
-<div class = "col-md-4"> <p id="thisAside_10"></p></div>
-</div>
- <div class = "row">
-  <div class = "col-md-2"> <p id="thisAvg_11"></p></div>
-<div class = "col-md-6"> <span id="thisTable_11"></span> </div>
-<div class = "col-md-4"> <p id="thisAside_11"></p></div>
-</div>
- <div class = "row">
-  <div class = "col-md-2"> <p id="thisAvg_12"></p></div>
-<div class = "col-md-6"> <span id="thisTable_12"></span> </div>
-<div class = "col-md-4"> <p id="thisAside_12"></p></div>
-</div>
 </div>
 <script src="./dateFunctions.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -96,9 +31,34 @@ function drawTables ($response){
 	//console.log(json);
 	targets=json.targets;
 
-	$print="";
-	
+	var $print="";
+	var showAllData=""
+
+		var stepsNum= targets.length
+		//var stepsNum = 6
+
+		for (x=stepsNum; x>=0; x--){
+
+		showAllData+='<div class = "row"> \
+		<div class = "col-md-2"> <p id="thisAvg_'+ 2*x +'"></p></div>\
+		<div class = "col-md-6"> <span id="thisTable_'+ 2*x +'"></span> </div>\
+		<div class = "col-md-4"> <p id="thisAside_'+ 2*x +'"></p></div>\
+		</div>';
+		if (x>0){
+		console.log(x);
+		showAllData+='<div class = "row"> \
+		<div class = "col-md-2"> <p id="thisAvg_'+ ((2*x) -1) +'"></p></div>\
+		<div class = "col-md-6"> <span id="thisTable_'+ ((2*x) -1) +'"></span> </div>\
+		<div class = "col-md-4"> <p id="thisAside_'+ ((2*x) -1) +'"></p></div>\
+		</div>';
+		console.log(showAllData);
+		}		
+		}
+	console.log(showAllData);
+		document.getElementById("showAllData").innerHTML=showAllData;	    	
 	for (i in targets) {
+
+				
 		var isfirst=true;
 		var title=false;
 	    steps=json.steps[i];
@@ -109,8 +69,8 @@ function drawTables ($response){
 		var daystxt = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 		var stepsdta= []; 
 		var daysdta= [];
-		
-	    
+
+
 		for (j in steps){	
 		var date_set_read = new Date(steps[j].date_set);
 		var date_read= new Date(steps[j].date);
@@ -196,7 +156,6 @@ function drawTables ($response){
 
 		data=getChartdata(daysdta, stepsdta);
 		layout=getChartlayout(label, base_steps, target_steps);
-
 
 	$myBarChart= Plotly.newPlot('thisAside_'+ 2*i +'', data, layout);
 	document.getElementById('thisAvg_'+ 2*i +'').innerHTML= showAvg;

@@ -37,6 +37,7 @@ if ($get_reg->num_rows==0){
 	$results['ethnicity']=$reg_row['ethnicity'];
 	$results['consent']=1;}
     }
+    mysqli_free_result($get_reg);
     
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -50,10 +51,16 @@ if ($get_reg->num_rows==0){
     	$email_unique= (mysqli_query($connection, $check_email));
     	if ($username_unique->num_rows>0) {$results['username']='Please choose a different username, that name is taken'; }
     	if ($email_unique->num_rows>0) {$results['email']= 'Email already in use'; }
-    
+    mysqli_free_result($username_unique);
+    mysqli_free_result($email_unique);
     	 
 
 }
+
+
+
+
+
 //echo $msg;
 if(!empty($results)) {
 

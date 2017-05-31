@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br><br>
 <div class="container-fluid text-center">
 
@@ -24,5 +25,5 @@
       <span class="glyphicon glyphicon-log-in"></span> &nbsp; Reset Password </button> </div>
  </form>
  </div>
-
+<?php include './footer.php';?>
   <script src="reset.js"> </script>

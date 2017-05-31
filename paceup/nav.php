@@ -11,7 +11,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MY STEPS <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="./steps2.php"><span id="recordsteps">RECORD STEP COUNT</span></a></li>
-            <li><a href="#"><span id="reviewsteps">REVIEW STEP HISTORY</span></a></li>
+            <li><a href="./stepHistory.php"><span id="reviewsteps">REVIEW STEP HISTORY</span></a></li>
           </ul>
         </li>
    <li class="dropdown">
