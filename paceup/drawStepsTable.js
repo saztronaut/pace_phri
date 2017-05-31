@@ -14,9 +14,9 @@
                   week=weekdata['week']; //name of the week
                   weekno=weekdata['weekno']; // number of the week
                   days=weekdata['days']; //days to reach target   
-          if (week='finished'){
+          if (week=='finished'){
      		 var post12message=drawNoContinue();
-       		var printThis = post12message.join('\n');
+       		 var printThis = post12message.join('\n');
 	    	  document.getElementById("thisTable").innerHTML= printThis;
 
           }
