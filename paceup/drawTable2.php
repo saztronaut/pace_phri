@@ -53,7 +53,7 @@ if 	 (($thisWeek=='baseline'||$thisWeek=='getweek1'||$thisWeek=='delayweek1')==1
 
 	$row = mysqli_fetch_array($result);
 	$days_since = $row['days'];
-
+	mysqli_free_result($result);
 	if ($days_since<=6){
 		//only display values after the registration date
 		$end= $days_since;
@@ -239,12 +239,13 @@ foreach ($mytable as $x){
 		$temp['stepsread']=$stepsread;
 		$temp['give_pref']=$give_pref;
 		$myrow[$key]=$temp;
-		
+	mysqli_free_result($resultsteps);	
 }
 
 $table['showrow']=$myrow;
 $table['ispast']=$ispast;
 $table['end']=$end;
+
 //$table['new_week']=$new_week;
 return $table;
 }
