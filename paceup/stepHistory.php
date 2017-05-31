@@ -17,7 +17,7 @@ window.onload = function() {
 			var $response = this.responseText;
 			console.log($response);
 			if ($response=="0"){
-				redirect('./steps.php');
+				redirect('./landing_text.php');
 			}
 			else {
 				drawTables($response);
@@ -45,16 +45,15 @@ function drawTables ($response){
 		<div class = "col-md-4"> <p id="thisAside_'+ 2*x +'"></p></div>\
 		</div>';
 		if (x>0){
-		console.log(x);
+
 		showAllData+='<div class = "row"> \
 		<div class = "col-md-2"> <p id="thisAvg_'+ ((2*x) -1) +'"></p></div>\
 		<div class = "col-md-6"> <span id="thisTable_'+ ((2*x) -1) +'"></span> </div>\
 		<div class = "col-md-4"> <p id="thisAside_'+ ((2*x) -1) +'"></p></div>\
 		</div>';
-		console.log(showAllData);
 		}		
 		}
-	console.log(showAllData);
+
 		document.getElementById("showAllData").innerHTML=showAllData;	    	
 	for (i in targets) {
 

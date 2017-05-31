@@ -3,11 +3,14 @@ require 'database.php';
 require 'sessions.php';
 include 'get_json_encode.php';
 
+$myStepsprint=[];
+$myTargetsprint=[];
+
+if (isset($_SESSION['username'])){
 $username = htmlspecialchars($_SESSION['username']);
 //show all the steps over time
 
-$myStepsprint=[];
-$myTargetsprint=[];
+
 $getTargetsq= "SELECT date_set, steps, days FROM targets WHERE username='". $username ."' ORDER BY date_set;";
 $getTargets= mysqli_query($connection, $getTargetsq) or die("Can't find user's targets" . mysql_error());
 //$target_row= mysqli_fetch_array($getTargets);
@@ -27,7 +30,10 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     $myStepsprint[$counter]= $step_row;	
     
     $counter=$counter+1;
+    
 
+}
+mysqli_free_result($getTargets);
 }
 //out put the group to the page
 if(!empty($myStepsprint)&&!empty($myTargetsprint)) {
@@ -37,4 +43,7 @@ if(!empty($myStepsprint)&&!empty($myTargetsprint)) {
 	echo '{"targets":'.json_encode($result_array). ',"steps":'. json_encode($step_array).'}';}
 	else {echo 0;}
 
-?>
+	mysqli_close($connection);
+	
+	exit;
+	?>
