@@ -1,27 +1,7 @@
 
 <?php
 
- if (isset($_POST['date_set'])==1) {
-    require 'sessions.php';
-   $date_set=date("Y-m-d",strtotime($_POST['date_set']));
-   $username = htmlspecialchars($_SESSION['username']);
-   if (isset($_POST['post12'])==1){
-   	$steptarget=$_POST['steptarget'];
-   	$days=$_POST['days'];
-   	if (checkTarget($username, $date_set)==0){
-   	if (insertTarget($username, $date_set, $steptarget, $days)){
-   		echo "target updated";
-   	}
-   }
-   else{
-   	if (updateTargetQ($username, $date_set, $steptarget, $days)){
-   		echo "target updated";
-   	}
-   }
-   }
-   else{
-    manualUpdateTarget($username, $date_set);}
- }
+
 
  //manually updated targets are for participants who do not hit the previous target but want to continue
 if (function_exists('manualUpdateTarget')){}
@@ -43,7 +23,7 @@ function manualUpdateTarget($username, $date_set){
   }
 }
   
-if (function_exists('checkTarget')){}
+if (function_exists('checkTarget')==1){}
 else {
 function checkTarget($username, $date_set){
 	require 'database.php';
@@ -54,7 +34,7 @@ function checkTarget($username, $date_set){
 	} else return 0;
 }  }
 
-if (function_exists('updateTargetQ')){}
+if (function_exists('updateTargetQ')==1){}
 else {
 function updateTargetQ($username, $date_set, $steptarget, $days){
 	require 'database.php';
@@ -71,6 +51,7 @@ function insertTarget($username, $date_set, $steptarget, $days){
 	$gettarget = mysqli_query($connection, $insert_target);
 } 
 }
+
 if (function_exists('getLatestTarget')){}
 else {
  function getLatestTarget($username){
@@ -93,7 +74,27 @@ else {
  
    
  // 	exit;
-
+ if (isset($_POST['date_set'])==1) {
+    require 'sessions.php';
+   $date_set=date("Y-m-d",strtotime($_POST['date_set']));
+   $username = htmlspecialchars($_SESSION['username']);
+   if (isset($_POST['post12'])==1){
+   	$steptarget=$_POST['steptarget'];
+   	$days=$_POST['days'];
+   	if (checkTarget($username, $date_set)==0){
+   	if (insertTarget($username, $date_set, $steptarget, $days)){
+   		echo "target updated";
+   	}
+   }
+   else{
+   	if (updateTargetQ($username, $date_set, $steptarget, $days)){
+   		echo "target updated";
+   	}
+   }
+   }
+   else{
+    manualUpdateTarget($username, $date_set);}
+ }
 
 
 ?>
