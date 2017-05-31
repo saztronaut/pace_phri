@@ -1,3 +1,4 @@
+<?php include './template.php';?>
 <br><div class= "container">
 <div class= "jumbotron">
 <h2>Your progress on PACE-UP Next Steps </h2>
@@ -12,7 +13,7 @@
 
 <div class = "col-lg-2"> </div>
 </div></div>
-
+<?php include './footer.php';?>
 <script src="./twelveWeekSummary.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 

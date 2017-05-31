@@ -25,7 +25,7 @@
         </div>
        <hr />
         <div class="form-group">
-            <button type="button" class="btn btn-default" id="getcodesBtn">
+            <button type="button" class="btn btn-default" id="getcodesBtn" onclick="getCodes()">
       <span class="glyphicon glyphicon-pencil"></span> &nbsp; Generate Codes </button> </div>
  </form>
  </div>
@@ -36,20 +36,17 @@
 
  function checkPrivilege(min_account){
  	///check to see if user has sufficient privileges for page
- 	data="roleID="+min_account;
- 	doXHR('./checkRights.php, function(){
+ 	data="min_account="+ min_account;
+ 	doXHR('./checkRights.php', function(){
  	var response=this.responseText;
  	if (response=="0"){
  	 window.location.assign('./landing_text.php');
  				}
- 	  else {}
- 	  return response;
+ 	  else {;}
+ //	  return response;
  	}, data);
 
  	}
-
- var codeBtn = document.getElementById("getcodesBtn");
-codeBtn.addEventListener("click", getCodes);
 
 function getCodes(){
 	  // validate the form on the client side, double password match, etc
@@ -63,8 +60,6 @@ function getCodes(){
       filename= "reg_codes_"+ practice +"_"+ today +".csv";
       createDownload(filename, url, data);
 
-	  
-	  
 }
 
  </script>

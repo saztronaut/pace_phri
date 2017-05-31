@@ -39,6 +39,7 @@ function makeRequest(url, data){
         		  window.location.assign('./intro.php');
         	  }
         	  else if (key==""){
+        		  console.log("something went wrong");
         	  }
         	  else{
         		  giveFeedback(key, value, true);
