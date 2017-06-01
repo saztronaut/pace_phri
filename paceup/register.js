@@ -203,38 +203,38 @@ function getConsent(action, data){
 	        	var getconsenttxt=[];
 	       	 getconsenttxt.push( "<form> <div class='form-group' id='consent-form'>");
 	    	 // if the registration code has a consent form recorded, only ask for consent in terms of the website. 
-	    	 getconsenttxt.push( "<div class='row'> <div class='col-sm-1'></div><div class='col-sm-9'><strong>Please read the form carefully and check each box to state you agree</strong><br></div>\
-	    	 <div class='col-md-2'><strong>* = mandatory</strong></div>");
+	    	 getconsenttxt.push( "<div class='row'> <div class='col-xs-1'></div><div class='col-xs-8'><strong>Please read the form carefully and check each box to state you agree</strong><br></div>\
+	    	 <div class='col-xs-3'><strong>* = mandatory</strong></div>");
 	        if (consent==1){;
             	//this user has already signed consent
-       	  getconsenttxt.push( "<div class='row'> <div class='col-sm-1'></div><div class='col-sm-9'><p>I agree to take part in PACE-UP Next Steps </p></div>");
-       	  getconsenttxt.push("<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_a'>*<br></div></div></div>");
-       	  getconsenttxt.push(" <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a> </p></div>\
-		 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='privacy'>*<br></div></div></div>");       	
-       	  getconsenttxt.push(" <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a>  </p></div>\
-		 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='cookies'>*<br></div></div></div>");
+       	  getconsenttxt.push( "<div class='row'> <div class='col-xs-1'></div><div class='col-xs-9'><p>I agree to take part in PACE-UP Next Steps </p></div>");
+       	  getconsenttxt.push("<div class='col-xs-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_a'>*<br></div></div></div>");
+       	  getconsenttxt.push(" <div class='row'>  <div class='col-xs-1'></div><div class='col-xs-9'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a> </p></div>\
+		 <div class='col-xs-2'><div class='checkbox'><input type='checkbox' value='1' id='privacy'>*<br></div></div></div>");       	
+       	  getconsenttxt.push(" <div class='row'>  <div class='col-xs-1'></div><div class='col-xs-9'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a>  </p></div>\
+		 <div class='col-xs-2'><div class='checkbox'><input type='checkbox' value='1' id='cookies'>*<br></div></div></div>");
             }
             else if (consent==0){//this user has not signed consent
            	 //read and understood
-           	 getconsenttxt.push( '<div class="row">  <div class="col-sm-1"></div><div class="col-sm-9"> <p>I have read and understood the Patient Information Sheet for PACE-UP Next Steps. I have had the opportunity to consider the information </p></div>');
-        	 getconsenttxt.push( "<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent'><br>*</div></div></div>");
+           	 getconsenttxt.push( '<div class="row">  <div class="col-xs-1"></div><div class="col-xs-9"> <p>I have read and understood the Patient Information Sheet for PACE-UP Next Steps. I have had the opportunity to consider the information </p></div>');
+        	 getconsenttxt.push( "<div class='col-xs-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent'><br>*</div></div></div>");
         	 //my participation is voluntary
-        	 getconsenttxt.push( "<div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I understand that my participation is voluntary and that I am free to withdraw at any time, without giving any reason, without my medical care or legal rights being affected</p></div>\
-        	 <div class='col-md-2'> <div class='checkbox'> <input type='checkbox' value='1' id='e_consent_v'><br>*</div></div></div>");
+        	 getconsenttxt.push( "<div class='row'>  <div class='col-xs-1'></div><div class='col-xs-9'><p>I understand that my participation is voluntary and that I am free to withdraw at any time, without giving any reason, without my medical care or legal rights being affected</p></div>\
+        	 <div class='col-xs-2'> <div class='checkbox'> <input type='checkbox' value='1' id='e_consent_v'><br>*</div></div></div>");
         	 //agree to participate
-        	 getconsenttxt.push( "<div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I agree to take part in PACE-UP Next Steps</p></div>");
-        	 getconsenttxt.push( "<div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_a'>*<br></div></div></div>");
+        	 getconsenttxt.push( "<div class='row'>  <div class='col-xs-1'></div><div class='col-xs-9'><p>I agree to take part in PACE-UP Next Steps</p></div>");
+        	 getconsenttxt.push( "<div class='col-xs-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_a'>*<br></div></div></div>");
         	 //GP records
-        	 getconsenttxt.push( "<div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I give permission for my GP records to be looked at by responsible individuals from St Georges, University of London </p></div>\
-        	 <div class='col-md-2'><div class='checkbox' ><input type='checkbox' value='1' id='e_consent_gp'><br></div></div></div>");
+        	 getconsenttxt.push( "<div class='row'>  <div class='col-xs-1'></div><div class='col-xs-9'><p>I give permission for my GP records to be looked at by responsible individuals from St Georges, University of London </p></div>\
+        	 <div class='col-xs-2'><div class='checkbox' ><input type='checkbox' value='1' id='e_consent_gp'><br></div></div></div>");
         	 //agree to contact
-        	 getconsenttxt.push( "<div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I agree to being contacted for a short telephone interview about my physical activity and taking part in this study, if I am selected for this </p></div>\
-        	 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_t'><br></div></div></div>\
-    	   	 <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a></p></div>\
-    		 <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='privacy'>*<br></div></div></div>\
-    		 <div class='row'>  <div class='col-sm-1'></div><div class='col-sm-9'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a></p></div>\
-            <div class='col-md-2'><div class='checkbox'><input type='checkbox' value='1' id='cookies'>*<br></div></div></div>\
-    		 <div class= 'row'><div class='col-sm-1'></div><div class='col-sm-11'><a href='#' data-toggle='tooltip' title=''><strong> Please complete this information</strong></a></div></div>\
+        	 getconsenttxt.push( "<div class='row'>  <div class='col-xs-1'></div><div class='col-xs-9'><p>I agree to being contacted for a short telephone interview about my physical activity and taking part in this study, if I am selected for this </p></div>\
+        	 <div class='col-xs-2'><div class='checkbox'><input type='checkbox' value='1' id='e_consent_t'><br></div></div></div>\
+    	   	 <div class='row'>  <div class='col-xs-1'></div><div class='col-xs-9'><p>I have read and understood the <a href='./privacy.php' target='_blank'>privacy policy</a></p></div>\
+    		 <div class='col-xs-2'><div class='checkbox'><input type='checkbox' value='1' id='privacy'>*<br></div></div></div>\
+    		 <div class='row'>  <div class='col-xs-1'></div><div class='col-xs-9'><p>I have read and understood the <a href='./cookies.php' target='_blank'>cookies policy</a></p></div>\
+            <div class='col-xs-2'><div class='checkbox'><input type='checkbox' value='1' id='cookies'>*<br></div></div></div>\
+    		 <div class= 'row'><div class='col-sm-1'></div><div class='col-xs-11'><a href='#' data-toggle='tooltip' title=''><strong> Please complete this information</strong></a></div></div>\
     		 <div class='row'> <div class='col-md-1'></div> <div class='col-md-3'><strong> Gender </strong>\
             <div class='radio'><label><input type='radio' value='F' name='gender'> Female</label></div>\
              <div class='radio'><label><input type='radio' value='M' name='gender'> Male</label></div></div>\
