@@ -193,6 +193,7 @@ Generic Styling, for Desktops/Laptops
   vertical-align: center; 
 }
 
+
 .table-info {
   background-color: #723F97;
   color: white;
@@ -215,6 +216,8 @@ Generic Styling, for Desktops/Laptops
      
 @media 
 only screen and (max-width: 760px) {
+    
+
 	.is-table-row {
      display: block;
      width: 100%;
@@ -239,8 +242,7 @@ only screen and (max-width: 760px) {
 	}
 	
 	/* Hide table headers (but not display: none;, for accessibility) */
- .table-plain thead 
- .table-plain tr { 
+ .table-plain thead{ 
 		position: absolute;
 		top: -9999px;
 		left: -9999px;
@@ -249,7 +251,7 @@ only screen and (max-width: 760px) {
 	
  .table-plain tr { border: 1px solid #ccc; }
 	
- .table-plain td { 
+ .table-plain td, .form-inline-scale { 
 		/* Behave  like a "row" */
 		border: none;
 		border-bottom: 1px solid #eee; 

@@ -132,17 +132,17 @@
 			if (showtargets==1){ //if you are showing targets, ask if the pt had a walk that day
 			if (add_walk!=null){//if there is already steps data, show a check or a blank
 				if (add_walk==1){ //show a check
-					mytable.push( "<td data-title='Did you add a walk in today?' align='center'> <span id='walk"+ date_set +"' ><span  class='glyphicon glyphicon-ok logo-small'></span></span></td>");}
+					mytable.push( "<td data-title='Did you add a walk in today?' style='text-align:center;'> <span id='walk"+ date_set +"' ><span  class='glyphicon glyphicon-ok logo-small'></span></span></td>");}
 				else {// show a blank
-					mytable.push( "<td data-title='Did you add a walk in today?' align='center'> <span id='walk"+ date_set +"'></span></td>");}
+					mytable.push( "<td data-title='Did you add a walk in today?' style='text-align:center;'> <span id='walk"+ date_set +"'></span></td>");}
 			}
 			else { //show a checkbox control
-				   mytable.push( "<td data-title='Did you add a walk in today?' align='center'> <form class = 'form-inline'> <div class='form-group'> ");
+				   mytable.push( "<td data-title='Did you add a walk in today?' style='text-align:center;'> <form class = 'form-inline form-inline-scale'> <div class='form-group'> ");
 				   mytable.push( "<input type='checkbox' class='form-control' id='walk"+ date_set +"'> </div>");
 	               mytable.push("</form></td>");
 			  }
 		    }
-			mytable.push("<td data-title='Steps'>");
+			mytable.push("<td data-title='Steps' style='text-align:center;'>");
 			if (stepsread!=null) { // if there is already a step count, add to total and display as text
 				totalsteps= totalsteps+ stepsread;
 				totaldays= totaldays+ 1;
@@ -153,8 +153,8 @@
 				
 			}
 			else { // if no steps for this date, show a text control
-				mytable.push("<form class = 'form-inline'> <div class='form-group'>");
-				mytable.push("<input type='integer' class='form-control' placeholder='Enter steps' id='steps"+ date_set +"' style='width: 7em' ></div>");
+				mytable.push("<form class = 'form-inline form-inline-scale'> <div class='form-group'>");
+				mytable.push("<input type='integer' class='form-control' placeholder='Enter steps' id='steps"+ date_set +"' style='width: 7em;' ></div>");
 				mytable.push("</form>");
 				mytable.push("</td><td data-title='Device'><span id ='methodspan"+ date_set+"'>");
 				mytable.push(selectMethods("method"+ date_set, give_pref, methods));
@@ -164,7 +164,7 @@
 			///Get stars
 			if (showtargets==1){
 				if ((targetstep!=null)&&(parseInt(targetstep)<= parseInt(stepsread))){
-					mytable.push("<td  data-title='Achieved target'  align='center'><span class='glyphicon glyphicon-star logo-small'></span></td>");
+					mytable.push("<td  data-title='Achieved target'  style = 'text-align:center;'><span class='glyphicon glyphicon-star logo-small'></span></td>");
 					targetdays= targetdays+1;
 				}
 				else { mytable.push("<td  data-title='Achieved target' align='center'></td>");}
