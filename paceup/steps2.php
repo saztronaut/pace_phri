@@ -49,7 +49,9 @@
 		   var $response = this.responseText;	
 		   console.log($response);  
 			if ($response=="0"){
-				window.location.assign('./landing_text.php');
+				document.getElementById("thisTable").innerHTML= "<h4> Whoops, you need to be logged in to record your steps! Redirecting you</h4>";
+				setTimeout(function() {redirect('./landing_text.php');},2500);
+				
 			}
 			else {
 		        var json = JSON.parse($response, function(key, value) {

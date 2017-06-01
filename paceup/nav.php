@@ -85,9 +85,16 @@ function getlogin(){
 				print.push("<li><a href='./admin.php'><span class='glyphicon glyphicon-pencil'></span> Admin </a></li>");
 	            }
 			print.push("<li><a href='#'><span class='glyphicon glyphicon-user'></span> Welcome " + userdata['username'] +" </a></li>");
-			print.push("<li><a href='./logout.php'><span class='glyphicon glyphicon-log-in' id='logout'></span> Log out</a></li>");}
+			print.push("<li><a href='#' onclick='logout()'><span class='glyphicon glyphicon-log-in' id='logout'></span> Log out</a></li>");}
 	        login=print.join("\n");
 	        document.getElementById('login_bar').innerHTML= login;
 	    	        });
 		  }
+
+function logout(){
+	doXHR('./logout.php', function(){
+		window.location.assign('./landing_text.php');
+	},)
+	
+}
 </script>

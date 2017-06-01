@@ -35,7 +35,7 @@ function drawHeader2(week, weekno, comment=''){
 			//if (weekno=="0"){
 				 //thisAside+= "<p><b> Please note, any changes you now make will not alter your baseline steps</b></p>";}
 			 }
-			else if (week='finished'){
+			else if (week=='finished'){
 				thisHeader= "<h2>Beyond PACE-UP Next Steps </h2>";
 			      blurb="<p>Congratulations, you have finished the PACE-UP Next Steps programme</p>";
 				  thisAside = "<h3>How to keep going </h3><br>\

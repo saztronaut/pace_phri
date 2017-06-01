@@ -17,7 +17,8 @@ window.onload = function() {
 			var $response = this.responseText;
 			console.log($response);
 			if ($response=="0"){
-				redirect('./landing_text.php');
+				document.getElementById("showAllData").innerHTML= "<h4> Whoops, either you are not logged in or you need to finish your first week</h4>";
+				setTimeout(function() {redirect('./landing_text.php');},2500);
 			}
 			else {
 				drawTables($response);

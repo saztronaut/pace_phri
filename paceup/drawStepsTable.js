@@ -40,6 +40,7 @@
                      }
 
                  $drawMyTable=[];
+                 $drawMyTable.push("<h3> You can record your steps here </h3>");
                  if (weekdata['week']=="getweek1"){
                 	 //show select week button
                 	 var onew= setWeekOne(weekdata['latest_t'], weekdata['baseline']);
