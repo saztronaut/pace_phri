@@ -65,7 +65,7 @@ function returnWeek($username){
 			}
 			
 		}
-		elseif ($row['n_t']>1)
+		elseif ($row['n_t']>1){
 			$w=((($row['n_t'])-2)*2)+1;
 			//if the target is in the future, you know that the participant has chosen when to increase but it is not yet (week 1 only)
 			if ($latest_t> $today_str){
@@ -84,7 +84,7 @@ function returnWeek($username){
 						$refresh=updateTarget($username);
 						if ($refresh==1){ $results['refresh']="yes";}
 					}
-				}
+				}}
 				if ($w>=13) {
 					// if it is post week 12 but the user has decided not to carry on you don't want to do all this - revert to week 12
 					
