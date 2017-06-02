@@ -17,7 +17,8 @@ else {
   <p>A twelve week guide to help <b>you </b> increase <b>your</b> walking</p>
   <p><a href="./explain_targets.php">Click here to see a brief overview</a></div>
   <div class="col-sm-4"><h3>Who can sign up?</h3>
-  <p>Currently, patients at participating GP surgeries, who wish to increase their walking, can take part. </p></div>
+  <p>Currently, patients at participating GP surgeries, who wish to increase their walking, can take part. </p>
+  <p> If you have been given a registration code, <a href="./register_form.php">click here to sign up</a> </p></div>
   <div class="col-sm-4"><h3>What was the PACE-UP trial?</h3>
   <p>PACE-UP was a physical activity intervention run from even general practices in South West London. </p>
   <p>It successfully encouraged people aged 45-75 years old to increase their walking.</p>

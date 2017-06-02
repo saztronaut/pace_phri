@@ -19,6 +19,7 @@
 </form><p id= "response"></p><br>
 
 <form class="form-inline" id ="reset-form">
+<p> First time logging in? <a href="./register_form.php">Click here to sign up</a> </p>
 <label for="resetBtn"> Forgotten your password? :</label>
 <button type="button" class="btn btn-default" id="resetBtn" onclick = "redirect('./reset_password.php')" >Click here</button>
 

@@ -4,7 +4,7 @@ require 'sessions.php';
 include 'get_json_encode.php';
 
 $myComments=[];
-if ($_POST){
+if (isset($_SESSION['username'])){
 	$username = htmlspecialchars($_SESSION['username']);
 
 //show all the steps over time
@@ -18,6 +18,7 @@ for ($x = 0; $x <13; $x++) {
 	$row= mysqli_fetch_array ($results);
 	$myComments[$x]= $row['text'];
 
+	mysqli_free_result($results);
 }
 }
 //out put the group to the page
@@ -26,4 +27,6 @@ if(!empty($myComments)) {
 	echo json_encode($myComments);}
 	else {echo 0;}
 
+	
+	
 ?>

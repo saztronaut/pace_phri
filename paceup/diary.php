@@ -74,10 +74,10 @@ function drawDiary (){
 	xhr.onreadystatechange = function () {
 		if(xhr.readyState == 4 && xhr.status ==200){
 			var $response = xhr.responseText;
-			//console.log($response);
+			console.log($response);
 			if ($response=="0"){
 				document.getElementById("pills").innerHTML= "<h4> Whoops, you need to be logged in to look at your diary! Redirecting you</h4>";
-				setTimeout(function() {redirect('./handbook.php');},2500);
+				setTimeout(function() {redirect('./landing_text.php');},2500);
 			}
 			else {
 	// for each value in the array loop through and draw the respective html code

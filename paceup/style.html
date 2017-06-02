@@ -8,6 +8,10 @@
     padding: 25px 25px;
 }
 
+.jumbotron a{
+    color: #ffffff;
+}
+
 .container-fluid-extrapad {
     padding: 25px 25px;
     padding-top: 15px;
@@ -281,11 +285,13 @@ only screen and (max-width: 760px) {
 		font-weight: bold;
 	}
 	
-	.form-inline-scale input[type=select] { 		
+	.form-inline-scale input[type=select] { 
+	    position: relative;		
 		padding-left: 50%; 
 		text-align: right; 	
 	}
-	.form-inline-scale input[type=text] { 		 
+	.form-inline-scale input[type=text], input[type=checkbox]  { 	
+		position: relative;		 
 		text-align: right; 	
 		float: right;
 	}	

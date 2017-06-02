@@ -3,8 +3,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> MENU </button>    
-      <a class="navbar-brand" href="./main_index.html"><img src="images/puns_tiny.png"></a>
-       	
+      <a class="navbar-brand" href="./main_index.html"><img src="images/puns_tiny.png" class="img-responsive"></a>
     <span class="sr-only">Toggle navigation</span>
     </div>
 

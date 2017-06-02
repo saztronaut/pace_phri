@@ -17,7 +17,7 @@
 </td></tr></table></div>
 <div class="col-sm-5">
 <h4 class="text-center">What does this mean for you?</h4>
-<p><b>After you have recorded your daily steps for one week, the average number of steps you walked in a day will be calculated. Let's say you walked 5000 steps in a day</b></p>
+<p><b>After you have recorded your daily steps for one week, the average number of steps you walked in a day will be calculated. Let's say you walked 5000 steps on average each day</b></p>
 <p><b>Your 12 week programme would be as follows:</b></p>
 <p>Add in extra steps to your baseline average of 5000 steps per day. Record your daily step-count on the PACE-UP diary sheets.</p>
 <p><b>First month</b> add in 1500 steps per day (which is about equal to a 15 minute walk), gradually increasing from 3 to 5 days per week</p>

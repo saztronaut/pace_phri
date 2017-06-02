@@ -3,21 +3,21 @@
 <div class="col-sm-5"><h3>For Walking</h3><br>
 <a href = "http://www.whi.org.uk/"> <b>Walking and Hiking Information</b> </a>
 <p> Useful help for people to do short walks in their area</p>
-<a href="www.walk4life.info"><b>Walk for life</b> </a>
+<a href="http://www.walk4life.info"><b>Walk for life</b> </a>
 <p> This website helps you to find a walk near to where you live, make up a walk you can do every day or keep track of your walking activity</p>
-<a href="www.walkit.com">
+<a href="http://www.walkit.com">
 <b>Walkit.com</b></a>
 <p> the urban walking route planner gives you a route map between any two points including your journey time</p>
-  <a href="www.mapmywalk.com"><b>MapMyWalk.com</b></a>
+  <a href="http://www.mapmywalk.com"><b>MapMyWalk.com</b></a>
   <p> Find local walking routes near you </p>
   <a href="www.walkingforhealth.org.uk"> <b>WalkingForHealth.org.uk </b></a>
   <p> Find a walk, join a local walking scheme and learn about the benefits of walking for health.</p><br>
 </div>
 
 <div class="col-sm-5"><h3>For generally keeping active and healthy</h3><br>
-<a href = "www.nhs/livewell/fitness"> <b>NHS Live well</b></a>
+<a href = "http://www.nhs/livewell/fitness"> <b>NHS Live well</b></a>
 <p>UK physical activity guidelines for adults and older adults, fitness videos and exercises for all age groups</p>
-  <a href="www.nhs.uk/change4life/pages/get-going-every-day.aspx">
+  <a href="http://www.nhs.uk/change4life/pages/get-going-every-day.aspx">
     <b>Change 4 life - get going every day</b></a>
   <p> Find ways to get active for free </p>
 <a href="https://www.bhf.org.uk/heart-health/preventing-heart-disease/staying-active">
