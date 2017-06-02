@@ -1,5 +1,4 @@
-
-	function drawTable(weekdata, methods, finish=false){
+function drawTable(weekdata, methods, finish=false){
     	  var xhr = new XMLHttpRequest();
       	  ///create a string to parse to build the able
       	  myString="week=" + weekdata['week'];
@@ -26,7 +25,7 @@
     		  var $drawTable = this.responseText;	    		    
     	      if ($drawTable==0){ //you don't want to draw the table if there is no data
         	      }
-    	      else {       	      
+    	      else { 
     	         var tabledata = JSON.parse($drawTable);
                  var n_show= tabledata.n_show; //number of tables to show
                  var display13=1;
@@ -142,32 +141,32 @@
 	               mytable.push("</form></td>");
 			  }
 		    }
-			mytable.push("<td data-title='Steps' style='text-align:center;'>");
+			mytable.push("<td data-title='Steps' >");
 			if (stepsread!=null) { // if there is already a step count, add to total and display as text
 				totalsteps= totalsteps+ stepsread;
 				totaldays= totaldays+ 1;
 				mytable.push("<span id='steps"+ date_set +"' value ="+ stepsread + " >"+ stepsread +  "</span>");
-				mytable.push("</td><td data-title='Device'><span id='methodspan"+ date_set+"'>");
+				mytable.push("</td><td data-title='Device'><form class = 'form-inline form-inline-scale'> <div class='form-group'><span id='methodspan"+ date_set+"'>");
 				mytable.push(selectMethods("method"+ date_set, give_pref, methods, false));
-				mytable.push("</span></td>");
+				mytable.push("</span></div></form></td>");
 				
 			}
 			else { // if no steps for this date, show a text control
 				mytable.push("<form class = 'form-inline form-inline-scale'> <div class='form-group'>");
 				mytable.push("<input type='integer' class='form-control' placeholder='Enter steps' id='steps"+ date_set +"' style='width: 7em;' ></div>");
 				mytable.push("</form>");
-				mytable.push("</td><td data-title='Device'><span id ='methodspan"+ date_set+"'>");
+				mytable.push("</td><td data-title='Device'><form class = 'form-inline form-inline-scale'> <div class='form-group'><span id ='methodspan"+ date_set+"'>");
 				mytable.push(selectMethods("method"+ date_set, give_pref, methods));
-				mytable.push("</span></td>");
+				mytable.push("</span></div></form></td>");
 			}
 
 			///Get stars
 			if (showtargets==1){
 				if ((targetstep!=null)&&(parseInt(targetstep)<= parseInt(stepsread))){
-					mytable.push("<td  data-title='Achieved target'  style = 'text-align:center;'><span class='glyphicon glyphicon-star logo-small'></span></td>");
+					mytable.push("<td  data-title='Achieved target'style='text-align:center;' ><span class='glyphicon glyphicon-star logo-small'></span></td>");
 					targetdays= targetdays+1;
 				}
-				else { mytable.push("<td  data-title='Achieved target' align='center'></td>");}
+				else { mytable.push("<td  data-title='Achieved target'> </td>");}
 							}
 			if (stepsread!=null){ //If there is already a step count give option to edit else option to add new
 				mytable.push("<td><input type='button' class='btn btn-default' id='editBtn"+ date_set +"' value='Edit'></div></form></td>");}
@@ -198,7 +197,7 @@
 // steps - target
 		
         var print=[];
-        print.push("<h3>You can record your step counts here.</h3>");
+       // print.push("<h3>You can record your step counts here.</h3>");
 		if (week=="baseline" ||week=="week0" || week=="getweekone"){
 			if (steps>0) {	
 				print.push("<p><b>Your average daily step count ="+ steps +"</b>. This number is your <b>baseline steps</b><br></p><br>");
