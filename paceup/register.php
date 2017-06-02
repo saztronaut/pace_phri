@@ -11,6 +11,8 @@
   $lastname = htmlspecialchars($_POST['lastname']);
   $email = htmlspecialchars($_POST['email']);
   $password = MD5($_POST['password']);
+  define('IND_SALT', 'RandomString');
+  $salt = IND_SALT;
   $startdate =date('Y-m-d');
   $method = htmlspecialchars($_POST['steps']);
      if (isset($_POST['other_method'])){
@@ -53,21 +55,26 @@
   if ($email_unique->num_rows>0) {
   	$errors['email']= 'Email already in use'; }  
   else if ($username_unique->num_rows<1 && $email_unique->num_rows<1 ) {
-  	
-   $addUser = "INSERT INTO users(username, password, email, forename, lastname, pracID, start_date, pref_method, other_method, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', LOWER('" . $email . "'), LOWER('" . $firstname . "'), LOWER('" . $lastname . "'), '". $practice ."', '" . $startdate . "', '". $method ."', '". $other_method ."',  'U', '". $registration ."');";
+	
+   $addUser = "INSERT INTO users(username, password, salt, email, forename, lastname, pracID, start_date, pref_method, other_method, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', '" . $salt . "', LOWER('" . $email . "'), LOWER('" . $firstname . "'), LOWER('" . $lastname . "'), '". $practice ."', '" . $startdate . "', '". $method ."', '". $other_method ."',  'U', '". $registration ."');";
    $updateConsent = "UPDATE reference SET  e_consent = '" . $e_consent . "', e_consent_v= '" . $e_consent_v . "', e_consent_a= '" . $e_consent_a . "', e_consent_gp='" . $e_consent_gp . "', e_consent_t= '" . $e_consent_t . "', age  =". $age .", gender = '". $gender ."', ethnicity='". $ethnicity ."' WHERE referenceID '". $registration ."';";
  // $errors['query']= $addUser;
   //echo $addUser;
    if (mysqli_query($connection, $addUser))
     {// send an email to the user as well
     	mysqli_query($connection, $updateConsent);
-     $email_msg ="Thank you for signing up to the PACE-UP next-steps website!
-All the information you need to start the 12-week walking programme is online, including information on how to use the pedometer and set your walking targets.
-We would be grateful if you could complete and return the paper consent form, enclosed in your pedometer pack, using the free-post envelope provided. If you have misplaced the form or the envelope please contact Charlotte Wahlich (PACE-UP research assistant) on cwahlich@sgul.ac.uk who can provide you with a replacement.
+     $message ="Thank you for signing up to the PACE-UP next-steps website!\n
+All the information you need to start the 12-week walking programme is online, including information on how to use the pedometer and set your walking targets.\n
+We would be grateful if you could complete and return the paper consent form, enclosed in your pedometer pack, using the free-post envelope provided. If you have misplaced the form or the envelope please contact Charlotte Wahlich (PACE-UP research assistant) on cwahlich@sgul.ac.uk who can provide you with a replacement. \n
 We hope that you enjoy the 12-week walking programme!
 Best wishes, 
 The PACE-UP team";
-     
+     $subject= 'Welcome to PACE-UP Next Steps';
+      $headers = "MIME-Version: 1.0" . "r\n\ ";
+     $headers .= "Content-type:text/html;charset=UTF-8"."\r\n ";
+     $headers .= 'From: noreply@paceup.ac.uk' . "\r\n " .
+       'X-Mailer: PHP/' . phpversion();
+     mail($email, $subject , $message, $headers);
      $errors['success']= 'yes';
      
       $_SESSION['valid'] = true;
@@ -80,7 +87,10 @@ The PACE-UP team";
     }
    
   }
+  mysqli_free_result($username_unique);
+  mysqli_free_result($email_unique);
   }
+  mysqli_free_result($get_reg);
   }
   
   }
