@@ -1,10 +1,15 @@
 <!-- This is the navigation bar. It will appear at the top of every page and is called by main_index -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#"><img src="images/puns_tiny.png"></a>
+ <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> MENU </button>    
+      <a class="navbar-brand" href="./main_index.html"><img src="images/puns_tiny.png"></a>
+       	
+    <span class="sr-only">Toggle navigation</span>
     </div>
+
     <div class="collapse navbar-collapse" id="myNavbar">
+    
       <ul class="nav navbar-nav">
         <li><a href="./AddNewTarget.php">HOME</a></li>
         <li class="dropdown">
