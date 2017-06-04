@@ -1,0 +1,28 @@
+<div class="row">
+<div class="col-sm-3">
+<p>The plan is to start from where <b>you</b> are currently and to gradually increase the amount you walk over 12 weeks.<p> 
+<p class="text-center"><img src="images/pedometer.png" class="img-responsive" alt="scales"></p>
+<p> Use the pedometer for record the number of steps you do each day and record them <a href="#" onclick='redirect("./steps.php")'>here</a></p>
+</div>
+<div class="col-sm-4">
+<table class="table table-info">
+<thead><tr><th>Weeks of PACE-UP walking programme</th><th>	Target number of steps</th></tr></thead>
+<tr><td>1-2</td><td>Add in 1500 steps on 3 or more days per week</td></tr>
+<tr><td>3-4</td><td>Add in 1500 steps on 5 or more days per week</td></tr>
+<tr><td>5-6</td><td>Add in 3000 steps on 3 or more days per week</td></tr>
+<tr><td>7-12</td><td>Add in 3000 steps on 5 or more days per week</td></tr>
+<tr><td colspan="2">
+<p class="text-center"><b>Remember</b></p>
+<p class="text-center"><b>1500 steps equals about 15 minutes of walking and 3000 steps equals about 30 minutes of walking.</b></p> 
+</td></tr></table></div>
+<div class="col-sm-5">
+<h4 class="text-center">What does this mean for you?</h4>
+<p><b>After you have recorded your daily steps for one week, the average number of steps you walked in a day will be calculated. Let's say you walked 5000 steps on average each day</b></p>
+<p><b>Your 12 week programme would be as follows:</b></p>
+<p>Add in extra steps to your baseline average of 5000 steps per day. Record your daily step-count on the PACE-UP diary sheets.</p>
+<p><b>First month</b> add in 1500 steps per day (which is about equal to a 15 minute walk), gradually increasing from 3 to 5 days per week</p>
+<p><b>Second month</b> add in 3000 steps per day (which is about equal to a 30 minute walk) gradually increasing from 3 to 5 days per week</p>
+<p><b>Third month</b> is maintenance, keep on adding in 3000 steps per day (about equal to a 30 minute walk) on at least 5 days per week.</p>
+<p><b>By the end of 12 weeks the aim is for you to be walking an extra 3000 steps most days of the week. If you can do this, your average number of daily steps should have increased to about 8000 steps.</b></p>
+</div>
+</div>
