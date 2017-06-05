@@ -10,7 +10,7 @@
 <p> the urban walking route planner gives you a route map between any two points including your journey time</p>
   <a href="http://www.mapmywalk.com"><b>MapMyWalk.com</b></a>
   <p> Find local walking routes near you </p>
-  <a href="www.walkingforhealth.org.uk"> <b>WalkingForHealth.org.uk </b></a>
+  <a href="http://www.walkingforhealth.org.uk"> <b>WalkingForHealth.org.uk </b></a>
   <p> Find a walk, join a local walking scheme and learn about the benefits of walking for health.</p><br>
 </div>
 

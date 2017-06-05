@@ -68,6 +68,7 @@ function returnWeek($username){
 		elseif ($row['n_t']>1){
 			$w=((($row['n_t'])-2)*2)+1;
 			//if the target is in the future, you know that the participant has chosen when to increase but it is not yet (week 1 only)
+			if ($w<13){
 			if ($latest_t> $today_str){
 				$results['week']='delayweek'.$w;
 			}
@@ -85,7 +86,7 @@ function returnWeek($username){
 						if ($refresh==1){ $results['refresh']="yes";}
 					}
 				}}
-				if ($w>=13) {
+				 else if ($w>=13) {
 					// if it is post week 12 but the user has decided not to carry on you don't want to do all this - revert to week 12
 					
 					
@@ -107,6 +108,7 @@ function returnWeek($username){
 					$results['week']="week". (13 + $weeksSince13);
 					$w=(13 + $weeksSince13);
 				}
+		}
 
 	$results['row']=$row;
 	$results['latest_t']=date("Y-m-d",$latest_t);				
