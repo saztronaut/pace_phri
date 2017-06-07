@@ -84,7 +84,7 @@ else{ // Non baseline view - show values from the last target set, i.e. in "week
 		//As this is post 12 weeks, any amount of weeks could have elapsed since the last target, you only want the last 7 days
 		$days_since =FLOOR(($today_str- $latest_t)/(60*60*24)) % 7;
 		//The start day is typically the current date, from which you go "back in time" to get the rows to display
-		$startday =strtotime("-1 day", $today_str);
+		$startday =strtotime("-0 day", $today_str);
 		//$end = how many rows to iterate through in the table. if there are 7 days, this 
 		if ($days_since==0){$days_since=6;}
 		$end= $days_since;

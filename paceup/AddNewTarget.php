@@ -4,7 +4,7 @@
 </div>
 <br><br><div class="container-fluid">
 <div id="targets_text"></div>
-</div>
+
 
 <form class="form-signin" method="POST" id="target-form">
 
@@ -32,9 +32,11 @@
         <button type="button" class="btn btn-default" onclick='setTarget()'>Set new target</button>
         </div>
         </form>
-<?php include './footer.php';?>
+        </div>
 <script src="./dateFunctions.js"></script>
-<script> 
+<?php include './footer.php';?>
+
+
 
 window.onload= function(){
 	getTargetData();

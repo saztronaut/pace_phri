@@ -87,7 +87,7 @@ case 'Practice' :
 	doXHR("./getPractice.php", function () {
 	var $response = this.responseText;
 	document.getElementById("practice_span").innerHTML=$response;
-	});
+	}, 0);
 
 }
 }

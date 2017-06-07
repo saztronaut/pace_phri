@@ -48,8 +48,8 @@
  <label class="radio"><input type="radio"  value="2" name="recommend">Not Sure</label>
   </div>  
   <div class="form-group" id = "improve_div">
-      <label for="improve"> Any other comments: </label>
-        <input type="text" class="form-control" placeholder="Comment here" id="improve" >
+      <label for="improvement"> Any other comments: </label>
+        <input type="text" class="form-control" placeholder="Comment here" id="improvement" >
         </div>
 <div class="form-group">
 <button type="button" class="btn btn-default" onclick="submitQ()"> Submit questionnaire </button></div>
@@ -70,13 +70,13 @@ function loadQuestionnaire(){
 	var myQuestionnaire= fiveStars('look_and_feel', 'Look and Feel');
 	printThis= myQuestionnaire.join("\n");
 
-	myQuestionnaire= fiveStars('usability', 'User friendliness');
+	myQuestionnaire= fiveStars('userbility', 'User friendliness');
 	printThis+= myQuestionnaire.join("\n");
 	
 	myQuestionnaire= fiveStars('functionality', 'Functionality');
 	printThis+= myQuestionnaire.join("\n");
 
-	myQuestionnaire= fiveStars('contect', 'Content');
+	myQuestionnaire= fiveStars('content', 'Content');
 	printThis+= myQuestionnaire.join("\n");
 	myQuestionnaire= fiveStars('navigation', 'Navigation');
 	printThis+= myQuestionnaire.join("\n");
@@ -85,8 +85,12 @@ function loadQuestionnaire(){
 }
 
 function submitQ(){
-
-
+	  var form = document.getElementById("questions");
+	  var data = $(form).serialize();
+	  console.log(data);
+	  doXHR('./addQuestionnaire.php', function(){
+		  
+		  },  data);
 	
 }
 
