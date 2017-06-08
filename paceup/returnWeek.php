@@ -144,7 +144,7 @@ function returnWeek($username){
 					$results['start']= $thisStart;
 					$results['week']="week". (13 + $weeksSince13);
 					$w=(13 + $weeksSince13);
-					mysqli_free_results($get_steps_date);
+					mysqli_free_result($get_steps_date);
 				}
 		}
 
