@@ -3,20 +3,29 @@
 if (isset($_POST['username'])){
 	//if not post, then sessions already declared
 	require 'sessions.php';
-	if (isset($_SESSION['username'])==0){
+	
+	
+	if (isset($_SESSION['username'])=== false){
 		echo 0;
-	} else{
-	$username = htmlspecialchars($_SESSION['username']);
-	if ($username!=''){
-	$myweek=returnWeek($username);
-	if (isset($_POST['refresh'])){
-		$myweek=returnWeek($username);
+	} else {
+		if (isset($_SESSION['ape_user']) && ($_SESSION['roleID']=='R'||$_SESSION['roleID']=='S')){
+			$username = htmlspecialchars($_SESSION['ape_user']);
+		}
+		else {
+		$username = htmlspecialchars($_SESSION['username']);
+    }
+	if ($username!==''){
+	   $myweek=returnWeek($username);
+	   if (isset($_POST['refresh'])){
+		   $myweek=returnWeek($username);
+	   }
+	    echo json_encode($myweek);
 	}
-	echo json_encode($myweek);
-	}}
+	}
 	
 }
 
+if (function_exists('returnWeek')=== false){
 function returnWeek($username){
 	require 'database.php';
 	require 'updateTargetAuto.php';
@@ -30,7 +39,7 @@ function returnWeek($username){
 	$result= numTargets($username);
 	$row = mysqli_fetch_array($result);
 	
-	if ($result->num_rows==0){
+	if ($result->num_rows=== 0){
 		// check for baseline steps
 		// setBase($username);
 		// requery to check baseline
@@ -38,7 +47,8 @@ function returnWeek($username){
 		$results['week']='baseline';
 		$w=0;
 	}
-	if ($result->num_rows!=0){
+	if ($result->num_rows!== 0){
+		
 		$latest_t=strtotime($row['latest_t']);
 		$getbase="SELECT steps
 			    FROM targets as t
@@ -47,9 +57,10 @@ function returnWeek($username){
 		or die(0);
 		$basesteps=mysqli_fetch_array($baselinesteps);
 		$mybaseline=$basesteps['steps'];
+		mysqli_free_result($baselinesteps);
 		$results['mybaseline']=$mybaseline;
 		
-		if ($row['n_t']==1){
+		if ((int)$row['n_t']=== 1){
 			$results['week']='getweek1';
 			$w=1;
 			// if the baseline was more than 5 weeks ago and they have not set a target, delete baseline from the database
@@ -60,33 +71,59 @@ function returnWeek($username){
 				setBase($username);
 				$result= numTargets($username);
 				// if there is a more recent target available to replace the deleted one then you want to run this function again
-				$results['refresh']='yes';
+				if ($result->num_rows==0){
+					$results['week']='baseline';
+					$w=0;
+				} else {
+					$results['week']='getweek1';
+					$w=1;
+					$getbase="SELECT steps
+			    FROM targets as t
+                WHERE days='0' AND t.username='". $username ."';";
+					$baselinesteps= mysqli_query($connection, $getbase)
+					or die(0);
+					$basesteps=mysqli_fetch_array($baselinesteps);
+					$mybaseline=$basesteps['steps'];
+					mysqli_free_result($baselinesteps);
+					$results['mybaseline']=$mybaseline;
+				}
 				
 			}
 			
 		}
-		elseif ($row['n_t']>1){
-			$w=((($row['n_t'])-2)*2)+1;
+		elseif ($row['n_t']>1) {
+			$w=((($row['n_t'])-2)*2)+1;	
+			// If there has been longer than 14 days since last target, should have new one. Check eligible for new target
+			if ((strtotime('+14 days', $latest_t)<= $today_str) && $w<13) {
+				$refresh = updateTarget($username);
+				if ($refresh === 1) {
+					$result= numTargets($username);	
+					$row=mysqli_fetch_array($result);
+					$latest_t=strtotime($row['latest_t']);
+					$w=((($row['n_t'])-2)*2)+1;	
+				}
+			}
+
 			//if the target is in the future, you know that the participant has chosen when to increase but it is not yet (week 1 only)
 			if ($w<13){
-			if ($latest_t> $today_str){
-				$results['week']='delayweek'.$w;
-			}
-			// if the target was set less than a week ago, you are in 1st week of target
-			elseif (strtotime('+7 days', $latest_t)>$today_str){
-				$results['week']="week".$w;}
-				// if the target was set less than a week ago, you are in 2nd week of target
-				else {
-					$w=$w+1;
-					$results['week']="week".$w;
+			   if ($latest_t> $today_str){
+				  $results['week']='delayweek'.$w;
+			   }
+			   // if the target was set less than a week ago, you are in 1st week of target
+			   elseif (strtotime('+7 days', $latest_t)>$today_str){
+				  $results['week']="week".$w;
+			   }
+				  // if the target was set less than a week ago, you are in 2nd week of target
+				  else {
+					 $w=$w+1;
+					 $results['week']="week".$w;
 					// if the target was set more than 2 weeks ago, you need a new target
-					if ((strtotime('+14 days', $latest_t)<=$today_str) && $w<13){
-						$n=$row['n_t'];
-						$refresh=updateTarget($username);
-						if ($refresh==1){ $results['refresh']="yes";}
-					}
-				}}
-				 else if ($w>=13) {
+					 if ((strtotime('+14 days', $latest_t)<=$today_str) && $w<13){
+						 $n=$row['n_t'];
+
+					  }
+				  }
+			 } else if ($w>=13) {
 					// if it is post week 12 but the user has decided not to carry on you don't want to do all this - revert to week 12
 					
 					
@@ -107,6 +144,7 @@ function returnWeek($username){
 					$results['start']= $thisStart;
 					$results['week']="week". (13 + $weeksSince13);
 					$w=(13 + $weeksSince13);
+					mysqli_free_results($get_steps_date);
 				}
 		}
 
@@ -131,8 +169,9 @@ function numTargets($username){
 	or die(0);
 	
 	return $result;
+	mysqli_free_result($result);
 	
 }
 
-
+}
 ?>

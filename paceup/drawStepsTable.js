@@ -144,7 +144,7 @@ function drawMySteps(x, thisWeek, weekno, baseline, daysw, target, steparray, me
                     }
                 }
                 mytable.push("<td data-title='Steps'  class='text-center'>");
-                if (stepsread!=null) { // if there is already a step count, add to total and display as text
+                if (stepsread!== null) { // if there is already a step count, add to total and display as text
                     totalsteps= totalsteps+ stepsread;
                     totaldays= totaldays+ 1;
                     mytable.push("<span id='steps"+ date_set +"' value ="+ stepsread + " >"+ stepsread +  "</span>");
@@ -160,7 +160,7 @@ function drawMySteps(x, thisWeek, weekno, baseline, daysw, target, steparray, me
                     mytable.push("</span></div></form></td>");
                 }
                 ///Get stars
-                if (showtargets==1){
+                if (parseInt(showtargets) === 1){
                     if ((targetstep!=null)&&(parseInt(targetstep)<= parseInt(stepsread))){
                         mytable.push("<td  data-title='Achieved target' class='text-center' ><span class='glyphicon glyphicon-star logo-small'></span></td>");
                         targetdays= targetdays+1;
@@ -194,7 +194,7 @@ function stepsFeedback(week, targetdays, totalsteps, totaldays, daysw, ispast, s
         // steps - target
         var print=[];
        // print.push("<h3>You can record your step counts here.</h3>");
-            if (week == "baseline" || week == "week0" || week == "getweekone"){
+            if (week === "baseline" || week === "week0" || week === "getweekone"){
                 if (steps > 0) {	
                     print.push("<p><b>Your average daily step count ="+ steps +"</b>. This number is your <b>baseline steps</b><br></p><br>");
                     print.push("<p>You will use this number to work out your target in the 12 week programme. In weeks 1-4 you will add 1500 steps to this number and gradually increase the number of days that you do this on. In weeks 5-12 you will add 3000 to this number and again gradually increase the number of days that you do this on.</p>");
@@ -204,7 +204,7 @@ function stepsFeedback(week, targetdays, totalsteps, totaldays, daysw, ispast, s
                     if (targetdays>daysw) {
                        //If they achieved over their target
                         print.push("<p> You have achieved your target on "+ targetdays +" days this week. You were aiming for "+ daysw +" days, well done!");
-                    } else if (targetdays == daysw) {	
+                    } else if (targetdays === daysw) {	
                         //If they achieved their target
                         print.push("<p> You have achieved your target on "+ targetdays +" days this week, well done!");
                     } else if (targetdays>0 && targetdays<daysw) {
@@ -214,7 +214,7 @@ function stepsFeedback(week, targetdays, totalsteps, totaldays, daysw, ispast, s
                             if (targetdays > 1) {
                                 print.push( "<p> You have achieved your target on "+ targetdays +" days so far this week, well done. See if you can do this on "+ daysw +" days this week");
                             } else { 
-                                if (ispast==1) {
+                                if (ispast===1) {
                                     //if in the past (shouldn't occur..)
                                     print.push("<p> You achieved your target once on this week, well done.");
                                 } else {
@@ -224,7 +224,7 @@ function stepsFeedback(week, targetdays, totalsteps, totaldays, daysw, ispast, s
                             }
                          } else {
                         if (targetdays > 1) {
-                            if (ispast == 1) {
+                            if (ispast === 1) {
                                 //If they achieved their target on fewer days than specified and in past
                                     print.push("<p> You achieved your target on "+ targetdays +" days this week, well done.");
                             } else {

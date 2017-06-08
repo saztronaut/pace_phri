@@ -32,7 +32,7 @@ function getlogin() {
         var response = this.responseText;
         console.log(response);
         var print = [];
-        if (response === 0) {
+        if (parseInt(response) === 0) {
             print.push("<li><a href='./register_form.php'>");
             print.push("<span class='glyphicon glyphicon-user'> </span> Sign Up </a></li>");
             print.push("<li><a href='./landing_text.php'>");
@@ -42,9 +42,17 @@ function getlogin() {
             var role = userdata.role;
             var username = userdata.username;
             if (role === "R" || role === "S") {
+            	var ape_user = userdata.ape_user;
+            	console.log(ape_user);
                 print.push("<li><a href='./admin.php'><span class='glyphicon glyphicon-pencil'></span> Admin </a></li>");
+                if (ape_user !== "") {
+                	print.push("<li><a href='#' onclick='quitApeUser()'><span class='glyphicon glyphicon-eye-open'></span> Viewing as " + ape_user + " </a></li>");
+                } else {
+                	print.push("<li><a href='#'><span class='glyphicon glyphicon-user'></span> Hi " + username + " </a></li>");	
+                }               
+            } else {
+                print.push("<li><a href='#'><span class='glyphicon glyphicon-user'></span> Hi " + username + " </a></li>");
             }
-            print.push("<li><a href='#'><span class='glyphicon glyphicon-user'></span> Welcome " + username + " </a></li>");
             print.push("<li><a href='#' onclick='logout()'><span class='glyphicon glyphicon-log-in' id='logout'></span> Log out</a></li>");
         }
             var login = print.join("\n");
@@ -56,5 +64,13 @@ function logout(){
    "use strict";
     doXHR("./logout.php", function(){
     window.location.assign("./landing_text.php");
+    }, 0)
+}
+
+function quitApeUser(){
+    "use strict";
+    doXHR("./quitApeUser.php", function(){
+        console.log(this.responseText);
+        window.location.assign("./admin.php");
     }, 0)
 }

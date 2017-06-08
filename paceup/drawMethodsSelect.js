@@ -19,6 +19,7 @@ function selectMethods(control_name, pref_method, methods, show) {
     //enable is the status for the control
     console.log(show);
     var print = "";
+    var i = 0;
     if (show === false) {
         print += "<span id='" + control_name + "'>" + methods[pref_method] + "</span>";
     } else {

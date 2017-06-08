@@ -28,6 +28,6 @@ else {
   </p></div>
 </div>
 <h3><i> Walking regularly can add years to life, and life to years</i></h3>
-<p class="text-center"><img src="images/walking.png" class="img-small"  alt="stretch"></p>
+<p class="text-center"><img src="images/walking.png" class="img-responsive center-block"  alt="stretch"></p>
 </div>
 <?php include './footer.php';?>

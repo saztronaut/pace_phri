@@ -2,6 +2,7 @@
 
 require 'database.php';
 require 'sessions.php';
+include 'checkUserRights.php';
 
 if ($_POST){
 	$registration=htmlspecialchars($_POST['reg']);
@@ -9,14 +10,13 @@ if ($_POST){
 	
 	// practice tells you which practice the codes are for
 	// n codes tells you how many codes to generate
-	$checkauth= "SELECT roleID from users WHERE username='". $username ."';";
-	$result= mysqli_query($connection, $checkauth) or die(0);
-	$row = mysqli_fetch_array($result);
+	$auth = checkRights('R');
 	
-	if ($row['roleID']=="S"||$row['roleID']=="R"){
+	if ($auth==1){
 	$lookup = "SELECT `practice`, `date_rem`, `e_consent`, `e_consent_v`, `e_consent_a`, `e_consent_gp`, `e_consent_t`, `gender`, `ethnicity`, `age` 
-			FROM reference
-			WHERE referenceID='".$registration."';";
+			, username, forename, lastname
+FROM reference LEFT JOIN users on reference.referenceID = users.referenceID 
+			WHERE reference.referenceID='".$registration."';";
 	$ref=mysqli_query($connection, $lookup) or die("Error getting consent data");
 	if ($ref){
 	$mydata=mysqli_fetch_array($ref);

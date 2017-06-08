@@ -25,8 +25,22 @@
  
 <?php include './footer.php';?>
  <script>
+ window.onload = checkPrivilege('R');
 
-window.onload = getUser();
+ function checkPrivilege(min_account) {
+     ///check to see if user has sufficient privileges for page
+     data = "min_account="+min_account;
+     doXHR('./checkRights.php', function(){
+         var response=this.responseText;
+         if (response === "0"){
+             window.location.assign('./landing_text.php');
+         } else {
+             getUser();
+         }
+     return response;
+     }, data);
+
+ }
  
 function getUser(){
 

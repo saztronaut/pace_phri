@@ -75,6 +75,10 @@ The PACE-UP team";
      $headers .= 'From: noreply@paceup.ac.uk' . "\r\n " .
        'X-Mailer: PHP/' . phpversion();
      mail($email, $subject , $message, $headers);
+     
+     $addEmail = "INSERT INTO emails VALUES ('". $username ."', NOW(), 'W','". $email ."');";
+     mysqli_query($connection, $addEmail) or die($addEmail . mysql_error());
+     
      $errors['success']= 'yes';
      
       $_SESSION['valid'] = true;

@@ -43,6 +43,8 @@ If you have received this email in error, please ignore it";
 				$headers .= 'From: <noreply@paceup.org>' . "\r\n " .
 						'X-Mailer: PHP/' . phpversion();				
 				mail($email, $subject , $message, $headers, "-f noreply@paceup.org");
+				$addEmail = "INSERT INTO emails VALUES ('". $username ."', NOW(), 'Q','". $email ."');";
+				mysqli_query($connection, $addEmail) or die($addEmail . mysql_error());
 				$msg=1;
 				// Use this to make sure the user is using the same device as the one used to reset the password
 			}

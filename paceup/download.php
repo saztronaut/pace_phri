@@ -2,6 +2,7 @@
 require 'database.php';
 require 'sessions.php';
 include 'get_json_encode.php';
+include 'checkUserRights.php';
 
 
 //using form data, generate so many codes and report them to the browser
@@ -14,9 +15,7 @@ if ($_POST){
 	// whichdata tells you what to download
 	
 	//check user has authority to generate codes R= researcher S= superuser
-	$checkauth= "SELECT roleID from users WHERE username='". $username ."';";
-	$result= mysqli_query($connection, $checkauth) or die(0);
-	$row = mysqli_fetch_array($result);
+	$auth = checkRights('R');
 	$condition="";
 	
 	if ($_POST['narrowby']=="User"){
@@ -34,7 +33,7 @@ if ($_POST){
 	}
 	
 	
-	if ($row['roleID']=="R" ||$row['roleID']=="S"){
+	if ($auth==1){
          $query="";
 		//Find out what to download
 		switch ($data){
@@ -49,6 +48,8 @@ if ($_POST){
 			case 'Methods' : $query = "SELECT * FROM methods;"; 
 			break;
 			case 'Reference' : $query = "SELECT * FROM reference;";
+			break;
+			case 'Questionnaire' : $query = "SELECT * FROM questionnaire;";
 			break;
 		}
 		if ($query!=''){

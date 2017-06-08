@@ -28,7 +28,13 @@
                   $_SESSION['roleID'] = $row['roleID'];
 				if ($row['roleID']=="R"||$row['roleID']=="S"){
 					$msg= 3;
-			}   else{     
+					mysqli_query($connection, "DELETE FROM sessions WHERE username='".$username."';") or die('Error deleting old session'. mysql_error());
+					$token = bin2hex(openssl_random_pseudo_bytes(15));
+					$hashtoken=md5($token);
+					$createAdminSessionQ = "INSERT INTO sessions (username, session, timeout) VALUES ('". $username. "','". $hashtoken ."', NOW());";
+					mysqli_query($connection, $createAdminSessionQ) or die ('Error creating new session');
+					$_SESSION['session_token'] = $token;
+			}   else {     
                    $msg= 1;}
 			}
             }

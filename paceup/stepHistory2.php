@@ -72,32 +72,33 @@ function drawTables ($response){
 
 
 		for (j in steps){	
-		var date_set_read = new Date(steps[j].date_set);
-		var date_read= new Date(steps[j].date);
-		var datediff = (date_read.getTime()-date_set_read.getTime())/(60*60*1000);
-	    
-		
-		if (j==0){
-			
-		if (i==0){
-			var base_steps= targets[i].steps;
-			var label="Baseline";
-		var message= "You walked on average "+ target_steps + " steps each day this week" ;
-		tablehead=drawTableHeader(i);
+            var date_set_read = new Date(steps[j].date_set);
+		    var date_read= new Date(steps[j].date);
+		    var datediff = (date_read.getTime()-date_set_read.getTime())/(60*60*1000);
 
-		}
-		else { 
-			var label= "Week "+ ((2 * i)-1);
-			var message= "Your target was to walk "+ target_steps + " steps on " + days + " days on these weeks" ; 
-			tablehead=drawTableHeader(i);
+		    if (parseInt(j) === 0) {
+			
+		    if (parseInt(i) === 0) {
+			    var base_steps = targets[i].steps;
+			    if (base_steps === 0){
+                    var label = "Baseline;
+                    var message = "Keep recording steps this week to get your baseline";
+                } else {
+                    var label = "Baseline";
+                    var message = "You walked on average "+ target_steps + " steps each day this week" ;
+		            tablehead=drawTableHeader(i);
+                }
+            } else {
+                var label = "Week "+ ((2 * i)-1);
+			    var message = "Your target was to walk "+ target_steps + " steps on " + days + " days on these weeks" ; 
+			    tablehead = drawTableHeader(i);
 		    } 
 	    
-        $print= "<h3>"  + label +"</h3>";
-	    $print+= "<p>"  + message +"</p>";
-	    $print+= tablehead;
+            $print = "<h3>"  + label + "</h3>";
+	        $print += "<p>"  + message + "</p>";
+	        $print += tablehead;
 	    
-	    
-	    } else if (isfirst==true && i!=0 && (((date_read.getTime()-date_set_read.getTime())/(60*60*1000*24))>=7)) {
+	    } else if (isfirst === true && i!=0 && (((date_read.getTime()-date_set_read.getTime())/(60*60*1000*24))>=7)) {
 		    //print out the previous week and start again
 		var avg= getAvg(stepsdta);
         var showAvg= avg;

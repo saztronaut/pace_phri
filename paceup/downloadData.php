@@ -16,6 +16,7 @@
          <option value='Targets'> Targets</option> 
          <option value='Methods'> Methods</option>
          <option value='Reference'> Registration codes</option>
+         <option value='Questionnaire'> Questionnaires </option>
         </select>        
         </div>
         <div class="form-group" id="narrow_div">
@@ -35,17 +36,32 @@
        <hr />
         <div class="form-group">
             <button type="button" class="btn btn-default" id="downloadBtn">
-      <span class="glyphicon glyphicon-log-in"></span> &nbsp; Download </button> </div></div>
+      <span class="glyphicon glyphicon-download"></span> &nbsp; Download </button> </div></div>
  </form>
  </div>
  <?php include './footer.php';?>
  <script src='download.js'></script>
  <script>
- var download = document.getElementById("downloadBtn");
+var download = document.getElementById("downloadBtn");
 download.addEventListener("click", getDownload);
 
 //var choosenarrow = document.getElementById("narrowby");
 //download.addEventListener("focusout", getNarrow(choosenarrow.value));
+
+window.onload = checkPrivilege('R');
+
+function checkPrivilege(min_account) {
+    ///check to see if user has sufficient privileges for page
+    data = "min_account="+min_account;
+    doXHR('./checkRights.php', function(){
+        var response=this.responseText;
+        if (response === "0"){
+            window.location.assign('./landing_text.php');
+        }
+    return response;
+    }, data);
+
+}
 
 function getDownload(){
 	  // validate the form on the client side, double password match, etc
@@ -72,25 +88,43 @@ function getNarrow(){
 	
 	narrow= document.getElementById("narrowby").value;
 	console.log(narrow);
-switch (narrow){
-case 'User' :
-	if (document.getElementById('choosePractice')){
-		data="practice="+document.getElementById('choosePractice').value;}
-	else {data=""}
+    switch (narrow){
+    case 'User' :
+	    if (document.getElementById('choosePractice')) {
+		    data="practice="+document.getElementById('choosePractice').value;
+    	} else {
+            data="";
+        }
 	doXHR("./getUser.php", function () {
-var $response = this.responseText;
-console.log($response);
-document.getElementById("user_span").innerHTML=$response;
-},data);
-break;
-case 'Practice' :
-	doXHR("./getPractice.php", function () {
-	var $response = this.responseText;
-	document.getElementById("practice_span").innerHTML=$response;
-	}, 0);
+        var $response = this.responseText;
+            if ($response.startsWith("[")){
+                var myArray = JSON.parse($response);
+                var mySelect = drawSelect(myArray);
+                document.getElementById("user_span").innerHTML = mySelect;
+                document.getElementById("practice_span").innerHTML = "";
+            }
+        },data);
+        break;
+    case 'Practice' :
+	    doXHR("./getPractice.php", function () {
+	        var $response = this.responseText;
+	        document.getElementById("practice_span").innerHTML=$response;
+            document.getElementById("user_span").innerHTML = "";
+	     }, 0);
+    }
+}
 
+
+function drawSelect(array) {	
+    var select = "<select name='user' id='chooseUser' class='form-control'>";
+    select += "<option value='' disabled selected> Select the user</option>";
+    for (x in array) {
+        select += "<option value='" + array[x][0] + "'> " + array[x][0] + " </option> ";
+    }			
+    select +=  "</select>";	
+    return select;
 }
-}
+
 
  </script>
  

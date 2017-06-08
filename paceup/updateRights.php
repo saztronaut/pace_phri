@@ -2,7 +2,7 @@
 require 'database.php';
 require 'sessions.php';
 include 'get_json_encode.php';
-
+include 'checkUserRights.php';
 
 //check user has authority to generate codes R= researcher S= superuser
 //using form data, generate so many codes and report them to the browser
@@ -13,11 +13,9 @@ if ($_POST){
 
 	// practice tells you which practice the codes are for
 	// n codes tells you how many codes to generate
-	$checkauth= "SELECT roleID from users WHERE username='". $username ."';";
-	$result= mysqli_query($connection, $checkauth) or die(0);
-	$row = mysqli_fetch_array($result);
+	$auth= checkRights('S');
 
-	if ($row['roleID']=="S"){
+	if ($auth==1){
 		$edituser= htmlspecialchars($_POST['user']);
 		$role=htmlspecialchars($_POST['role']);
 		if ($edituser!="" && $role!=""){

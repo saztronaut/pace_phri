@@ -8,7 +8,7 @@ if (isset($_POST['username'])){
 	
 }
 
-
+if (function_exists('setBase')==0){
 function setBase($username){
 	require 'database.php';
 	//Create any missing baseline targets
@@ -37,6 +37,7 @@ function setBase($username){
 	
 	$getbase= mysqli_query($connection, $baseline_target);
 	
+}
 }
 
 ?>

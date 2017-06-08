@@ -2,7 +2,12 @@
 require 'database.php';
 require 'sessions.php';
 
-$username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+if (isset($_SESSION['ape_user']) && ($_SESSION['roleID']=='R'||$_SESSION['roleID']=='S')){
+	$username = htmlspecialchars($_SESSION['ape_user']);
+}
+else {
+$username = htmlspecialchars($_SESSION['username']);
+}
 $thisWeek= htmlspecialchars($_POST['week']); //This tells you what stage the pt is at on the pathway
 $latest_t=strtotime(htmlspecialchars($_POST['latest_t'])); //The date of the latest target
 $maxweekno= isset($_SESSION['week']) ? $_SESSION['week'] :htmlspecialchars($_POST['weekno']); //The max week number, i.e. the current week number
@@ -112,7 +117,7 @@ if ($end>6){
 	$n_show= CEIL(($end+1)/7); //how many tables to show
 	//If $n_show is higher than 2 this will end up displaying a lot of data 
 	// lets make 4 the maximum number to show
-	if ($n_show>4){$n_show=4;}
+	//if ($n_show>4){$n_show=4;}
 	if ($weekno>12) {$n_show=1;}
 	// $n_show is the number of weeks you want to show
 	if ($iseven==1 && $ispast==0){$bump=1;} else {$bump=0;}

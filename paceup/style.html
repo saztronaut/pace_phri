@@ -144,7 +144,7 @@ position: relative;
 
 .logo {
     color: #723F97;
-    font-size: 120px;
+    font-size: 100px;
 }  
 
 .footer {
@@ -193,7 +193,6 @@ align: center;
   margin-right: auto;
 }
 
-// Usage as a mixin
 .element {
   .center-block();
 }
@@ -207,6 +206,19 @@ align: center;
     text-align: center ;
     
 }
+
+body {
+    padding-top: 0px;
+}
+@media (max-width: 1000px){
+    body {
+       padding-top: 60px; }
+}
+@media (max-width: 760px){
+    body {
+       padding-top: 0px; }
+}
+
 
 Generic Styling, for Desktops/Laptops 
 */
@@ -247,9 +259,7 @@ Generic Styling, for Desktops/Laptops
 		text-align: center; 	
 	}
  
-@media 
-only screen and (max-width: 760px) {
-    
+@media (max-width: 760px) {
 
 	.is-table-row {
      display: block;

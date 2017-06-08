@@ -108,6 +108,17 @@ function getRef(){
 function drawConsent(consent_data){
 	
      getconsenttxt=[];
+     //
+     if (consent_data.username) {
+         getconsenttxt.push("<div class='row'><div class='col-sm-3 text-right'><h4>" + consent_data.username + ":</h4></div>");       
+         if (consent_data.forename) {
+             getconsenttxt.push("<div class='col-sm-1 text-center'><h4>" + consent_data.forename + "</h4></div>");
+         }
+         if (consent_data.lastname) {
+             getconsenttxt.push("<div class='col-sm-1 text-center'><h4>" + consent_data.lastname + "</h4></div>");
+         }
+         getconsenttxt.push("</div>");
+     }
 	 //my participation is voluntary
 	 getconsenttxt.push("<form id='consent_data'>");
 	 if (consent_data['e_consent']==1){
