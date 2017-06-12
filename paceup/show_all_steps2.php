@@ -51,8 +51,8 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
 // Start with the first target 
 
     for ($x=0; $x<=($n_targets); $x++){
-    	$target_row=$myTargetsarray[$x];  		
-    	$getdate= $target_row['date_set'];
+    	$target_row = $myTargetsarray[$x];  		
+    	$getdate = $target_row['date_set'];
     	if ($x == $n_targets){
     		$enddate= $today; // if this is the last target, then end on today's date
     	}
@@ -78,17 +78,23 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
 
     	//$nexttar=$myTargetsarray[$x+1];
     	//$enddate=$nexttar['date_set'];
-    	$gap=date_diff(date_create($getdate),date_create($enddate));
-    	if ($enddate == $today){
-    		$nweeks = ($gap->d-1)/7;
-    	} else {
-    		$nweeks = (CEIL(($gap->d-1)/7));}
+    //	$gap=date_diff(date_create($getdate), date_create($enddate));
+    	
+    //	if ($enddate == $today){
+    		$diff = floor(abs(strtotime($getdate) - strtotime($enddate))/(60*60*24));
+    		//$gap = date_diff(date_create($getdate), date_create($today));
+    		$nweeks = CEIL((($diff)-1)/7);
+    	///	echo " n_weeks: ". $nweeks;
+    	///	echo " get_date: ". $getdate;
+    	//	echo " today: ". $today;
+    	//} else {
+    //		$nweeks = (CEIL(($gap->d-1)/7));}
     		
     		// round it up to the nearest multiple of 7
     	if ($nweeks>1){
     		$subweek=0; //subweek when there are more than one week within a 
     			// add a new row in to $myTargetsprint
-    		for ($i=1; $i<$nweeks; $i++) {
+    		for ($i=1; $i<=$nweeks; $i++) {
     			if ($x > 6) { //if post 12, then show each week separately
     				$week = $week + 1;
     				$thisweek = $week;
