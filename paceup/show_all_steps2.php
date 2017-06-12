@@ -53,50 +53,50 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     for ($x=0; $x<=($n_targets); $x++){
     	$target_row=$myTargetsarray[$x];  		
     	$getdate= $target_row['date_set'];
-    	if ($x==$n_targets){
+    	if ($x == $n_targets){
     		$enddate= $today; // if this is the last target, then end on today's date
     	}
     		else{
-    			$nexttar=$myTargetsarray[$x+1];
-    			$enddate=$nexttar['date_set'];
+    			$nexttar = $myTargetsarray[$x+1];
+    			$enddate = $nexttar['date_set'];
     		}
-    	if ($x==0){
-    	$thisweek=0;
+    	if ($x == 0){
+    	$thisweek = 0;
      	$myTargetsprint[]=array('week'=> $thisweek, 'date_set'=> $getdate, 'steps' => $target_row['steps'], 'days' => $target_row['days']);
     	}
     	else { 
     		if ($x<=6){
-    	$thisweek= ($x*2)-1;
-    		$week=12;}
+    	$thisweek = ($x*2)-1;
+    		$week = 12;}
     	else {
-    		$week=$week+1;
-    		$thisweek=$week;
+    		$week = $week + 1;
+    		$thisweek = $week;
     	}
-    	$myTargetsprint[]=array('week'=> $thisweek, 'date_set'=> $getdate, 'steps' => $target_row['steps'], 'days' => $target_row['days']);
+    	$myTargetsprint[] = array('week'=> $thisweek, 'date_set'=> $getdate, 'steps' => $target_row['steps'], 'days' => $target_row['days']);
     	
     	// find out the date of the next target
 
     	//$nexttar=$myTargetsarray[$x+1];
     	//$enddate=$nexttar['date_set'];
     	$gap=date_diff(date_create($getdate),date_create($enddate));
-    	if ($enddate==$today){
-    		$nweeks=($gap->d-1)/7;
-    	} else{
-    		$nweeks=(CEIL(($gap->d-1)/7));}
+    	if ($enddate == $today){
+    		$nweeks = ($gap->d-1)/7;
+    	} else {
+    		$nweeks = (CEIL(($gap->d-1)/7));}
     		
     		// round it up to the nearest multiple of 7
     	if ($nweeks>1){
     		$subweek=0; //subweek when there are more than one week within a 
     			// add a new row in to $myTargetsprint
-    		for ($i=1; $i<$nweeks; $i++){
-    			if ($x>6){ //if post 12, then show each week separately
-    				$week=$week+$i;
-    				$thisweek=$week;
+    		for ($i=1; $i<$nweeks; $i++) {
+    			if ($x > 6) { //if post 12, then show each week separately
+    				$week = $week + 1;
+    				$thisweek = $week;
     			} else { //if the first round on that week, then show number only, otherwise indicate attempt number
-    			   if ($subweek==0) { 
-    				   $thisweek=$x*2;
+    			   if ($subweek == 0) { 
+    				   $thisweek = $x*2;
     			   } else { 
-    				$thisweek=($x*2)." Attempt #".($i);
+    				$thisweek = ($x*2)." Attempt #".($i);
     			   }
     			}		   
     			$newDate = date('Y-m-d', strtotime("+".($i*7) ." days", strtotime($getdate)));
