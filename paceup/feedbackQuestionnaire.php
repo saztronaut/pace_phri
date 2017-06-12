@@ -63,25 +63,40 @@
 </div>
 <?php include './footer.php';?>
 <script>
-window.onload = loadQuestionnaire();
+window.onload = checkQuest();
+
+function checkQuest() {
+    doXHR('./checkQuest.php', function() {
+        var response = this.responseText
+        if (parseInt(response) === 1 ) {
+            loadQuestionnaire();
+        } else if (parseInt(response) ===2 ) {
+            window.location.assign("./steps2.php");
+        } else if (parseInt(response) === 0) {
+        window.location.assign("./main_index.php");
+        }
+    }, 0);
+    
+}
 
 function loadQuestionnaire(){
 
-	var myQuestionnaire= fiveStars('look_and_feel', 'Look and Feel');
-	printThis= myQuestionnaire.join("\n");
+	var myQuestionnaire = fiveStars('look_and_feel', 'Look and Feel');
+	var printThis = myQuestionnaire.join("\n");
 
-	myQuestionnaire= fiveStars('userbility', 'User friendliness');
-	printThis+= myQuestionnaire.join("\n");
+	myQuestionnaire = fiveStars('userbility', 'User friendliness');
+	printThis += myQuestionnaire.join("\n");
 	
-	myQuestionnaire= fiveStars('functionality', 'Functionality');
-	printThis+= myQuestionnaire.join("\n");
+	myQuestionnaire = fiveStars('functionality', 'Functionality');
+	printThis += myQuestionnaire.join("\n");
 
-	myQuestionnaire= fiveStars('content', 'Content');
-	printThis+= myQuestionnaire.join("\n");
-	myQuestionnaire= fiveStars('navigation', 'Navigation');
-	printThis+= myQuestionnaire.join("\n");
+	myQuestionnaire = fiveStars('content', 'Content');
+	printThis += myQuestionnaire.join("\n");
+	myQuestionnaire = fiveStars('navigation', 'Navigation');
+	printThis += myQuestionnaire.join("\n");
 	
-	document.getElementById("myquestionnaire").innerHTML= printThis
+	document.getElementById("myquestionnaire").innerHTML= printThis;
+
 }
 
 function submitQ(){
@@ -96,15 +111,15 @@ function submitQ(){
 
 function fiveStars(ctrlname, label){
 	
-    myQuestion=[];
-    myQuestion.push("<div class='form-group row' id = '"+ ctrlname +"_div'><div class='col-xs-4'>");
-    myQuestion.push("<label for='look_and_feel'>"+ label +":</label></div>");
-   myQuestion.push("<div class='col-xs-8'><label class='radio-inline'><input type='radio' value='0' name='"+ ctrlname +"'>0</label>");
-    myQuestion.push("<label class='radio-inline'><input type='radio' value='1' name='"+ ctrlname +"'>1</label>");
-	myQuestion.push("<label class='radio-inline'><input type='radio'  value='2' name='"+ ctrlname +"'>2</label>");
-	myQuestion.push(" <label class='radio-inline'><input type='radio' value='3' name='"+ ctrlname +"'>3</label>");
-	myQuestion.push(" <label class='radio-inline'><input type='radio'  value='4' name='"+ ctrlname +"'>4</label>");
-	myQuestion.push("<label class='radio-inline'><input type='radio'  value='5' name='"+ ctrlname +"'>5</label>");
+    var myQuestion = [];
+    myQuestion.push("<div class='form-group row' id = '" + ctrlname + "_div'><div class='col-xs-4'>");
+    myQuestion.push("<label for='look_and_feel'>" + label + ":</label></div>");
+    myQuestion.push("<div class='col-xs-8'><label class='radio-inline'><input type='radio' value='0' name='" + ctrlname + "'>0</label>");
+    myQuestion.push("<label class='radio-inline'><input type='radio' value='1' name='" + ctrlname + "'>1</label>");
+	myQuestion.push("<label class='radio-inline'><input type='radio'  value='2' name='" + ctrlname + "'>2</label>");
+	myQuestion.push(" <label class='radio-inline'><input type='radio' value='3' name='" + ctrlname + "'>3</label>");
+	myQuestion.push(" <label class='radio-inline'><input type='radio'  value='4' name='" + ctrlname + "'>4</label>");
+	myQuestion.push("<label class='radio-inline'><input type='radio'  value='5' name='" + ctrlname + "'>5</label>");
 	myQuestion.push(" </div></div> ");
 	return myQuestion; 
 	

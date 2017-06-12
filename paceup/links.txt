@@ -15,7 +15,7 @@
 </div>
 
 <div class="col-sm-5"><h3>For generally keeping active and healthy</h3><br>
-<a href = "http://www.nhs/livewell/fitness"> <b>NHS Live well</b></a>
+<a href = "http://www.nhs.uk/livewell/fitness"> <b>NHS Live well</b></a>
 <p>UK physical activity guidelines for adults and older adults, fitness videos and exercises for all age groups</p>
   <a href="http://www.nhs.uk/change4life/pages/get-going-every-day.aspx">
     <b>Change 4 life - get going every day</b></a>

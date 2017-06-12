@@ -68,9 +68,15 @@ function drawTables ($response) {
 
 	    if (i == 0) {
             var base_steps = targets[i].steps;
-            var label = "Baseline";
-            var message = "You walked on average " + target_steps + " steps each day this week" ;
+		    if (base_steps === 0){
+                var label = "Baseline";
+                var message = "Keep recording steps this week to get your baseline";
+            } else {
+                var label = "Baseline";
+                var message = "You walked on average "+ target_steps + " steps each day this week" ;
+            }
             var tablehead = "<div class='table'> <table class='table'><thead><tr><th>Day</th><th>Date</th><th>Steps</th><th>Device</th><th></th></tr></thead>";
+           
         } else { 
             var label= "Week " + targets[i].week;
             var message= "Your target was to walk "+ target_steps + " steps on " + days + " days during week " + targets[i].week; 
@@ -136,7 +142,11 @@ function drawTables ($response) {
             showAvg += "<h4>Good work, you hit your weekly target!</h4>"; 
         } else if (parseInt(i) === 0) {
             showAvg += "<br> <td class='text-center'><span class='glyphicon glyphicon-road logo center-block'></span></td><br>"
-            showAvg += "<h4>A great start, you finished your baseline week</h4>";
+            if (parseInt(base_steps) === 0){
+                showAvg += "<h4>Good work, you started your baseline week</h4>";
+            } else {
+                showAvg += "<h4>A great start, you finished your baseline week</h4>";  
+            }              
             var data = getChartdata(daysdta, stepsdta, basedta, 'Steps');
         }
 		$myBarChart= Plotly.newPlot('thisAside_'+ (i) +'', data, layout);
