@@ -10,6 +10,7 @@
  //Stringify adds quotation marks on to parse the info and this is converted to &quot; 
  //strip the first and last 5 chars off the string
  $comment=trim($comment, "&quot;");
+ $comment=str_replace("'", "", $comment);
  
  if ($comment!='' && $username!='' && $week!=''){
  	//is this an existing comment or a new one

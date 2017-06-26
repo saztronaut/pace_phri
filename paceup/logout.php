@@ -7,6 +7,8 @@ include 'sessions.php';
    unset($_SESSION["username"]);
    unset($_SESSION["password"]);
    unset($_SESSION["choose_form"]);
+   unset($_SESSION["roleID"]);
+   unset($_SESSION["ape_user"]);
    mysqli_close($connection);
    
    header('Refresh: 1; URL = ./landing_text.php');

@@ -32,7 +32,7 @@
 <li>Audio-recorded interviews will be anonymised by the Research Assistant. </li>
 <li>Nothing that could reveal your identity will be disclosed outside of your practice or St George&#8217;s University of London</li></ul>
 <h4>Complaints/Problems</h4>
-<p>If you are concerned about any part of this study, please contact a member of the research team (<a href="#collapse15">contact details here</a>). We will respond to any complaint about the way you have been dealt with during the study. If you want to complain formally, you can do this through the NHS Complaints Procedure. You can get details of this procedure from your general practice.</p>
+<p>If you are concerned about any part of this study, please contact a member of the research team (please see contact details below). We will respond to any complaint about the way you have been dealt with during the study. If you want to complain formally, you can do this through the NHS Complaints Procedure. You can get details of this procedure from your general practice.</p>
 <h4>What will happen to the results of the research study?</h4>
 <p>The results will be used to inform larger scale research projects. Individual participants will not be identifiable from any report, presentation or publication placed in the public domain.</p> 
 <h4>Who is organising and funding the research?  </h4>

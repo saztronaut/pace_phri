@@ -11,10 +11,10 @@ $token=$mytoken;
 $user=htmlspecialchars($_GET['username']);
 // check token is valid
 $checkToken= "SELECT username FROM users WHERE referenceID='". $token . "' AND  username='". $user . "';";
-echo $checkToken;
+echo "redirecting you";
 $result= mysqli_query($connection, $checkToken) or die('Error checking token'. mysql_error());
 if ($result->num_rows==0){
-	echo "<p>That code seems to be invalid, please <a href='./informationsheet2.php'>contact us</a> or login in <a href='./main_index.php'> log in</a></p>";
+	echo "<p>That code seems to be invalid, please <a href='./information_sheet.php'>contact us</a> or login in <a href='./main_index.php'> log in</a></p>";
 }
 else{
 	// tell the session the username you are setting this for

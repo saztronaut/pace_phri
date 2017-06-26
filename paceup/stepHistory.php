@@ -4,17 +4,23 @@
 <div class= "jumbotron">
 <h2>Your progress on PACE-UP Next Steps </h2>
 </div></div>
-<div class="container-fluid-extrapad">
+<div class="container-fluid">
+<br>
+<p id="viewPast"></p>
 <h4 id='pleaseWait'>Please wait while your step data is retrieved..</h4>
 <p id="showSummary"></p>
  
 <p id="showAllData"></p>
 
 </div>
+<?php include "./footer.php";?>
 <script src="./dateFunctions.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script>
-window.onload = function() {
+
+
+function getStepData(days){
+	console.log("Showing days " + days);
     doXHR('show_all_steps2.php', function () {
         var $response = this.responseText;
         console.log($response);
@@ -26,21 +32,62 @@ window.onload = function() {
         } else {
         drawTables($response);
         }
-    });
+    }, "show_days=" + days);
+}
+
+window.onload = function() {
+
+	getStepData(90);
+}
+
+function viewPast(startDate, show_days){
+    var initial = new Date(startDate);
+    var today = new Date();
+    var datediff = (today.getTime() - initial.getTime())/(30*24*60*60*1000);
+    var months =  Math.ceil(datediff/3);
+    var mySelect = [];
+    console.log('3 Months: ' + months);
+    console.log('datediff: ' + datediff);
+    console.log('initial: ' + initial); 
+
+    mySelect.push("<form class = 'form-inline'> <div class='form-group-inline text-center'>");
+    mySelect.push("<label for=\"viewSteps\">Showing steps summary for past "+ Math.round(show_days/30) + " months </label>");
+    mySelect.push("<select class='form-control' placeholder='View a different time frame' id='viewSteps' name='viewSteps'>");
+    for (x = 1; x <= months; x++) {
+        console.log(x);
+        mySelect.push( "<option value ='" + (parseInt(x) * 90) + "'>");
+        mySelect.push("Show last " + (parseInt(x) * 3) + " months") ;
+        mySelect.push("</option>");
+    }
+    mySelect.push("</select> ");   
+    mySelect.push( "<button type='button' class='btn btn-default' id='viewPastBtn' onclick='showSteps()'><span class='glyphicon glyphicon-stats'></span> Show step summary </button></div>");
+    printThis = mySelect.join("\n");
+    return printThis;
+       
+}
+
+function showSteps(){
+    var show_days = document.getElementById('viewSteps').value
+    getStepData(show_days);
+	
 }
 
 function drawTables ($response) {
     var json = JSON.parse($response);
     //console.log(json);
-	targets=json.targets;
+	targets = json.targets;
 
-	var $print="";
-	var showAllData="";
-    var allLabels=[];
-    var allAvg=[];
-    var allTargets=[];
-    var allBase=[];
-    var stepsNum= targets.length;
+	var $print = "";
+	var showAllData = "";
+    var allLabels = [];
+    var allAvg = [];
+    var allTargets = [];
+    var allBase = [];
+    var stepsNum = targets.length;
+    var initial = json.initial;
+    var show_days = json.show_days;
+    var past = viewPast(initial.target, show_days);
+    document.getElementById('viewPast').innerHTML = past;
     //var stepsNum = 6
 
     for (x = stepsNum; x >= 0; x--) {
@@ -66,7 +113,7 @@ function drawTables ($response) {
 	    var targetsdta = [];
 	    var hitTarget = 0;
 
-	    if (i == 0) {
+	    if (targets[i].week == 0) {
             var base_steps = targets[i].steps;
 		    if (base_steps === 0){
                 var label = "Baseline";
@@ -129,7 +176,9 @@ function drawTables ($response) {
     if (parseInt(targets[i].totaldays)> 0) {
         var avg = Math.round(parseInt(targets[i].totalsteps)/parseInt(targets[i].totaldays));
         var showAvg = "<h3>Average step count: <br> <b>" + avg + "</b></h3>"   		 
-        allLabels.push(label);
+        var tickLabel = label.replace("Week", "Wk");
+        tickLabel = tickLabel.replace("Attempt #", "#");
+        allLabels.push(tickLabel);
         allAvg.push(avg);
         allTargets.push(parseInt(targets[i].steps));
         allBase.push(base_steps);       
@@ -155,7 +204,9 @@ function drawTables ($response) {
 	    } else {
             showAvg = "<h3> " + label + "</h3><p> No step counts recorded on week beginning " + forwardsDate(date_set) + "</p>";
             document.getElementById('thisTable_'+ (i) +'').innerHTML = showAvg;
-            allLabels.push(label);			  
+            var tickLabel = label.replace("Week", "Wk");
+            tickLabel = tickLabel.replace("Attempt #", "#");
+            allLabels.push(tickLabel);			  
             allAvg.push(0);
             allTargets.push(parseInt(targets[i].steps));
             allBase.push(base_steps); 	
@@ -218,9 +269,20 @@ function getChartlayout(label, ylabel, linelength) {
             tickfont: {
                 size: 14,
                 color: 'rgb(107, 107, 107)'
-            }
-        }
+            },
+            margin: {
+                l:250,
+                r:50}
+        },
+        showlegend: true,
+        
+ //       legend: {
+  //          "orientation": "h"
+   //             }
+            
     };
 return layout;
 }
+
+
 </script>

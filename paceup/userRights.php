@@ -47,10 +47,23 @@ function getUser(){
 	doXHR("./getUser.php", function () {
      var $response = this.responseText;
      console.log($response);
-     document.getElementById("user_span").innerHTML=$response;
+     var myArray = JSON.parse($response);      
+     var mySelect = drawSelect(myArray);
+     document.getElementById("user_span").innerHTML = mySelect;
      });
 
 }
+
+function drawSelect(array) {	
+    var select = "<select name='user' id='chooseUser' class='form-control''>";
+    select += "<option value='' disabled selected> Select the user</option>";
+    for (x in array) {
+        select += "<option value='" + array[x][0] + "'> " + array[x][0] + " </option> ";
+    }			
+    select +=  "</select>";	
+    return select;
+}
+
 
 function updateUser(){
 	console.log("click");

@@ -19,16 +19,16 @@ if ($_POST){
 	$condition="";
 	
 	if ($_POST['narrowby']=="User"){
-		$condition=" WHERE username='". $_POST['User'] ."' ";
+		$condition=", users WHERE readings.username=users.username AND readings.username='". $_POST['User'] ."' ";
 	}
 	if ($_POST['narrowby']=="Practice") {
 		if ($data=="Users"){
 		$condition="WHERE pracID='".$_POST['Practice']."'";}
 		else if ($data=="Steps"){
-		$condition=", practices WHERE readings.username==practices.username AND pracID='".$_POST['Practice']."'";
+		$condition=", users WHERE readings.username=users.username AND users.pracID='".$_POST['Practice']."'";
 		}
 		else if ($data=="Targets"){
-			$condition=", practices WHERE targets.username==practices.username AND pracID='".$_POST['Practice']."'";
+			$condition=", practices WHERE targets.username=practices.username AND pracID='".$_POST['Practice']."'";
 		}
 	}
 	
@@ -37,9 +37,9 @@ if ($_POST){
          $query="";
 		//Find out what to download
 		switch ($data){
-			case 'Users' : $query = "SELECT username, email, pracID, start_date, pref_method, other_method, roleID, referenceID FROM users ".$condition.";";
+			case 'Users' : $query = "SELECT username, forename, lastname, email, pracID, start_date, pref_method, other_method, roleID, referenceID FROM users ".$condition.";";
 			break;
-			case 'Steps' : $query = "SELECT * FROM readings ".$condition.";";
+			case 'Steps' : $query = "SELECT readings.username, forename, lastname, steps, date_read, date_entered, add_walk, method FROM readings ".$condition.";";
 			break;
 			case 'Practices' : $query = "SELECT * FROM practices;";
 			break;
@@ -51,10 +51,12 @@ if ($_POST){
 			break;
 			case 'Questionnaire' : $query = "SELECT * FROM questionnaire;";
 			break;
+			case 'Emails' : $query = "SELECT username, purpose_name, time_sent, email FROM emails, email_purpose WHERE emails.purpose=email_purpose.purpose;";
+			break;
 		}
 		if ($query!=''){
 			//echo $query;
-		$result= mysqli_query($connection, $query) or die ("Can't fetch download" . mysql_error());
+		$result= mysqli_query($connection, $query) or die ("Error retrieving data" . mysql_error());
 		$row = mysqli_fetch_all($result, MYSQLI_ASSOC);	
 		echo '{"data":'.json_encode($row).'}';
 		mysqli_free_result($result);

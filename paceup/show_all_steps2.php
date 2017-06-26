@@ -2,24 +2,41 @@
 require 'database.php';
 require 'sessions.php';
 include 'get_json_encode.php';
+include 'checkUserRights.php';
 
 $myStepsprint=[];
 $myTargetsprint=[];
 $myTargetsarray=[];
+$myfirstTarget=[];
 $counter=0;
-if (isset($_SESSION['ape_user']) && ($_SESSION['roleID']=='R'||$_SESSION['roleID']=='S')){
-	$username = htmlspecialchars($_SESSION['ape_user']);
-}
-else if (isset($_SESSION['username'])) {
+if (isset($_SESSION['username'])) {
 	$username = htmlspecialchars($_SESSION['username']);
 }
 
+if (isset($_SESSION['ape_user'])){
+	$auth= checkRights('R');	
+	if ($auth==1){
+	$username = htmlspecialchars($_SESSION['ape_user']);
+	}
+}
+ 
 if (isset($username)){
+	
+// how many days of data to show. default: 90
+if (isset($_POST['show_days'])){
+	$show_days = $_POST['show_days'];
+} else {
+	$show_days = 90;
+}
+
+	
 //show all the steps over time
 
 //first target date should be the beginning date
 //today would be the last date
-$today=date('Y-m-d');
+$today = date('Y-m-d');
+// select a time period to show from 
+$only_show = date_format(date_add(date_create($today), date_interval_create_from_date_string("-" . $show_days . " days")), 'Y-m-d'); 
 
 $getTargetsq= "SELECT date_set, steps, days FROM targets WHERE username='". $username ."' AND date_set<=CURDATE() ORDER BY date_set;";
 
@@ -62,7 +79,10 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     		}
     	if ($x == 0){
     	$thisweek = 0;
-     	$myTargetsprint[]=array('week'=> $thisweek, 'date_set'=> $getdate, 'steps' => $target_row['steps'], 'days' => $target_row['days']);
+    	$myfirstTarget['target'] = $getdate;
+    		if ($getdate >= $only_show){
+     			$myTargetsprint[]=array('week'=> $thisweek, 'date_set'=> $getdate, 'steps' => $target_row['steps'], 'days' => $target_row['days']);
+    		}
     	}
     	else { 
     		if ($x<=6){
@@ -72,8 +92,9 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     		$week = $week + 1;
     		$thisweek = $week;
     	}
-    	$myTargetsprint[] = array('week'=> $thisweek, 'date_set'=> $getdate, 'steps' => $target_row['steps'], 'days' => $target_row['days']);
-    	
+    	if ($getdate >= $only_show){
+    		$myTargetsprint[] = array('week'=> $thisweek, 'date_set'=> $getdate, 'steps' => $target_row['steps'], 'days' => $target_row['days']);
+    	}
     	// find out the date of the next target
 
     	//$nexttar=$myTargetsarray[$x+1];
@@ -176,7 +197,7 @@ if(!empty($myStepsprint)&&!empty($myTargetsprint)) {
 	// feedback results
 	$step_array = $myStepsprint;
 	$result_array = $myTargetsprint;
-	echo '{"targets":'.json_encode($result_array). ',"steps":'. json_encode($step_array).'}';
+	echo '{"targets":'.json_encode($result_array). ',"steps":'. json_encode($step_array).',"initial":'. json_encode($myfirstTarget).', "show_days": '. $show_days .', "end_date": "'. $only_show .'"}';
 } else {
 	echo 0;
 }

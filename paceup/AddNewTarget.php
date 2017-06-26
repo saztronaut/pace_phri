@@ -36,7 +36,7 @@
 <script src="./dateFunctions.js"></script>
 <?php include './footer.php';?>
 
-
+<script>
 
 window.onload= function(){
 	getTargetData();
@@ -52,7 +52,7 @@ function getTargetData(){
 	
 	doXHR("./returnWeek.php", function (){
 	var response = JSON.parse(this.responseText);
-	//console.log(response);	
+	console.log(response);	
 	//latest_t
 	//days
 	//steps

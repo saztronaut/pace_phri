@@ -15,8 +15,9 @@
          <option value='Practices'> Practices</option> 
          <option value='Targets'> Targets</option> 
          <option value='Methods'> Methods</option>
-         <option value='Reference'> Registration codes</option>
+         <option value='Reference'> Registration codes and consent data</option>
          <option value='Questionnaire'> Questionnaires </option>
+         <option value='Emails'> Sent Emails </option>
         </select>        
         </div>
         <div class="form-group" id="narrow_div">

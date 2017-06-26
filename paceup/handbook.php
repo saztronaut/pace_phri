@@ -13,7 +13,7 @@ The benefits of increasing your walking</a>
 </div>
 <div id="collapse1" class="panel-collapse collapse in">
 <div class="panel-body">
-<div class="row center"><div class="col-sm-12"><p class="text-center"><img src="images/walk_heart.png" class="img-noborder" alt="getwalking"></p></div></div>
+<div class="row center"><div class="col-sm-12"><img src="images/walk_heart.png" class="img-responsive center-block" alt="getwalking"></div></div>
 <div class="row is-table-row">
 <div class="col-md-3 col-xs-* bg-info" >
 <h4 class="text-center">Reduce health problems</h4>
@@ -23,7 +23,7 @@ The benefits of increasing your walking</a>
 <p class="text-center">Osteoporosis, Several cancers</p>
 <p class="text-center">Arthritis, Breathing problems </p>
 <p class="text-center">Back pain</p>
-<p class="text-center"><img src="images/heart_brain_mini.png" class="img-noborder"  alt="brain_heart"></p></div>
+<img src="images/heart_brain_mini.png" class="img-responsive center-block"  alt="brain_heart"></div>
 <div class="col-md-3 col-xs-* bg-danger">
 <h4  class="text-center">Improve wellbeing</h4>
 <p  class="text-center">Walking regularly can:</p>
@@ -40,14 +40,14 @@ The benefits of increasing your walking</a>
 <p  class="text-center">Improve flexibility and balance</p>
 <p  class="text-center">Protect against developing dementia</p>
 <p class="text-center">Maintain mobility and being able to live independently</p><br>
-<p class="text-center"><img src="images/stretching.png" class="img-logo"  alt="stretch" ></p>
+<img src="images/stretching.png" class="img-responsive center-block"  alt="stretch" >
 </div>
  <div class="col-md-3 col-xs-* bg-warning">
 <h4  class="text-center">Help maintain a healthy weight</h4>
 <p  class="text-center">Walking regularly can:</p>
 <p class="text-center">Help you to maintain a healthy weight</p>
 <p class="text-center">Prevent obesity </p><br><br><br><br>
-<p class="text-center"><img src="images/scales.png" class="img-logo" alt="scales"></p>
+<img src="images/scales.png" class="img-responsive center-block" alt="scales">
 </div></div>
 <div class="row center"><div class="col-sm-12"><h4  class="text-center"> Which of these benefits are most important for you? </h4></div></div>
 
@@ -72,7 +72,7 @@ How much physical activity should you do for health benefits?</a>
 <li>Feel warmer</li>
 <li>You should still be able to talk whilst you are doing moderate activity.</li>
 </ul></div>
-<div class="row center"><div class="col-sm-6"><p class="text-center"><img src="images/lungs.png" class="img-noborder"  alt="brain_heart"></p> </div></div>
+<div class="row center"><div class="col-sm-6"><p class="text-center"><img src="images/lungs.png" class="img-responsive"  alt="brain_heart"></p> </div></div>
 <div class="row center"><div class="col-sm-12 bg-success">
 <h4  class="text-center">How can walking help?</h4>
 <p class="text-center">Walking at approximately 3 miles (5 km) per hour counts as moderate intensity activity.</p>
@@ -143,7 +143,8 @@ How to keep going when PACE-UP finishes</a>
 <p> - Keep your pedometer and use it sometimes to show you how active you are. It is easy to be very busy without being very active, the pedometer shows you accurately how many steps you are taking.</p>
 <p> - Remind yourself about what you have achieved by increasing your activity and any positive benefits it has had on your health, weight, mood, sleeping etc. This may motivate you to keep up good habits, or to try again if you feel you have slipped back.</p>
 <p> - Enlist a friend or family member to walk with you, it is easier to walk regularly and walk further if you have some company.</p>
-<p> - Try out new walks near you or think about a walking group, the websites listed have lots of ideas for local walks, or your local library will have information.</p>	
+<p> - Try out new walks near you or think about a walking group, the websites listed have lots of ideas for local walks, or your local library will have information.</p>
+<strong> You can also carry on recording your steps on this website after the 12 weeks are finished</strong>
 </div>
 </div>
 </div>

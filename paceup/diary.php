@@ -10,7 +10,7 @@
 <div class="col-sm-5" id="sidebar" class="well sidebar-nav">
 <span id="pills"></span>
 </div> <!-- well -->
-<div class="col-sm-7">
+<div class="col-sm-7 hidden-xs hidden-sm">
 <span id="text"></span>
 
 </div> <!-- main text -->
@@ -31,10 +31,16 @@ function showText(week, weekno, comment){
 		console.log(week, weekno, comment)}
 	var header = drawHeader2(week, weekno, comment);
 	document.getElementById('text').innerHTML= header['thisAside'];
-    document.getElementById('link'+weekno).className= "active";
-    for (x=0; x<14; x++){
-    if (x!=weekno){
-        document.getElementById('link'+x).className= "default";
+    if (document.getElementById('link' + weekno).className !== "active"){
+        document.getElementById('aside' + weekno).innerHTML =  header['thisAside'];
+    } else {
+        document.getElementById('link' + weekno).className= "active"; 
+        document.getElementById('aside' + weekno).innerHTML =  "";
+    }
+    document.getElementById('link' + weekno).className= "active";             
+    for (x=0; x < 13; x++){
+    if (x != weekno){
+        document.getElementById('link' + x).className= "default";
         }
     }
 	
@@ -42,26 +48,26 @@ function showText(week, weekno, comment){
 }
 
 function recordComment(weekno){
-	  comment= JSON.stringify(document.getElementById('comment'+weekno).value);
-	  if (comment!=''){
-	  data="weekno="+ weekno +"&comment=" + comment;
-	  console.log(data);
-	  var xhr = new XMLHttpRequest();
-	  xhr.open("POST", 'addComment.php', true);
-	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	  xhr.send(data);	
-	  xhr.onreadystatechange=function(){
-	  if(xhr.readyState == 4 && xhr.status ==200){
-		  var $response = xhr.responseText;
-		  console.log($response);
-		  if ($response==1){
-		  document.getElementById('form'+weekno).className= "form-group has-success";	
-		  
-	  }	   else {
-	  document.getElementById('form'+weekno).className= "form-group";	}
-	  }
-	  }
-	  }
+    comment= JSON.stringify(document.getElementById('comment'+weekno).value);
+    if (comment!=''){
+        data="weekno="+ weekno +"&comment=" + comment;
+        console.log(data);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'addComment.php', true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send(data);	
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState == 4 && xhr.status ==200){
+		        var $response = xhr.responseText;
+		        console.log($response);
+		        if ($response == 1) {
+		            document.getElementById('form'+weekno).className= "form-group has-success";	
+	            } else {
+	                document.getElementById('form'+weekno).className= "form-group";	
+	            }
+            }
+        }
+    }
 }
 
 
@@ -87,21 +93,24 @@ function drawDiary (){
 				text="";
 				for (i in comments){
 						var week= "week"+i;
-						var weekno=i;
+						var weekno = i;
 						var comment = comments[i]
-						if (comment==null){comment="";}
-						
+						if (comment == null) {
+							comment = "";
+                        }
 				        var header = drawHeader2(week, weekno, comment);
-				        if (i==0){document.getElementById('text').innerHTML= header['thisAside'];
-				        pills += '<li class="active" id="link0"> <a href="#" onclick=\'showText("'+ week +'",'+ weekno+',"' + comment +'")\'><b> Week '+i +' - ' + header['thisTitle']+'</b> </a></li>';
+				        if (i==0) {
+					        document.getElementById('text').innerHTML = header['thisAside'];
+				            pills += '<li class="active" id="link0"> <a href="#" onclick=\'showText("' + week + '",' + weekno + ',"' + comment + '")\'><b> Week ' + i +' - ' + header['thisTitle'] + '</b> </a></li>';
 				        }	
 				        else{
-				        pills += '<li  id="link'+ weekno +'"> <a href="#" onclick=\'showText("'+ week +'",'+ weekno+',"' + comment +'")\'><b> Week '+i +' - ' + header['thisTitle']+'</b> </a></li>';
-				        }    					
+				        pills += '<li  id="link' + weekno + '"> <a href="#" onclick=\'showText("' + week + '",' + weekno + ',"' + comment + '")\'><b> Week ' + i +' - ' + header['thisTitle'] + '</b> </a></li>';
+				        }
+				        pills += '<span id="aside' + weekno +'" class="visible-xs visible-sm"></span>';
 
 					}
-				pills+= "</ul>";
-				document.getElementById("pills").innerHTML= pills;
+				pills += "</ul>";
+				document.getElementById("pills").innerHTML = pills;
 
 			}
 		}

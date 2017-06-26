@@ -16,7 +16,17 @@
         <input type="text" class="form-control" placeholder="Comment here" id="inc_pa_comment" >
         <span id= "inc_pa_comment_span"></span>
         </div>
-
+ <div class="form-group" id = "use_app_div">
+ <label for="app_used">When using PACE-UP Next Steps online, did you:</label>
+  <label class="radio"><input type="radio" value="M" name="app_used">Mostly use the mobile application</label>
+ <label class="radio"><input type="radio" value="W" name="app_used">Mostly use the website</label>
+ <label class="radio"><input type="radio"  value="MW" name="app_used">Use both the mobile and web application</label>
+  </div>
+     <div class="form-group" id = "use_app_comment_div">
+      <label for="use_app_comment"> Please give any reasons you have for this choice: </label>
+        <input type="text" class="form-control" placeholder="Comment here" id="use_app_comment" >
+        <span id= "use_app_comment_span"></span>
+        </div>  
 <p><b>Please rate the following features of the app/ website out of 5 stars </b></p>
 <p><i>Where 5 stars is the best rating you could give and 0 stars is the worst</i></p>
 
@@ -24,7 +34,7 @@
   </div>
   <div class = "col-md-6">
    <div class="form-group" id = "problems_div">
-      <label for="problems"> Whilst using the app, did you experience any of these problems?: </label>
+      <label for="problems"> Whilst using the app, did you experience any of these problems? (select all that apply): </label>
   <div class="checkbox">
   <label><input type="checkbox" value="1" id="download">The app was difficult to download</label></div>
   <div class="checkbox">
@@ -102,6 +112,9 @@ function loadQuestionnaire(){
 function submitQ(){
 	  var form = document.getElementById("questions");
 	  var data = $(form).serialize();
+	  var data = data + "&inc_pa_comment=" + document.getElementById("inc_pa_comment").value;
+	  var data = data + "&use_app_comment=" + document.getElementById("use_app_comment").value;
+	  var data = data + "&improvement=" + document.getElementById("improvement").value;
 	  console.log(data);
 	  doXHR('./addQuestionnaire.php', function(){
 		  

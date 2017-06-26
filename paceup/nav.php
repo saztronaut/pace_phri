@@ -14,23 +14,23 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MY STEPS <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="./steps2.php"><span id="recordsteps">RECORD STEP COUNT</span></a></li>
-            <li><a href="./stepHistory.php"><span id="reviewsteps">REVIEW STEP HISTORY</span></a></li>
+            <li><a href="./steps2.php"><span class='glyphicon glyphicon-pencil'></span><span id="recordsteps"> RECORD STEP COUNT</span></a></li>
+            <li><a href="./stepHistory.php"><span class='glyphicon glyphicon-stats'></span><span id="reviewsteps"> REVIEW STEP HISTORY</span></a></li>
           </ul>
         </li>
    <li class="dropdown">
    <a class="dropdown-toggle" data-toggle="dropdown" href="#">TARGETS <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="./explain_targets.php"><span id="currenttarget">TARGETS EXPLAINED</span></a></li>
+            <li><a href="./explain_targets.php"><span class='glyphicon glyphicon-send'></span><span id="currenttarget"> TARGETS EXPLAINED</span></a></li>
           </ul>
         </li>
          <li class="dropdown">
        <a class="dropdown-toggle" data-toggle="dropdown" href="#">MATERIALS<span class="caret"></span></a>
        <ul class="dropdown-menu">
-             <li><a href="./links.php"><span id="links">LINKS</span></a></li>
-             <li><a href="./handbook.php"><span id="handbook">HANDBOOK</span></a></li>
-             <li><a href="./diary.php"><span id="diary">DIARY</span></a></li>
-            <li><a href="./information_sheet.php"><span id="informationsht">INFORMATION SHEET</span></a></li>       
+             <li><a href="./links.php"><span class='glyphicon glyphicon-globe'></span><span id="links"> LINKS</span></a></li>
+             <li><a href="./handbook.php"><span class='glyphicon glyphicon-book'></span><span id="handbook"> HANDBOOK</span></a></li>
+             <li><a href="./diary.php"><span class='glyphicon glyphicon-pencil'></span><span id="diary"> DIARY</span></a></li>
+            <li><a href="./information_sheet.php"><span class='glyphicon glyphicon-file'></span><span id="informationsht"> INFORMATION SHEET</span></a></li>       
           </ul>
         </li>
        </ul>
