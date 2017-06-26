@@ -257,7 +257,7 @@ function goBack(week, maxweek, showweek){
         if (topshow>maxweek){ 
             topshow=maxweek;
         }
-        var baseshow= showweek - 6;
+        var baseshow= showweek - 12;
         if (baseshow<0){ 
             baseshow = 0;
         }
@@ -268,8 +268,10 @@ function goBack(week, maxweek, showweek){
             print.push("Week "+ x ) ;
             print.push("</option>");
         }
-        print.push("</select></div> <div class='form-group'>");
-        print.push( "<button type='button' class='btn btn-default' id='viewPastBtn' onclick='showWeek(true, document.getElementById(\"viewSteps\").value)'> View Steps </button> </div></form>");
+        print.push("</select></div> ");
+        print.push( "<div class='form-group-inline'><button type='button' class='btn btn-default' id='viewPastBtn' onclick='showWeek(true, document.getElementById(\"viewSteps\").value)'><span class='glyphicon glyphicon-list'></span> View Steps </button>");
+        print.push( "<button type='button' class='btn btn-default' id='viewHistoryBtn' onclick='redirect(\"stepHistory.php\")'> <span class='glyphicon glyphicon-stats'></span> Review Step History </button> </div></form>");
+
     }
     printThis = print.join("\n");
     return printThis;

@@ -2,7 +2,7 @@
 	require 'database.php';
 	require 'sessions.php';
 	include 'get_json_encode.php';
-	include 'returnWeek.php';
+	include 'returnWeekFunctions.php';
 	$results=[];
     //Takes the session['username'] as parameter
 	//Query the database to find out where the participant is in terms of targets and weeks.
@@ -16,9 +16,18 @@
 	//Looking at the time difference between the target setting and the curdate.
 	//And so on for the remaining weeks
 	// If there is no baseline target, add if needed
-	if (isset($_SESSION['username'])){
+	//Allow admin to view as if they were an individual
+	if (isset($_SESSION['ape_user']) && ($_SESSION['roleID']=='R'||$_SESSION['roleID']=='S')){
+		$username = htmlspecialchars($_SESSION['ape_user']);
+	}
+	else if (isset($_SESSION['username'])){
 	$username = htmlspecialchars($_SESSION['username']);
-	if (isset($_POST['viewWeek'])){ $weekno=$_POST['viewWeek'];} else {$weekno="";}; //if the user is viewing a week in the past, take this week as argument instead of the current week
+	}
+	if (isset($username)){
+	if (isset($_POST['viewWeek'])){ 
+		$weekno=$_POST['viewWeek'];
+	} else {
+		$weekno="";}; //if the user is viewing a week in the past, take this week as argument instead of the current week
 	if (isset($username) && $username!=''){
 	
 		$results= returnWeek($username);
@@ -29,14 +38,14 @@
 		$w= $results['weekno'];
 		$week = $results['week'];
 		if ( $w>0 ){
-		$row = $results['row'];	
-		$results['steps']=$row['steps'];
-		$results['days']=$row['days'];
-		$results['latest_t']=$row['latest_t'];
-		$today= date('Y-m-d');
-		$latest_t=date('Y-m-d', strtotime($results['latest_t']));
+		    $row = $results['row'];	
+		    $results['steps']=$row['steps'];
+		    $results['days']=$row['days'];
+		    $results['latest_t']=$row['latest_t'];
+		    $today= date('Y-m-d');
+		    $latest_t=date('Y-m-d', strtotime($results['latest_t']));
 		}
-		if ($w>=13){
+		if ($w>=13) {
 			$showSumm= "SELECT finish_show FROM users WHERE username='".$username."' ;";
 			$summResult= mysqli_query($connection, $showSumm) or die("Error checking if summary or no");
 			$getSum= mysqli_fetch_array($summResult);
@@ -74,7 +83,7 @@
 		//get any comments from that week. recorded on weeks 2, 3, 4, 5, 6, 8, 10, 12
 		//get comment data
 		if ($weekno!='' && (is_null($weekno)==0) && $weekno!="null"){
-			$results=pastWeek($weekno, $username);
+			$results=pastWeek($weekno, $username, $results['mybaseline']);
 			//get comment from the past week
 		$commentq = "SELECT text FROM notes WHERE username='".$username."' AND week=".$weekno.";";
 		$resultcomment=mysqli_query($connection, $commentq) or die(0);
@@ -126,11 +135,12 @@
 	}
 	
 	
-function pastWeek($weekno, $username){
+function pastWeek($weekno, $username, $baseline){
 	require 'database.php';
 	//require 'sessions.php';
 	// For odd weeks, get the target set and then display values for 7 days afterwards
 	$results=[];
+	$results['baseline']=$baseline;
 	if ($weekno<13){
 	if ($weekno % 2 == 1 || $weekno==0){
 		$order= CEIL($weekno/2);
@@ -178,7 +188,7 @@ function pastWeek($weekno, $username){
 		//how many weeks since that target was set
 		$weeksSince13= $weekno-13;
 		//get the beginning of this week
-		$thisStart= date("Y-m-d", ($latest_t + ($weeksSince13* 60*60*24*7)));
+		$thisStart= date("Y-m-d", ($latest_t + ($weeksSince13* 60*60*24*7)+1));
 		$results['start']= $thisStart;
 		$results['week']="week". $weekno;
 		$w=$weekno;

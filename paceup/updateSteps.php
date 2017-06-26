@@ -2,9 +2,19 @@
  require 'database.php';
  require 'sessions.php';
  require 'setBaseline.php';
+ include 'checkUserRights.php';
+ 
  $msg=''; 
- if ($_POST)
- {$username = htmlspecialchars($_SESSION['username']);
+ if ($_POST){
+ 	if (isset($_SESSION['username'])) {
+ 	   $username = htmlspecialchars($_SESSION['username']);
+ 	}
+ 	if (isset($_SESSION['ape_user'])){
+ 		$auth= checkRights('R');
+ 		if ($auth==1){
+ 		    $username = htmlspecialchars($_SESSION['ape_user']);
+ 		}
+ }
   if ($_POST['steps']!="undefined" && $_POST['steps']!=""){
         $input = htmlspecialchars($_POST['steps']);} 
   else {$input ='';}
@@ -53,11 +63,13 @@
     	}
     	else {$msg="Fail";}
    }
+mysqli_free_result($checkSteps);
+mysqli_close($connection); 
+ 
  }
 if ($msg=='') {$msg="unknown";}
 echo $msg;
 
-mysqli_free_result($checkSteps);
-mysqli_close($connection);
+
 exit;
 ?>

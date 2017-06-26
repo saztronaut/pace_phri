@@ -1,8 +1,8 @@
 <div class="row">
 <div class="col-sm-3">
 <p>The plan is to start from where <b>you</b> are currently and to gradually increase the amount you walk over 12 weeks.<p> 
-<p class="text-center"><img src="images/pedometer.png" class="img-logo" alt="scales"></p>
-<p> Use the pedometer for record the number of steps you do each day and record them <a href="#" onclick='redirect("./steps.php")'>here</a></p>
+<p class="text-center"><img src="images/pedometer.png" class="img-responsive" alt="scales"></p>
+<p> Use the pedometer for record the number of steps you do each day and record them <a href="./steps2.php")'>here</a></p>
 </div>
 <div class="col-sm-4">
 <table class="table table-info">
