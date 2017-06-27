@@ -51,7 +51,7 @@ function updateTarget($username)
 			if ($goal>5 && $numt<7){ $goal==5;} //"most days"
 			if (($achieved>=$goal) && isset($achieved)) {
 				$date_set = $row2['date14'];
-				setTarget($username, $date_set, $steps, $days);
+				setTarget($username, $date_set, $steptarget, $days);
 				//$target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
 				//$gettarget = mysqli_query($connection, $target);
 				$results['refresh']="yes";
