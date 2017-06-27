@@ -3,20 +3,19 @@
 require 'database.php';
 require 'sessions.php';
 
-
-$echo= "Redirecting you to Questionnaire page";
+$echo = "<a href='./feedbackQuestionnaire.php'> Redirecting you to Questionnaire page </a>";
 if (isset($_GET['token'])) {	
-$mytoken=htmlspecialchars($_GET['token']);
-$token=$mytoken;
-$user=htmlspecialchars($_GET['username']);
+	$mytoken=htmlspecialchars($_GET['token']);
+	$token=$mytoken;
+	$user=htmlspecialchars($_GET['username']);
 // check token is valid
-$checkToken= "SELECT username FROM users WHERE referenceID='". $token . "' AND  username='". $user . "';";
-echo "redirecting you";
+	$checkToken= "SELECT username FROM users WHERE referenceID='". $token . "' AND  username='". $user . "';";
+	echo $echo;
 $result= mysqli_query($connection, $checkToken) or die('Error checking token'. mysql_error());
 if ($result->num_rows==0){
 	echo "<p>That code seems to be invalid, please <a href='./information_sheet.php'>contact us</a> or login in <a href='./main_index.php'> log in</a></p>";
 }
-else{
+else {
 	// tell the session the username you are setting this for
 	$row = mysqli_fetch_array($result);
 	$_SESSION['get_username']=$row['username'];
@@ -24,7 +23,7 @@ else{
 	unset($_SESSION['username']);
 	// choose new form
 	//$_SESSION['choose_form']='./resetpwd.php';
-	header('Refresh: 1; URL = ./feedbackQuestionnaire.php');
+	header('Location: ./feedbackQuestionnaire.php');
 	
 	
 }

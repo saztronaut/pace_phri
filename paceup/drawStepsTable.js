@@ -328,7 +328,7 @@ function twelveWeek(){
     showMessage.push("<hr><div class = 'row'> <div class = 'col-md-8'> ");
     showMessage.push("<p> Hearing about how the programme may have helped you or how it could do improve helps us to provide a better service </p>");
     showMessage.push("<p> Please fill out our feedback form </p></div>");
-    showMessage.push("<div class = 'col-md-4'><form><div class='form-group'> <button type ='button' class='btn btn-default' id='feedbackBtn' onclick='redirect(\"./feedback.php\")'>Give Feedback</button></div></form><br></div></div>");
+    showMessage.push("<div class = 'col-md-4'><form><div class='form-group'> <button type ='button' class='btn btn-default' id='feedbackBtn' onclick='redirect(\"./feedbackQuestionnaire.php\")'>Give Feedback</button></div></form><br></div></div>");
     var message=showMessage.join("\n");
     //console.log("Message:" + showMessage);
     document.getElementById('method_message').innerHTML= message;

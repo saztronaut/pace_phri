@@ -28,14 +28,21 @@ if($_POST)
 	if (isset($_SESSION['username'])){
 		$username=htmlspecialchars($_SESSION['username']);
 		$addq= "INSERT INTO questionnaire (username, ".$fieldlist .") VALUES ('".$username."',". $valuelist .");";
-		mysqli_query($connection, $addq);
-		echo $addq;
+		if (mysqli_query($connection, $addq)){
+			echo 1;
+		} else {
+		    echo 0;
+		}
 		
 	} else if(isset($_SESSION['get_username'])){
 		$username=htmlspecialchars($_SESSION['get_username']);
 		$addq= "INSERT INTO questionnaire (username, ".$fieldlist .") VALUES ('".$username."',". $valuelist .");";
-		mysqli_query($connection, $addq);
-		echo $addq;
+		if (mysqli_query($connection, $addq)){
+			echo 1;
+			unset($_SESSION["get_username"]);
+		} else {
+			echo 0;
+		}
 	}
 	
 }

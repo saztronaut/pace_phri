@@ -22,6 +22,7 @@ else{
 	unset($_SESSION['username']);
 	// choose new form
 	//$_SESSION['choose_form']='./resetpwd.php';
+	ob_start();
 	header('Refresh: 1; URL = ./resetpwd.php');
 	
 	

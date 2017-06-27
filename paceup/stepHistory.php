@@ -122,12 +122,12 @@ function drawTables ($response) {
                 var label = "Baseline";
                 var message = "You walked on average "+ target_steps + " steps each day this week" ;
             }
-            var tablehead = "<div class='table'> <table class='table'><thead><tr><th>Day</th><th>Date</th><th>Steps</th><th>Device</th><th></th></tr></thead>";
+            var tablehead = "<div class='table'> <table class='table'><thead><tr><th>Day</th><th>Date</th><th>Steps</th><th class=\"hidden-xs\">Device</th><th></th></tr></thead>";
            
         } else { 
             var label= "Week " + targets[i].week;
             var message= "Your target was to walk "+ target_steps + " steps on " + days + " days during week " + targets[i].week; 
-            var tablehead = "<div class='table'> <table class='table'><thead><tr><th>Day</th><th>Date</th><th>Steps</th><th>Device</th><th>Achieved<br> target</th><th></th></tr></thead>";	
+            var tablehead = "<div class='table'> <table class='table'><thead><tr><th>Day</th><th>Date</th><th>Steps</th><th class=\"hidden-xs\">Device</th><th>Achieved<br> target</th><th></th></tr></thead>";	
         } 
 	    
         $print = "<h3>" + label + "</h3>";
@@ -150,7 +150,7 @@ function drawTables ($response) {
                     stepsdta.push(steps[j].steps);
                     daysdta.push(giveDay(date_read)) ;				
 				     // print collection method				
-                    $print += "<td>" + steps[j].method + "</td>";
+                    $print += "<td class=\"hidden-xs\">" + steps[j].method + "</td>";
                     // print achieved target
                     if (parseInt(i) === 0){            
                         $print += "<td></td>";
@@ -184,7 +184,7 @@ function drawTables ($response) {
         allBase.push(base_steps);       
     
         var data=getChartdata(daysdta, stepsdta, basedta, 'Steps', targetsdta);	 
-        var layout=getChartlayout(label, 'Steps', 7);   	
+        var layout=getChartlayout(label, 'Steps', 7, 'thisAside_'+ (i) +'');   	
         $print += "</table></div>";
         if (hitTarget >= parseInt(targets[i].days) && parseInt(i) !== 0) {
             showAvg += "<br> <td class='text-center'><span class='glyphicon glyphicon-thumbs-up logo'></span></td><br>"
@@ -213,7 +213,7 @@ function drawTables ($response) {
         }
 	}
     var data = getChartdata(allLabels, allAvg, allBase, 'Average steps', allTargets);
-    var layout = getChartlayout("Your progress", 'Average Steps', stepsNum);
+    var layout = getChartlayout("Your progress", 'Average Steps', stepsNum, 'showSummary');
     $myBarChart = Plotly.newPlot('showSummary', data, layout);
     document.getElementById('pleaseWait').innerHTML = "";
 }
@@ -250,8 +250,35 @@ function getChartdata(daysdta, stepsdta, base_steps, label, allTargets) {
     return data;
 }
 
-function getChartlayout(label, ylabel, linelength) {
-    var layout = {
+function getChartlayout(label, ylabel, linelength, myElement) {
+    // find the width of the container
+    var elementWidth = document.getElementById(myElement).offsetWidth;
+    var myWidth = elementWidth;
+    var legend = "";
+    var margin = "";
+    if (myWidth < 500){
+        legend = {
+        		bgcolor: "rgba(255, 255, 255, 0.1)",
+                x: 1,
+                y: -0.3,
+                "orientation": "h"
+        };
+        margin = {
+                l: 70,
+                r: 10,
+                b: 100
+                };
+    } else {
+        legend = {
+        bgcolor: "rgba(255, 255, 255, 0.1)",
+        };
+        margin = {
+                l: 70,
+                r: 10,
+                };
+    }
+    
+	var layout = {
         title: label,
         xaxis: {tickfont: 
             {
@@ -269,16 +296,14 @@ function getChartlayout(label, ylabel, linelength) {
             tickfont: {
                 size: 14,
                 color: 'rgb(107, 107, 107)'
-            },
-            margin: {
-                l:250,
-                r:50}
+            }
         },
         showlegend: true,
+        margin: margin,
+        width: myWidth,
+        autosize: false,
         
- //       legend: {
-  //          "orientation": "h"
-   //             }
+        legend: legend
             
     };
 return layout;

@@ -66,7 +66,8 @@
 <div class="col-sm-4">
 <p> GET statement from questionnaire link not directing to questionnaire</p><br></div>
 <div class="col-sm-4">
-<p>21/06/2016 in progress</p><br></div>
+<p>21/06/2016 in progress</p>
+<p>27/06/2016 link added (link works) but redirect still not working. A puzzle</p><br></div>
 <div class="col-sm-1"></div>
 </div>
 <hr />
@@ -181,18 +182,22 @@
 <p>22/06/2016 done</p><br></div>
 <div class="col-sm-1"><span class="glyphicon glyphicon-check"></span></div>
 </div>
+<hr/>
 <div class="row">
 <div class="col-sm-1"></div>
 <div class="col-sm-2">
-<b >feedbackQuestionnaire.php</b><br></div>
+<b class="strike-through">feedbackQuestionnaire.php</b><br></div>
 <div class="col-sm-4">
-<p>Questionnaire doesn't do anything after saving (it does save the questionnaire but doesn't respond) </p>
-<p>Should check for existing questionnaire on loading</p>
-<p>Should only show if post week12</p><br></div>
+<p class="strike-through">Questionnaire doesn't do anything after saving (it does save the questionnaire but doesn't respond) </p>
+<p class="strike-through">Should check for existing questionnaire on loading</p>
+<p class="strike-through">Should only show if post week12</p><br></div>
 <div class="col-sm-4">
-<p>22/06/2016 in progress</p><br></div>
-<div class="col-sm-1"></div>
+<p class="strike-through">22/06/2016 in progress</p>
+<p>27/06/2016  shows "Thank you for filling out the survey if/when done, otherwise indicates to redirect</p><br></div>
+<div class="col-sm-1"><span class="glyphicon glyphicon-check"></span></div><br></div>
+
 </div>
+<hr />
 <div class="row">
 <div class="col-sm-1"></div>
 <div class="col-sm-2">
@@ -204,6 +209,7 @@
 <p> 26/06/2016 now automatically only shows last 3 months. shows select to choose to view further back in 3 month slots. No limit on the top end (always shows data until today)</p><br></div>
 <div class="col-sm-1"><span class="glyphicon glyphicon-check"></span></div>
 </div>
+<hr />
 <div class="row">
 <div class="col-sm-1"></div>
 <div class="col-sm-2">
@@ -212,7 +218,7 @@
 <p  class="strike-through">Not working -does not show most recent target and is unusable.</p><br></div>
 <div class="col-sm-4">
 <p>26/06/2016 fixed</p><br></div>
-<div class="col-sm-1"></div>
+<div class="col-sm-1"><span class="glyphicon glyphicon-check"></span></div>
 </div>
 </div>
 <?php include './footer.php';?>
