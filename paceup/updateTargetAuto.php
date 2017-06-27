@@ -14,7 +14,7 @@ function updateTarget($username)
 {
 	require 'database.php';
 	include 'calcTarget.php';
-	include 'updateTarget.php';
+	include 'updateTargetFunctions.php';
 	
 	$row=getLatestTarget($username);
 	$numt = $row['n_t'];
