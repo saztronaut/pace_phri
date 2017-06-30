@@ -1,15 +1,11 @@
 <?php include './template.php';?>
-<br><br><div class="container-fluid-extraextrapad">
-
+<div class="container-fluid-extraextrapad">
 
 <h2 class="form-signin-heading">Feedback for PACE-UP Next Steps</h2><hr />
 <form class="form " method="POST" action="./addQuestions.php" id="questions">
-
  <p id="myquestionnaire"></p>
  
 <span id="question_form"></span>
-
-
 
 </form>
 

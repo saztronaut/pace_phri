@@ -1,6 +1,6 @@
 <!-- -->
 <?php include './template.php';?>
-<br><div class= "container">
+<div class= "container">
 <div class= "jumbotron">
 <h2 id="thisHeader">Record your steps here</h2>
 <span id="thisBlurb"></span>
@@ -46,7 +46,7 @@ function showWeek(past, viewWeek){
         var weekdata= [];   //data about the current week (week name, week num, target steps, target days, comments for that week, current week num)  
         doXHR("./getWeek.php", function getWeek() {	  	 
            var $response = this.responseText;	
-           console.log($response);  
+           //console.log($response);  
            if ($response == "0") {
 				document.getElementById("thisTable").innerHTML= "<h4> Whoops, you need to be logged in to record your steps! Redirecting you</h4>";
 				setTimeout(function() {redirect('./landing_text.php');},2500);
@@ -116,7 +116,7 @@ function updateSteps(controlname, edit){
     }  
 	  //use input, date set and series data to update the step values and store in the database
     data = "date_set=" + date_set + "&steps=" + input + "&walk=" + walk_yn + "&method="+methodID;
-    console.log(data);
+    //console.log(data);
     doXHR('./updateSteps.php', function() {
         var $response = this.responseText;	  
         window.location.reload(true);  	

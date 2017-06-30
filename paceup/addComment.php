@@ -3,14 +3,14 @@
  require 'sessions.php';
  //Adds a comment to the database
  $msg=''; 
- if ($_POST)
- {$username = htmlspecialchars($_SESSION['username']);
- $week = htmlspecialchars($_POST['weekno']);
- $comment = htmlspecialchars($_POST['comment']);
+ if ($_POST) { 
+ 	$username = htmlspecialchars($_SESSION['username']);
+ 	$week = htmlspecialchars($_POST['weekno']);
+ 	$comment = htmlspecialchars($_POST['comment']);
  //Stringify adds quotation marks on to parse the info and this is converted to &quot; 
  //strip the first and last 5 chars off the string
- $comment=trim($comment, "&quot;");
- $comment=str_replace("'", "", $comment);
+ 	$comment=trim($comment, "&quot;");
+ 	$comment=str_replace("'", "", $comment);
  
  if ($comment!='' && $username!='' && $week!=''){
  	//is this an existing comment or a new one
