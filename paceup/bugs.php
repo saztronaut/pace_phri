@@ -220,5 +220,39 @@
 <p>26/06/2016 fixed</p><br></div>
 <div class="col-sm-1"><span class="glyphicon glyphicon-check"></span></div>
 </div>
+
+<div class="row">
+<div class="col-sm-1"></div>
+<div class="col-sm-2">
+<b  class="strike-through">addPractice.php</b><br></div>
+<div class="col-sm-4">
+<p  class="strike-through">Not responding when new practice added.</p><br></div>
+<div class="col-sm-4">
+<p>28/06/2016 feeds back when new practice added</p><br></div>
+<div class="col-sm-1"><span class="glyphicon glyphicon-check"></span>
 </div>
+</div>
+<div class="row">
+<div class="col-sm-1"></div>
+<div class="col-sm-2">
+<b  class="strike-through">register.php</b><br></div>
+<div class="col-sm-4">
+<p  class="strike-through">Not adding consent data to record on registration.</p><br></div>
+<div class="col-sm-4">
+<p>28/06/2016 query fixed</p><br></div>
+<div class="col-sm-1"><span class="glyphicon glyphicon-check"></span>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-1"></div>
+<div class="col-sm-2">
+<b  class="strike-through">updateConsent.php</b><br></div>
+<div class="col-sm-4">
+<p  class="strike-through">Only showed registration codes and names on DDL</p><br></div>
+<div class="col-sm-4">
+<p>28/06/2016 now shows username, first name and last name on DDL</p><br></div>
+<div class="col-sm-1"><span class="glyphicon glyphicon-check"></span>
+</div>
+</div>
+
 <?php include './footer.php';?>

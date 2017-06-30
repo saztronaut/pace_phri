@@ -7,10 +7,10 @@
 </div> <!-- container -->
 <div class="container-fluid-extrapad">
 <div class="row">
-<div class="col-sm-5" id="sidebar" class="well sidebar-nav">
+<div class="col-md-5" id="sidebar" class="well sidebar-nav">
 <span id="pills"></span>
 </div> <!-- well -->
-<div class="col-sm-7 hidden-xs hidden-sm">
+<div class="col-md-7 hidden-xs hidden-sm">
 <span id="text"></span>
 
 </div> <!-- main text -->
@@ -30,9 +30,10 @@ function showText(week, weekno, comment){
 		comment="";
 		console.log(week, weekno, comment)}
 	var header = drawHeader2(week, weekno, comment);
+    var smallHeader = drawHeader2("small" + week, weekno, comment);
 	document.getElementById('text').innerHTML= header['thisAside'];
     if (document.getElementById('link' + weekno).className !== "active"){
-        document.getElementById('aside' + weekno).innerHTML =  header['thisAside'];
+        document.getElementById('aside' + weekno).innerHTML =  smallHeader['thisAside'];
     } else {
         document.getElementById('link' + weekno).className= "active"; 
         document.getElementById('aside' + weekno).innerHTML =  "";
@@ -48,25 +49,24 @@ function showText(week, weekno, comment){
 }
 
 function recordComment(weekno){
-    comment= JSON.stringify(document.getElementById('comment'+weekno).value);
-    if (comment!=''){
-        data="weekno="+ weekno +"&comment=" + comment;
-        console.log(data);
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", 'addComment.php', true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.send(data);	
-        xhr.onreadystatechange=function(){
-            if(xhr.readyState == 4 && xhr.status ==200){
-		        var $response = xhr.responseText;
-		        console.log($response);
-		        if ($response == 1) {
-		            document.getElementById('form'+weekno).className= "form-group has-success";	
-	            } else {
-	                document.getElementById('form'+weekno).className= "form-group";	
-	            }
-            }
-        }
+	var comment = document.getElementById('comment' + weekno).value;
+
+    if (comment === ""|| comment === 'undefined' || comment === null || comment === false){ // check there is something in the comment
+    	var mycontrol = document.getElementById('smallcomment' + weekno);
+        comment = mycontrol.value; 
+        console.log ("check"+ comment);
+    }
+    if (comment != ''){
+    	myComment = JSON.stringify(comment);             
+        data = "weekno=" + weekno + "&comment=" + myComment; //create data string
+        doXHR('addComment.php', function(){
+           var $response = this.responseText;
+           if ($response == 1) {
+               document.getElementById('form'+weekno).className= "form-group has-success";	//show green border if successful	  
+           } else {
+               document.getElementById('form'+weekno).className= "form-group has-danger";	//show red border if not successful	
+           }
+        }, data);
     }
 }
 
@@ -99,11 +99,11 @@ function drawDiary (){
 							comment = "";
                         }
 				        var header = drawHeader2(week, weekno, comment);
-				        if (i==0) {
+				        if (parseInt(i) === 0) {
 					        document.getElementById('text').innerHTML = header['thisAside'];
 				            pills += '<li class="active" id="link0"> <a href="#" onclick=\'showText("' + week + '",' + weekno + ',"' + comment + '")\'><b> Week ' + i +' - ' + header['thisTitle'] + '</b> </a></li>';
 				        }	
-				        else{
+				        else {
 				        pills += '<li  id="link' + weekno + '"> <a href="#" onclick=\'showText("' + week + '",' + weekno + ',"' + comment + '")\'><b> Week ' + i +' - ' + header['thisTitle'] + '</b> </a></li>';
 				        }
 				        pills += '<span id="aside' + weekno +'" class="visible-xs visible-sm"></span>';

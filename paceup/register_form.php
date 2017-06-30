@@ -8,39 +8,47 @@
 
 		<p id="errorMessage"></p>
         <div class="form-group" id = "username_div">
+        <label for="username" class="sr-only"> Username</label>
         <input type="text" class="form-control" placeholder="Username" name="username" id="username" >
         <span id= "username_span"></span>
         </div>
         <div class="form-group" id = "firstname_div">
-        <input type="text" class="form-control" placeholder="First name" name="firstname" id="firstname" >
-        <span id= "firstname_span"></span>
+        	<label for="firstname" class="sr-only"> First name</label>
+        	<input type="text" class="form-control" placeholder="First name" name="firstname" id="firstname" >
+        	<span id= "firstname_span"></span>
         </div>
         <div class="form-group" id = "lastname_div">
-        <input type="text" class="form-control" placeholder="Last name" name="lastname" id="lastname" >
-        <span id= "lastname_span"></span>
+                	<label for="lastname" class="sr-only"> Last name</label>
+        	<input type="text" class="form-control" placeholder="Last name" name="lastname" id="lastname" >
+        	<span id= "lastname_span"></span>
         </div>
-        <div class="form-group" id = "email_div">
-        <input type="email" class="form-control" placeholder="Email address" name="email" id="user_email" pattern= "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
-        <span id="check-e"></span><span id= "email_span"></span>
+        	<div class="form-group" id = "email_div">
+        	 <label for="email" class="sr-only"> Email address</label>
+        	<input type="email" class="form-control" placeholder="Email address" name="email" id="user_email" pattern= "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+        	<span id="check-e"></span><span id= "email_span"></span>
         </div>
         <div class="form-group" id = "password_div">
-        <input type="password" class="form-control" placeholder="Password" name="password" id="password" >
-        <span id= "password_span"></span></div>
+               	<label for="password" class="sr-only"> Password</label>
+        	<input type="password" class="form-control" placeholder="Password" name="password" id="password" >
+        	<span id= "password_span"></span></div>
 
         <div class="form-group" id="cpassword_div">
-        <input type="password" class="form-control" placeholder="Retype Password" name="cpassword" id="cpassword">        
-        <span id= "cpassword_span"></span></div>
+                	<label for="cpassword" class="sr-only"> Retype Password</label>
+        	<input type="password" class="form-control" placeholder="Retype Password" name="cpassword" id="cpassword">        
+        	<span id= "cpassword_span"></span></div>
 		<div class="form-group" id="method_div">
-		<!-- ?php include 'method.php'; ? remove php inserts from the code-->
-		<span id= "method_span"></span>
+			<!-- ?php include 'method.php'; ? remove php inserts from the code-->
+			<span id= "method_span"></span>
 		</div>	
 	    <span id= "method_other_span"></span>
         <div class="form-group" id="registration_div">
-        <input type="text" class="form-control" placeholder="Registration code" name="registration" id="registration" >
-        <span id= "registration_span"></span>
+                	<label for="registration" class="sr-only"> Registration code</label>
+        	<input type="text" class="form-control" placeholder="Registration code" name="registration" id="registration" >
+        	<span id= "registration_span"></span>
         </div>
        <hr />
-        <div class="form-group">
+        <div class="form-group">        	
+        <label for="registerBtn" class="sr-only"> Register</label>
             <button type="button" class="btn btn-default" id="registerBtn">
       <span class="glyphicon glyphicon-log-in"></span> &nbsp; Create Account </button> </div>
  </form>

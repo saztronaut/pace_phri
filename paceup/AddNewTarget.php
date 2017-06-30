@@ -6,32 +6,79 @@
 <div id="targets_text"></div>
 
 
-<form class="form-signin" method="POST" id="target-form">
+<form class="form" method="POST" id="target-form">
 
 		<p id="targetNote"></p><br>
+	<div class = "row">
+	<div class="col-md-2 col-lg-3"></div>
+     <div class="col-sm-6 col-md-4 col-lg-3">
 		<div class="form-group form-inline" id = "date_div">
 		<label for="date_set">Date target begins: </label>
+		</div>
+		</div>
+		<div class="col-sm-6 col-md-4 col-lg-3">
         <input type="text" class="form-control" name="date_set" id="date_set" disabled>
         <span id= "date_set_span"></span>
         </div>
-        <div class="form-group form-inline" id = "days_div">
+        	<div class="col-md-2 col-lg-3"></div>
+        </div>
+     <div class = "row">
+     <div class="form-group form-inline">
+		<div class="col-md-2 col-lg-3"></div>
+     	<div class="col-sm-6 col-md-4 col-lg-3">
+     			
        		<label for="days">Number of days to reach steps target on: </label>
-        <button type="button" class = "btn btn-default" onclick="changeTarget('days', '1', 'false', '1', '7')"><span class="glyphicon glyphicon-minus"></span></button>
-        <input type="number" class="form-control" placeholder="Days" name="days" id="days" >
-        <button type="button" class = "btn btn-default" onclick="changeTarget('days', '1', 'true', '1', '7')"><span class="glyphicon glyphicon-plus"></span></button>
-        <span id= "days_span"></span>
-        </div>
-        <div class="form-group form-inline" id = "steps_div">
-        <label for="days">Number steps to walk in a day: </label>
-        <button type="button" class = "btn btn-default" onclick="changeTarget('steps', '50', 'false', '50', '30000')"><span class="glyphicon glyphicon-minus"></span></button>
-        <input type="number" class="form-control" placeholder="Steps" name="steps" id="steps" >
-        <button type="button" class = "btn btn-default" onclick="changeTarget('steps', '50', 'true', '50', '30000')"><span class="glyphicon glyphicon-plus"></span></button>  
-        <span id= "steps_span"></span>
-        </div>
+       	</div>
+		<div class="col-sm-6 col-md-4 col-lg-3">
+        	<div class= "input-group">
+        		<span class="input-group-btn">
+        			<button class = "btn btn-pace" type="button" onclick="changeTarget('days', '1', 'false', '1', '7')"><span class="glyphicon glyphicon-minus"></span></button>
+        			</span>
+        		<input type="number" class="form-control" placeholder="Days" name="days" id="days">
+        			 <span class="input-group-btn">
+        			<button class = "btn btn-pace"  type="button" onclick="changeTarget('days', '1', 'true', '1', '7')"><span class="glyphicon glyphicon-plus"></span></button>
+        			</span>
+        		</div><!-- /input group -->
+        	<span id= "days_span"></span>
+        </div><!--col -->
+        </div><!-- form-group -->
+    </div> <!-- row -->
+    <div class = "row"><br></div>
+        <div class = "row">
+         <div class="form-group form-inline">
+		<div class="col-md-2 col-lg-3"></div>
+     	<div class="col-sm-6 col-md-4 col-lg-3">
+        	<label for="steps">Number steps to walk in a day: </label>
+        </div> <!-- label row -->
+ 		<div class="col-sm-6 col-md-4 col-lg-3">
+        	<div class="input-group">
+        		<span class="input-group-btn">
+        			<button type="button" class = "btn btn-pace btn-inline" onclick="changeTarget('steps', '50', 'false', '50', '30000')"><span class="glyphicon glyphicon-minus"></span></button>
+        		</span>
+        		<input type="number" class="form-control" placeholder="Steps" name="steps" id="steps" >
+        		<span class="input-group-btn">
+        			<button type="button" class = "btn btn-pace btn-inline" onclick="changeTarget('steps', '50', 'true', '50', '30000')"><span class="glyphicon glyphicon-plus"></span></button>  
+               	</span>
+        	</div>	 <!-- input group -->
+        	<span id= "steps_span"></span>
+        </div> <!-- column -->
+        <div class="col-md-2 col-lg-3"></div>
+                </div><!-- form-group -->
+       </div> <!--  row -->
+        <div class = "row">
+         <div class="form-group form-inline">
+		<div class="col-md-2 col-lg-3"></div>
+     	<div class="col-sm-6 col-md-4 col-lg-3">
         <div class="form-group form-inline" id = "go_div">
         <button type="button" class="btn btn-default" onclick='setTarget()'>Set new target</button>
         </div>
+        </div>
+        </div>
+        </div>
+  
         </form>
+        
+
         </div>
 <script src="./dateFunctions.js"></script>
 <?php include './footer.php';?>
@@ -81,7 +128,7 @@ function getTargetData(){
         target_date= latest_t;
     // if the latest target was set for today or further in the future, replace it
     }
-    var note= "<h3>Set yourself a target beginning on "+ giveDay(target_date) +" "+ forwardsDate(target_date) + "</h3>";
+    var note= "<h3 class=\"text-center\">Set yourself a target beginning on "+ giveDay(target_date) +" "+ forwardsDate(target_date) + "</h3>";
 	document.getElementById('targetNote').innerHTML=note;
 	document.getElementById('date_set').value=valDate(target_date);   
 	

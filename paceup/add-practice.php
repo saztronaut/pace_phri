@@ -42,10 +42,11 @@ if ($_POST){
 		}
 
 	}
-	else {echo "You do not have the access privileges to generate registration codes";}
+	else {
+		echo "You do not have the access privileges to generate registration codes";}
 }
 	else {
-		echo "You do not have the access privileges to generate registration codes";
-	}
+	echo "You do not have the access privileges to generate registration codes";
+}
 
-	?>
+?>

@@ -1,33 +1,31 @@
-  window.onload = showMethodsSelect();
+window.onload = showMethodsSelect();
 
-  function showMethodsSelect(){
-		 doXHR("./getMethods.php", function getThisArray(){
-			  var methods = JSON.parse(this.responseText); //methods just contains the potential methods that the user could draw from
-			  var pref_method="PED";
-			  document.getElementById('method_div').innerHTML=selectMethods("steps", "PED", methods, true);		 
-		 });	
-	}
+function showMethodsSelect(){
+    doXHR("./getMethods.php", function getThisArray(){
+    	var methods = JSON.parse(this.responseText); //methods just contains the potential methods that the user could draw from
+    	var pref_method="PED";
+    	document.getElementById('method_div').innerHTML=selectMethods("steps", "PED", methods, true);
+    });	
+}
 
 function registerNewUser(){
-  var form = document.getElementById("register-form");
-  var action = form.getAttribute("action");
-  var keep_going = validateRegistration(form);
-  //validate the form on the client side, double password match, etc
-  //remove special chars
-  //password must be hashed with salt (constant on client side, random per user on server side)
-  if (keep_going==1) {
-  var data = $(form).serialize();
-  getConsent(action, data);
-	}
-  else { 
-	  document.getElementById('errorMessage').innerHTML = "Please fill out all the fields correctly";
-  }
+    var form = document.getElementById("register-form");
+    var action = form.getAttribute("action");
+    var keep_going = validateRegistration(form);
+    //validate the form on the client side, double password match, etc
+    //remove special chars
+    //password must be hashed with salt (constant on client side, random per user on server side)
+    if (keep_going==1) {
+        var data = $(form).serialize();
+        getConsent(action, data);
+    } else {
+            document.getElementById('errorMessage').innerHTML = "Please fill out all the fields correctly";
+    }
 }
 
 
 
 function makeRequest(url, data){
-
   doXHR(url,  function (){
         var result = this.responseText;
         console.log('Result: ', result);
