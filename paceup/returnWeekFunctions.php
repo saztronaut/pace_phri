@@ -21,7 +21,7 @@ if (function_exists('returnWeek')=== false){
 			$results['week']='baseline';
 			$w=0;
 		}
-		if ($result->num_rows!== 0){			
+		if ($result->num_rows!== 0){		
 			// retrieve baseline step target
 			$latest_t=strtotime($row['latest_t']);
 			$getbase="SELECT steps
@@ -78,7 +78,7 @@ if (function_exists('returnWeek')=== false){
 					}
 				}
 				
-				//if the target is in the future, you know that the participant has chosen when to increase but it is not yet (week 1 only)
+				//if the target is in the future, you know that the participant has chosen when to increase but it is not yet
 				if ($w<13){
 					if ($latest_t> $today_str){
 						$results['week']='delayweek'.$w;

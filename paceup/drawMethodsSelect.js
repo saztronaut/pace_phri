@@ -23,7 +23,7 @@ function selectMethods(control_name, pref_method, methods, show) {
     if (show === false) {
         print += "<span id='" + control_name + "'>" + methods[pref_method] + "</span>";
     } else {
-        print += "<select name='" + control_name + "' id='" + control_name + "' class='form-control' " + control_name + " >";
+        print += "<label for='" + control_name + "' class='sr-only'> Device used to collect step data </label><select name='" + control_name + "' id='" + control_name + "' class='form-control' " + control_name + " >";
         for (i in methods) {
             if (i === pref_method) {
                 print += "<option selected='selected' value='" + i + "'> " + methods[i] + " </option> ";

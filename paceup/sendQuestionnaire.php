@@ -13,7 +13,7 @@ require 'sessions.php';
 			$username = htmlspecialchars($_POST['username']);
 	
 			$lookup = "SELECT username, referenceID, email, forename AS firstname FROM users WHERE username = LOWER('" . $username . "');";
-			echo $lookup;
+
 			$result = mysqli_query($connection,$lookup)
 			or die('Error making select users query' . mysql_error());
 			

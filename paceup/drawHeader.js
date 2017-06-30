@@ -3,6 +3,12 @@ function drawHeader2(week, weekno, comment) {
     //output thisHeader (the header for the week) blurb (the introductory text for the week) and thisAside (the bulk of the BCT)
     var draw = [];
     if (week != "") {
+    	console.log(week);
+    	var small = ""
+    	if (week == "smallweek" + weekno) {
+    		small = "small"; 
+    	}
+    	
         var blurb = "";
         var thisHeader = "";
         var thisAside = "";
@@ -42,8 +48,8 @@ function drawHeader2(week, weekno, comment) {
             thisAside += "<li>Enlist a friend or family member to walk with you, it is easier to walk regularly and walk further if you have some company.</li>";
             thisAside += "<li>Try out new walks near you or think about a walking group, the websites listed have lots of ideas for local walks, or your local library will have information.</li> </ul>";
             thisAside += "<form><div class='form-group' id='form" + weekno + "'> ";
-            thisAside += "<label for = 'comment" + weekno + "'>  Feel free to add your own notes here:</label> ";
-            thisAside += "<textarea class='form-control' rows= '4' id='comment" + weekno + "' placeholder 'You can use this box to record your reminders'>" + comment + "</textarea></div>";
+            thisAside += "<label for = '" + small + "comment" + weekno + "'>  Feel free to add your own notes here:</label> ";
+            thisAside += "<textarea class='form-control' rows= '4' id='" + small + "comment" + weekno + "' placeholder 'You can use this box to record your reminders'>" + comment + "</textarea></div>";
             thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"" + weekno + "\")'>Save</button></form>";
             thisAside += "<br>";
         } else {
@@ -91,8 +97,8 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<li> I could do more with my time </li> ";
                 thisAside += "<li> I could keep playing actively with my children or grandchildren </li></ul> ";
                 thisAside += "<form><div class='form-group' id='form2'> ";
-                thisAside += "<label for = 'comment2'>  My personal gains... </label> ";
-                thisAside += "<textarea class='form-control' rows= '4' id='comment2'>" + comment + "</textarea></div>";
+                thisAside += "<label for = '" + small + "comment2'>  My personal gains... </label> ";
+                thisAside += "<textarea class='form-control' rows= '4' id='" + small + "comment2'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"2\")'>Save</button></form> ";
                 thisAside += "<p>If you are falling behind your targets</p> ";
                 thisAside += "<ul type='circle'> ";
@@ -122,8 +128,8 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<li>Join a walking group to meet like-minded walkers and make some new friends at the same time? </li> ";
                 thisAside += "<li>Walk the dog or a neighbour&#8217;s dog? </li></ul> ";
                 thisAside += "<form><div class='form-group' id='form3'>";
-                thisAside += "<label for = 'comment3'>  Your notes </label> ";
-                thisAside += "<textarea class='form-control' rows= '4' id='comment3'>" + comment + "</textarea></div>";
+                thisAside += "<label for = '" + small + "comment3'>  Your notes </label> ";
+                thisAside += "<textarea class='form-control' rows= '4' id=" + small + "comment3'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"3\")'>Save</button></form>";
                 thisAside += "<br><p class='text-center'> <i>People say that losing weight is no walk in the park.  When I hear that I think, yes, that is the problem.  ~Chris Adams </i></p>";
                 break;
@@ -138,8 +144,8 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<p>Asking for support and encouragement from family and friends can also be very helpful for keeping up the changes. </p> ";
                 thisAside += "<p>Notice the changes and benefits. What do I notice and what do others see? Pay attention to any compliments! </p> ";
                 thisAside += "<form><div class='form-group' id='form4'>";
-                thisAside += "<label for = 'comment4'>  Your notes </label>";
-                thisAside += "<textarea class='form-control' rows= '4' id='comment4'>" + comment + "</textarea></div>";
+                thisAside += "<label for = '" + small + "comment4'>  Your notes </label>";
+                thisAside += "<textarea class='form-control' rows= '4' id='" + small + "comment4'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"4\")'>Save</button></form> ";
                 thisAside += "<br><p class='text-center' <i>The best remedy for a short temper is a long walk.  ~Jacqueline Schiff</i></p>";
                 break;
@@ -165,8 +171,8 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<li>Physical symptoms and reactions e.g. back pain or a physical health problem </li> </ul> ";
                 thisAside += "<p>Think about how you might overcome these obstacles.  List a range of possible solutions and be prepared to experiment to find out what works best. </p> ";
                 thisAside += "<form><div class='form-group'id='form5'> ";
-                thisAside += "<label for = 'comment5'>  List a range of possible solutions and be prepared to experiment to find out what works best. </label> ";
-                thisAside += "<textarea class='form-control' rows= '4' id='comment5' placeholder 'You can use this box to record your list'>" + comment + "</textarea></div>";
+                thisAside += "<label for = '" + small + "comment5'>  List a range of possible solutions and be prepared to experiment to find out what works best. </label> ";
+                thisAside += "<textarea class='form-control' rows= '4' id='" + small + "comment5' placeholder 'You can use this box to record your list'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"5\")'>Save</button></form> ";
                 thisAside += "<br><p class='text-center'><i> Motivation is what gets you started. Habit is what keeps you going. Anonymous</i> </p>";
                 break;
@@ -187,7 +193,7 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<p><b>Time/means:</b> What can you not do in order to make time for your walks and make it a priority?</p> ";
                 thisAside += "<p><b>  Gains:  What changes have you noticed so far? </b></p> ";
                 thisAside += "<form><div class='form-group' id='form6'> ";
-                thisAside += "<textarea class='form-control' rows= '4' id='comment6'>" + comment + "</textarea></div>";
+                thisAside += "<textarea class='form-control' rows= '4' id='" + small + "comment6'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"6\")'>Save</button></form><br> ";
                 thisAside += "<p>Take a moment to think about what you have achieved so far.  </p> ";
                 thisAside += "<p>Has there been any change in your walking pattern and step-count since starting this programme?  Do you feel any different?  Are there changes in your weight, waist size, mood or energy levels?  </p> ";
@@ -216,8 +222,8 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<li>Minimise the amount of time you spend being sedentary (sitting)</li> ";
                 thisAside += "<li>Avoid vigorous activity if you are unwell, injured or fatigued, and check with your doctor if you are unsure</li> </ul>";
                 thisAside += "<form><div class='form-group' id='form7'> ";
-                thisAside += "<label for = 'comment7'>  Your notes </label> ";
-                thisAside += "<textarea class='form-control' rows= '3' id='comment7'>" + comment + "</textarea></div>";
+                thisAside += "<label for = '" + small + "comment7'>  Your notes </label> ";
+                thisAside += "<textarea class='form-control' rows= '3' id='" + small + "comment7'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"7\")'>Save</button></form>";
                 thisAside += "<br><p class='text-center'><i>Walking gets the feet moving, the blood moving, the mind moving. And movement is life.</i></p> ";
                 thisAside += "<p class='text-center'><i>Carrie Latet </i></p>";
@@ -239,8 +245,8 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<li>Notice the benefits and gains to your health, stamina, appearance</li> </ul> ";
                 thisAside += "<p>Now, think about how these positive places, people and attitudes could help you keep up your walking.</p> <br><br>";
                 thisAside += "<form><div class='form-group' id='form8'> ";
-                thisAside += "<label for = 'comment8'>  Write down your tips here. </label> ";
-                thisAside += "<textarea class='form-control' rows= '4' id='comment8' placeholder 'You can use this box to record your list'>" + comment + "</textarea></div>";
+                thisAside += "<label for = '" + small + "comment8'>  Write down your tips here. </label> ";
+                thisAside += "<textarea class='form-control' rows= '4' id='" + small + "comment8' placeholder 'You can use this box to record your list'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"8\")'>Save</button></form> ";
                 thisAside += "<p class='text-center'><i> If you are seeking creative ideas, go out walking.  Angels whisper to a man when he goes for a walk.  ~Raymond Inmon  </i></p>";
                 break;
@@ -264,8 +270,8 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<li>Remember to give yourself rewards for your successes</li> ";
                 thisAside += "<li>Remind yourself why you wanted to be involved in this programme, to increase your walking, and the reasons why it is important for you to increase your activity and fitness levels</li></ul> ";
                 thisAside += "<form><div class='form-group' id='form9'> ";
-                thisAside += "<label for = 'comment9'>  My notes </label> ";
-                thisAside += "<textarea class='form-control' rows= '3' id='comment9'>" + comment + "</textarea></div>";
+                thisAside += "<label for = '" + small + "comment9'>  My notes </label> ";
+                thisAside += "<textarea class='form-control' rows= '3' id='" + small + "comment9'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"9\")'>Save</button></form> ";
                 thisAside += "<br><p class='text-center'><i> The sum of the whole is this: walk and be happy; walk and be healthy. The best way to lengthen out our days is to walk steadily and with a purpose. ~ Charles Dickens</i></p>";
                 break;
@@ -288,8 +294,8 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<p>Or they can be used to build good habits, e.g.:</p>";
                 thisAside += "<ul type='circle'> <li><b>If</b> I am going to the shopping centre, <b>then</b> I will walk up the stairs instead of taking the lift</li></ul></p> ";
                 thisAside += "<form><div class='form-group' id='form10'> ";
-                thisAside += "<label for = 'comment10'>  What if-then else plans could help you to keep up your walking goals? </label> ";
-                thisAside += "<textarea class='form-control' rows= '4' id='comment10' placeholder 'You can use this box to record your list'>" + comment + "</textarea></div>";
+                thisAside += "<label for = '" + small + "comment10'>  What if-then else plans could help you to keep up your walking goals? </label> ";
+                thisAside += "<textarea class='form-control' rows= '4' id='" + small + "comment10' placeholder 'You can use this box to record your list'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"10\")'>Save</button></form> ";
                 thisAside += "<br><br><p class='text-center'><i> In every walk with nature one receives far more than he seeks.</i></p> ";
                 thisAside += "<p class='text-center'><i>~ John Muir</i></p>";
@@ -306,8 +312,8 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<p>Could you join a local walking group or go on local health walks? </p> ";
                 thisAside += "<p>Why not <a href=\"./handbook.php\"> revisit the handbook for some tips on keeping going?</a></p> ";
                 thisAside += "<form><div class='form-group' id='form11'> ";
-                thisAside += "<label for = 'comment11'>  My notes </label> ";
-                thisAside += "<textarea class='form-control' rows= '3' id='comment11'>" + comment + "</textarea></div>";
+                thisAside += "<label for = '" + small + "comment11'>  My notes </label> ";
+                thisAside += "<textarea class='form-control' rows= '3' id='" + small + "comment11'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"11\")'>Save</button></form> ";
                 thisAside += "<br><br><p class='text-center'><i>Thoughts come clearly while one walks.  ~Thomas Mann</i></p> ";
                 break;
@@ -324,8 +330,8 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<p>What are the main benefits of the walking programme that you have noticed?</p> ";
                 thisAside += "<p>Go back over the Tips and motivators (on the other side of your diary sheets) and think about the ones that helped the most.<p>";
                 thisAside += "<form><div class='form-group' id='form12'> ";
-                thisAside += "<label for = 'comment12'>  Write some reminders below so you can keep up the changes:</label> ";
-                thisAside += "<textarea class='form-control' rows= '4' id='comment12' placeholder 'You can use this box to record your reminders'>" + comment + "</textarea></div>";
+                thisAside += "<label for = '" + small + "comment12'>  Write some reminders below so you can keep up the changes:</label> ";
+                thisAside += "<textarea class='form-control' rows= '4' id='" + small + "comment12' placeholder 'You can use this box to record your reminders'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"12\")'>Save</button></form> ";
                 thisAside += "<h3>How to keep going when your <img src=\"images/logo_mini.png\"> walking programme finishes </h3> <br>";
                 thisAside += "<ul type='circle'> <li>Keep the habit of going for a 30 minute walk or doing 30 minutes of other moderate activity to keep up your step-count, most days of the week.</li>";
@@ -346,8 +352,8 @@ function drawHeader2(week, weekno, comment) {
                 thisAside += "<li>Enlist a friend or family member to walk with you, it is easier to walk regularly and walk further if you have some company.</li> ";
                 thisAside += "<li>Try out new walks near you or think about a walking group, the websites listed have lots of ideas for local walks, or your local library will have information.</li> </ul>";
                 thisAside += "<form><div class='form-group' id='form" + weekno + "'>";
-                thisAside += "<label for = 'comment" + weekno + "'>  Feel free to add your own notes here:</label> ";
-                thisAside += "<textarea class='form-control' rows= '4' id='comment" + weekno + "' placeholder 'You can use this box to record your reminders'>" + comment + "</textarea></div>";
+                thisAside += "<label for = '" + small + "comment" + weekno + "'>  Feel free to add your own notes here:</label> ";
+                thisAside += "<textarea class='form-control' rows= '4' id='" + small + "comment" + weekno + "' placeholder 'You can use this box to record your reminders'>" + comment + "</textarea></div>";
                 thisAside += "<button type='button' class='btn btn-default' id='saveComment' onclick='recordComment(\"" + weekno + "\")'>Save</button></form>";
             }
         }

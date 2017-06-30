@@ -139,7 +139,7 @@ function drawMySteps(x, thisWeek, weekno, baseline, daysw, target, steparray, me
                             mytable.push( "<td data-title='Did you add a walk in to your day?'  class='text-center'> <span id='walk"+ date_set +"'> </span><br></td>");}
                         } else { //show a checkbox control
                             mytable.push( "<td data-title='Did you add a walk in to your day?' class='text-center'> <form class = 'form-inline form-inline-scale'> <div class='form-group'> ");
-                            mytable.push( "<input type='checkbox' class='form-control' id='walk"+ date_set +"'> </div>");
+                            mytable.push( "<label for='walk" + date_set + "' class='sr-only'> Did you add a walk into your day? </label><div class=\"hidden-sm hidden-md hidden-lg\"></br></div> <input type='checkbox' class='form-control' id='walk" + date_set + "'> </div>");
                         mytable.push("</form></td>");
                     }
                 }
@@ -153,7 +153,8 @@ function drawMySteps(x, thisWeek, weekno, baseline, daysw, target, steparray, me
                     mytable.push("</span></div></form></td>");
                 } else { // if no steps for this date, show a text control
                     mytable.push("<form class = 'form-inline form-inline-scale'> <div class='form-group'>");
-                    mytable.push("<input type='integer' class='form-control' placeholder='Enter steps' id='steps"+ date_set +"' style='width: 7em;' ></div>");
+                    mytable.push("<label for='steps" + date_set + "' class='sr-only'> Step count for that day </label>");
+                    mytable.push("<label for='steps" + date_set + "' class='sr-only'> Step count for that day </label><input type='integer' class='form-control' placeholder='Enter steps' id='steps"+ date_set +"' style='width: 7em;' ></div>");                 
                     mytable.push("</form>");
                     mytable.push("</td><td data-title='Device'><form class = 'form-inline form-inline-scale'> <div class='form-group'><span id ='methodspan"+ date_set+"' onfocusout='updateMethods(\"method" + date_set + "\")'>");
                     mytable.push(selectMethods("method"+ date_set, give_pref, methods));

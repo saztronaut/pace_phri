@@ -27,34 +27,26 @@
  //check that the code Practice name and the code are unique, and that both fields are entered and both are unique
  
  //if this is satisfied, then add the practice to the database
-  var addBtn = document.getElementById("addBtn");
+var addBtn = document.getElementById("addBtn");
 addBtn.addEventListener("click", addPractice);
 
 function addPractice(){
-	  // validate the form on the client side, double password match, etc
-	  // remove special chars
-	  console.log("addPractice");
-	  var practice = document.getElementById("practice").value;
-	  var pracID = document.getElementById("pracID").value;  
-	  if (validateID('pracID')==1 && practice!=""){
-		  console.log("valid");
-	  data =  "practice=" + practice + "&pracID=" + pracID;
-      url = './add-practice.php';
-	  var xhr = new XMLHttpRequest();
-	  xhr.open("POST", url, true);
-	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	  xhr.send(data);
-	  xhr.onreadystatechange = function () {
-	  if(xhr.readyState == 4 && xhr.status ==200){
-	  var $response = xhr.responseText;
-	  document.getElementById("errorMessage").innerHTML=$response;
-	  }
-	  document.getElementById("errorMessage").innerHTML="Waiting for response";
-	  }}
-	  document.getElementById("errorMessage").innerHTML="<p> You must enter a practice name and ID</p>";
-	  
-	  ;
-	  
+    // validate the form on the client side, double password match, etc
+    // remove special chars
+    console.log("addPractice");
+    var practice = document.getElementById("practice").value;
+    var pracID = document.getElementById("pracID").value;  
+    if (parseInt(validateID('pracID')) === 1 && practice!=="") {
+        console.log("valid");
+        data =  "practice=" + practice + "&pracID=" + pracID;
+        url = './add-practice.php';
+        doXHR(url, function () {
+            var response = this.responseText;
+            console.log(response);
+            document.getElementById("errorMessage").innerHTML=response;
+        }, data);
+    }
+    document.getElementById("errorMessage").innerHTML="<p> You must enter a practice name and ID</p>";
 }
 
 $('#pracID').bind('input', function(){

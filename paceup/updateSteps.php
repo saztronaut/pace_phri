@@ -1,7 +1,7 @@
 <?php
  require 'database.php';
  require 'sessions.php';
- require 'setBaseline.php';
+ require 'setBaselineFunctions.php';
  include 'checkUserRights.php';
  
  $msg=''; 

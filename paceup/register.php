@@ -55,9 +55,24 @@
   if ($email_unique->num_rows>0) {
   	$errors['email']= 'Email already in use'; }  
   else if ($username_unique->num_rows<1 && $email_unique->num_rows<1 ) {
-	
+  // create consent argument
+  	$argument = "";
+  	if ($age != 'undefined') {
+  		$argument .=", age =". $age ;
+  	}
+  	if ($gender != 'undefined') {
+  		$argument .=", gender = '". $gender ."'";
+  	}
+  	if ($ethnicity != 'undefined') {
+  		$argument .=", ethnicity='". $ethnicity ."'";
+  	}
+  	$age= htmlspecialchars($_POST['age']);
+  	$gender= htmlspecialchars($_POST['gender']);
+  	$ethnicity= htmlspecialchars($_POST['ethnicity']); 
+  	
    $addUser = "INSERT INTO users(username, password, salt, email, forename, lastname, pracID, start_date, pref_method, other_method, roleID, referenceID) VALUES (LOWER('" . $username . "'), '" . $password . "', '" . $salt . "', LOWER('" . $email . "'), LOWER('" . $firstname . "'), LOWER('" . $lastname . "'), '". $practice ."', '" . $startdate . "', '". $method ."', '". $other_method ."',  'U', '". $registration ."');";
-   $updateConsent = "UPDATE reference SET  e_consent = '" . $e_consent . "', e_consent_v= '" . $e_consent_v . "', e_consent_a= '" . $e_consent_a . "', e_consent_gp='" . $e_consent_gp . "', e_consent_t= '" . $e_consent_t . "', age  =". $age .", gender = '". $gender ."', ethnicity='". $ethnicity ."' WHERE referenceID '". $registration ."';";
+   $updateConsent = "UPDATE reference SET  e_consent = '" . $e_consent . "', e_consent_v= '" . $e_consent_v . "', e_consent_a= '" . $e_consent_a . "', e_consent_gp='" . $e_consent_gp . "', e_consent_t= '" . $e_consent_t . "' " . $argument . " WHERE referenceID = '". $registration ."';";
+ 
  // $errors['query']= $addUser;
   //echo $addUser;
    if (mysqli_query($connection, $addUser))
@@ -68,7 +83,7 @@ All the information you need to start the 12-week walking programme is online, i
 We would be grateful if you could complete and return the paper consent form, enclosed in your pedometer pack, using the free-post envelope provided. If you have misplaced the form or the envelope please contact Charlotte Wahlich (PACE-UP research assistant) on cwahlich@sgul.ac.uk who can provide you with a replacement. \n
 We hope that you enjoy the 12-week walking programme!
 Best wishes, 
-The PACE-UP team";
+The PACE-UP team " . $updateConsent;
      $subject= 'Welcome to PACE-UP Next Steps';
       $headers = "MIME-Version: 1.0" . "r\n\ ";
      $headers .= "Content-type:text/html;charset=UTF-8"."\r\n ";

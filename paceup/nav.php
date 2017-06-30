@@ -21,7 +21,7 @@
    <li class="dropdown">
    <a class="dropdown-toggle" data-toggle="dropdown" href="#">TARGETS <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="./explain_targets.php"><span class='glyphicon glyphicon-send'></span><span id="currenttarget"> TARGETS EXPLAINED</span></a></li>
+            <li><a href="./explain_targets.php"><span class='glyphicon glyphicon-record'></span><span id="currenttarget"> TARGETS EXPLAINED</span></a></li>
           </ul>
         </li>
          <li class="dropdown">

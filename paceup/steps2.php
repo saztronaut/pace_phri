@@ -2,7 +2,7 @@
 <?php include './template.php';?>
 <br><div class= "container">
 <div class= "jumbotron">
-<span id="thisHeader"><h2>Record your steps here</h2></span>
+<h2 id="thisHeader">Record your steps here</h2>
 <span id="thisBlurb"></span>
 </div></div>
 <div class="container-fluid-extrapad"> <div class = "row">

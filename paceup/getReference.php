@@ -22,15 +22,19 @@ if ($_POST){
   	break;
   }
     if ($pracID!=""){$condition .= " AND upper(practice)=upper('".$pracID."')";}
+   
+$lookup=    "SELECT reference.referenceID, username, forename, lastname
+          FROM reference LEFT JOIN users on reference.referenceID = users.referenceID
+			". $condition ." ORDER BY referenceID;";
     
-  $lookup = "SELECT referenceID FROM reference ".$condition.";";
+//  $lookup = "SELECT referenceID FROM reference ".$condition.";";
   $result = mysqli_query($connection, $lookup) 
     or die("Error getting references" . mysql_error());
   if ($result){
 	echo "<select name='ref' id='reference' class='form-control'>";
 	echo "<option value='' disabled selected> Select the reference</option>";
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-			echo "<option value='". $row['referenceID'] ."'> ". $row['referenceID'] ." </option> ";}		
+			echo "<option value='". $row['referenceID'] ."'> ". $row['referenceID'] .", ". $row['username'] ." ". $row['forename'] ." ". $row['lastname'] ."  </option> ";}		
 		
 		
 	echo "</select>";}
