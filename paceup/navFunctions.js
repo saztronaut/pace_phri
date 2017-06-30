@@ -13,7 +13,7 @@ function doXHR(url, callback, data) {
 
             if (typeof callback === "function") {
         // apply() sets the meaning of "this" in the callback
-        console.log("callback " + xhr.responseText);
+        //console.log("callback " + xhr.responseText);
                 callback.apply(xhr);
             }
         }
@@ -30,7 +30,7 @@ function getlogin() {
     "use strict";
     doXHR("./loggedon.php", function () {
         var response = this.responseText;
-        console.log(response);
+        //console.log(response);
         var print = [];
         if (parseInt(response) === 0) {
             print.push("<li><a href='./register_form.php'>");

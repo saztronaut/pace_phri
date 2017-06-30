@@ -113,13 +113,13 @@ color: #fff;
     color: #000 !important;
 }
 
-@media screen and (max-width: 768px) {
+/*@media screen and (max-width: 768px) {
     .col-sm-4 {
       text-align: center;
       margin: 25px 0;
     }
   }
-
+*/
 
 .scroll{
 
@@ -161,6 +161,16 @@ footer .glyphicon {
     margin-bottom: 20px;
     color: #723F97;
 }
+footer .glyphicon-smol {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #723F97;
+}
+.sub-footer {
+    font-size: 1em;
+    margin-bottom: 20px;
+    color: #723F97;
+}
 img .noborder {
     border: none;
 	align: center;
@@ -180,6 +190,7 @@ img .small {
     max-height: 75 px;
     height: auto;
 }
+
 
 .strike-through {
     text-decoration: line-through;
@@ -209,21 +220,26 @@ img .small {
 body {
     padding-top: 0px;
 }
-@media (max-width: 1000px){
-    body {
-       padding-top: 60px; }
-}
-@media (max-width: 760px){
+@media (min-width: 1100px){
+	
     body {
        padding-top: 0px; }
 }
-
-@media (max-width: 400px){
-    img {
-       max-width: 70%; }
+@media (min-width: 760px){
+    body {
+       padding-top: 60px; }
+}
+/*
+img.img-logo-nav {
+	max-width: 90%;
+}*/
+a.navbar-brand  {
+	max-width: 80%;
 }
 
+
 Generic Styling, for Desktops/Laptops 
+@media (min-width: 760px) {
 */
  table .table-plain, thead, th, td { 
   width: 100%;
@@ -266,8 +282,9 @@ Generic Styling, for Desktops/Laptops
 	background-color: #723F97; /* purple4 */
 	color: white;
 }
- 
-@media (max-width: 760px) {
+}
+/* @media (max-width: 760px) { */
+Styling for mobile 
 
 .form-control {
 display: inline-block !important;
@@ -355,7 +372,7 @@ display: inline-block !important;
 	
  .table-plain td:before { content: attr(data-title); }
 
-}
+/* } */
 
 
 .carousel-control.left {

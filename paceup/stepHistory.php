@@ -1,6 +1,5 @@
 <?php include './template.php';?>
-
-<br><div class= "container">
+<div class= "container">
 <div class= "jumbotron">
 <h2>Your progress on PACE-UP Next Steps </h2>
 </div></div>
@@ -23,7 +22,7 @@ function getStepData(days){
 	console.log("Showing days " + days);
     doXHR('show_all_steps2.php', function () {
         var $response = this.responseText;
-        console.log($response);
+        //console.log($response);
         if ($response == "0") {
             document.getElementById("showAllData").innerHTML= "<h4> Whoops, either you are not logged in or you need to finish your first week. Redirecting you...</h4>";
             setTimeout(function() {
@@ -46,15 +45,15 @@ function viewPast(startDate, show_days){
     var datediff = (today.getTime() - initial.getTime())/(30*24*60*60*1000);
     var months =  Math.ceil(datediff/3);
     var mySelect = [];
-    console.log('3 Months: ' + months);
-    console.log('datediff: ' + datediff);
-    console.log('initial: ' + initial); 
+    //console.log('3 Months: ' + months);
+    //console.log('datediff: ' + datediff);
+    //console.log('initial: ' + initial); 
 
     mySelect.push("<form class = 'form-inline'> <div class='form-group-inline text-center'>");
     mySelect.push("<label for=\"viewSteps\">Showing steps summary for past "+ Math.round(show_days/30) + " months </label>");
     mySelect.push("<select class='form-control' placeholder='View a different time frame' id='viewSteps' name='viewSteps'>");
     for (x = 1; x <= months; x++) {
-        console.log(x);
+        //console.log(x);
         mySelect.push( "<option value ='" + (parseInt(x) * 90) + "'>");
         mySelect.push("Show last " + (parseInt(x) * 3) + " months") ;
         mySelect.push("</option>");
@@ -134,12 +133,12 @@ function drawTables ($response) {
 	    $print += "<p>" + message + "</p>";
 	    $print += tablehead;
 	    
-		for (j in steps){	
-            var date_set_read = new Date(steps[j].date_set);
+		for (j in steps){
+           // var date_set_read = new Date(steps[j].date_set);
             var date_read = new Date(steps[j].date);
-            var datediff = (date_read.getTime()-date_set_read.getTime())/(60*60*1000);
+           // var datediff = (date_read.getTime()-date_set_read.getTime())/(60*60*1000);
 		    
-		    if (Date(steps[j].date_set) == Date(targets[i].date_set)) {
+		   // if (Date(steps[j].date_set) == Date(targets[i].date_set)) {
                 //print day of week
                 $print += "<tr> <td>" + giveDay(date_read) + "</td>";
                 // print date
@@ -170,7 +169,7 @@ function drawTables ($response) {
             $print += "</tr>";
             basedta.push(base_steps);
             targetsdta.push(parseInt(targets[i].steps));
-        }
+       // }
     } //end individual step
 
     if (parseInt(targets[i].totaldays)> 0) {
@@ -186,10 +185,10 @@ function drawTables ($response) {
         var data=getChartdata(daysdta, stepsdta, basedta, 'Steps', targetsdta);	 
         var layout=getChartlayout(label, 'Steps', 7, 'thisAside_'+ (i) +'');   	
         $print += "</table></div>";
-        if (hitTarget >= parseInt(targets[i].days) && parseInt(i) !== 0) {
+        if (hitTarget >= parseInt(targets[i].days) && (parseInt(i) !== 0 || label!== "Baseline")) {
             showAvg += "<br> <td class='text-center'><span class='glyphicon glyphicon-thumbs-up logo'></span></td><br>"
             showAvg += "<h4>Good work, you hit your weekly target!</h4>"; 
-        } else if (parseInt(i) === 0) {
+        } else if (parseInt(i) === 0 && (parseInt(targets[i].days)=== 0 || targets[i].days=== null)) {
             showAvg += "<br> <td class='text-center'><span class='glyphicon glyphicon-road logo center-block'></span></td><br>"
             if (parseInt(base_steps) === 0){
                 showAvg += "<h4>Good work, you started your baseline week</h4>";

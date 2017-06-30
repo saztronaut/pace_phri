@@ -15,7 +15,7 @@ if (isset($_SESSION['username'])) {
 
 if (isset($_SESSION['ape_user'])){
 	$auth= checkRights('R');	
-	if ($auth==1){
+	if ((int)$auth===1){
 	$username = htmlspecialchars($_SESSION['ape_user']);
 	}
 }
@@ -85,7 +85,7 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     		}
     	}
     	else { 
-    		if ($x<=6){
+    		if ($x <= 6){
     	$thisweek = ($x*2)-1;
     		$week = 12;}
     	else {
@@ -97,19 +97,9 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     	}
     	// find out the date of the next target
 
-    	//$nexttar=$myTargetsarray[$x+1];
-    	//$enddate=$nexttar['date_set'];
-    //	$gap=date_diff(date_create($getdate), date_create($enddate));
-    	
-    //	if ($enddate == $today){
     		$diff = floor(abs(strtotime($getdate) - strtotime($enddate))/(60*60*24));
-    		//$gap = date_diff(date_create($getdate), date_create($today));
+
     		$nweeks = CEIL((($diff)-1)/7);
-    	///	echo " n_weeks: ". $nweeks;
-    	///	echo " get_date: ". $getdate;
-    	//	echo " today: ". $today;
-    	//} else {
-    //		$nweeks = (CEIL(($gap->d-1)/7));}
     		
     		// round it up to the nearest multiple of 7
     	if ($nweeks>1){
@@ -140,18 +130,13 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     for ($i=0; $i<=($all_weeks); $i++){
     	$target_row=$myTargetsprint[$i];   	
     	$getdate = $target_row['date_set'];
-          if ((int)$i == $all_weeks){
-               $enddate= $today;
-            //   echo "today";
+          if ((int)$i === $all_weeks){
+               $enddate = $today;
           }
           else{
     	        $nexttar=$myTargetsprint[$i+1];
     	        $enddate=date('Y-m-d', strtotime("-1 days", strtotime($nexttar['date_set'])));
                }
-        //       echo "list ".$i;
-         //      echo "end ".$enddate;
-          //     echo "start ".$getdate;
-               
            // get the date of the newest record. 
          // get the difference between that date and date_set
         $gap=date_diff(date_create($getdate),date_create($enddate));
@@ -166,10 +151,10 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
 
         $getSteps=mysqli_query($connection, $getStepsq) or die("Can't find user's steps" . mysql_error());    
 
-       while ($step_row= mysqli_fetch_array($getSteps, MYSQLI_ASSOC)){
+       while ($step_row = mysqli_fetch_array($getSteps, MYSQLI_ASSOC)){
     	    //if the date_read is higher than the date indicated by step count, then you need to add a new row
     	    while (date('Y-m-d', strtotime("+". $stepcount ." days", strtotime($getdate)))< $step_row['date']){
-    		    $mySteps[]=array($counter => $counter, 'date' => date('Y-m-d', strtotime("+". $stepcount ." days", strtotime($getdate))));
+    		    $mySteps[] = array($counter => $counter, 'date' => date('Y-m-d', strtotime("+". $stepcount ." days", strtotime($getdate))));
     		    $stepcount= $stepcount+1;
     	    }
     	
@@ -185,7 +170,9 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     }
     $myTargetsprint[$i]['totalsteps']=$totalsteps;
     $myTargetsprint[$i]['totaldays']=$totaldays;
+    
     mysqli_free_result($getSteps);
+    
     $myStepsprint[$counter]= $mySteps;	
     $counter=$counter+1;
     }

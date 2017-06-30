@@ -1,5 +1,5 @@
 <?php include './template.php';?>
-<br> <div class = "container">
+<div class = "container">
 <div class="jumbotron"><h2>Participant information</h2>
 </div></div>
 <div class = "container">
