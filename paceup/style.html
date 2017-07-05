@@ -220,15 +220,18 @@ img .small {
 body {
     padding-top: 0px;
 }
-@media (min-width: 1100px){
+@media (min-width: 769px){
+    body {
+       padding-top: 60px; }
+    .modal-dialog {
+    top: 30%;}
+}
+@media (min-width: 998px){
 	
     body {
        padding-top: 0px; }
 }
-@media (min-width: 760px){
-    body {
-       padding-top: 60px; }
-}
+
 /*
 img.img-logo-nav {
 	max-width: 90%;
@@ -237,10 +240,8 @@ a.navbar-brand  {
 	max-width: 80%;
 }
 
-
 Generic Styling, for Desktops/Laptops 
-@media (min-width: 760px) {
-*/
+
  table .table-plain, thead, th, td { 
   width: 100%;
   background-color: white;
@@ -281,9 +282,9 @@ Generic Styling, for Desktops/Laptops
 .btn-pace {
 	background-color: #723F97; /* purple4 */
 	color: white;
+/*}*/
 }
-}
-/* @media (max-width: 760px) { */
+ @media (max-width: 760px) {
 Styling for mobile 
 
 .form-control {
@@ -372,7 +373,7 @@ display: inline-block !important;
 	
  .table-plain td:before { content: attr(data-title); }
 
-/* } */
+} 
 
 
 .carousel-control.left {

@@ -3,7 +3,7 @@ function drawHeader2(week, weekno, comment) {
     //output thisHeader (the header for the week) blurb (the introductory text for the week) and thisAside (the bulk of the BCT)
     var draw = [];
     if (week != "") {
-    	console.log(week);
+    	//console.log(week);
     	var small = ""
     	if (week == "smallweek" + weekno) {
     		small = "small"; 

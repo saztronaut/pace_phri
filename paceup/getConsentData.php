@@ -1,5 +1,4 @@
 <?php
-
 require 'database.php';
 require 'sessions.php';
 include 'checkUserRights.php';

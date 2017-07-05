@@ -132,30 +132,31 @@ function drawMySteps(x, thisWeek, weekno, baseline, daysw, target, steparray, me
             // Show the day of the week and date
             mytable.push( "<tr><td data-title='Day'>"+ day+ "</td><td data-title='Date'>"+ stepdate+ " </td>");
             if (showtargets === 1) { //if you are showing targets, ask if the pt had a walk that day
-                if (add_walk!== null) {//if there is already steps data, show a check or a blank
+                if (stepsread!== null) {//if there is already steps data, show a check or a blank
                     if (add_walk==1){ //show a check
                         mytable.push( "<td data-title='Did you add a walk in to your day?'  class='text-center'> <span id='walk"+ date_set +"' ><span  class='glyphicon glyphicon-ok logo-small'></span></span></td>");
                         } else {// show a blank
-                            mytable.push( "<td data-title='Did you add a walk in to your day?'  class='text-center'> <span id='walk"+ date_set +"'> </span><br></td>");}
+                            mytable.push( "<td data-title='Did you add a walk in to your day?'  class='text-center'> <span id='walk"+ date_set +"'> </span><br></td>");
+                            }
                         } else { //show a checkbox control
-                            mytable.push( "<td data-title='Did you add a walk in to your day?' class='text-center'> <form class = 'form-inline form-inline-scale'> <div class='form-group'> ");
+                            mytable.push( "<td data-title='Did you add a walk in to your day?' class='text-center'> <span id='divwalk"+ date_set +"'><form class = 'form-inline form-inline-scale'> <div class='form-group'> ");
                             mytable.push( "<label for='walk" + date_set + "' class='sr-only'> Did you add a walk into your day? </label><div class=\"hidden-sm hidden-md hidden-lg\"></br></div> <input type='checkbox' class='form-control' id='walk" + date_set + "'> </div>");
-                        mytable.push("</form></td>");
+                        mytable.push("</form><span></td>");
                     }
                 }
                 mytable.push("<td data-title='Steps'  class='text-center'>");
                 if (stepsread!== null) { // if there is already a step count, add to total and display as text
                     totalsteps= totalsteps+ stepsread;
                     totaldays= totaldays+ 1;
-                    mytable.push("<span id='steps"+ date_set +"' value ="+ stepsread + " >"+ stepsread +  "</span>");
+                    mytable.push("<span id='divsteps"+ date_set +"'><span id='steps"+ date_set +"' value ="+ stepsread + " >"+ stepsread +  "</span></span>");
                     mytable.push("</td><td data-title='Device'><form class = 'form-inline form-inline-scale'> <div class='form-group'><span id='methodspan"+ date_set+"'>");
                     mytable.push(selectMethods("method"+ date_set, give_pref, methods, false));
                     mytable.push("</span></div></form></td>");
                 } else { // if no steps for this date, show a text control
-                    mytable.push("<form class = 'form-inline form-inline-scale'> <div class='form-group'>");
+                    mytable.push("<span id='divsteps"+ date_set +"'><form class = 'form-inline form-inline-scale'> <div class='form-group' id = 'form-group-steps"+ date_set +"'>");
                     mytable.push("<label for='steps" + date_set + "' class='sr-only'> Step count for that day </label>");
-                    mytable.push("<label for='steps" + date_set + "' class='sr-only'> Step count for that day </label><input type='integer' class='form-control' placeholder='Enter steps' id='steps"+ date_set +"' style='width: 7em;' ></div>");                 
-                    mytable.push("</form>");
+                    mytable.push("<input type='integer' class='form-control' placeholder='Enter steps' id='steps"+ date_set +"' style='width: 7em;' ></div>");                 
+                    mytable.push("</form></span>");
                     mytable.push("</td><td data-title='Device'><form class = 'form-inline form-inline-scale'> <div class='form-group'><span id ='methodspan"+ date_set+"' onfocusout='updateMethods(\"method" + date_set + "\")'>");
                     mytable.push(selectMethods("method"+ date_set, give_pref, methods));
                     mytable.push("</span></div></form></td>");
@@ -163,15 +164,15 @@ function drawMySteps(x, thisWeek, weekno, baseline, daysw, target, steparray, me
                 ///Get stars
                 if (parseInt(showtargets) === 1){
                     if ((targetstep!=null)&&(parseInt(targetstep)<= parseInt(stepsread))){
-                        mytable.push("<td  data-title='Achieved target' class='text-center' ><span class='glyphicon glyphicon-star logo-small'></span></td>");
+                        mytable.push("<td  data-title='Achieved target' class='text-center' ><span class='glyphicon glyphicon-star logo-small' id='achieved"+ date_set +"'></span></td>");
                         targetdays= targetdays+1;
-                    } else { mytable.push("<td  data-title='Achieved target'  class='text-center'><br></div> </td>");
+                    } else { mytable.push("<td  data-title='Achieved target'  class='text-center'><span id='achieved"+ date_set +"'><br></span> </td>");
                     }
                 }
                 if (stepsread!=null){ //If there is already a step count give option to edit else option to add new
-                    mytable.push("<td><input type='button' class='btn btn-default' id='editBtn"+ date_set +"' value='Edit' onclick='editBtnCheck(\"editBtn"+ date_set +"\")'></div></form></td>");
+                    mytable.push("<td><span id='changeBtn"+ date_set +"'><input type='button' class='btn btn-default' id='editBtn"+ date_set +"' value='Edit' onclick='editBtnCheck(\"editBtn"+ date_set + "\"," + parseInt(targetstep) + ")'></div></form></span></td>");
                 } else {
-                    mytable.push("<td><input type='button' class='btn btn-default' id='saveBtn"+ date_set +"' value='Add' onclick='updateSteps(\"saveBtn"+ date_set +"\", false)';> </div></form></td>");
+                    mytable.push("<td><span id='changeBtn"+ date_set +"'><input type='button' class='btn btn-default' id='saveBtn"+ date_set +"' value='Add' onclick='updateSteps(\"saveBtn"+ date_set + "\", false," + parseInt(targetstep) + ")';> </div></form></span></td>");
                 }
                 mytable.push("</tr>");
             }

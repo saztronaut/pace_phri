@@ -6,16 +6,11 @@ include 'checkUserRights.php';
 
 
 //check user has authority to generate codes R= researcher S= superuser
-//using form data, generate so many codes and report them to the browser
 $results=[];
 if ($_POST){
 
 	$username = htmlspecialchars($_SESSION['username']);
-	$n_codes = htmlspecialchars($_POST['n_codes']);
-	$practice = htmlspecialchars($_POST['practice']);
 
-	// practice tells you which practice the codes are for
-	// n codes tells you how many codes to generate
 	$auth= checkRights('R');
 
 	if ($auth==1){

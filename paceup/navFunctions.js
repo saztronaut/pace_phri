@@ -13,7 +13,7 @@ function doXHR(url, callback, data) {
 
             if (typeof callback === "function") {
         // apply() sets the meaning of "this" in the callback
-        //console.log("callback " + xhr.responseText);
+        console.log("callback " + xhr.responseText);
                 callback.apply(xhr);
             }
         }

@@ -2,7 +2,7 @@
 if (function_exists('returnWeek')=== false){
 	function returnWeek($username){
 		require 'database.php';
-		require 'updateTargetAuto.php';
+		require 'updateTargetAutoFunctions.php';
 		require 'setBaselineFunctions.php';
 		
 		$results=[];

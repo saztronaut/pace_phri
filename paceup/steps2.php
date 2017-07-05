@@ -85,17 +85,15 @@ function showWeek(past, viewWeek){
 	 }
 	
 
-function editBtnCheck(i_name){
+function editBtnCheck(i_name, target){
     if (document.getElementById(i_name).value == "Edit") {
-        editSteps(i_name);
+        editSteps(i_name, target);
     } else {
-    updateSteps(i_name, true);
+    updateSteps(i_name, true, target);
     }
 }
 
- 
-function updateSteps(controlname, edit){
-    // get number from string, which is the number from the current date
+function updateSteps (controlname, edit, target) {
     var nudge = controlname.slice(-(controlname.length-7));
     // get steps
     if (edit == true){
@@ -105,22 +103,93 @@ function updateSteps(controlname, edit){
         var inputname= "steps" + nudge;
         var walk_ck= 'walk' + nudge;
 	}
-	var method= 'method' + nudge;	  
-	input = document.getElementById(inputname).value;	  
-    var date_set = nudge;	
-    methodID = document.getElementById(method).value; 
+	input = document.getElementById(inputname).value;
+	var carryOn = checkSteps(input);
+	var message = "";
+	var button = 0;
+	if (carryOn === 1) {
+        updateStepsTable(controlname, edit, target, nudge, input , inputname , walk_ck);
+	} else if (carryOn === 2) {
+		message = "Please enter a number";
+    } else if (carryOn === 3 || carryOn === 4) {
+		message = "<p class= 'text-center'>Are you sure you walked " + input + " steps on this day?</p>";
+		message += "<p class= 'text-center'><button type= 'button' class='btn btn-default' onclick='updateStepsTable(\"" + controlname + "\", " + edit + "," + target + ",\"" + nudge +  "\"," + input +  ",\"" + inputname + "\",\"" + walk_ck + "\")'> Yes  </button>";
+		message += "<button type= 'button' class='btn btn-default' onclick='hideModal()'> No  </button></p>";		
+	    document.getElementById('getModalHeader').innerHTML = "Checking your daily steps";
+		document.getElementById('method_message').innerHTML = message;
+    $('#methodModal').modal('show');
+    }
+	
+	
+	
+}
+
+function updateStepsTable(controlname, edit, target, nudge, input , inputname , walk_ck){
+    hideModal();
+    var method= 'method' + nudge;
+//	input = document.getElementById(inputname).value;
+	console.log("inputname"+ inputname);  
+    var date_set = nudge;
+    methodID = document.getElementById(method).value;
 	      //find out if there is a walk check box
     var walk_yn = '';
     if (document.getElementById(walk_ck)){
-        walk_yn = document.getElementById(walk_ck).checked;
+        walk_yn = document.getElementById(walk_ck).checked;       
     }  
 	  //use input, date set and series data to update the step values and store in the database
     data = "date_set=" + date_set + "&steps=" + input + "&walk=" + walk_yn + "&method="+methodID;
-    //console.log(data);
+    console.log(data);
     doXHR('./updateSteps.php', function() {
-        var $response = this.responseText;	  
-        window.location.reload(true);  	
+        var $response = this.responseText;
+        console.log($response);	
+        if ($response === "Refresh") { 
+            window.location.reload(true);
+        } else {
+            if (edit == true){
+                document.getElementById(inputname).innerHTML = "";
+            }
+                document.getElementById("divsteps" + nudge).innerHTML = "<span id='steps"+ nudge +"' value ="+ input + " >" + input +  "</span>";
+               	document.getElementById("methodspan" + nudge).innerHTML = "<span id='method"+ nudge +"' value ="+ methodID + " >" + methodID +  "</span>";
+              //  } else {
+              // console.log( "input name: " + inputname);
+              //  document.getElementById(inputname).innerHTML = "";
+                document.getElementById("divsteps" + nudge).innerHTML = "<span id='steps"+ nudge +"' value ="+ input + " >" + input +  "</span>";
+            	document.getElementById("methodspan" + nudge).innerHTML = "<span id='method"+ nudge +"' value ="+ methodID + " >" + methodID +  "</span>";
+               // }
+            if (document.getElementById(walk_ck)){           	
+            	    console.log ("divwalk" + nudge);
+        		    document.getElementById("divwalk" + nudge).innerHTML = "<br>";       		    
+                } 
+        	if (walk_yn == true) {
+            	document.getElementById("divwalk" + nudge).innerHTML = "<span  class='glyphicon glyphicon-ok logo-small'></span>";
+            	}
+        	console.log(target);
+        	if (target !== 0 && target !== null && target !== false && target <= input) {
+            	document.getElementById("achieved" + nudge).className= "glyphicon glyphicon-star logo-small";
+            	}
+        	else if (document.getElementById("achieved" + nudge)) {
+            	document.getElementById("achieved" + nudge).className= "";
+        	    }
+            document.getElementById("changeBtn" + nudge).innerHTML = "<input type='button' class='btn btn-default' id='editBtn"+ nudge +"' value='Edit' onclick='editBtnCheck(\"editBtn"+ nudge + "\"," + parseInt(target) + ")'></div></form></span>";
+            }	
         }, data);
+}
+
+function checkSteps(steps){
+	
+    var response = 0;
+    if (isNaN(steps)) {
+        response = 2; // Not a number 
+    } else if (steps < 1000){
+        response = 3; // suspiciously low
+    } else if (steps > 50000) {
+        response = 4; // suspiciously high
+    } else {
+        response = 1;
+    }
+
+    return response;
+	
 }
 
 function recordComment(weekno) { //record a comment from the comments box
@@ -130,16 +199,16 @@ function recordComment(weekno) { //record a comment from the comments box
         doXHR('addComment.php', function(){
            var $response = this.responseText;
            if ($response == 1) {
-               document.getElementById('form'+weekno).className= "form-group has-success";	//show green border if successful	  
+               document.getElementById('form'+weekno).className = "form-group has-success";	//show green border if successful	  
            } else {
-               document.getElementById('form'+weekno).className= "form-group has-danger";	//show red border if not successful	
+               document.getElementById('form'+weekno).className = "form-group has-danger";	//show red border if not successful	
            }
         }, data);
     }
 }
   
   
-function editSteps(controlname) {//When has steps entry, and edit button clicked, enable edit of steps
+function editSteps(controlname, target) {//When has steps entry, and edit button clicked, enable edit of steps
     // get number from string, which is the date of the control
     var nudge = controlname.slice(-(controlname.length-7))
     // get steps
@@ -147,16 +216,18 @@ function editSteps(controlname) {//When has steps entry, and edit button clicked
     //change the steps span id into a control box
     input = document.getElementById(inputname).textContent;
     myval = document.getElementById(inputname).innerText; 	
-    str= "<form class = 'form-inline'> <div class='form-group'><input type='integer' class='form-control' placeholder=" + myval + " id='new" + inputname + "' style='width: 7em'/></div></form>"; 
-    console.log(str);
+    str= "<form class = 'form-inline'> <div class='form-group-" + inputname +"'><input type='integer' class='form-control' placeholder=" + myval + " id='new" + inputname + "' style='width: 7em'/></div></form>"; 
+
     document.getElementById(inputname).innerHTML = str;
+    document.getElementById("new" + inputname).value = myval;
     //change the walk span id into a control box
     var walk_ck = 'walk' + nudge;
     if (document.getElementById(walk_ck)) {
-        if (document.getElementById(walk_ck).textContent!="") {
-            chkstr = "<form class = 'form-inline'> <div class='form-group'> <input type='checkbox' class='form-control' id='new" + walk_ck + "' checked='on'/> </div></form>";
+        console.log(document.getElementById(walk_ck).textContent);
+        if (document.getElementById(walk_ck).textContent!=="" || document.getElementById(walk_ck).textContent!== null) {
+            chkstr = "<span id='divwalk"+ nudge +"'><form class = 'form-inline'> <div class='form-group'> <input type='checkbox' class='form-control' id='new" + walk_ck + "> </div></form></span>";
         } else {
-            chkstr = "<form class ='form-inline'><div class='form-group'> <input type='checkbox' class='form-control' id='new" + walk_ck + "'/> </div></form>";
+            chkstr = "<span id='divwalk"+ nudge +"'><form class ='form-inline'><div class='form-group'> <input type='checkbox' class='form-control' id='new" + walk_ck + "'> </div></form></span>";
         }
         document.getElementById(walk_ck).innerHTML=chkstr;
     }  
@@ -208,5 +279,7 @@ function updateMethods(input) {
     }
 }
   
-  
+function hideModal () {
+	 $('#methodModal').modal('hide');
+}
   </script>

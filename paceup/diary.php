@@ -28,7 +28,7 @@ function showText(week, weekno, comment){
 	if (weekno==0){ 
 		week="baseline"; 
 		comment="";
-		console.log(week, weekno, comment)}
+		}
 	var header = drawHeader2(week, weekno, comment);
     var smallHeader = drawHeader2("small" + week, weekno, comment);
 	document.getElementById('text').innerHTML= header['thisAside'];
@@ -49,12 +49,15 @@ function showText(week, weekno, comment){
 }
 
 function recordComment(weekno){
-	var comment = document.getElementById('comment' + weekno).value;
+	var comment = "";
+	if (document.getElementById('comment' + weekno)){
+		comment= document.getElementById('comment' + weekno).value;
+	}
 
     if (comment === ""|| comment === 'undefined' || comment === null || comment === false){ // check there is something in the comment
     	var mycontrol = document.getElementById('smallcomment' + weekno);
         comment = mycontrol.value; 
-        console.log ("check"+ comment);
+        //console.log ("check"+ comment);
     }
     if (comment != ''){
     	myComment = JSON.stringify(comment);             
@@ -80,7 +83,7 @@ function drawDiary (){
 	xhr.onreadystatechange = function () {
 		if(xhr.readyState == 4 && xhr.status ==200){
 			var $response = xhr.responseText;
-			console.log($response);
+			//console.log($response);
 			if ($response=="0"){
 				document.getElementById("pills").innerHTML= "<h4> Whoops, you need to be logged in to look at your diary! Redirecting you</h4>";
 				setTimeout(function() {redirect('./landing_text.php');},2500);
@@ -88,7 +91,7 @@ function drawDiary (){
 			else {
 	// for each value in the array loop through and draw the respective html code
 				var comments = JSON.parse($response)
-				console.log(comments);
+				//console.log(comments);
 				pills='<ul class="nav nav-pills nav-stacked">';
 				text="";
 				for (i in comments){
