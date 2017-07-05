@@ -80,21 +80,22 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     	if ($x == 0){
     	$thisweek = 0;
     	$myfirstTarget['target'] = $getdate;
-    		if ($getdate >= $only_show){
+    	if (strtotime($getdate) >= strtotime($only_show)){
      			$myTargetsprint[]=array('week'=> $thisweek, 'date_set'=> $getdate, 'steps' => $target_row['steps'], 'days' => $target_row['days']);
     		}
     	}
     	else { 
     		if ($x <= 6){
     	$thisweek = ($x*2)-1;
-    		$week = 12;}
+    		$week = 12;
+    		}
     	else {
     		$week = $week + 1;
     		$thisweek = $week;
     	}
-    	if ($getdate >= $only_show){
+    	if (strtotime($getdate) >= strtotime($only_show)){
     		$myTargetsprint[] = array('week'=> $thisweek, 'date_set'=> $getdate, 'steps' => $target_row['steps'], 'days' => $target_row['days']);
-    	}
+    }
     	// find out the date of the next target
 
     		$diff = floor(abs(strtotime($getdate) - strtotime($enddate))/(60*60*24));
@@ -105,7 +106,7 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     	if ($nweeks>1){
     		$subweek=0; //subweek when there are more than one week within a 
     			// add a new row in to $myTargetsprint
-    		for ($i=1; $i<=$nweeks; $i++) {
+    		for ($i=1; $i<$nweeks; $i++) {
     			if ($x > 6) { //if post 12, then show each week separately
     				$week = $week + 1;
     				$thisweek = $week;
@@ -117,7 +118,9 @@ while ($target_row = mysqli_fetch_array($getTargets, MYSQLI_ASSOC)){
     			   }
     			}		   
     			$newDate = date('Y-m-d', strtotime("+".($i*7) ." days", strtotime($getdate)));
-    			$myTargetsprint[] = array('week'=> $thisweek,'date_set'=> $newDate, 'steps' => $target_row['steps'], 'days' => $target_row['days']);
+    			if (strtotime($newDate) >= strtotime($only_show)){
+    				$myTargetsprint[] = array('week'=> $thisweek,'date_set'=> $newDate, 'steps' => $target_row['steps'], 'days' => $target_row['days']);
+    			}
     			$subweek = $subweek+1;
     		    }
     		}

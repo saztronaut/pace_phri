@@ -1,7 +1,7 @@
 <?php include './template.php';?>
 <div class='jumbotron text-center'>
 <h1>PACE-UP</h1>
-<p> How your targets are calculated</p> </div>
+<p> A twelve week programme to help you gradually increase your walking</p> </div>
 <br><br><div class="container-fluid">
 <div id="targets_text"></div>
 </div>

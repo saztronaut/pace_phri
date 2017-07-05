@@ -175,7 +175,7 @@ function pastWeek($weekno, $username, $baseline){
 		$results['steps']=$date_pick['steps'];
 		$results['days']=$date_pick['days'];
 		$results['latest_t']=date("Y-m-d", $latest_t);
-		$results['finish']=date('Y-m-d',strtotime('+7 days', strtotime($thisStart)));
+		$results['finish']=date('Y-m-d',strtotime('+6 days', strtotime($thisStart)));
 		$results['maxweekno']=$w;
 	}
 
