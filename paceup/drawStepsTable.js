@@ -1,6 +1,10 @@
+// Functions concerning the drawing of the steps table and anything falling on the left hand side of the steps page.
+
 function drawTable(weekdata, methods, finish) {
     "use strict";
-    // var xhr = new XMLHttpRequest();
+    // Take the weekdata array and the methods array to draw a table
+    // finish is true if the week viewed occurred in the past
+
     ///create a string to parse to build the able
     var myString = "week=" + weekdata.week;
     myString += "&weekno=" + weekdata.weekno;
@@ -17,44 +21,42 @@ function drawTable(weekdata, methods, finish) {
     var days = weekdata.days; //days to reach target
     var myTable = "";
     if (week === "finished") {
+        // Participant has finished the 12 week programme and selected not to continue. Don't show steps
         var post12message = drawNoContinue();
         var printThis = post12message.join("\n");
         document.getElementById("thisTable").innerHTML= printThis;
     } else {
         doXHR("./drawTable2.php", function () {
-            var $drawTable = this.responseText;
+            var $drawTable = this.responseText;  
             if ($drawTable === 0) { //you don't want to draw the table if there is no data
             } else {
                 var tabledata = JSON.parse($drawTable);
                 var n_show = tabledata.n_show; //number of tables to show
-                var display13 = 1;
+                var display13 = 1; // whether to show the post 12 message or not
                 if (n_show > 0) {
                     n_show = n_show - 1;
                 } // 0 index
-                var tableResults= tabledata.tableResults;
-                var showrow = []; //create array to store the day-level data
-                var ispast = [];
+                var tableResults= tabledata.tableResults; // this array contains showrow, ispast, end
+                var showrow = [];//create array to store the day-level for each week
+                var ispast = [];// the week to show is in the past y or n
                 var i = 0;
                 for (i in tableResults) {
-                    showrow.push(tableResults[i].showrow);
-                    ispast[i] = tableResults[i].ispast;
+                    showrow.push(tableResults[i].showrow);// showrow contains target date, day, date of steps, addwalk y/n, steps, device for each day of that week
+                    ispast[i] = tableResults[i].ispast;// 0= no 1=yes. Affects feedback mesage
                 }
-                var $drawMyTable = [];
+                var $drawMyTable = [];// store the html code for displaying the week table
                 $drawMyTable.push("<h3> You can record your steps here </h3>");
                 if (weekdata.week === "getweek1") {
-                    //show select week button
+                    //show select week to increase targets. Only when baseline set but not week 1
                     var onew = setWeekOne(weekdata.latest_t, weekdata.baseline);
                     $drawMyTable.push(onew);
                 } else if (weekdata.week === "delayweek1") {
+                    // show the date that the user has selected to increase targets
                     var showDate = new Date(weekdata.latest_t);
                     $drawMyTable.push("<p>You will start to increase your steps from " + giveDay(showDate) + " ( " + forwardsDate(showDate) + ")</p>");
-                } else if (weekdata.week === "finished") {
-                // var post12message=drawNoContinue();
-                // var printThis = post12message.join("\n");
-                // document.getElementById("thisTable").innerHTML= printThis;
                 }
                 if (weekno >= 13) {
-                    console.log(weekdata.summary);
+                    //After the 12 weeks programme
                     if (weekdata.summary === 1) {
                         //display chart
                         twelveWeek();
@@ -120,15 +122,14 @@ function drawMySteps(x, thisWeek, weekno, baseline, daysw, target, steparray, me
             mytable.push("<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Did you add </br>a walk of </br>"+ walkmin +" minutes </br>or more </br>today?</th><th>Steps</th><th>Device</th><th>Achieved </br>target</th><th></th></tr></thead>");
             showtargets=1;
         }
-        //console.log(steparray);
 
         for (i in steparray) { //draw each day as a row of information about steps
             day = giveDay(steparray[i].date_set);
-            stepdate = forwardsDate(steparray[i].date_set);
-            date_set = steparray[i].date_set;
-            add_walk = steparray[i].addwalk;
-            give_pref = steparray[i].give_pref;
-            stepsread = steparray[i].stepsread;
+            stepdate = forwardsDate(steparray[i].date_set);//date of steps as D-M-YYYY
+            date_set = steparray[i].date_set;// date of steps
+            add_walk = steparray[i].addwalk;//did you add a walk in
+            give_pref = steparray[i].give_pref;//device code
+            stepsread = steparray[i].stepsread;//number of steps walked
             // Show the day of the week and date
             mytable.push( "<tr><td data-title='Day'>"+ day+ "</td><td data-title='Date'>"+ stepdate+ " </td>");
             if (showtargets === 1) { //if you are showing targets, ask if the pt had a walk that day
@@ -146,9 +147,11 @@ function drawMySteps(x, thisWeek, weekno, baseline, daysw, target, steparray, me
                 }
                 mytable.push("<td data-title='Steps'  class='text-center'>");
                 if (stepsread!== null) { // if there is already a step count, add to total and display as text
-                    totalsteps= totalsteps+ stepsread;
-                    totaldays= totaldays+ 1;
+                    totalsteps= totalsteps+ stepsread;//add to total number of steps (for baseline really)
+                    totaldays= totaldays+ 1;//add to number of days recorded
+                    // print daily steps
                     mytable.push("<span id='divsteps"+ date_set +"'><span id='steps"+ date_set +"' value ="+ stepsread + " >"+ stepsread +  "</span></span>");
+                    // print device used
                     mytable.push("</td><td data-title='Device'><form class = 'form-inline form-inline-scale'> <div class='form-group'><span id='methodspan"+ date_set+"'>");
                     mytable.push(selectMethods("method"+ date_set, give_pref, methods, false));
                     mytable.push("</span></div></form></td>");
@@ -249,6 +252,7 @@ function stepsFeedback(week, targetdays, totalsteps, totaldays, daysw, ispast, s
 }
 function goBack(week, maxweek, showweek){
     ////This gives the option to view previous weeks (if they have any)
+	// max week is the most recent week to navigate to
     var print=[];
     if ((week == 'baseline' || week == 'getweek1'|| week == 'delayweek1') == 0){
         print.push("<br><p><b>View your step counts from previous weeks </b></p>");
@@ -279,7 +283,8 @@ function goBack(week, maxweek, showweek){
     return printThis;
 }
 	
-function bumpTarget(weekno, newweek) { // allows user to move to next target even if they didn't hit it
+function bumpTarget(weekno, newweek) {
+    // allows user to move to next target even if they didn't hit it
     var printThis = "";
     printThis += "<div class='form-group'><p><b>You have been given an extra week to hit the target from week " + weekno + " ";
     printThis += "<button type='button' class='btn btn-default' id='increaseT' onclick=\"javascript:incTarget('"+ newweek +"')\">Click here to move onto the next target</button></div></form></b></p>";
@@ -287,6 +292,7 @@ function bumpTarget(weekno, newweek) { // allows user to move to next target eve
 }
 	
 function setWeekOne (latest_t, baseline) {
+    // Creates a select box from which user can choose when to begin their week 1 step increase
     var print=[];
     console.log(latest_t, baseline);
     print.push("<p>Congratulations, you completed the baseline week. You walked an average of "+ baseline +" steps per day </p>");
@@ -317,7 +323,7 @@ function setWeekOne (latest_t, baseline) {
 }
 	
 function twelveWeek(){
-	
+    // Show modal with options to view summary data, do a questionnaire and select continue/ don't continue
     document.getElementById('getModalHeader').innerHTML= "<h4> Well done! You have completed the PACE-UP Programme </h4>";
     var showMessage=[];
     showMessage.push("<div class = 'row'> <div class = 'col-md-8'>");
@@ -339,6 +345,7 @@ function twelveWeek(){
 }
 
 function drawNoContinue(){
+    // if user selected not to continue recording steps
     var myMessage=[];
     myMessage.push("<h3>Now you have finished the twelve weeks of PACE-UP Next Steps</h3>");
     myMessage.push("<p>We've put together a summary of your progress over the PACE-UP Next Steps programme, if you've like to see it, click the button below</p><br>");
