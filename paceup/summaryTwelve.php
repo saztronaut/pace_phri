@@ -3,8 +3,8 @@
 require 'database.php';
 require 'sessions.php';
 
+// Show the twelve week feedback summary for a user
 $username = htmlspecialchars($_SESSION['username']);
-
 $summary=[];
 // Report the baseline week
 // Baseline week
@@ -34,20 +34,26 @@ $order= 7;
 $get_date = "SELECT date_set, days, steps FROM targets WHERE username='". $username ."' ORDER BY date_set LIMIT ". $order .",1;";
 $get_steps_date = mysqli_query($connection, $get_date)
 or die("Can't get steps data" . mysql_error());
-$w13 = mysqli_fetch_array($get_steps_date);
+$w13 = mysqli_fetch_array($get_steps_date); 
 $week13=$w13['date_set'];
+if ($week13 == null){ // if no target for week 13 has been set, then get the last recorded reading and report that
+		$getLatestReadingq = "SELECT MAX(date_read) as recent FROM readings WHERE username='". $username ."';";
+		$getLatestReading= mysqli_query($connection, $getLatestReadingq) or die ("can't get latest reading".mysql_error());
+		$latestReading= mysqli_fetch_array($getLatestReading);
+		$week13 = $latestReading['recent']; // replace the value for week13 with the last step recorded.
+	
+}
+
 // how many weeks to display
 $n_weeks=(strtotime($week13)-strtotime($week1_date))/(60*60*24*7);
 $summary['n_weeks']= $n_weeks;
 
 for ($x = 0; $x <$n_weeks; $x++) {
 	$a=$x*7;
-	$b=(($x+1) *7)-1;
+	$b=(($x+1)*7)-1;
 	
 	$thisDate=date('Y-m-d', strtotime("+". $a ." days", strtotime($week1_date)));
 	$thisDateFin=date('Y-m-d', strtotime("+". $b ." days", strtotime($week1_date)));
-	//$thisDate= date('Y-m-d', $thisDate);
-	//$thisDateFin= date('Y-m-d', $thisDateFin);
 	// get number of readings
 	$getWeek = "SELECT COUNT(*) AS n_days, SUM(steps) AS total_steps, ROUND(AVG(steps), 0) AS mean_steps, COUNT(add_walk) AS walk 
                FROM (SELECT date_read, add_walk, steps FROM readings 
@@ -57,9 +63,13 @@ for ($x = 0; $x <$n_weeks; $x++) {
 	$week=[];
 	
 	$week['total_steps']=$theseResults['total_steps'];
-	if ($week['total_steps']==null){$week['total_steps']=0;}
-	$week['mean_steps']=$theseResults['mean_steps'];
-	if ($week['mean_steps']==null){$week['mean_steps']=0;}
+	if ($week['total_steps']==null){
+		$week['total_steps']=0;
+	}
+	$week['mean_steps'] = $theseResults['mean_steps'];
+	if ($week['mean_steps']==null){
+		$week['mean_steps']=0;
+	}
 	$week['n_days']=$theseResults['n_days'];
 	$week['walk']=$theseResults['walk'];
 	//get this weeks target and update $target if there is one
@@ -86,6 +96,7 @@ for ($x = 0; $x <$n_weeks; $x++) {
 	$summary[$x+1]=$week;
 
 }
+//Average number of steps at baseline
 $baseStepsQ = "SELECT COUNT(*) AS n_days, SUM(steps) AS total_steps, ROUND(AVG(steps), 0) AS mean_steps, COUNT(add_walk) AS walk
                FROM (SELECT date_read, add_walk, steps FROM readings
                WHERE username='". $username ."' AND date_read BETWEEN '". $date_base."' AND DATE_ADD('". $date_base."', INTERVAL 6 DAY)) AS thisWeek;";
@@ -105,11 +116,13 @@ $summary['total_steps']= $mytotal['total_steps'];
 $summary['add_walk']= $mytotal['walk'];
 // Then report each week sequentially
 
-if(!empty($summary)) {
+if (!empty($summary)) {
 	// feedback results
 	$result_array = $summary;
 	echo json_encode($result_array);}
-	else {echo 0;}
-	
+	else {
+		echo 0;
+	}
+
 	
 ?>

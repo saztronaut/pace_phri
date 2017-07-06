@@ -17,6 +17,11 @@
 	//And so on for the remaining weeks
 	// If there is no baseline target, add if needed
 	//Allow admin to view as if they were an individual
+	
+	// 1. take the user parameter
+	// 2. use returnWeek to refresh any targets and return the week that the user is on
+	// 3. if the user is post 12 weeks, ascertain if they are planning to carry on or not
+	// 4. 
 	if (isset($_SESSION['ape_user']) && ($_SESSION['roleID']=='R'||$_SESSION['roleID']=='S')){
 		$username = htmlspecialchars($_SESSION['ape_user']);
 	}
@@ -46,20 +51,21 @@
 		    $latest_t=date('Y-m-d', strtotime($results['latest_t']));
 		}
 		if ($w>=13) {
-			$showSumm= "SELECT finish_show FROM users WHERE username='".$username."' ;";
-			$summResult= mysqli_query($connection, $showSumm) or die("Error checking if summary or no");
-			$getSum= mysqli_fetch_array($summResult);
-			$summary=$getSum['finish_show'];
-			if ($summary==0){
+			$showSumm = "SELECT finish_show FROM users WHERE username='".$username."' ;";
+			$summResult = mysqli_query($connection, $showSumm) or die("Error checking if summary or no");
+			$getSum = mysqli_fetch_array($summResult);
+			$summary = $getSum['finish_show'];
+			if ((int)$summary == 0){
 				//update finish_show to 1 so that the summary will be shown
 				$updateSumm= "UPDATE users SET finish_show=1 WHERE username='". $username ."';";
 				mysqli_query($connection, $updateSumm) or die($updateSumm.mysql_error());
-				$summary=1;
+				$summary = 1; // indicate that the user should be shown the modal for post 12 optiosn
 			}
 			$results['summary']= $summary;
-			if ($summary==3){
+			if ((int)$summary === 3){
 				//user does not want to collect any more data.
-				$week="finished";
+				$week = "finished";
+				$results['week'] =  "finished";
 			} else {			
 				if ($latest_t>$today){
 					// if the most recent target is in the future, get previous/ current target - so view the past but for the current week	

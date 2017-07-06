@@ -2,7 +2,7 @@
 <div class='jumbotron text-center'>
 <h1>PACE-UP - Next Steps</h1>
 <p> Handbook</p> </div>
-<div class="container-fluid-extrapad">
+<div class="container-fluid">
 <div class="panel-group" id="accordion">
 <div class="panel panel-default">
 <div class="panel-heading text-center">
@@ -62,18 +62,18 @@ How much physical activity should you do for health benefits?</a>
 </div>
 <div id="collapse2" class="panel-collapse collapse">
 <div class="panel-body"><p>You should aim to be active daily. Over a week, activity should add up to at least <b>150 minutes</b> (2.5 hours) of <b>moderate intensity activity</b> in <b>bouts of 10 minutes</b> or more.</p>
-<div class="row center"><div class="col-sm-12">
+<div class="row text-center"><div class="col-sm-12">
 <p>One good way to approach this is to do <b>30 minutes activity on at least 5 days a week</b>. This is part of the UK physical activity guidelines for health for adults and older adults (see <a href="www.nhs.uk/livewell/fitness"> activity guidelines on the NHS website </a>) </p>
 </div></div>
-<div class="row center"><div class="col-sm-6"><h4> Moderate intensity activity means that you should:</h4>
+<div class="row text-center"><div class="col-sm-6"><h4> Moderate intensity activity means that you should:</h4>
 <ul type='circle'>
 <li>Begin to breathe a bit quicker</li>
 <li>Feel your heart beating a bit faster </li>
 <li>Feel warmer</li>
 <li>You should still be able to talk whilst you are doing moderate activity.</li>
 </ul></div>
-<div class="row center"><div class="col-sm-6"><p class="text-center"><img src="images/lungs.png" class="img-responsive"  alt="brain_heart"></p> </div></div>
-<div class="row center"><div class="col-sm-12 bg-success">
+<div class="col-sm-6"><p class="text-center"><img src="images/lungs.png" class="img-responsive"  alt="brain_heart"></p> </div></div>
+<div class="row text-center"><div class="col-sm-12 bg-success">
 <h4  class="text-center">How can walking help?</h4>
 <p class="text-center">Walking at approximately 3 miles (5 km) per hour counts as moderate intensity activity.</p>
 <p  class="text-center">This can be translated into steps per minute and measured with a pedometer.  </p>
@@ -81,12 +81,14 @@ How much physical activity should you do for health benefits?</a>
 <p class="text-center">Roughly <b>3000</b> steps in <b>30</b> minutes counts as <b>30 minutes</b> of moderate intensity activity. </p>
 
 <p class="text-center"><b>PACE-UP aims to increase the amount that you walk each week, using a target number of steps measured by a pedometer.</b></p>
-</div></div><div class="row center"><div class="col-sm-12">
+</div>
+</div>
+<div class="row center"><div class="col-sm-12">
 <p class="text-center"><b>The UK physical activity guidelines also advise that all adults and older adults should minimise the amount of time that they spend being sedentary (sitting) for extended periods. Taking regular short walks can help you to do this. </b></p>
 </div></div>
 </div>
 </div>
-</div></div>
+</div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title text-center">

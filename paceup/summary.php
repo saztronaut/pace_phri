@@ -1,5 +1,6 @@
 <?php include './template.php';?>
-<br><div class= "container">
+<!-- Shows the 12 week feedback summary for a user -->
+<div class= "container">
 <div class= "jumbotron">
 <h2>Your progress on PACE-UP Next Steps </h2>
 </div></div>
