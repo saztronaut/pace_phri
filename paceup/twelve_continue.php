@@ -4,8 +4,8 @@ require 'sessions.php';
 //Post 12 weeks 
 //Sets the value of "finish_show" in the users table to indicate whether the user has decided to stop recording steps after the 12 weeks or not. 
 
-$username = htmlspecialchars($_SESSION['username']);
-$msg=0;
+$username = htmlspecialchars($_SESSION['username'], ENT_QUOTES);
+$username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 if ($_POST){
 	
     if ($_POST['carryon']=='true'){

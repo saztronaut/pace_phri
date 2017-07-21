@@ -4,7 +4,9 @@ require 'sessions.php';
 	
 	if (isset($_SESSION['username'])){
 	  $username = htmlspecialchars($_SESSION['username']);
+      $username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 	  $role = htmlspecialchars($_SESSION['roleID']);
+	  $role = preg_replace("/[^RSU]+/", "", $role);
 	  $results=[];
 	  $results['role']=$role;
 	  $results['username']=$username;

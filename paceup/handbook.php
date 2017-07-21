@@ -1,7 +1,7 @@
 <?php include './template.php';?>
 <div class='jumbotron text-center'>
-<h1>PACE-UP - Next Steps</h1>
-<p> Handbook</p> </div>
+<h1>Handbook</h1>
+</div>
 <div class="container-fluid">
 <div class="panel-group" id="accordion">
 <div class="panel panel-default">

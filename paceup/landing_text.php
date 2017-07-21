@@ -5,7 +5,7 @@
 }
 else {
 	echo "<div class='jumbotron text-center'>";
-    echo "<h1>PACE-UP</h1>";
+    echo "<div class=\"hidden-xs\"><h1>PACE-UP</h1></div>";
     echo "<p>A Pedometer Intervention to Increase Walking in Adults</p>";
     echo "<p> Record your steps online and track your progress</p> </div>";
 }
@@ -24,7 +24,7 @@ else {
   <p>It successfully encouraged people aged 45-75 years old to increase their walking.</p>
   <p>Participants showed sustained increases in their walking at both 12 months and 3 years after the intervention.</p>
   <p> Findings are reported on <a href="http://www.paceup.sgul.ac.uk"> the PACE-UP website</a>
-  and in <a href="http://www.journals.plos.org/plosmedicine">PLOS Medicine</a>
+  and in <a href="http://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1002210">PLOS Medicine</a>
   </p></div>
 </div>
 <h3><i> Walking regularly can add years to life, and life to years</i></h3>

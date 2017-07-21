@@ -4,7 +4,7 @@ if (function_exists('returnWeek')=== false){
 		require 'database.php';
 		require 'updateTargetAutoFunctions.php';
 		require 'setBaselineFunctions.php';
-		
+	    $username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 		$results=[];
 		$results['week']='baseline';
 		$today = date('Y-m-d');

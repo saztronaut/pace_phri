@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div class="navbar-header">
  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class='glyphicon glyphicon-menu-hamburger'> </span> </button>    
-      <a class="navbar-brand" href="./feedbackQuestionnaire.php"><img src="images/puns_tiny.png" class="img-responsive"></a>
+      <a class="navbar-brand" ><img src="images/puns_tiny.png" class="img-responsive"></a>
     <span class="sr-only">Toggle navigation</span>
     </div>
 

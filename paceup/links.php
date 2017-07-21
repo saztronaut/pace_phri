@@ -1,7 +1,6 @@
 <?php include './template.php';?>
 <div class='jumbotron text-center'>
-<h1>PACE-UP</h1>
-<p> Useful websites</p> </div>
+<h1>Useful websites</h1> </div>
 <div class="container-fluid text-center">
 <div id="links_text"></div>
 </div>

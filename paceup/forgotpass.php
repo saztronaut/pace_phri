@@ -5,8 +5,10 @@ require 'database.php';
 require 'sessions.php';
 
 $echo= "Redirecting you to password reset page";
-if (isset($_GET['token'])) {	
+if (isset($_GET['token'])) {
+    
 $mytoken=htmlspecialchars($_GET['token']);
+$mytoken = preg_replace("/[^a-zA-Z0-9]+/", "", $mytoken);
 $hashedtoken = md5($mytoken);
 // check token is valid
 $checkToken= "SELECT * FROM reset WHERE token='". $hashedtoken . "' AND (TIME_TO_SEC(TIMEDIFF(NOW(),time_issue))/60)<30 AND used=0;";
@@ -22,7 +24,6 @@ else{
 	unset($_SESSION['username']);
 	// choose new form
 	//$_SESSION['choose_form']='./resetpwd.php';
-	ob_start();
 	header('Refresh: 1; URL = ./resetpwd.php');
 	
 	

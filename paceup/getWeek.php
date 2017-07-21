@@ -29,13 +29,15 @@
 	$username = htmlspecialchars($_SESSION['username']);
 	}
 	if (isset($username)){
+	    $username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 	if (isset($_POST['viewWeek'])){ 
 		$weekno=$_POST['viewWeek'];
+		$weekno = preg_replace("/[^0-9]+/", "", $weekno);
 	} else {
 		$weekno="";}; //if the user is viewing a week in the past, take this week as argument instead of the current week
 	if (isset($username) && $username!=''){
 	
-		$results= returnWeek($username);
+		$results= returnWeek($username); // retrieve values from database
 		if (isset($results['refresh'])){
 			// rerun function
 			$results= returnWeek($username);

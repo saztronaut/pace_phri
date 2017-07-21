@@ -6,13 +6,16 @@ $msg=0;
 $check12=0;
 if (isset($_SESSION['ape_user']) && ($_SESSION['roleID']=='R'||$_SESSION['roleID']=='S')){
 	$username = htmlspecialchars($_SESSION['ape_user']);
+    $username= preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 }
 else if (isset($_SESSION['username'])){
 	$username = htmlspecialchars($_SESSION['username']);
+	$username= preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 	$check12 = 1;
 }
 else if ( isset($_SESSION['get_username'])) {
 	$username = htmlspecialchars($_SESSION['get_username']);
+	$username= preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 	$check12 = 0; // if accessed through get, that means user has been requested to do quest i.e. before 12
 	
 }

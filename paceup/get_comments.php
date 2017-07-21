@@ -6,7 +6,7 @@ include 'get_json_encode.php';
 $myComments=[];
 if (isset($_SESSION['username'])){
 	$username = htmlspecialchars($_SESSION['username']);
-
+$username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 //show all the steps over time
 
 

@@ -74,13 +74,13 @@ function getDownload(){
           var narrow=document.getElementById('choose'+narrowby).value;
           data+= "&"+narrowby+"="+narrow;
 		  }
-	  console.log(data);
+	  //console.log(data);
       var url = './download.php';
       var d=new Date();
       var today = d.getDate() +"_"+ (d.getMonth()+1) +"_"+  d.getFullYear();
       var filename=whichdata+today+".csv";
-      console.log(filename);
-      console.log(data);
+      //console.log(filename);
+      //console.log(data);
       createDownload(filename, url, data);
 	  
 }
@@ -88,7 +88,7 @@ function getDownload(){
 function getNarrow(){
 	
 	narrow= document.getElementById("narrowby").value;
-	console.log(narrow);
+	//console.log(narrow);
     switch (narrow){
     case 'User' :
 	    if (document.getElementById('choosePractice')) {

@@ -8,13 +8,22 @@ if (isset($_SESSION['ape_user']) && ($_SESSION['roleID']=='R'||$_SESSION['roleID
 else {
 $username = htmlspecialchars($_SESSION['username']);
 }
+$username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 $thisWeek= htmlspecialchars($_POST['week']); //This tells you what stage the pt is at on the pathway
+$thisWeek = preg_replace("/[^a-zA-Z0-9]+/", "", $thisWeek);
 $latest_t=strtotime(htmlspecialchars($_POST['latest_t'])); //The date of the latest target
 $maxweekno= isset($_SESSION['week']) ? $_SESSION['week'] :htmlspecialchars($_POST['weekno']); //The max week number, i.e. the current week number
+$maxweekno = preg_replace("/[^0-9]+/", "", $maxweekno);
 $weekno= htmlspecialchars($_POST['weekno']); //The week number for display. Not the same as the stage to allow patient autonomy
+$weekno = preg_replace("/[^0-9]+/", "", $weekno);
 $steps = htmlspecialchars($_POST['steps']); //The latest target for steps
+$steps = preg_replace("/[^0-9]+/", "", $steps);
 $daysw = htmlspecialchars($_POST['days']); //The number of days the patient is aiming to reach the target
+$daysw= preg_replace("/[^0-9]+/", "", $daysw);
 $baseline = htmlspecialchars($_POST['base']); //The number of days the patient is aiming to reach the target
+$baseline= preg_replace("/[^0-9]+/", "", $baseline);
+
+
 
 $iseven=0; // if the week is even, the form behaves slightly differently
 $ispast=0; //avoid anachronistic statements if viewing a past week
@@ -61,7 +70,8 @@ if 	 (($thisWeek=='baseline'||$thisWeek=='getweek1'||$thisWeek=='delayweek1')==1
 	mysqli_free_result($result);
 	if ($days_since<=6){
 		//only display values after the registration date
-		$end= $days_since;
+		//$end= $days_since;
+		$end = 6;		
 		// Don't display the mean number of steps
 		$display=0;
 	} else {

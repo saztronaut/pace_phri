@@ -3,7 +3,9 @@ function checkRights($minRole){
     require 'database.php';
     if (isset($_SESSION['username'])){
         $username = htmlspecialchars($_SESSION['username']);
-        $token=MD5($_SESSION['session_token']);
+        $username= preg_replace("/[^a-zA-Z0-9]+/", "", $username);
+        $session_token= htmlspecialchars($_SESSION['session_token'], ENT_QUOTES);
+        $token=MD5($session_token);
         // practice tells you which practice the codes are for
         // n codes tells you how many codes to generate
         $checkauth= "SELECT roleID FROM users as u, sessions as s  WHERE u.username=s.username AND u.username='". $username ."' AND s.session='". $token ."' ;";

@@ -1,8 +1,10 @@
 <?php
 
 if ($_POST){
-	$pracID= htmlspecialchars($_POST['practice']);
+	$pracID= htmlspecialchars($_POST['practice']);	
+	$pracID = preg_replace("/[^A-Za-z]+/", "", $pracID);
 	$consent = htmlspecialchars($_POST['consent']);
+	$consent = preg_replace("/[^ACHLNOP]+/", "", $consent);
 } else {$pracID="";
    $consent="ALL";}
     require 'database.php';
@@ -12,11 +14,11 @@ if ($_POST){
   switch ($consent){
   	case 'NPC' : $condition = "WHERE e_consent=0 OR e_consent IS NULL";
   	break;
-  	case 'NOA' : $condition = "WHERE referenceID NOT IN (SELECT referenceID FROM users) ";
+  	case 'NOA' : $condition = "WHERE reference.referenceID NOT IN (SELECT referenceID FROM users) ";
   	break;
   	case 'HPC' : $condition = "WHERE e_consent=1";
   	break;
-  	case 'HOA' : $condition = "WHERE referenceID IN (SELECT referenceID FROM users)";
+  	case 'HOA' : $condition = "WHERE reference.referenceID IN (SELECT referenceID FROM users)";
   	break;
   	case 'ALL' : $condition = "WHERE (e_consent=1 OR e_consent=0 OR e_consent IS NULL)";
   	break;

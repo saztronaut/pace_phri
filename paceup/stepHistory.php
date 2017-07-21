@@ -19,7 +19,7 @@
 
 
 function getStepData(days){
-	console.log("Showing days " + days);
+	//console.log("Showing days " + days);
     doXHR('show_all_steps2.php', function () {
         var $response = this.responseText;
         //console.log($response);

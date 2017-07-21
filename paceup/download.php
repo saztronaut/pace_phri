@@ -10,8 +10,9 @@ include 'checkUserRights.php';
 if ($_POST){
 
 	$username = htmlspecialchars($_SESSION['username']);
+	$username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 	$data = htmlspecialchars($_POST['whichdata']);
-
+    $data = preg_replace("/[^a-zA-Z0-9]+/", "", $data);
 	// whichdata tells you what to download
 	
 	//check user has authority to generate codes R= researcher S= superuser
@@ -19,16 +20,20 @@ if ($_POST){
 	$condition="";
 	
 	if ($_POST['narrowby']=="User"){
-		$condition=", users WHERE readings.username=users.username AND readings.username='". $_POST['User'] ."' ";
+	    $getUser =  htmlspecialchars($_POST['User']);
+	    $getUser = preg_replace("/[^a-zA-Z0-9]+/", "", $getUser);
+		$condition=" WHERE username='". $getUser ."' ";
 	}
 	if ($_POST['narrowby']=="Practice") {
+	    $getPractice=  htmlspecialchars($_POST['Practice']);
+	    $getPractice= preg_replace("/[^a-zA-Z0-9]+/", "", $getPractice);	    
 		if ($data=="Users"){
-		$condition="WHERE pracID='".$_POST['Practice']."'";}
+		$condition="WHERE pracID='". $getPractice ."'";}
 		else if ($data=="Steps"){
-		$condition=", users WHERE readings.username=users.username AND users.pracID='".$_POST['Practice']."'";
+		$condition=", users WHERE readings.username=users.username AND users.pracID='". $getPractice ."'";
 		}
 		else if ($data=="Targets"){
-			$condition=", practices WHERE targets.username=practices.username AND pracID='".$_POST['Practice']."'";
+			$condition=", users WHERE targets.username=users.username AND pracID='". $getPractice ."'";
 		}
 	}
 	
@@ -43,7 +48,7 @@ if ($_POST){
 			break;
 			case 'Practices' : $query = "SELECT * FROM practices;";
 			break;
-			case 'Targets' : $query = "SELECT * FROM targets ".$condition.";";
+			case 'Targets' : $query = "SELECT targets.username, date_set, steps, days FROM targets ".$condition.";";
 			break;
 			case 'Methods' : $query = "SELECT * FROM methods;"; 
 			break;

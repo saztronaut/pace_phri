@@ -13,7 +13,7 @@ function doXHR(url, callback, data) {
 
             if (typeof callback === "function") {
         // apply() sets the meaning of "this" in the callback
-        console.log("callback " + xhr.responseText);
+        //console.log("callback " + xhr.responseText);
                 callback.apply(xhr);
             }
         }
@@ -43,7 +43,7 @@ function getlogin() {
             var username = userdata.username;
             if (role === "R" || role === "S") {
             	var ape_user = userdata.ape_user;
-            	console.log(ape_user);
+            	//console.log(ape_user);
                 print.push("<li><a href='./admin.php'><span class='glyphicon glyphicon-pencil'></span> Admin </a></li>");
                 if (ape_user !== "") {
                 	print.push("<li><a href='#' onclick='quitApeUser()'><span class='glyphicon glyphicon-eye-open'></span> Viewing as " + ape_user + " </a></li>");
@@ -70,7 +70,7 @@ function logout(){
 function quitApeUser(){
     "use strict";
     doXHR("./quitApeUser.php", function(){
-        console.log(this.responseText);
+        //console.log(this.responseText);
         window.location.assign("./admin.php");
     }, 0)
 }

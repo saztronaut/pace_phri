@@ -1,8 +1,7 @@
 <?php include './template.php';?>
 <div class= "container text-center ">
 <div class= "jumbotron">
-<h1> PACE-UP - Next Steps</h1>
-<p>Your Twelve Week Diary</p>
+<h1> Your Twelve Week Diary</h1>
 </div> <!-- jumbotron -->
 </div> <!-- container -->
 <div class="container-fluid-extrapad">

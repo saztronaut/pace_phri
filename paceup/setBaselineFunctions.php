@@ -3,6 +3,7 @@ require 'database.php';
 
 if (function_exists('setBase')==0){
 	function setBase($username){
+	     $username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 		require 'database.php';
 		//Create any missing baseline targets
 		//subquery getValues queries the readings table against itsself, where r gives the date of the beginning of the epoch and m gives the steps in that epoch

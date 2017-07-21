@@ -58,7 +58,7 @@ function showWeek(past, viewWeek){
 		        	weekdata[key]=value; // all week info to go in week array
 		          }
 		         else if (key=="fail"){
-		        	console.log("could not get week");	
+		        	//console.log("could not get week");	
 		        	weekdata['week']="unknown";  
 		           }
 		        });
@@ -128,7 +128,7 @@ function updateStepsTable(controlname, edit, target, nudge, input , inputname , 
     hideModal();
     var method= 'method' + nudge;
 //	input = document.getElementById(inputname).value;
-	console.log("inputname"+ inputname);  
+	//console.log("inputname"+ inputname);  
     var date_set = nudge;
     methodID = document.getElementById(method).value;
 	      //find out if there is a walk check box
@@ -138,10 +138,10 @@ function updateStepsTable(controlname, edit, target, nudge, input , inputname , 
     }  
 	  //use input, date set and series data to update the step values and store in the database
     data = "date_set=" + date_set + "&steps=" + input + "&walk=" + walk_yn + "&method="+methodID;
-    console.log(data);
+    //console.log(data);
     doXHR('./updateSteps.php', function() {
         var $response = this.responseText;
-        console.log($response);	
+        //console.log($response);	
         if ($response === "Refresh") { 
             window.location.reload(true);
         } else {
@@ -157,13 +157,13 @@ function updateStepsTable(controlname, edit, target, nudge, input , inputname , 
             	document.getElementById("methodspan" + nudge).innerHTML = "<span id='method"+ nudge +"' value ="+ methodID + " >" + methodID +  "</span>";
                // }
             if (document.getElementById(walk_ck)){           	
-            	    console.log ("divwalk" + nudge);
+            	    //console.log ("divwalk" + nudge);
         		    document.getElementById("divwalk" + nudge).innerHTML = "<br>";       		    
                 } 
         	if (walk_yn == true) {
             	document.getElementById("divwalk" + nudge).innerHTML = "<span  class='glyphicon glyphicon-ok logo-small'></span>";
             	}
-        	console.log(target);
+        	//console.log(target);
         	if (target !== 0 && target !== null && target !== false && target <= input) {
             	document.getElementById("achieved" + nudge).className= "glyphicon glyphicon-star logo-small";
             	}
@@ -223,9 +223,11 @@ function editSteps(controlname, target) {//When has steps entry, and edit button
     //change the walk span id into a control box
     var walk_ck = 'walk' + nudge;
     if (document.getElementById(walk_ck)) {
-        console.log(document.getElementById(walk_ck).textContent);
+        //console.log(document.getElementById(walk_ck).textContent);
         if (document.getElementById(walk_ck).textContent!=="" || document.getElementById(walk_ck).textContent!== null) {
-            chkstr = "<span id='divwalk"+ nudge +"'><form class = 'form-inline'> <div class='form-group'> <input type='checkbox' class='form-control' id='new" + walk_ck + "> </div></form></span>";
+            chkstr = "<span id='divwalk"+ nudge +"'><form class = 'form-inline'> <div class='form-group'> <input type='checkbox' class='form-control' id='new" + walk_ck + "' checked='on'> </div></form></span>";
+
+
         } else {
             chkstr = "<span id='divwalk"+ nudge +"'><form class ='form-inline'><div class='form-group'> <input type='checkbox' class='form-control' id='new" + walk_ck + "'> </div></form></span>";
         }
@@ -258,7 +260,7 @@ function updateTarget(){
   
 function incTarget(newtarget) {
     data="date_set=" + newtarget;
-    console.log(data);
+    //console.log(data);
     doXHR("updateTarget.php", function(){
         window.location.reload(true);
     }, data);

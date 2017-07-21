@@ -8,24 +8,23 @@ $results=[];
 
 if ($_POST){
 	
-	$username = htmlspecialchars($_POST['username']);
-	$firstname = htmlspecialchars($_POST['firstname']);
-	$lastname = htmlspecialchars($_POST['lastname']);
-	$email = htmlspecialchars($_POST['email']);
-	$password = MD5($_POST['password']);
-	$startdate =date('Y-m-d');
-	$method = htmlspecialchars($_POST['steps']);
-    $registration = htmlspecialchars($_POST['registration']);	
+    $username = htmlspecialchars($_POST['username'], ENT_QUOTES);
+    $username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
+
+    $email = htmlspecialchars($_POST['email'], ENT_QUOTES); //will check is email
+
+    $registration = htmlspecialchars($_POST['registration'], ENT_QUOTES);
+    $registration = preg_replace("/[^a-zA-Z0-9]+/", "", $registration);
     $check_reg="SELECT e_consent, e_consent_a, e_consent_v, e_consent_t, e_consent_gp, age, ethnicity, gender FROM reference WHERE referenceID='".$registration."' AND referenceID NOT in (SELECT referenceID from users);";
     $get_reg= (mysqli_query($connection, $check_reg));
 if ($get_reg->num_rows==0){
 	$msg=2;
-	$results['consent']=2;
+	$results['consent']=2; // registration code does not exist
 } else {
 	$reg_row=mysqli_fetch_array($get_reg);
 	if ($reg_row['e_consent']==0){
 	$msg=0;
-	$results['consent']=0;
+	$results['consent']=0; // no consent data stored
 	}else {$msg=1;
 	$results['e_consent']=$reg_row['e_consent'];
 	$results['e_consent_a']=$reg_row['e_consent_a'];

@@ -18,7 +18,7 @@ function makeRequest(url, data) {
   if(xhr.readyState == 4 && xhr.status ==200){
   var $response = xhr.responseText;
     	document.getElementById('feedbackMessage').innerHTML= $response;  
-    	  console.log($response);    	
+    	//console.log($response);    	
     }
   }
   xhr.send(data);

@@ -21,13 +21,13 @@ var button = document.getElementById("resetBtn");
 button.addEventListener("click", redirectGo);
 
 function redirectGo(){
-	  var data= document.getElementById('email').value;
-	  doXHR('./createPasswordToken.php', function () {	  	
-		  var $response = this.responseText;
-		  document.getElementById("response").innerHTML= "Please check your inbox - you should have received an email to reset your password";
-		  console.log($response);
-	  }, 'email='+data);  
+    var data= document.getElementById('email').value;
+        doXHR('./createPasswordToken.php', function () {	  	
+            var $response = this.responseText;
+            document.getElementById("response").innerHTML= "Please check your inbox - you should have received an email to reset your password";
+            //console.log($response);
+        , 'email='+data);  
 	}
-	
+}	
 </script>
 

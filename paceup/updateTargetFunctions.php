@@ -13,8 +13,8 @@ if (function_exists('manualUpdateTarget')=== false){
 		$days= $mytarget['days'];
 		$steptarget=$mytarget['steptarget'];
 		// send the target through
-		insertTarget($username, $date_set, $steptarget, $days);
-		
+		$msg = insertTarget($username, $date_set, $steptarget, $days);
+		return $msg;
 	}
 }
 
@@ -36,7 +36,9 @@ if (function_exists('updateTargetQ')=== false){
 	function updateTargetQ($username, $date_set, $steptarget, $days){
 		require 'database.php';
 		$update_target = "UPDATE targets SET steps= '". $steptarget ."', days= '". $days ."' WHERE username='". $username ."' AND date_set='". $date_set ."';";
-		$gettarget = mysqli_query($connection, $update_target);
+		if(mysqli_query($connection, $update_target) or die (0)){
+		    return 1;
+		} else {return 0;}
 	}
 }
 
@@ -44,7 +46,9 @@ if (function_exists('insertTarget')=== false){
 	function insertTarget($username, $date_set, $steptarget, $days){
 		require 'database.php';
 		$insert_target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";
-		$gettarget = mysqli_query($connection, $insert_target);
+		if (mysqli_query($connection, $insert_target) or die (0)){
+		    return 1;
+		} else {return 0;}
 	}
 }
 
@@ -65,7 +69,7 @@ if (function_exists('getLatestTarget')=== false){
 		or die("Can't find user week" . mysql_error());
 		$row = mysqli_fetch_array($result);
 		return $row;
-		mysqli_free_results($resultt);
+		mysqli_free_results($result);
 	}
 }
 ?>

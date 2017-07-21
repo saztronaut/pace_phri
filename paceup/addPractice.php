@@ -37,12 +37,12 @@ function addPractice(){
     var practice = document.getElementById("practice").value;
     var pracID = document.getElementById("pracID").value;  
     if (parseInt(validateID('pracID')) === 1 && practice!=="") {
-        console.log("valid");
+        //console.log("valid");
         data =  "practice=" + practice + "&pracID=" + pracID;
         url = './add-practice.php';
         doXHR(url, function () {
             var response = this.responseText;
-            console.log(response);
+            //console.log(response);
             document.getElementById("errorMessage").innerHTML=response;
         }, data);
     }
@@ -58,7 +58,7 @@ function validateID (input){
 		var msgname= input +"_span";
 		valid = 0
 		var value= document.getElementById(input).value;
-		console.log(value);
+		//console.log(value);
 		
 		var message = "";
 

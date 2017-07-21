@@ -6,8 +6,10 @@ require 'sessions.php';
 $echo = "<a href='./feedbackQuestionnaire.php'> Redirecting you to Questionnaire page </a>";
 if (isset($_GET['token'])) {	
 	$mytoken=htmlspecialchars($_GET['token']);
+	$mytoken = preg_replace("/[^a-zA-Z0-9]+/", "", $mytoken);
 	$token=$mytoken;
 	$user=htmlspecialchars($_GET['username']);
+	$user = preg_replace("/[^a-zA-Z0-9]+/", "", $user);
 // check token is valid
 	$checkToken= "SELECT username FROM users WHERE referenceID='". $token . "' AND  username='". $user . "';";
 	echo $echo;
@@ -19,7 +21,7 @@ else {
 	// tell the session the username you are setting this for
 	$row = mysqli_fetch_array($result);
 	$_SESSION['get_username']=$row['username'];
-	// username should not be set but if it is unset it
+	// username should not be set but if it is unset it - we just want the questionnaire
 	unset($_SESSION['username']);
 	// choose new form
 	//$_SESSION['choose_form']='./resetpwd.php';
