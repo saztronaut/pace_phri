@@ -12,10 +12,13 @@ if ($_POST){
 	if (htmlspecialchars($_POST['e_consent_gp'])==true){$e_consent_gp=1;} else {$e_consent_gp=0;}
 	if (htmlspecialchars($_POST['e_consent_t'])==true){$e_consent_t=1;} else {$e_consent_t=0;}
 	$gender=htmlspecialchars($_POST['gender']);
+	$gender = preg_replace("/[^MF]+/", "", $gender);
 	$ethnicity=htmlspecialchars($_POST['ethnicity']);
+    $ethnicity= preg_replace("/[^ABMOW]+/", "", $ethnicity);
 	$age=htmlspecialchars($_POST['age']);
+	$age= preg_replace("/[^0-9]+/", "", $age);
 	$username = htmlspecialchars($_SESSION['username']);
-
+	    $username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 	// practice tells you which practice the codes are for
 	// n codes tells you how many codes to generate
 	$checkauth= "SELECT roleID from users WHERE username='". $username ."';";

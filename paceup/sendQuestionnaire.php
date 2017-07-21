@@ -10,8 +10,8 @@ require 'sessions.php';
 	if (empty($_POST['username'])) {
 		$msg = 2;}
 		else {
-			$username = htmlspecialchars($_POST['username']);
-	
+			$username = htmlspecialchars($_POST['username'], ENT_QUOTES);
+		    $username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 			$lookup = "SELECT username, referenceID, email, forename AS firstname FROM users WHERE username = LOWER('" . $username . "');";
 
 			$result = mysqli_query($connection,$lookup)
@@ -34,10 +34,10 @@ require 'sessions.php';
 				$subject= 'PACE-UP Feedback Questionnaire';
 				$message=" Dear ". ucwords($firstname) . ", \n
 Please click on the link to fill out our feedback questionnaire. \n
-http://localhost:3702/paceup/doquest.php?token=".$hashtoken."&username=".$username." \n
+http://www.sarahkerry.co.uk/paceup/doquest.php?token=".$hashtoken."&username=".$username." \n
 Your feedback is crucial for helping us make a better app\n
 If you have received this email in error, please ignore it";
-				$headers = "MIME-Version: 1.0" . "r\n\ ";
+				$headers = "MIME-Version: 1.0" . "\r\n ";
 				$headers .= "Content-type:text/html;charset=UTF-8"."\r\n ";
 				$headers .= 'FromName: PACE-UP Next Steps'."\r\n ";
 				$headers .= 'From: <noreply@paceup.org>' . "\r\n " .

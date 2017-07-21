@@ -15,7 +15,7 @@ function makeRequest(url, data) {
 
   doXHR(url, function () {
   var $response = this.responseText;
-  console.log($response);
+  //console.log($response);
     if ($response==1){
     	//refresh the page
     	window.location.assign('./steps2.php');
@@ -26,11 +26,11 @@ function makeRequest(url, data) {
     }
     else if ($response ==0){
     	document.getElementById('response').innerHTML= 'Incorrect email, username or password';  
-    	  console.log($response);    	
+    	 // console.log($response);    	
     }
     else if ($response ==2){
     	document.getElementById('response').innerHTML= 'Please provide both values';  	
-    	  console.log($response);
+    	 // console.log($response);
     }
   }, data);
 }

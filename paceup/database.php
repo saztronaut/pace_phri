@@ -1,8 +1,8 @@
 <?php
-  $connection = mysqli_connect("localhost", "client", "jmUMaNAbVv57aF99", "paceup");
+ $db_name = "";  
+ $mysql_user = "";  
+ $mysql_pass = "";  
+ $server_name = "";  
+ $connection = mysqli_connect($server_name,$mysql_user,$mysql_pass,$db_name);  
 
-  if (mysqli_connect_errno()){
-    echo 'Failed to connect to the MySQL server: '. mysqli_connect_error();
-	}
-	
 ?>

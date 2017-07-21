@@ -99,7 +99,6 @@ function getTargetData(){
 	
 	doXHR("./returnWeek.php", function (){
 	var response = JSON.parse(this.responseText);
-	console.log(response);	
 	//latest_t
 	//days
 	//steps
@@ -160,9 +159,13 @@ function setTarget(){
     var days= document.getElementById('days').value;
     var steptarget= document.getElementById('steps').value;	
     data= "date_set="+ date_set + "&days="+ days + "&steptarget="+ steptarget +"&post12=1"; 
-    console.log(data);
+   // console.log(data);
 	doXHR("./updateTarget.php", function (){
-    console.log (this.responseText);		
+        if (this.responseText==1){
+	        document.getElementById('targetNote').innerHTML="<p>Your new target has been set</p>";
+		    window.location.assign('./steps2.php');	   
+		}
+	
 	}, data)
 	
 }

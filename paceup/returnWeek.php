@@ -1,4 +1,6 @@
 <?php
+
+
 include 'returnWeekFunctions.php';
 
 if (isset($_POST['username'])){
@@ -10,12 +12,13 @@ if (isset($_POST['username'])){
 		echo 0;
 	} else {
 		if (isset($_SESSION['ape_user']) && ($_SESSION['roleID']=='R'||$_SESSION['roleID']=='S')){
-			$username = htmlspecialchars($_SESSION['ape_user']);
+			$username = htmlspecialchars($_SESSION['ape_user'], ENT_QUOTES);
 		}
 		else {
-		$username = htmlspecialchars($_SESSION['username']);
+		$username = htmlspecialchars($_SESSION['username'], ENT_QUOTES);
     }
 	if ($username!==''){
+   	   $username= preg_replace("/[^a-zA-Z0-9]+/", "", $username);  
 	   $myweek=returnWeek($username);
 	   if (isset($_POST['refresh'])){
 		   $myweek=returnWeek($username);

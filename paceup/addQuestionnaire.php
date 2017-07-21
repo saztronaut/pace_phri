@@ -18,11 +18,11 @@ if($_POST)
 		if (is_string($value)){
 			// single quotes are a bit of a pain
 			$value = str_replace("'", "", $value);
-			$value="'".htmlspecialchars($value)."'";
+			$value="'".filter_var($value, FILTER_SANITIZE_STRING)."'";
 		}
 		
 		$fieldlist.=htmlspecialchars($key);
-		$valuelist.=htmlspecialchars($value);
+		$valuelist.=filter_var($value, FILTER_VALIDATE_INT);
 	}
 	
 	if (isset($_SESSION['username'])){

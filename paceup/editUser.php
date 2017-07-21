@@ -1,10 +1,7 @@
 <?php include './template.php';?>
 
-	<div class='jumbotron text-center'>
-    <h1>PACE-UP</h1>
-<p> Administrative tools for PACE-UP</p> </div>
 <div class="container-fluid text-center extra-pad">
-
+<h2>Edit User </h2>
 <form  class="form-inline" method="POST"  id="editUser">
 <h2 class="form-inline-heading">Edit individuals</h2><hr />
 <p> Here you can select a user, send a questionnaire, view the Steps pages as if you were that user, and update their email address</p>
@@ -93,7 +90,7 @@ function getUsers(action) {
         }
     }
     data = dataArray.join("&");
-    console.log(data);
+    //console.log(data);
  
     doXHR("./getUser.php", function () {
         var $response = this.responseText;
@@ -122,7 +119,7 @@ function sendQuest(){
 	var username = document.getElementById("chooseUser").value;
     data = "username=" + username;
     doXHR('./sendQuestionnaire.php', function() {
-        console.log(this.responseText);
+        //console.log(this.responseText);
         response = this.responseText;
         if (parseInt(response) === 0){
             document.getElementById('response').innerHTML = "Questionnaire could not be sent";
@@ -147,7 +144,7 @@ function userInfo(){
     data = "username=" + username;
     doXHR('get_my_data.php', function () {
         var $response = this.responseText;
-        console.log($response);
+       // console.log($response);
         if ($response=="0"){
             //redirect('./landing_text.php');
         } else {
@@ -233,9 +230,9 @@ function edit(control, input, username){
     var editData = "";
     if (control === "age"){
         editData = "<form class = 'form-inline'> <div class='form-group'>";
-        editData += "<label class='radio-inline'><input type='radio' value='40' name='" + control + "'>40-54 years</label>";
-        editData += "<label class='radio-inline'><input type='radio' value='55' name='" + control + "'>55-69 years</label>"; 
-        editData += "<label class='radio-inline'><input type='radio' value='70' name='" + control + "'>70+ years</label></div></form>"; 
+        editData += "<label class='radio-inline'><input type='radio' value='40' name='" + control + "'>40-59 years</label>";
+        editData += "<label class='radio-inline'><input type='radio' value='60' name='" + control + "'>60-74 years</label>"; 
+        editData += "<label class='radio-inline'><input type='radio' value='75' name='" + control + "'>75+ years</label></div></form>"; 
     } else if (control === "gender") {
         editData = "<form class = 'form-inline'> <div class='form-group'>";
         editData += "<label class='radio-inline'><input type='radio' value='M' name='" + control + "'>Male</label>";
@@ -264,10 +261,10 @@ function update(control, username){
         }
     else { //get value from input fields
 		  data = "username=" + username + "&control=" + control + "&input=" + document.getElementById("new" + control).value;
-		  console.log(data);
+		  //console.log(data);
     }
     doXHR("./updateUserDetails.php", function () {
-        console.log(this.responseText);
+       // console.log(this.responseText);
         }, data);
     
     

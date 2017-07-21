@@ -59,7 +59,7 @@ if (function_exists('updateTarget')=== false){
 	}
 	}
 }
-if (function_exists('setTarget')=== false){
+if (function_exists('setTarget') === false){
 	function setTarget($username, $date_set, $steptarget, $days){
 		require 'database.php';
 		$target = "INSERT INTO targets (username, date_set, steps, days) VALUES ('". $username ."', '". $date_set ."', '". $steptarget ."','". $days ."');";

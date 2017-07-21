@@ -8,7 +8,7 @@ $getUser = [];
 if ($_POST){
 //	$registration=htmlspecialchars($_POST['reg']);
 	$username = htmlspecialchars($_POST['username']);
-	
+    $username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);	
 	$auth = checkRights('R');
 	
 	if ($auth==1){

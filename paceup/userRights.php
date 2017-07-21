@@ -45,13 +45,12 @@
 function getUser(){
 
 	doXHR("./getUser.php", function () {
-     var $response = this.responseText;
-     console.log($response);
-     var myArray = JSON.parse($response);      
-     var mySelect = drawSelect(myArray);
-     document.getElementById("user_span").innerHTML = mySelect;
-     });
-
+        var $response = this.responseText;
+        //console.log($response);
+        var myArray = JSON.parse($response);      
+        var mySelect = drawSelect(myArray);
+        document.getElementById("user_span").innerHTML = mySelect;
+    });
 }
 
 function drawSelect(array) {	
@@ -66,11 +65,11 @@ function drawSelect(array) {
 
 
 function updateUser(){
-	console.log("click");
+	//console.log("click");
 	var form = document.getElementById("user-rights");
 	var data = $(form).serialize();
 	var action = form.getAttribute("action");
-	console.log(data);
+	//console.log(data);
 	doXHR(action, function(){
 		var $response = this.responseText;
 		document.getElementById('errorMessage').innerHTML = "<p>"+ $response + "</p>";

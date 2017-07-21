@@ -31,10 +31,12 @@ if (isset($_SESSION['ape_user'])){  //if an admin is viewing as a user
 }
  
 if (isset($username)){
+$username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 	
 // how many days of data to show. default: 90
 if (isset($_POST['show_days'])){
 	$show_days = $_POST['show_days'];
+	$show_days = preg_replace("/[^0-9]+/", "", $show_days);
 } else {
 	$show_days = 91;
 }

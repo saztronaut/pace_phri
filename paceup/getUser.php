@@ -6,8 +6,9 @@ $whereClause="";
 if ($_POST){
 	if (isset($_POST['practice'])){
 		$pracID = htmlspecialchars($_POST['practice']);
+	    $pracID = preg_replace("/[^A-Za-z]+/", "", $pracID);
 		if ($pracID!=""){
-			$condition[]="pracID='".$pracID."'";
+			$condition[]="pracID='".$pracID."'"; // this is the only parameter from POST going directly into the SQL, the rest are stored parameters
 		}
 	} else {
 		$pracID="";

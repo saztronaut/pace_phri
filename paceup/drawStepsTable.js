@@ -57,7 +57,7 @@ function drawTable(weekdata, methods, finish) {
                 }
                 if (weekno >= 13) {
                     //After the 12 weeks programme
-                    if (weekdata.summary === 1) {
+                    if (parseInt(weekdata.summary) === 1) {
                         //display chart
                         twelveWeek();
                     } else if (weekdata.summary === 3) {
@@ -118,7 +118,7 @@ function drawMySteps(x, thisWeek, weekno, baseline, daysw, target, steparray, me
                 walkmin = 15;
             } else {
                 walkmin=30;}
-            mytable.push("<p> Your average daily steps at baseline were <b>"+ baseline +" steps</b>. This week your target is to to increase this to <b>"+ target +" steps on "+ showdays +" days per week</b></p>");
+            mytable.push("<p> Your average daily steps at baseline were <b>"+ baseline +" steps</b>. This week your target is to increase this to <b>"+ target +" steps on "+ showdays +" days per week</b></p>");
             mytable.push("<div class='table'> <table class='table table-plain'><thead><tr><th>Day</th><th>Date</th><th>Did you add </br>a walk of </br>"+ walkmin +" minutes </br>or more </br>today?</th><th>Steps</th><th>Device</th><th>Achieved </br>target</th><th></th></tr></thead>");
             showtargets=1;
         }
@@ -259,7 +259,7 @@ function goBack(week, maxweek, showweek){
         print.push(" <form class = 'form-inline'> <div class='form-group'>");
         print.push("<select class='form-control' placeholder='View previous step counts' id='viewSteps' name='viewSteps'>");
         var topshow=parseInt(showweek)+6;
-        console.log("topshow " + topshow + showweek);
+        //console.log("topshow " + topshow + showweek);
         if (topshow>maxweek){ 
             topshow=maxweek;
         }
@@ -294,7 +294,7 @@ function bumpTarget(weekno, newweek) {
 function setWeekOne (latest_t, baseline) {
     // Creates a select box from which user can choose when to begin their week 1 step increase
     var print=[];
-    console.log(latest_t, baseline);
+    //console.log(latest_t, baseline);
     print.push("<p>Congratulations, you completed the baseline week. You walked an average of "+ baseline +" steps per day </p>");
     print.push("<p>You should start to increase your steps. Please select a day to begin </p>");		
     print.push("<form class = 'form-inline'> <div class='form-group'>");
@@ -303,9 +303,9 @@ function setWeekOne (latest_t, baseline) {
     var daystxt = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
     var baseline= new Date(latest_t);
     var today = new Date();
-    console.log(today);
+    //console.log(today);
     var days= Math.floor((today.getTime()-baseline.getTime())/(24*60*60*1000));
-    console.log(days);
+    //console.log(days);
     for (i = days; i >= 0; i--){
         var thisday=new Date(today.getTime() + ((7-i)*24*60*60*1000));			
         var print_date= forwardsDate(thisday);
@@ -358,7 +358,7 @@ function drawNoContinue(){
 	
 function carryOn(keepgoing){
     data="carryon="+keepgoing;
-    console.log(data);
+    //console.log(data);
     doXHR('./twelve_continue.php', function(){
         var response=this.responseText;
     }, data);

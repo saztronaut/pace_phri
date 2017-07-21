@@ -4,9 +4,10 @@ require 'sessions.php';
 include 'checkUserRights.php';
 
 if ($_POST){
-	$registration=htmlspecialchars($_POST['reg']);
+	$registration=htmlspecialchars($_POST['reg'], ENT_QUOTES);
+  $registration = preg_replace("/[^a-zA-Z0-9]+/", "", $registration);
 	$username = htmlspecialchars($_SESSION['username']);
-	
+  $username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);	
 	// practice tells you which practice the codes are for
 	// n codes tells you how many codes to generate
 	$auth = checkRights('R');

@@ -10,7 +10,12 @@ require 'sessions.php';
 	if (empty($_POST['email'])) {
 		$msg = 2;}
 		else {
-			$email = htmlspecialchars($_POST['email']);
+			$email = htmlspecialchars($_POST['email'], ENT_QUOTES);
+			// check to see if is email
+			$email_user = filter_var($email, FILTER_SANITIZE_EMAIL);
+			if ($email_user!==$email){
+			    $email= preg_replace("/[^a-zA-Z0-9]+/", "", $email);
+			}
 	
 			$lookup = "SELECT username, email, password FROM users WHERE (email = LOWER('" . $email . "') OR username = LOWER('" . $email . "'));";
 			$result = mysqli_query($connection,$lookup)
@@ -36,9 +41,9 @@ require 'sessions.php';
 				$subject= 'PACE-UP password reset';
 				$message=" Dear ". $username . ", 
 Please click on the link to reset your password.
-http://localhost:3702/paceup/forgotpass.php?token=".$token."
+http://www.sarahkerry.co.uk/paceup/forgotpass.php?token=".$token."
 If you have received this email in error, please ignore it";
-				$headers = "MIME-Version: 1.0" . "r\n\ ";
+				$headers = "MIME-Version: 1.0" . "\r\n ";
 				$headers .= "Content-type:text/html;charset=UTF-8"."\r\n ";
 				$headers .= 'From: noreply@paceup.ac.uk' . "\r\n " .
 						'X-Mailer: PHP/' . phpversion();

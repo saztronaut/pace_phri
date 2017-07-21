@@ -9,9 +9,9 @@ include 'checkUserRights.php';
 
 if ($_POST){
 
-	$username = htmlspecialchars($_SESSION['username']);
-	$practice = htmlspecialchars($_POST['practice']);
-	$pracID = htmlspecialchars($_POST['pracID']);
+	$username = filter_var($_SESSION['username'], FILTER_SANITIZE_STRING);
+	$practice = filter_var($_POST['practice'], FILTER_SANITIZE_STRING);
+	$pracID = filter_var($_POST['pracID'], FILTER_SANITIZE_STRING);
 
 	// practice tells you which practice the codes are for
 	// n codes tells you how many codes to generate

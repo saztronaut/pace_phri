@@ -1,7 +1,7 @@
 <?php include './template.php';?>
 
 	<div class='jumbotron text-center'>
-    <h1>PACE-UP</h1>
+<div class="hidden-xs"><h1>PACE-UP</h1></div>
 <p> Administrative tools for PACE-UP</p> </div>
 <div class="container-fluid text-center">
 <div class="row">

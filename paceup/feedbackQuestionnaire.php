@@ -1,6 +1,6 @@
 <?php include './template.php';?>
 <div class="container-fluid-extraextrapad">
-
+<br>
 <h2 class="form-signin-heading">Feedback for PACE-UP Next Steps</h2><hr />
 <form class="form " method="POST" action="./addQuestions.php" id="questions">
  <p id="myquestionnaire"></p>
@@ -121,7 +121,8 @@ function submitQ(){
     var data = $(form).serialize();
     var data = data + "&inc_pa_comment=" + document.getElementById("inc_pa_comment").value;
     var data = data + "&use_app_comment=" + document.getElementById("use_app_comment").value;
-    var data = data + "&improvement=" + document.getElementById("improvement").value;console.log(data);
+    var data = data + "&improvement=" + document.getElementById("improvement").value;
+	///console.log(data);
     doXHR('./addQuestionnaire.php', function(){
         var response = this.responseText
         if (parseInt(response) === 1 ) {

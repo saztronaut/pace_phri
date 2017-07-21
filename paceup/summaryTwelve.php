@@ -4,7 +4,8 @@ require 'database.php';
 require 'sessions.php';
 
 // Show the twelve week feedback summary for a user
-$username = htmlspecialchars($_SESSION['username']);
+$username = htmlspecialchars($_SESSION['username'], ENT_QUOTES);
+$username = preg_replace("/[^a-zA-Z0-9]+/", "", $username);
 $summary=[];
 // Report the baseline week
 // Baseline week
